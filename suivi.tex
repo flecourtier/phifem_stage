@@ -33,6 +33,13 @@
 \usepackage{amsthm}
 \newtheorem*{Rem}{Remarque}
 
+\newenvironment{conclusion}[1]{%
+	\begin{center}\normalfont\textbf{Conclusion}\end{center}
+	\begin{quotation} #1 \end{quotation}
+}{%
+	\vspace{1cm}
+}
+
 \begin{document}
 	LECOURTIER Frédérique \hfill \today
 	\begin{center}
