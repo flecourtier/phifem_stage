@@ -20,6 +20,8 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{nicematrix}
+\usepackage{listings}
+\usepackage{float}
 
 \hypersetup{
 	colorlinks=true,
@@ -38,6 +40,14 @@
 	\begin{quotation} #1 \end{quotation}
 }{%
 	\vspace{1cm}
+}
+
+\lstset{language=C++,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
 }
 
 \begin{document}
@@ -61,5 +71,8 @@
 	
 	\newpage
 	\input{semaines/semaine_5/semaine_5}
+	
+	\newpage
+	\input{semaines/semaine_6/semaine_6}
 	
 \end{document}
