@@ -128,3 +128,27 @@ On va effectuer exactement les mêmes tests que dans le cas trigonométrique.
 	\textbf{3ème test :} \\
 	\includegraphics[width=0.7\linewidth]{test3_poly_3.png} 
 \end{minipage}
+
+\subsection{Tests sur le FNO}
+
+On veut maintenant comparer la première stratégie utilisée (avec le extrapolate à degré fixé égal à 3) et la nouvelle stratégie (P1 fin puis interpolation en Pk grossier). on considère ici que la solution que l'on va introduire dans la correction/certification est la sortie d'un FNO.
+
+\subsubsection*{Appel avec nb\_vert plus fin}
+
+On entraine le réseau FNO avec nb\_vert=64. Avant de mettre en place la stratégie, on cherche à voir si la précision de ce réseau (entrainé avec nb\_vert=64) est meilleure lorsque l'on prend nb\_vert plus petit. On va alors comparer l'erreur pour nb\_data=10 lorsqu'on l'on appelle le réseau avec nb\_vert=64 et nb\_vert=256. Voici les résultats obtenus :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.4\linewidth]{FNO_test1.png}
+\end{minipage}
+
+\subsubsection*{Comparaison des 2 stratégies}
+
+On va maintenant comparer la première méthode utilisée (avec le extrapolate à degré fixé égal à 3) et la nouvelle méthode (P1 fin puis interpolation en Pk grossier). On prendra nb\_vert=256. Voici les résultats obtenus (pour $k=2$ et $k=3$) :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.4\linewidth]{FNO_test2.png}
+\end{minipage}
+
+\conclusion{Pour l'instant, on ne va s'intéresser qu'à la partie avec la solution analytique. Il semblerait que la première méthode avec le extrapolate de FEniCS soit meilleure que la deuxième stratégie proposée. C'est pourquoi, vendredi, on a commencé (Killian et moi) à s'intéresser au code source du extrapolate afin de comprendre pourquoi les résultats obtenus sont meilleurs. On considérera le FNO dans un second temps.}
