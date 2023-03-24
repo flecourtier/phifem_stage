@@ -85,6 +85,8 @@ void Extrapolation::extrapolate(Function& w, const Function& v)
 	
 	On cherche à calculer la valeur en chacun des degrés de liberté associé à la fonction $w$. Pour cela, on va parcourir toutes les cellules du maillage dans le but de construire le tableau \textit{coefficients} (de taille le nombre total de degrés de liberté associés à $w$). On appelle alors sur chacune des cellules la fonction \textbf{compute\_coefficients}~\ref{compute_coefficients} qui va compléter le tableau \textit{coefficients} aux indices associées à ses degrés de liberté. Comme les degrés de liberté d'une cellule peuvent être communs à ceux d'une autre, on finira par faire une moyenne des coefficients en chacun des degrés de liberté en utilisant la fonction \textbf{average\_coefficients}~\ref{average_coefficients}, ce qui nous donne alors la fonction $w$. 
 	
+	On notera que deux espaces de fonctions sont créés dans la fonction extrapolate : l'espace V est notre espace de départ (dans l'exemple l'espace $\mathbb{P}^1$) et W est l'espace d'arrivée (espace $\mathbb{P}^2$). On prendra $v\in V$ et $w\in W$.
+	
 	\section{compute\_coefficients}
 	\label{compute_coefficients}
 	
