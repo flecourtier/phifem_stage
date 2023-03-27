@@ -42,13 +42,39 @@
 	\vspace{1cm}
 }
 
-\lstset{language=C++,
+\newcommand\pythonstyle{\lstset{
+	language=Python,
+	basicstyle=\ttm,
+	morekeywords={self},              % Add keywords here
+	keywordstyle=\ttb\color{deepblue},
+	emph={MyClass,__init__},          % Custom highlighting
+	emphstyle=\ttb\color{deepred},    % Custom highlighting style
+	stringstyle=\color{deepgreen},
+	frame=tb,                         % Any extra options here
+	showstringspaces=false
+}}
+
+\lstdefinestyle{Cpp}{
+	language=C++,
+	tabsize=3,
 	basicstyle=\ttfamily,
 	keywordstyle=\color{blue}\ttfamily,
 	stringstyle=\color{red}\ttfamily,
 	commentstyle=\color{green}\ttfamily,
 	morecomment=[l][\color{magenta}]{\#}
 }
+
+\lstdefinestyle{Python}{
+	language=Python,
+	tabsize=3,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+
+\lstset{style=Cpp}
 
 \begin{document}
 	LECOURTIER Frédérique \hfill \today
@@ -75,4 +101,6 @@
 	\newpage
 	\input{semaines/semaine_6/semaine_6}
 	
+	\newpage
+	\input{semaines/semaine_7/semaine_7}
 \end{document}
