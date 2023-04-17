@@ -50,7 +50,7 @@ Voici les résultats obtenus pour différents $\epsilon$ :
 
 \subsubsection*{Rehaussement}
 
-On cherche ici à comparer les erreurs FEM ett PhiFEM lorsque l'on rehausse le problème. On testera pour différentes fréquences (avec $f\ne f_p$), différents rehaussement $m$ ainsi que différents $\epsilon$.
+On cherche ici à comparer les erreurs FEM et PhiFEM lorsque l'on rehausse le problème. On testera pour différentes fréquences (avec $f\ne f_p$), différents rehaussement $m$ ainsi que différents $\epsilon$.
 
 Voici les résultats numériques obtenus :
 
@@ -59,16 +59,38 @@ Voici les résultats numériques obtenus :
 	\includegraphics[width=\linewidth]{comp_FEM_PhiFEM_2.png}
 \end{minipage} \\
 
-Voici les résultats obtenus avec FEM :
+Voici les résultats obtenus avec FEM à gauche et PhiFEM à droite :
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.48\linewidth}
 	\centering
-	\includegraphics[width=0.7\linewidth]{erreur_FEM.png}
+	\includegraphics[width=\linewidth]{erreur_FEM.png}
+\end{minipage}
+\begin{minipage}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{erreur_PhiFEM.png}
 \end{minipage}
 
-Voici les résultats obtenus avec PhiFEM :
+\subsubsection*{Variation des termes dans la formulation variationnelle}
+
+On cherche ici à comparer les erreurs PhiFEM avec tous les termes dans la formulation variationnelle, sans les termes de stabilisation et sans  le terme de bord lorsque l'on rehausse le problème. On testera pour différentes fréquences (avec $f\ne f_p$), différents rehaussement $m$ et on prendre $\epsilon=1e-2$.
+
+Voici les résultats numériques obtenus :
 
 \begin{minipage}{\linewidth}
 	\centering
-	\includegraphics[width=0.7\linewidth]{erreur_PhiFEM.png}
+	\includegraphics[width=0.9\linewidth]{tests_termes.png}
+\end{minipage} \\
+
+Voici les résultats obtenus pour les erreurs :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.72\linewidth]{tests_termes_erreurs.png}
+\end{minipage}
+
+Voici les résultats obtenus pour les facteurs :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.72\linewidth]{tests_termes_facteurs.png}
 \end{minipage}
