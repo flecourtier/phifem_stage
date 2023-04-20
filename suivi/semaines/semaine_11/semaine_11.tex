@@ -223,24 +223,192 @@ En tant que vérification supplémentaire des résultats obtenus dans la distinc
 	
 \end{enumerate}
 
-\subsection{Rehaussement PhiFEM sans perturbation ($\epsilon=0$)}
+\subsection{Rehaussement PhiFEM}
+
+On considère le problème de Poisson avec condition de Dirichlet homogène :
+$$\left\{\begin{aligned}
+	&-\Delta u=f \quad &&\Omega \\
+	&u=0 \quad &&\Gamma
+\end{aligned}\right.$$
+
+On se place encore sur le carré $[0,1]^2$. Pour construire nos ensembles, on utilisera
+$$\phi_c (x)=||x-0.5||_\infty-0.5$$
+
+On considérera le domaine environnant $\mathcal{O}=[-0.5,1.5]^2$.
+
+Pour PhiFEM, on prendra la levelset
+$$\phi (x,y)=x(1-x)y(1-y)$$
+
+On considère encore la solution analytique suivante :
+$$u_{ex}(x,y) = S\times\sin(2\pi fx + \varphi)\times\sin(2\pi fy + \varphi)$$ 
+
+et pour $p=0$, $g(x,y)=0$.
+
+De la même manière que pour FEM, on va considérer la solution rehaussée par $m$ :
+$$\tilde{\phi}=u_p+m$$
+avec
+$$u_p=u_{ex}+\epsilon P$$
+
+\begin{Rem}
+	Ici $\tilde{\phi}=m$ sur $\Gamma$ (et $u_p=0$ sur $\Gamma$).
+\end{Rem}
+
+On cherche alors à résoudre le problème
+$$\left\{\begin{aligned}
+	&-\Delta(\tilde{\phi}C)=f \quad &&\Omega \\
+	&\tilde{u}=m \quad &&\Gamma
+\end{aligned}\right.$$
+
+On testera d'imposer les conditions aux bords de deux manières :
+\begin{itemize}
+	\item 1ère méthode : Comme $\tilde{\phi}=m$ sur $\Gamma$ (et pas 0), on ne fais rien !
+	\item 2ème méthode : On cherche à imposer $C=1$ sur $\Gamma_h$ (2 cas à différencier : nb\_vert=64 et nb\_vert=101).
+\end{itemize}
+
+On testera dans un premier temps les 2 méthodes pour $\epsilon=0$ (c'est-à-dire sans perturbation) puis pour différents $\epsilon\ne 0$ (avec perturbation).
+
+\subsubsection*{Sans perturbation ($\epsilon=0$)}
 
 On testera pour différentes fréquences avec $f\ne f_p$. On prendra $\epsilon=0$ et on fera varier $m$.
 
-Voici les résultats numériques obtenus (à gauche les erreurs et à droite les facteurs) :
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{Ancienne version :} (avec ajout des termes en $g$)
+	
+	Voici les résultats numériques obtenus (à gauche les erreurs et à droite les facteurs) :
+	
+	\begin{minipage}{0.52\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_0_erreur.png}
+	\end{minipage}
+	\begin{minipage}{0.44\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_0_facteur.png}
+	\end{minipage}
+	
+	En traçant les erreurs FEM et PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{test3_sans_0_courbes.png}
+	\end{minipage}
 
-\begin{minipage}{0.52\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{test3_erreur.png}
-\end{minipage}
-\begin{minipage}{0.44\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{test3_facteur.png}
-\end{minipage}
+	\item \textbf{1ère méthode :} (on fait rien !)
+	
+	Voici les résultats numériques obtenus (à gauche les erreurs et à droite les facteurs) :
+	
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_1_erreur.png}
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_1_facteur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.3\linewidth]{test3_sans_1_courbes.png}
+	\end{minipage}
+	
+	\item \textbf{2ème méthode : nb\_vert=101}
+	
+	Voici les résultats numériques obtenus (à gauche les erreurs et à droite les facteurs) :
+	
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_2a_erreur.png}
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_2a_facteur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.3\linewidth]{test3_sans_2a_courbes.png}
+	\end{minipage}
+	
+	\newpage
+	\item \textbf{2ème méthode : nb\_vert=64}
+	
+	Voici les résultats numériques obtenus (à gauche les erreurs et à droite les facteurs) :
+	
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_2b_erreur.png}
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{test3_sans_2b_facteur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.3\linewidth]{test3_sans_2b_courbes.png}
+	\end{minipage}
+	
+\end{enumerate}
 
-En traçant les erreurs FEM et PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
 
-\begin{minipage}{\linewidth}
-	\centering
-	\includegraphics[width=0.5\linewidth]{test3_courbes.png}
-\end{minipage}
+\subsubsection*{Avec perturbation ($\epsilon=0$)}
+
+
+On testera pour différentes fréquences avec $f\ne f_p$. On prendra $\epsilon=0.01$ et $\epsilon=0.001$ et on fera varier $m$.
+
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{1ère méthode :} (on fait rien !)
+	
+	Voici les résultats numériques obtenus :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_1_erreur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_1_courbes.png}
+	\end{minipage}
+	
+	\item \textbf{2ème méthode : nb\_vert=101}
+	
+	Voici les résultats numériques obtenus :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_2a_erreur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_2a_courbes.png}
+	\end{minipage}
+	
+	\item \textbf{2ème méthode : nb\_vert=64}
+	
+	Voici les résultats numériques obtenus :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_2b_erreur.png}
+	\end{minipage}
+	
+	En traçant les erreurs PhiFEM pour différentes fréquences $f$ en fonction du rehaussement $m$, on obtient :
+	
+	\begin{minipage}{\linewidth}
+		\centering
+		\includegraphics[width=0.6\linewidth]{test3_avec_2b_courbes.png}
+	\end{minipage}
+	
+\end{enumerate}
+
