@@ -77,6 +77,8 @@
 	\end{equation}
 	avec $P$ la perturbation (tel que $P=0$ sur $\Gamma$) et $\epsilon$ petit.
 	
+	On supposera que $||P||_{H^{k+1}(\Omega)}\le 1$.
+	
 	On souhaite ainsi résoudre le problème suivant
 	\begin{equation}
 		\label{pb2}
@@ -148,7 +150,7 @@
 	Et ainsi l'inégalité (\ref{ine1}) se réécrit pour le problème (\ref{pb2}):
 	
 	\begin{equation}
-		\left|\left|\frac{u}{\tilde{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u}{\tilde{\phi}}\right|_{H^{k+1}(\Omega)} \label{ine2}
+		\left|\left|\frac{u}{\tilde{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u}{\tilde{\phi}}\right|_{H^{k+1}(\Omega)}||\tilde{\phi}||_{L^2(\Omega)} \label{ine2}
 	\end{equation}
 
 	avec $C=\frac{u}{\tilde{\phi}}$ la solution exacte au problème et $C_h$ la solution obtenue par FEM.
@@ -165,6 +167,9 @@
 	
 	car
 	$$\left(\frac{u}{\tilde{\phi}}\right)''=\left(\frac{\tilde{\phi}+\epsilon P}{\tilde{\phi}}\right)''=\left(1+\epsilon\frac{P}{\tilde{\phi}}\right)''=\epsilon\left(\frac{P}{\tilde{\phi}}\right)''$$
+	
+	avec
+	$$\left(\frac{P}{\tilde{\phi}}\right)''=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{\tilde{\phi}^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{\tilde{\phi}^3}$$
 
 	\section*{Rehaussement}
 	
@@ -180,11 +185,15 @@
 			&\hat{u}=g+m \quad &&\Gamma
 		\end{aligned}\right. \label{pb3} \tag{$\mathcal{E}_3$}
 	\end{equation}
+
+	Dans le cas où la solution s'annule, rehausser le problème permet d'améliorer la correction. Autrement dit si la solution peut-être nulle, il faut rehausser le problème.
 	
-	Ainsi l'inégalité (\ref{ine2}) se réécrit pour le problème (\ref{pb3}):
+	Si la solution ne s'annule pas, rehausser le problème permet dans certains cas de diminuer l'erreur.
+	
+	En effet, l'inégalité (\ref{ine2}) se réécrit pour le problème (\ref{pb3}):
 	
 	\begin{equation}
-		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u+m}{\hat{\phi}}\right|_{H^{k+1}(\Omega)} \label{ine3}
+		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u+m}{\hat{\phi}}\right|_{H^{k+1}(\Omega)}||\hat{\phi}||_{L^2(\Omega)} \label{ine3}
 	\end{equation}
 	
 	De la même manière que (\ref{der1}), on a :
@@ -193,30 +202,34 @@
 		\left|\frac{u+m}{\hat{\phi}}\right|_{H^2(\Omega)}=\left|\left|\left(\frac{u+m}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)} \label{der2}
 	\end{equation}
 	
-	Or
-	
-	$$\left(\frac{P}{\tilde{\phi}}\right)''=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{\tilde{\phi}^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{\tilde{\phi}^3}$$
-	
+	avec
 	\begin{align*}
 		\left(\frac{P}{\hat{\phi}}\right)''&=\frac{P''(\tilde{\phi}+m)-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'(\tilde{\phi}+m))\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
 		&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{mP''}{(\tilde{\phi}+m)^2}-\frac{2mP'\tilde{\phi}'}{(\tilde{\phi}+m)^3}
 	\end{align*}
 
-	Alors, pour $m$ suffisamment grand :
-	$$\left(\frac{P}{\hat{\phi}}\right)''<\left(\frac{P}{\tilde{\phi}}\right)''$$
+	Or 
+	$$\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{L^2(\Omega)}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}$$
 
-	Et donc	
+	Alors, pour $m$ suffisamment grand :
+	$$||\hat{\phi}||_{L^2(\Omega)}\sim m$$
+	et
+	$$\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}\sim\left|\left|P''\right|\right|_{L^2(\Omega)}$$
+	car
+	\begin{align*}
+		\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''=m\left(\frac{P}{\hat{\phi}}\right)''&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{(\tilde{\phi}+m)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{m^2P''}{(\tilde{\phi}+m)^2}-\frac{2m^2P'\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
+		&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{m^2P''}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2m^2P'\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+		&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{m\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{P''}{\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2P'\tilde{\phi}'}{m\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+	\end{align*}
+	
+	Donc pour $m$ suffisamment grand, (\ref{ine3}) devient
 	\begin{equation}
-		\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}<\left|\left|\left(\frac{P}{\tilde{\phi}}\right)''\right|\right|_{L^2(\Omega)} \label{ine_fin}
+		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{L^2(\Omega)} \label{ine3_bis}
 	\end{equation}
 	
-	\fbox{\parbox{0.7\textwidth}{%
-			A COMPLETER : Je n'arrive pas à justifier la phrase suivante car les normes \\
-			à gauche des inégalités (\ref{ine2}) et (\ref{ine3}) ne sont pas les mêmes.
-		}} \; \\
+	Et ainsi, quand $m$ est grand, l'erreur ne dépend plus de la solution mais dépend uniquement de $P$.
 	
-	On en déduit alors que pour $m$ grand, rehausser la solution permet de diminuer l'erreur $||u-u_{c}||_{L^2}$ (cf ....).
-	%(cf (\ref{ine2}), (\ref{der1}), (\ref{ine3}), (\ref{der2}) et (\ref{ine_fin}))
+	Quand $m$ est petit, l'erreur est dominée par les dérivées et dérivées secondes de la solution perturbée $\tilde{\phi}$.
 	
 	\section*{Résultats numériques}
 	
@@ -231,6 +244,8 @@
 	On cherche alors à corriger cette solution avec et sans rehaussement.
 	
 	On prendra $S=0.5$ et $p=0$ (c'est-à-dire $g=0$). On fera varier $\epsilon$, $f$ et $f_p$. 
+	
+	\newpage
 	
 	Voici les résultats obtenus (avec à gauche les erreurs et à droite les facteurs obtenus en comparant avec l'erreur FEM classique):
 	
