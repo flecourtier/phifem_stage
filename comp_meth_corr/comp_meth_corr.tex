@@ -51,6 +51,8 @@
 
 \setlength\parindent{0pt}
 \allowdisplaybreaks
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
 \begin{document}
 	LECOURTIER Frédérique \hfill \today
 	\begin{center}
@@ -73,13 +75,10 @@
 	On considère ici que l'on possède une solution analytique $u$ et qu'après une utilisation du FNO, on obtient une solution du type
 	\begin{equation*}
 		\label{phi_tild}
-		u_p(x,y) = u(x,y)-\epsilon P(x,y)
+		\tilde{\phi}(x,y)=u_p(x,y) = u(x,y)-\epsilon P(x,y)
 	\end{equation*}
 	avec $P$ la perturbation (tel que $P=0$ sur $\Gamma$) et $\epsilon$ petit.
 	
-	On notera
-	$$\tilde{\phi}=u_p$$
-
 	Ce document a pour but de comparer deux méthodes de correction de ce problème :
 	\begin{enumerate}[label=\textbullet]
 		\item \textbf{Méthode 1 : }
@@ -117,8 +116,15 @@
 		avec $\tilde{u}=\tilde{\phi}+C$ et $\tilde{f}=f+\Delta\tilde{\phi}$.
 		
 		\begin{Rem}
-			On notera que dans ce cas rehausser le problème n'a aucun intérêt.
-			\fbox{A COMPLETER}
+			On notera que dans ce cas rehausser le problème n'a aucun intérêt. \\
+			En effet, la décomposition de $C_h$ sur la base $(\varphi_1,\dots,\varphi_{N_h})$ de $V_h$ s'écrit pour ce problème			
+			$$C_h=\sum_{i=1}^{N_h}C_i\varphi_i$$
+			avec $C_i=u(x_i)-\tilde{\phi}(x_i)$.
+			Et donc, on a l'inégalité suivante
+			$$||(u-\tilde{\phi})-C_h||_{L^2(\Omega)}\le ch^{k+1}|u-\tilde{\phi}|_{H^{k+1}(\Omega)}$$
+			Alors
+			$$|u-\tilde{\phi}|_{H^{k+1}(\Omega)}=||(u-\tilde{\phi})''||_{L^2(\Omega)}=||(\tilde{\phi}+\epsilon P-\tilde{\phi})''||_{L^2(\Omega)}=||P''||_{L^2(\Omega)}$$
+			Et ainsi, en prenant $\hat{\phi}=\tilde{\phi}+m$ on obtient le même résultat.
 		\end{Rem}
 	\end{enumerate}
 
@@ -142,14 +148,14 @@
 	
 	\begin{minipage}{\linewidth}
 		\centering
-		\includegraphics[width=0.6\linewidth]{resultats.png}
+		\includegraphics[width=0.55\linewidth]{resultats.png}
 	\end{minipage}
 
-	Il semblerait ici que les résultats obtenus pour les problèmes \ref{pbc1r} (avec $m=1000$) et \ref{pbc2} soient très proches.
+	Il semblerait ici que les résultats obtenus pour les problèmes \ref{pbc1r} avec $m=1000$ (avant-dernière colonne) et \ref{pbc2} (dernière colonne) soient très proches.
 
 	\section*{Explication}
 	
-	On cherche ici à comprendre pourquoi on obtient les mêmes résultats avec ces 2 méthodes.
+	On cherche ici à comprendre pourquoi on obtient des résultats aussi proches avec les 2 méthodes.
 	
 	\subsection*{Méthode 1}
 	
@@ -199,7 +205,9 @@
 	Ainsi
 	$$u_h=\hat{u_h}-m=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i$$
 	et finalement
-	$$u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \\ $$
+	\begin{equation}
+		u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
+	\end{equation}
 	
 	
 	\subsection*{Méthode 2}
@@ -232,9 +240,9 @@
 		u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
 		&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{C_i_2}} \\
 		&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)+\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{u_x_i_2}} \\
-		&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i
+		u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
 	\end{align*}
 	
-	Il semblerait alors que pour le problème \ref{pb1}, les 2 méthodes proposées soit équivalentes (en prenant $m$ grand).
+	Ainsi par \ref{result1} et \ref{result2}, il semblerait que pour le problème \ref{pb1}, les 2 méthodes proposées soit équivalentes (en prenant $m$ grand).
 
 \end{document}

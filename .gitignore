@@ -9,3 +9,7 @@ extrapolate/extrapolate*
 rehaussement/rehaussement*
 !rehaussement/rehaussement.tex
 !rehaussement/rehaussement.pdf
+
+comp_meth_corr/comp_meth_corr*
+!comp_meth_corr/comp_meth_corr.tex
+!comp_meth_corr/comp_meth_corr.pdf
