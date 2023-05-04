@@ -1,10 +1,11 @@
 \section{Semaine 6 : 13/03/2023 - 17/03/2023}
 \graphicspath{{semaines/semaine_6/images/}}
 
-
 \begin{abstract}
 	Après les tests de la semaine dernière sur la partie de correction/certification du modèle où l'on prend la solution analytique comme nouvelle level-set, il semblerait que la méthode avec les meilleurs résultats soit celle où l'on utilise la méthode extrapolate de FEniCS. C'est pourquoi, cette semaine on s'est intéressé en détail au code source de cette fonction FEniCS (\href{https://fenics.readthedocs.io/projects/dolfin/en/2017.2.0/apis/api_adaptivity.html#extrapolation}{Extrapolation}). Étant donné que je n'étais pas présente mardi, mercredi après-midi et jeudi car j'étais malade, c'est tout ce qui a été fait cette semaine. De plus, une grosse partie de la méthode reste encore floue : la construction de la matrice A (pour la résolution du système linéaire dans compute\_coefficients).
 \end{abstract}
+
+\subsection{Extrapolate - FEniCS \faBookmarkO}
 
 Pour illustrer les explications, nous considérerons un domaine rectangulaire maillés uniformément par des triangles. Dans la suite, nous considérerons également \textit{cell0} comme étant une des cellules de maillage. On prendra comme exemple une extrapolation de $\mathbb{P}^1$ vers $\mathbb{P}^2$. 
 
@@ -34,7 +35,7 @@ On cherche à calculer la valeur en chacun des degrés de liberté associé à l
 
 On notera que deux espaces de fonctions sont créés dans la fonction extrapolate : l'espace V est notre espace de départ (dans l'exemple l'espace $\mathbb{P}^1$) et W est l'espace d'arrivée (espace $\mathbb{P}^2$). On prendra $v\in V$ et $w\in W$.
 
-\subsection{compute\_coefficients}
+\subsubsection*{compute\_coefficients}
 \label{compute_coefficients}
 
 Corps de la fonction :
@@ -62,7 +63,7 @@ On peut maintenant créer la matrice $A$ (de taille $M\times N$) et le vecteur $
 
 On pourra ensuite résoudre le système linéaire $Ax=b$ qui nous donnera la valeur en chacun des degrés de liberté de la cellule courante \textit{cell0}. Ces valeurs sont alors ajoutées au tableau global \textit{coefficients} qui nous fournit après avoir utilisé la fonction \textbf{average\_coefficients}~\ref{average_coefficients} les valeurs en chaque degré de liberté de $w$.
 
-\subsection{build\_unique\_dofs}
+\subsubsection*{build\_unique\_dofs}
 \label{build_unique_dofs}
 
 Corps de la fonction :
@@ -112,7 +113,7 @@ $$cell2dof2row = \begin{aligned}[t]
 \end{minipage}
 
 
-\subsection{compute\_unique\_dofs}
+\subsubsection*{compute\_unique\_dofs}
 \label{compute_unique_dofs}
 
 Corps de la fonction :
@@ -129,7 +130,7 @@ Cette fonction a pour but de traiter chacune des cellules voisines afin de compl
 
 Pour une cellule \textit{cell} (voisine à \textit{cell0}), on va parcourir chacun de ses degrés de liberté associé à l'espace $V$. Autrement dit, on parcourt tous les degrés de liberté dont la valeur est connue (dans notre cas les degrés de liberté $\mathbb{P}^1$ et donc les noeuds de la cellule). Si ce degré de liberté fait partie de \textit{unique\_dofs}, on ne fait rien. Sinon, on l'ajoute à \textit{unique\_dofs}. On va également créer un tableau \textit{dof2row} qui a pour but d'associer un degré de liberté à un numéro de ligne unique. Ce dictionnaire \textit{dof2row} est retourné par la fonction et permet de remplir le dictionnaire plus général \textit{cell2dof2row} créé dans \textbf{compute\_coefficients}~\ref{compute_coefficients}.
 
-\subsection{add\_cell\_equations}
+\subsubsection*{add\_cell\_equations}
 \label{add_cell_equations}
 
 Corps de la fonction :
@@ -156,7 +157,7 @@ On commence par créer les fonctions de base $\Phi_j$ associées aux degrés de 
 
 On va ensuite parcourir les degrés de liberté associés à la cellule voisine \textit{cell1} dans le dictionnaire \textit{cell2dof2row} (c'est le tableau \textit{dof2row} donné en argument). On évalue alors $\Phi_j$ en chacun des degrés de liberté de la cellule voisine \textit{cell1}. On peut alors compléter $A(row,j)$ (où $row$ nous ai donné par le dictionnaire \textit{dof2row}). On complète également $b(row)$ par la valeur aux degrés de liberté associés à l'espace $V$ (les nœuds dans notre cas). 
 
-\subsection{average\_coefficients}
+\subsubsection*{average\_coefficients}
 \label{average_coefficients}
 
 Corps de la fonction :
