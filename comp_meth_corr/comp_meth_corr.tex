@@ -56,7 +56,7 @@
 \begin{document}
 	LECOURTIER Frédérique \hfill \today
 	\begin{center}
-		\Large\textbf{{Explication - Résultats similaires avec les 2 méthodes de correction.}}\\
+		\Large\textbf{{Comparaison de 2 méthodes de correction.}}\\
 	\end{center}
 	\graphicspath{{images/}}
 	
@@ -79,7 +79,12 @@
 	\end{equation*}
 	avec $P$ la perturbation (tel que $P=0$ sur $\Gamma$) et $\epsilon$ petit.
 	
-	Ce document a pour but de comparer deux méthodes de correction de ce problème :
+	Ce document a pour but de comparer deux méthodes de correction de la solution obtenue.
+	
+	\section{Correction avec FEM}
+	
+	\subsection{Présentation des 2 méthodes}
+	
 	\begin{enumerate}[label=\textbullet]
 		\item \textbf{Méthode 1 : }
 		On souhaite résoudre le problème suivant
@@ -128,9 +133,9 @@
 		\end{Rem}
 	\end{enumerate}
 
-	\section*{Résultats numériques}
+	\subsection{Résultats numériques}
 	
-	On prend ici la solution analytique suivante
+	On se place sur le carré $[0,1]^2$. On considère ici la solution analytique suivante
 	$$u_{ex}(x,y) = S\times\sin(2\pi fx + p)\times\sin(2\pi fy + p)$$ 
 	
 	et $P$ la perturbation définie par
@@ -142,22 +147,23 @@
 	
 	On prendra $S=0.5$ et $p=0$ (c'est-à-dire $g=0$). On fera varier $\epsilon$, $f$ et $f_p$. 
 	
-	\newpage
-	
 	Voici les résultats obtenus :
 	
 	\begin{minipage}{\linewidth}
-		\centering
-		\includegraphics[width=0.55\linewidth]{resultats.png}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.55\linewidth]{resultats.png}
+			\caption{Résultats FEM pour nb\_vert=64}
+		\end{figure}
 	\end{minipage}
 
 	Il semblerait ici que les résultats obtenus pour les problèmes \ref{pbc1r} avec $m=1000$ (avant-dernière colonne) et \ref{pbc2} (dernière colonne) soient très proches.
 
-	\section*{Explication}
+	\subsection{Explication}
 	
 	On cherche ici à comprendre pourquoi on obtient des résultats aussi proches avec les 2 méthodes.
 	
-	\subsection*{Méthode 1}
+	\subsubsection*{Méthode 1}
 	
 	On cherche à résoudre le problème
 	\begin{equation}
@@ -209,8 +215,12 @@
 		u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
 	\end{equation}
 	
+	\begin{Rem}
+		Pour le problème \ref{pbc1}, (équivalent au problème \ref{pbc1r} avec $m=0$), on a 
+		$$u_h=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i$$
+	\end{Rem}
 	
-	\subsection*{Méthode 2}
+	\subsubsection*{Méthode 2}
 	
 	On cherche à résoudre le problème
 	\begin{equation}
@@ -245,4 +255,164 @@
 	
 	Ainsi par \ref{result1} et \ref{result2}, il semblerait que pour le problème \ref{pb1}, les 2 méthodes proposées soit équivalentes (en prenant $m$ grand).
 
+
+	\setcounter{equation}{0}
+
+	\section{Correction avec $\phi$-FEM}
+	
+	\begin{Rem}
+		Le rehaussement avec $\phi$-FEM n'étant pas encore fonctionnel, on comparera seulement la seconde méthode avec la méthode classique (pour $m=0$). On testera par la suite d'imposer les conditions au bord par la méthode duale et finalement on pourra comparer le rehaussement avec la nouvelle méthode de correction.
+	\end{Rem}
+	
+	
+	\subsection{Présentation des 2 méthodes}
+	
+	\begin{enumerate}[label=\textbullet]
+		\item \textbf{Méthode 1 : }
+		On souhaite résoudre le problème suivant
+		\begin{equation}
+			\label{pbc1_phifem}
+			\left\{\begin{aligned}
+				&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
+				&C=1 \quad &&\Gamma
+			\end{aligned}\right. \tag{$\mathcal{C}_1$}
+		\end{equation}
+		
+		avec $\tilde{u}=\tilde{\phi}C$.
+		
+		\item \textbf{Méthode 2 : } On souhaite résoudre le problème suivant
+		\begin{equation}
+			\label{pbc2_phifem}
+			\left\{\begin{aligned}
+				&-\Delta(\phi C)=\tilde{f} \quad &&\Omega \\
+				&\tilde{C}=0 \quad &&\Gamma
+			\end{aligned}\right. \tag{$\mathcal{C}_2$}
+		\end{equation}
+		
+		avec $\tilde{u}=\tilde{\phi}+\tilde{C}$ où $\tilde{C}=\phi C$ et $\tilde{f}=f+\Delta\tilde{\phi}$.
+	\end{enumerate}
+	
+	\subsection{Résultats numériques}
+	
+	Nous allons considérer deux cas tests : le premier sera de considérer comme géométrie un carré (similaire au cas test de FEM) et le second sera de considérer un cercle.
+	
+	\subsubsection*{1er cas test : le carré}
+	
+	On se place sur le carré $[0,1]^2$. On prend alors
+	$$\phi_c (x,y)=||x-0.5||_\infty-0.5$$
+	pour construire les ensembles $\mathcal{F}_h^\Gamma$ et $\mathcal{T}_h^\Gamma$ nécessaire à $\phi$-FEM.
+	
+	On considérera alors le domaine environnant $\mathcal{O}=[-0.5,1.5]^2$ et on prendra la levelset
+	$$\phi (x,y)=x(1-x)y(1-y)$$
+	
+	On considère la même solution analytique que celle utilisée dans le cas test de FEM :
+	$$u_{ex}(x,y) = S\times\sin(2\pi fx + p)\times\sin(2\pi fy + p)$$ 
+	
+	et $P$ la perturbation définie par
+	$$P(x,y)=S\times\sin(2\pi f_px + p_p)\times\sin(2\pi f_py + p_p)$$
+	
+	avec $p_p=0$ pour que $P=0$ sur $\Gamma$ (et donc $u_p=u_{ex}$ sur $\Gamma$). 
+	
+	On cherche alors principalement à comparer les erreurs en norme $L^2$ obtenus avec les problèmes \ref{pbc1_phifem} et \ref{pbc2_phifem}.
+	
+	On prendra $S=0.5$ et $p=0$ (c'est-à-dire $g=0$). On fera varier $\epsilon$, $f$ et $f_p$. 
+	
+	Voici les résultats obtenus :
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\linewidth]{phifem_carre_64.png}
+			\caption{Résultats sur le carré (nb\_vert=64)}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\linewidth]{phifem_carre_128.png}
+			\caption{Résultats sur le carré (nb\_vert=128)}
+		\end{figure}
+	\end{minipage}
+	
+	Il semblerait que les résultats obtenus pour le problème \ref{pbc2_phifem} (colonne "Corr v2") soient meilleurs que ceux obtenus pour le problème \ref{pbc1_phifem} (colonne "Corr"). La colonne "facteur" contient les coefficients "Corr"/"Corr v2".
+	
+	\subsubsection*{2nd cas test : le cercle}
+	
+	On considère $\Omega$ le cercle de rayon $\sqrt{2}/4$ et de centre $(0.5,0.5)$. On prend 
+	$$\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2$$
+	On considère le domaine fictif $O=(0,1)^2$.
+	
+	On considère toujours la solution analytique suivante :
+	$$u_{ex}(x,y) = S\times\sin(2\pi fx + \varphi)\times\sin(2\pi fy + \varphi)$$ 
+	
+	On prend dans ce cas la perturbation $P$ définie par
+	$$P(x,y) = S\times\sin(2\pi fx + \varphi)\times\sin(2\pi fy + \varphi)\times\cos(4\pi((x-0.5)^2+(y-0.5)^2))$$ 
+	pour que $P=0$ sur $\Gamma$ (et donc $u_p=u_{ex}$ sur $\Gamma$). 
+	
+	On cherche comme pour le cas test du carré à comparer les erreurs en norme $L^2$ obtenues avec les problèmes \ref{pbc1_phifem} et \ref{pbc2_phifem}.
+	
+	On prendra $S=0.5$ et $p=0$ (attention ici $g\ne 0$). On fera varier $\epsilon$, $f$ et $f_p$. 
+	
+	\begin{Rem}
+		Ici, on prend 2 fois moins de nœuds que dans le cas test du carré pour avoir des cas comparables (car le domain $\mathcal{O}$ est deux fois plus petit sur la longueur et sur la largeur).
+	\end{Rem}
+	
+	\newpage
+	
+	Voici les résultats obtenus :
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\linewidth]{phifem_cercle_32.png}
+			\caption{Résultats sur le cercle (nb\_vert=32)}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\linewidth]{phifem_cercle_64.png}
+			\caption{Résultats sur le cercle (nb\_vert=64)}
+		\end{figure}
+	\end{minipage}
+	
+	Il semblerait que les résultats obtenus pour le problème \ref{pbc2_phifem} (colonne "Corr v2") soient meilleurs que ceux obtenus pour le problème \ref{pbc1_phifem} (colonne "Corr"). La colonne "facteur" contient les coefficients "Corr"/"Corr v2". On obtient alors le même type de résultat que pour le cas test du carré.
+	
+	\subsection{Explication}
+	
+	On cherche ici à expliciter la forme de la solution dans le problème \ref{pbc2_phifem}.
+
+	La décomposition de $u_h$ sur la base $(\varphi_1,\dots,\varphi_{N_h})$ de $V_h$ s'écrit pour ce problème
+	
+	\begin{equation}
+		u_h=\phi(x)C_h+\tilde{\phi}(x) \label{decomp_u_phifem}
+	\end{equation}
+	avec
+	\begin{equation}
+		C_h=\sum_{i=1}^{N_h}C_i\varphi_i \label{decomp_C_phifem}
+	\end{equation}
+	
+	Or 
+	\begin{equation}
+		C_i=\frac{u(x_i)-\tilde{\phi}(x_i)}{\phi(x_i)} \label{C_i_phifem}
+	\end{equation}
+	avec
+	\begin{equation}
+		u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i_phifem}
+	\end{equation}
+	et
+	\begin{equation}
+		\phi(x)=\phi(x_i)+(x-x_i)\phi'(x_i) \label{phi_x_phifem}
+	\end{equation}
+
+	Les relations \ref{decomp_u_phifem} et \ref{decomp_C_phifem} deviennent alors :
+	\begin{align*}
+		u_h&=\tilde{\phi}(x)+\phi(x)C_h \\
+		&=\tilde{\phi}(x)+\phi(x)\sum_{i=1}^{N_h}C_i\varphi_i \\
+		&=\tilde{\phi}(x)+\phi(x)\sum_{i=1}^{N_h}\frac{u(x_i)-\tilde{\phi}(x_i)}{\phi(x_i)}\varphi_i \quad \text{par \ref{C_i_phifem}} \\
+		&=\tilde{\phi}(x)+\phi(x)\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+\epsilon P(x_i)-\tilde{\phi}(x_i)}{\phi(x_i)}\varphi_i \quad \text{par \ref{u_x_i_phifem}} \\
+		&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\phi(x)}{\phi(x_i)}\varphi_i \\
+		u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\phi'(x_i)}{\phi(x_i)}\right)\varphi_i \quad \text{par \ref{phi_x_phifem}} \numberthis \label{result_phifem}
+	\end{align*}
+	
 \end{document}
