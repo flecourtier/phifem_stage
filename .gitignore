@@ -2,6 +2,11 @@ suivi/suivi*
 !suivi/suivi.tex
 !suivi/suivi.pdf
 
+suivi/abstract/abstract*
+!suivi/abstract/abstract.py
+!suivi/abstract/abstract.tex
+!suivi/abstract/abstract.pdf
+
 extrapolate/extrapolate*
 !extrapolate/extrapolate.tex
 !extrapolate/extrapolate.pdf
