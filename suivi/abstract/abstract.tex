@@ -165,9 +165,9 @@
 	
 	Ce document a pour but de comparer deux méthodes de correction de la solution obtenue.
 \section{Semaine 14 : 08/05/2023 - 12/05/2023}
-	Après discussion avec Emmanuel, il semblerait que les résultats obtenus pour $\tilde{\phi}$ de degré 2 ne soient pas aberrant. On va alors continuer les tests sur le FNO avec la deuxième méthode et comparer la résultats avec PhiFEM et FEM.  On va également tester de faire une IPP sur le second membre $\tilde{f}$ pour n'utiliser que les dérivées premières de $\tilde{\phi}$. On comparera les résultats avec et sans IPP.
-
-	Dans un second temps, on souhaite faire fonctionner le rehaussemen avec PhiFEM en utilisant la méthode duale. On commencera par faire les courbes de convergence puis on essayera de faire les mêmes comparaisons que pour FEM entre la première méthode de correction avec et sans rehaussement et la seconde.
+	On souhaite faire fonctionner le rehaussement avec PhiFEM en utilisant la méthode duale. On commencera par faire les courbes de convergence puis on comparera pour différent cas tests, les erreurs en norme $L^2$ des méthodes suivantes : $\Phi$-FEM par méthode directe, $\Phi$-FEM par méthode duale, Correction par multiplication sans rehaussement, Correction par multiplication avec rehaussement par méthode duale, Correction par addition.
 	
-	Vanessa a également proposée une nouvelle idée qui consiste à combiner les deux méthodes de correction, en posant quelque chose comme $\tilde{f}=\hat{\phi}C_1+C_2$. On fera la théorie dessus et on testera numériquement lorsque les idées précédentes seront faites.
+	Après discussion avec Emmanuel, il semblerait que les résultats obtenus pour $\tilde{\phi}$ de degré 2 ne soient pas aberrant. On va alors continuer les tests sur le FNO en lui appliquant les mêmes méthodes de correction que celles testées sur la solution analytique.
+	
+	Après relecture du document sur le rehaussement par Michel, il m'a demandé de faire la théorie sur l'erreur d'interpolation mis dans le document pour le rehaussement (inégalité 7 qui m'avait été dite par Emmanuel). Jeudi, on a alors discuté de ça avec Michel et vendredi j'ai alors relu ce que Michel avait fait pour essayer de bien comprendre.
 \end{document}
