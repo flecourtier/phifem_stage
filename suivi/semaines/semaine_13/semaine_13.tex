@@ -305,7 +305,7 @@ On prendra $S=0.5$ et $p=0$ (attention ici $g\ne 0$). On fera varier $\epsilon$,
 	Ici, on prend 2 fois moins de nœuds que dans le cas test du carré pour avoir des cas comparables (car le domain $\mathcal{O}$ est deux fois plus petit sur la longueur et sur la largeur).
 \end{Rem}
 
-Voici les résultats obtenus :
+Voici les résultats obtenus : \textbf{résultat PhiFEM incorrect, pb non homogène}
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
@@ -361,4 +361,5 @@ Les relations \ref{decomp_u_phifem} et \ref{decomp_C_phifem} deviennent alors :
 	u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\phi'(x_i)}{\phi(x_i)}\right)\varphi_i \quad \text{par \ref{phi_x_phifem}} \numberthis \label{result_phifem}
 \end{align*}
 
-\conclusion{On s'est rendu compte en fin de semaine que les résultats obtenus avaient été obtenus en prenant $\tilde{\phi}$ de degré 10 (et pas de degré 2 comme on pourrait avoir avec le FNO). Les résultats obtenus avec $\tilde{\phi}$ de degré 2 seront à la semaine suivante, ainsi que les résultats obtenus avec le FNO.}
+\conclusion{On s'est rendu compte en fin de semaine que les résultats obtenus avaient été obtenus en prenant $\tilde{\phi}$ de degré 10 (et pas de degré 2 comme on pourrait avoir avec le FNO). Les résultats obtenus avec $\tilde{\phi}$ de degré 2 seront à la semaine suivante, ainsi que les résultats obtenus avec le FNO. \\
+Attention : les résultats pour PhiFEM sur le cercle ne sont pas bons : le problème est non homogène !}
