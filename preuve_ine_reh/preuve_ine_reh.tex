@@ -1,0 +1,180 @@
+\documentclass[french]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{color}
+\usepackage[svgnames,dvipsnames]{xcolor} 
+\usepackage{soul}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
+\usepackage{pifont}
+\usepackage{pst-all}
+\usepackage{pstricks}
+\usepackage{delarray}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{nicematrix}
+\usepackage{listings}
+\usepackage{float}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdfpagemode=FullScreen,
+}
+
+\usepackage{amsthm}
+\newtheorem*{Rem}{Remarque}
+
+\newenvironment{conclusion}[1]{%
+	\begin{center}\normalfont\textbf{Conclusion}\end{center}
+	\begin{quotation} #1 \end{quotation}
+}{%
+	\vspace{1cm}
+}
+
+\lstset{language=C++,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+	LECOURTIER Frédérique \hfill \today
+	\begin{center}
+		\Large\textbf{{Estimation d'erreur - Problème rehaussé.}}\\
+	\end{center}
+
+	On se place ici dans le cadre de FEM standard. 
+	
+	\textbf{Problème initital :} \\
+	On considère initialement le problème de Poisson avec condition de Dirichlet homogène ou non homogène :
+	\begin{equation}
+		\left\{\begin{aligned}
+			&-\Delta u=f \quad &&\text{dans } \Omega \\
+			&u=g \quad &&\text{sur } \Gamma
+		\end{aligned}\right. \label{pb_initial} \tag{$\mathcal{P}$}
+	\end{equation}
+
+	\textbf{Problème considéré :} \\
+	Dans notre cas, on souhaite appliquer une correction à la sortie d'un FNO.
+	On considère ici que l'on possède une solution analytique $u_{ex}$ et qu'après une utilisation du FNO, on obtient une solution du type
+	$$\tilde{\phi}(x,y) = u_{ex}(x,y)-\epsilon P(x,y)$$
+	avec $P$ la perturbation (tel que $P=0$ sur $\Gamma$) et $\epsilon$ petit.
+	
+	On considère
+	$$\hat{\phi}=\tilde{\phi}+m=u_{ex}-\epsilon P+m=\widehat{u_{ex}}-\epsilon P$$
+	avec $\widehat{u_{ex}}=u_{ex}+m$ et $m$ une constante.
+	
+	On souhaite alors résoudre le problème suivant :
+	\begin{equation}
+		\left\{\begin{aligned}
+			&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
+			&(\hat{\phi}C)=g+m \quad &&\Gamma
+		\end{aligned}\right. \label{pb_reh} \tag{$\mathcal{C}$}
+	\end{equation}
+
+	On pose alors
+	$$\hat{u}=\hat{\phi}C$$
+
+	\textbf{But du document :} \\
+	Démonter la propriété suivante (présentée dans le document "Explication - Rehaussement avec FEM") :
+	\begin{equation}
+		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u+m}{\hat{\phi}}\right|_{H^{k+1}(\Omega)}||\hat{\phi}||_{L^2(\Omega)}
+		\label{ine_a_dem}
+	\end{equation}
+	
+	\textbf{Problèmes variationnels :} \\
+	
+	Problème variationnel :
+	$$\text{Trouver } \hat{u}\in V \text{ tel que } a(\hat{u},v)=l(v), \;\forall v\in V$$
+	
+	Problème variationnel approché :
+	$$\text{Trouver } \hat{u_h}\in V_h \text{ tel que } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h$$
+	
+	\section{Partie 1 : norme $H^1$}
+	
+	Comme $V_h$ sous espace vectoriel de $V$, en posant $v=v_h$, on a l'orthogonalité de Galerkin :
+	$$a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h$$
+	Donc \color{red}{(ATTENTION : Abus de notation sur $v_h$ !)}\color{black}
+	$$a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h$$
+	On a alors
+	\begin{align*}
+		\color{red}{\nu}\color{black}||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{par coercivité} \\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) \\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{par orthogonalité de Galerkin en prenant } v_h=\hat{u_h}-I_h\hat{u} \\
+		&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{par continuité} \\
+		&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1
+	\end{align*}
+	Ainsi
+	$$||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1$$
+	Finalement en utilisant l'inégalité d'interpolation, on obtient
+	\begin{equation}
+		\boxed{||\hat{u}-\hat{u_h}||_1\le\alpha h^k|\hat{u}|_{k+1}}
+		\label{norme_H1}
+	\end{equation} 
+
+	\section{Partie 2 : norme $L^2$}
+	
+	On applique la méthode de dualité d'Aubin-Nitsche. On considère le problème dual : \\
+	Soit $\hat{z}\in H_0^1(\Omega)$ solution du problème
+	$$\left\{\begin{aligned}
+		&-\Delta\hat{z}=\hat{e_h} \quad &&\text{dans }\Omega \\
+		&\hat{z}=0 \quad &&\text{sur } \Gamma
+	\end{aligned}\right.$$
+	avec $\hat{e_h}=\hat{u}-\hat{u_h}$.
+	Alors
+	$$a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla v$$
+	et comme $e_h\in H_0^1(\Omega)$
+	\begin{equation}
+		a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+		\label{norme_e_h}
+	\end{equation}
+	De plus, par les propriétés de régularité : 
+	\begin{equation}
+		\hat{z}\in H^2(\Omega)
+		\label{z_H_2}
+	\end{equation}
+	et
+	\begin{equation}
+		||\hat{z}||_2\le \alpha||\hat{e_h}||_0^2 =\alpha||\hat{u}-\hat{u_h}||_0^2
+		\label{prop_reg}
+	\end{equation}
+	Ainsi
+	\begin{align*}
+		||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2 \\
+		&=a(\hat{z},\hat{e_h}) &&\text{par \ref{norme_e_h}} \\
+		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{par orthogonalité de Galerkin} \\
+		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{par continuité} \\
+		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{par \ref{z_H_2} et par inégalité d'interpolation} \\
+		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k|\hat{u}|_{k+1} &&\text{par \ref{norme_H1}} \\
+		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0|\hat{u}|_{k+1} &&\text{par \ref{prop_reg}}
+	\end{align*}
+	Finalement
+	\begin{equation}
+		\boxed{||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}|\hat{u}|_{k+1}}
+	\end{equation}
+
+	\section{Partie 3 : Conclusion avec \ref{ine_a_dem}}
+	
+	On veut maintenant démontrer \ref{ine_a_dem} :
+	$$||C-C_h||_0\le \alpha h^{k+1}|C|_{k+1}||\hat{\phi}||_0$$
+	On a 
+	\begin{align*}
+		||C-C_h||_0&=\left|\left|\frac{\hat{u}-\hat{u_h}}{\hat{\phi}}\right|\right|_0
+	\end{align*}
+
+	\color{red}{Comment continuer ??}\color{black}
+\end{document}
