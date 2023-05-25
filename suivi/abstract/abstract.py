@@ -18,6 +18,7 @@ repo_name = repo+str(i)
 
 while( os.path.exists(repo_name) ):
     file_name = repo_name + "/semaine_" + str(i) + ".tex"
+    print(file_name)
     file_read = open(file_name, 'r')
 
     week_title = file_read.readline()
@@ -28,16 +29,20 @@ while( os.path.exists(repo_name) ):
 
     while not (word_to_search in line):
         line = file_read.readline()
-
-    line = file_read.readline()
-    lines_to_write = []
-
-    while not (word_to_search in line):
-        lines_to_write.append(line)
-        line = file_read.readline()
+        if(len(line)==0):
+            print("Pas d'abstract dans semaine_"+str(i))
+            break
     
-    for line_to_write in lines_to_write:
-        file_write.write(line_to_write)
+    if(len(line)!=0):
+        line = file_read.readline()
+        lines_to_write = []
+
+        while not (word_to_search in line):
+            lines_to_write.append(line)
+            line = file_read.readline()
+        
+        for line_to_write in lines_to_write:
+            file_write.write(line_to_write)
 
     i+=1
     repo_name = repo+str(i)
