@@ -1,0 +1,130 @@
+\section{Semaine 16 : 22/05/2023 - 26/05/2023}
+\graphicspath{{semaines/semaine_16/images/}}
+
+\setcounter{equation}{0}
+
+\begin{abstract}
+	Cette semaine, j'ai essayé d'obtenir une solution analytique à partir de la solution en sortie du FNO. Dans un premier temps, j'ai testé avec des séries/transformées de Fourier puis avec des polynômes de Legendre. J'ai commencé en 1D puis en 2D, d'abord sur une solution analytique puis j'ai essayé sur le FNO.
+\end{abstract}
+
+\subsection{Fourier}
+
+\subsubsection*{Fourier 1D}
+
+La Transformée de Fourier discrète (en 1D) est définie par :
+$$F(u)=\frac{1}{N}\sum_{x=0}^{N-1}f(x)e^{-2i\pi x\frac{u}{N}}$$
+L'inverse de la Transformée de Fourier discrète (en 1D) est définie par :
+$$f(x)=\sum_{u=0}^{N-1}F(u)e^{2i\pi \frac{u}{N}x}$$
+
+Montrons que f est bien la fonction réciproque à F. On a 
+\begin{align*}
+	f(x)&=\sum_{u=0}^{N-1}F(u)e^{2i\pi \frac{u}{N}x} \\	
+	&=\frac{1}{N}\sum_{u=0}^{N-1}\sum_{x'=0}^{N-1}f(x')e^{-2i\pi x'\frac{u}{N}}e^{2i\pi \frac{u}{N}x} \\
+	&=\frac{1}{N}\sum_{x'=0}^{N-1}f(x')\color{blue}\sum_{u=0}^{N-1}e^{2i\pi \frac{u}{N}(x-x')}\color{black}\\
+	& \qquad \qquad \qquad \qquad \color{blue}:= S \color{black}
+\end{align*}
+avec
+$$S=\sum_{u=0}^{N-1}e^{2i\pi \frac{u}{N}(x-x')}$$
+
+Alors
+\begin{enumerate}[label=\textbullet]
+	\item Si $x=x'$ : $S=\sum_{u=0}^{N-1}1=N$
+	\item Si $x\ne x'$ : 
+	$$S=\sum_{u=0}^{N-1}\left(e^{\frac{2i\pi}{N}(x-x')}\right)^u=\frac{1-\left(e^{\frac{2i\pi}{N}(x-x')}\right)^N}{1-e^{\frac{2i\pi}{N}(x-x')}}=\frac{1-e^{2i\pi(x-x')}}{1-e^{\frac{2i\pi}{N}(x-x')}}=0$$
+	car
+	$$e^{2i\pi(x-x')}=cos(2\pi(x-x'))+i sin(2\pi(x-x')) = 1+0 =1$$
+\end{enumerate}
+
+On en déduit que
+$$f(x)=\frac{1}{N}\times Nf(x)=f(x)$$
+
+\subsubsection*{Fourier 2D}
+
+\subsection{Legendre}
+
+\subsubsection*{Legendre 1D}
+
+\subsubsection*{Legendre 2D}
+
+On cherche à décomposer une fonction en une série de polynômes de Legendre de la manière suivante :
+\begin{equation}
+	f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+	\label{decomp}
+\end{equation}
+où les polynômes de Legendre sont définis pour tout $x\in\mathbb{R}$ par
+$$P_n(x)=\frac{1}{2^n n!}\frac{d^n}{dx^n}[(x^2-1)^n]$$
+On notera que les polynômes de Legendre sont orthogonaux dans l'espace $L^2(]-1,1[)$ et plus précisément
+\begin{equation}
+	\int_{-1}^1 P_n(x)P_m(x)dx=\frac{2}{2n+1}\delta_{nm} 
+	\label{ortho}
+\end{equation}
+On pose $X=(x_0,\dots,x_{N-1})$ et $Y=(y_0,\dots,y_{M-1})$.
+
+Ainsi
+$$f(x_i,y_j)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x_i)P_q(y_j), \quad \forall i\in\{0,\dots,N-1\},j\in\{0,\dots,M-1\}$$
+
+On pose
+$$\widetilde{F_{N,M}}=\begin{pmatrix}
+	f(x_0,y_0) & \dots & f(x_0,y_{M-1}) \\
+	\vdots & \ddots & \vdots \\
+	f(x_{N-1},y_0) & \dots & f(x_{N-1},y_{M-1})
+\end{pmatrix}\in\mathcal{M}_{N,M}(\mathbb{R})$$
+
+$$\widetilde{\alpha_{P,Q}}=\begin{pmatrix}
+	\alpha_{0,0} & \dots & \alpha_{0,Q-1} \\
+	\vdots & \ddots & \vdots \\
+	\alpha_{P-1,0} & \dots & \alpha_{P-1,Q-1}
+\end{pmatrix}\in\mathcal{M}_{P,Q}(\mathbb{R})$$
+
+$$\widetilde{P_N}=\begin{pmatrix}
+	P_0(x_0) & \dots & P_{P-1}(x_0) \\
+	\vdots & \ddots & \vdots \\
+	P_0(x_{N-1}) & \dots & P_{P-1}(x_{N-1})
+\end{pmatrix}\in\mathcal{M}_{N,P}(\mathbb{R})$$
+
+$$\widetilde{P_M}=\begin{pmatrix}
+	P_0(y_0) & \dots & P_{Q-1}(y_0) \\
+	\vdots & \ddots & \vdots \\
+	P_0(y_{M-1}) & \dots & P_{Q-1}(y_{M-1})
+\end{pmatrix}\in\mathcal{M}_{M,Q}(\mathbb{R})$$
+
+Par la méthode des rectangles (à gauche), \ref{ortho} devient
+\begin{align*}
+	\int_{-1}^1 P_n(x)P_m(x)dx&=\sum_{i=0}^{N-2}\int_{x_i}^{x_{i+1}}P_n(x)P_m(x)dx \\
+	&\approx \sum_{i=0}^{N-2} (x_{i+1}-x_i)P_n(x_i)P_m(x_i) \\
+	&=\frac{2}{N}\sum_{i=0}^{N-2} P_n(x_i)P_m(x_i) \approx\frac{2}{2n+1}\delta_{nm} 
+\end{align*}
+
+On en déduit \color{red}PB 1\color{black}
+\begin{equation}
+	\frac{2}{N}\widetilde{P_N}^T\widetilde{P_N}=\widetilde{D_P} \quad \text{et} \quad \frac{2}{M}\widetilde{P_M}^T\widetilde{P_M}=\widetilde{D_Q}
+	\label{diag}
+\end{equation}
+avec
+$$\widetilde{D_P}=diag\left(\frac{2}{2p+1},p=0,\dots,P-1\right)\in\mathcal{M}_P(\mathbb{R}) \quad \text{et} \quad \widetilde{D_Q}=diag\left(\frac{2}{2q+1},q=0,\dots,Q-1\right)\in\mathcal{M}_Q(\mathbb{R})$$
+
+On cherche à déterminer $\widetilde{\alpha_{P,Q}}$. Pour cela, on va réécrire le problème \ref{decomp} sous la forme matricielle suivante
+\begin{align*}
+	\widetilde{P_N}\widetilde{\alpha_{P,Q}}\widetilde{P_M}^T=\widetilde{F_{N,M}}& \\
+	\iff \quad \widetilde{P_N}^T\widetilde{P_N}\widetilde{\alpha_{P,Q}}\widetilde{P_M}^T\widetilde{P_M}=\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}& \\
+	\iff \quad \frac{NM}{4}\widetilde{D_P}\widetilde{\alpha_{P,Q}}\widetilde{D_Q}=\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}& \\
+	\iff \quad \boxed{\widetilde{\alpha_{P,Q}}=\frac{4}{NM}\widetilde{D_P}^{-1}\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}\widetilde{D_Q}^{-1}}& \\
+\end{align*}
+avec
+$$\widetilde{D_P}^{-1}=diag\left(\frac{2p+1}{2},p=0,\dots,P-1\right)\in\mathcal{M}_P(\mathbb{R}) \quad \text{et} \quad \widetilde{D_Q}^{-1}=diag\left(\frac{2q+1}{2},q=0,\dots,Q-1\right)\in\mathcal{M}_Q(\mathbb{R})$$
+
+\color{red}
+\textbf{Problèmes :}
+\begin{enumerate}
+	\item $\widetilde{P_N}^T\widetilde{P_N}$ fait un cran de trop ! On a un rectangle supplémentaire !
+	\item Choisir $P$ et $Q$ : si on les prend trop grand, résultats incohérents !!!
+\end{enumerate}
+\color{black}
+
+\begin{Rem}
+	Pour $x\in[a,b]$, on fait un changement de variable pour se ramener dans l'intervalle $[-1,1]$. \\
+	On pose alors
+	$$\tilde{x}=\frac{2}{b-a}x+\frac{a+b}{a-b}$$
+	Ainsi
+	$$\tilde{f}(\tilde{x})=f(x)$$
+\end{Rem}
