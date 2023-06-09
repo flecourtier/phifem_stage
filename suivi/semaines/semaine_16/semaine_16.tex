@@ -187,7 +187,7 @@ Même problème que dans le cas 1D. A régler !
 
 On cherche à décomposer une fonction en une série de polynômes de Legendre de la manière suivante :
 \begin{equation}
-	f(x)=\sum_{n=0}^{N-1} \alpha_n P_n(x)
+	f(x)=\sum_{p=0}^{P-1} \alpha_p P_p(x)
 	\label{decomp_1D}
 \end{equation}
 où les polynômes de Legendre sont définis pour tout $x\in\mathbb{R}$ par
@@ -221,12 +221,12 @@ Par la méthode des rectangles (à gauche), \ref{ortho_1D} devient
 \begin{align*}
 	\int_{-1}^1 P_n(x)P_m(x)dx&=\sum_{i=0}^{N-2}\int_{x_i}^{x_{i+1}}P_n(x)P_m(x)dx \\
 	&\approx \sum_{i=0}^{N-2} (x_{i+1}-x_i)P_n(x_i)P_m(x_i) \\
-	&=\frac{2}{N}\sum_{i=0}^{N-2} P_n(x_i)P_m(x_i) \approx\frac{2}{2n+1}\delta_{nm} 
+	&=\frac{2}{N-1}\sum_{i=0}^{N-2} P_n(x_i)P_m(x_i) \approx\frac{2}{2n+1}\delta_{nm} 
 \end{align*}
 
 On en déduit \color{red}PB 1\color{black}
 \begin{equation}
-	\frac{2}{N}\widetilde{P_N}^T\widetilde{P_N}=\widetilde{D_P}\label{diag_1D}
+	\frac{2}{N-1}\widetilde{P_N}^T\widetilde{P_N}=\widetilde{D_P}\label{diag_1D}
 \end{equation}
 avec
 $$\widetilde{D_P}=diag\left(\frac{2}{2p+1},p=0,\dots,P-1\right)\in\mathcal{M}_P(\mathbb{R})$$
@@ -235,8 +235,8 @@ On cherche à déterminer $\widetilde{\alpha_P}$. Pour cela, on va réécrire le
 \begin{align*}
 	\widetilde{P_N}\widetilde{\alpha_P}=\widetilde{F_N}& \\
 	\iff \quad \widetilde{P_N}^T\widetilde{P_N}\widetilde{\alpha_P}=\widetilde{P_N}^T\widetilde{F_N}& \\
-	\iff \quad \frac{N}{2}\widetilde{D_P}\widetilde{\alpha_P}=\widetilde{P_N}^T\widetilde{F_N}& \\
-	\iff \quad \boxed{\widetilde{\alpha_P}=\frac{2}{N}\widetilde{D_P}^{-1}\widetilde{P_N}^T\widetilde{F_N}}&
+	\iff \quad \frac{N-1}{2}\widetilde{D_P}\widetilde{\alpha_P}=\widetilde{P_N}^T\widetilde{F_N}& \\
+	\iff \quad \boxed{\widetilde{\alpha_P}=\frac{2}{N-1}\widetilde{D_P}^{-1}\widetilde{P_N}^T\widetilde{F_N}}&
 \end{align*}
 avec
 $$\widetilde{D_P}^{-1}=diag\left(\frac{2p+1}{2},p=0,\dots,P-1\right)\in\mathcal{M}_P(\mathbb{R})$$
@@ -250,7 +250,7 @@ On prendra
 $$u(x)=exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
 avec $\mu=0$ et $\sigma=1$.
 
-On prendra $P=10$ et $N=100$ et $x\in[-1,1]$.
+On prendra $P=5$ et $N=100$ et $x\in[-1,1]$.
 
 On commence par vérifier l'orthogonalité des polynômes de Legendre :
 
@@ -332,12 +332,12 @@ Par la méthode des rectangles (à gauche), \ref{ortho} devient
 \begin{align*}
 	\int_{-1}^1 P_n(x)P_m(x)dx&=\sum_{i=0}^{N-2}\int_{x_i}^{x_{i+1}}P_n(x)P_m(x)dx \\
 	&\approx \sum_{i=0}^{N-2} (x_{i+1}-x_i)P_n(x_i)P_m(x_i) \\
-	&=\frac{2}{N}\sum_{i=0}^{N-2} P_n(x_i)P_m(x_i) \approx\frac{2}{2n+1}\delta_{nm} 
+	&=\frac{2}{N-1}\sum_{i=0}^{N-2} P_n(x_i)P_m(x_i) \approx\frac{2}{2n+1}\delta_{nm} 
 \end{align*}
 
 On en déduit \color{red}PB 1\color{black}
 \begin{equation}
-	\frac{2}{N}\widetilde{P_N}^T\widetilde{P_N}=\widetilde{D_P} \quad \text{et} \quad \frac{2}{M}\widetilde{P_M}^T\widetilde{P_M}=\widetilde{D_Q}
+	\frac{2}{N-1}\widetilde{P_N}^T\widetilde{P_N}=\widetilde{D_P} \quad \text{et} \quad \frac{2}{M-1}\widetilde{P_M}^T\widetilde{P_M}=\widetilde{D_Q}
 	\label{diag}
 \end{equation}
 avec
@@ -347,8 +347,8 @@ On cherche à déterminer $\widetilde{\alpha_{P,Q}}$. Pour cela, on va réécrir
 \begin{align*}
 	\widetilde{P_N}\widetilde{\alpha_{P,Q}}\widetilde{P_M}^T=\widetilde{F_{N,M}}& \\
 	\iff \quad \widetilde{P_N}^T\widetilde{P_N}\widetilde{\alpha_{P,Q}}\widetilde{P_M}^T\widetilde{P_M}=\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}& \\
-	\iff \quad \frac{NM}{4}\widetilde{D_P}\widetilde{\alpha_{P,Q}}\widetilde{D_Q}=\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}& \\
-	\iff \quad \boxed{\widetilde{\alpha_{P,Q}}=\frac{4}{NM}\widetilde{D_P}^{-1}\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}\widetilde{D_Q}^{-1}}& \\
+	\iff \quad \frac{(N-1)(M-1)}{4}\widetilde{D_P}\widetilde{\alpha_{P,Q}}\widetilde{D_Q}=\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}& \\
+	\iff \quad \boxed{\widetilde{\alpha_{P,Q}}=\frac{4}{(N-1)(M-1)}\widetilde{D_P}^{-1}\widetilde{P_N}^T\widetilde{F_{N,M}}\widetilde{P_M}\widetilde{D_Q}^{-1}}& \\
 \end{align*}
 avec
 $$\widetilde{D_P}^{-1}=diag\left(\frac{2p+1}{2},p=0,\dots,P-1\right)\in\mathcal{M}_P(\mathbb{R}) \quad \text{et} \quad \widetilde{D_Q}^{-1}=diag\left(\frac{2q+1}{2},q=0,\dots,Q-1\right)\in\mathcal{M}_Q(\mathbb{R})$$
@@ -386,7 +386,7 @@ On commence par vérifier l'orthogonalité des polynômes de Legendre :
 \end{minipage}
 
 \begin{Rem}
-	A noter que contrairement au cas 1D, pour calculer le produit scalaire sur $L^2(]-1,1[)$, on utilise cette fois le produit matricielle $\frac{2}{N}P_NP_N^T$. Il faut améliorer ceci !
+	A noter que contrairement au cas 1D, pour calculer le produit scalaire sur $L^2(]-1,1[)$, on utilise cette fois le produit matricielle $\frac{2}{N-1}P_N^TP_N$. En fait on ne considérera pas réellement $P_N^T$ mais une matrice $P_N^{T,-}$ qui est égale à $P_N^T$ avec sa dernière colonne nulle.
 \end{Rem}
 
 Voici les résultats obtenus pour la reconstruction de l'image en utilisant la décomposition en une série de polynômes de Legendre :
@@ -412,9 +412,15 @@ En faisant varier $N$ et $P$, on remarque que l'approximation semble dépendre �
 	\includegraphics[width=0.4\linewidth]{legendre_2D_Np.png}
 \end{minipage}
 
-\begin{Rem}
-	Problème au niveau du produit scalaire !
-\end{Rem}
+
+En prenant cette fois-ci $x\in[0,1]$, voici les résultats obtenus pour la reconstruction de l'image en utilisant la décomposition en une série de polynômes de Legendre :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.7\linewidth]{legendre_2D_same_chgmt_vb.png}
+\end{minipage}
+
+Il semblerait donc qu'il y ait un problème ici.
 
 \subsection{Test sur le FNO}
 
@@ -479,7 +485,7 @@ Voici les étapes effectuées :
 	\item On va créer une classe prenant en paramètre nb\_vert. On récupère alors \textit{nb\_dofs}=2\textit{nb\_vert}-1.
 	\item On récupère les paramètres \textit{params} de l'ancien échantillon test ainsi que le nombre de données \textit{nb\_data}.
 	\item On crée nos nouveaux inputs \textit{X\_test} pour l'échantillon test de taille (\textit{nb\_data},\textit{nb\_dofs},\textit{nb\_dofs},\textit{nb\_channels}).
-	\item On génère nos \textit{nb\_data} solution sur-raffinées \textit{Y\_test} avec FEniCS.
+	\item On génère nos \textit{nb\_data} solutions sur-raffinées \textit{Y\_test} avec FEniCS.
 	\item On sépare notre échantillon test en batch pour éviter les Out Of Memory. Ainsi, pour chaque batch, on récupère la prédiction du FNO \textit{Y\_pred} et les erreurs associées \textit{errors\_FNO} (par rapport aux solutions sur-raffinées).
 	\item On calcule $\widetilde{P_N}$ et $\widetilde{P_M}$ puis $\widetilde{\alpha_{P,Q}}$.
 	\item On reconstruit alors les solutions en utilisant les polynômes de Legendre.
@@ -491,7 +497,7 @@ Voici les étapes effectuées :
 \end{enumerate}
 
 \begin{Rem}
-	On notera que les Y\_pred sont $w$ (et non $u$), il manque la multiplication par $\phi$.
+	On notera que les \textbf{Y\_pred sont $w$} (et non $u$), il manque la multiplication par $\phi$.
 \end{Rem}
 
 Voici les errors\_legendre obtenues sans le masque en fonction des époques :
@@ -501,29 +507,30 @@ Voici les errors\_legendre obtenues sans le masque en fonction des époques :
 	\includegraphics[width=0.9\linewidth]{FNO_errors_legendre_without_mask.png}
 \end{minipage}
 
+\newpage
+
 Et voici deux cas tests sans le masque (epoch=500, data=0,1)):
 
 \begin{minipage}{\linewidth}
 	\centering
-	\includegraphics[width=0.7\linewidth]{FNO_test_cases_without_mask.png}
+	\includegraphics[width=0.6\linewidth]{FNO_test_cases_without_mask.png}
 \end{minipage}
 
 Après avoir visualisé les cas test, il semblerait que les grosses erreurs se fassent aux bords, ce qui ne devrait pas posé problème étant donné que l'on va appliquer un masque.
-
-\newpage
 
 Voici les 2 mêmes cas tests avec le masque :
 
 \begin{minipage}{\linewidth}
 	\centering
-	\includegraphics[width=0.7\linewidth]{FNO_test_cases_with_mask.png}
+	\includegraphics[width=0.6\linewidth]{FNO_test_cases_with_mask.png}
 \end{minipage}
 
 En multipliant Y\_pred\_reconstruct par $\phi$, on peut alors obtenir les erreurs comparés à la solution sur-raffinée :
 
 \begin{minipage}{\linewidth}
 	\centering
-	\includegraphics[width=0.7\linewidth]{FNO_errors_reconstruct_with_mask.png}
+	\includegraphics[width=0.6\linewidth]{FNO_errors_reconstruct_with_mask.png}
 \end{minipage}
 
-\conclusion{Il semblerait que les polynômes de Legendre permettent bien d'obtenir une solution analytique à partir de la solution produite par le FNO. La semaine prochaine, il faudra tester la correction en $\mathbb{P}^10$. On pourra également tester de décomposer directement $\phi\times$Y\_pred en série de polynômes de Legendre}
+\conclusion{Il semblerait que les polynômes de Legendre permettent bien d'obtenir une solution analytique à partir de la solution produite par le FNO. La semaine prochaine, il faudra tester la correction en $\mathbb{P}^10$. On pourra également tester de décomposer directement $\phi\times$Y\_pred en série de polynômes de Legendre.
+Attention : Il y avait une petite erreur dans la méthode des rectangles. Cette erreur a été remarqué la semaine d'après, il faut changer $N$ en $N-1$. Tous les résultats ont donc du être modifiés !}
