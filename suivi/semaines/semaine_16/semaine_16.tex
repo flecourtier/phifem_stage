@@ -491,13 +491,13 @@ Voici les étapes effectuées :
 	\item On reconstruit alors les solutions en utilisant les polynômes de Legendre.
 	\item On calcule ensuite les deux erreurs suivantes :
 	\begin{itemize}
-		\item max(|Y\_pred-Y\_pred\_reconstruct|) -> errors\_legendre
-		\item $||Y\_test-\phi Y\_pred\_reconstruct||_{L^2}$  -> errors\_reconstruct
+		\item max(|Y\_pred-Y\_pred\_reconstruct|) -> errors\_reconstruct
+		\item $||Y\_test-\phi Y\_pred\_reconstruct||_{L^2}$  -> errors\_legendre
 	\end{itemize}
 \end{enumerate}
 
 \begin{Rem}
-	On notera que les \textbf{Y\_pred sont $w$} (et non $u$), il manque la multiplication par $\phi$.
+	On notera que les Y\_pred sont $w$ (et non $u$), il manque la multiplication par $\phi$.
 \end{Rem}
 
 Voici les errors\_legendre obtenues sans le masque en fonction des époques :
