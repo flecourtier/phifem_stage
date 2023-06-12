@@ -70,7 +70,7 @@
 
 	\textbf{Problème considéré :} \\
 	Dans notre cas, on souhaite appliquer une correction à la sortie d'un FNO.
-	On considère ici que l'on possède une solution analytique $u_{ex}$ et qu'après une utilisation du FNO, on obtient une solution du type
+	On va considérer ici que l'on possède une solution analytique $u_{ex}$ et qu'après une utilisation du FNO, on obtient une solution du type
 	$$\tilde{\phi}(x,y) = u_{ex}(x,y)-\epsilon P(x,y)$$
 	avec $P$ la perturbation (tel que $P=0$ sur $\Gamma$) et $\epsilon$ petit.
 	
@@ -90,9 +90,9 @@
 	$$\hat{u}=\hat{\phi}C$$
 
 	\textbf{But du document :} \\
-	Démonter la propriété suivante (présentée dans le document "Explication - Rehaussement avec FEM") :
+	Démonter la propriété suivante :
 	\begin{equation}
-		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u+m}{\hat{\phi}}\right|_{H^{k+1}(\Omega)}||\hat{\phi}||_{L^2(\Omega)}
+		\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}|\hat{\phi}|_{1,\infty}\left|C\right|_{k+1}
 		\label{ine_a_dem}
 	\end{equation}
 	
@@ -106,9 +106,9 @@
 	
 	\section{Partie 1 : norme $H^1$}
 	
-	Comme $V_h$ sous espace vectoriel de $V$, en posant $v=v_h$, on a l'orthogonalité de Galerkin :
+	Comme $V_h$ est un sous espace vectoriel de $V$, en posant $v=v_h$, on obtient :
 	$$a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h$$
-	Donc \color{red}{(ATTENTION : Abus de notation sur $v_h$ !)}\color{black}
+	On a alors l'orthogonalité de Galerkin : \color{red}{(ATTENTION : Abus de notation sur $v_h$ !)}\color{black}
 	$$a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h$$
 	On a alors
 	\begin{align*}
@@ -120,9 +120,18 @@
 	\end{align*}
 	Ainsi
 	$$||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1$$
+	Or 
+	$$|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1$$
+	et
+	\begin{align*}
+		|(C-I_hC)\hat{\phi}|_1&=||(C-I_hC)'\hat{\phi}'||_0 \\
+		&\le \max_\Omega\hat{\phi}'\times\sqrt{\int_\Omega \left((C-I_hC)'\right)^2} \\
+		&=||\hat{\phi}'||_\infty |C-I_hC|_1 \\
+		&\le|\hat{\phi}|_{1,\infty} ||C-I_hC||_1
+	\end{align*}
 	Finalement en utilisant l'inégalité d'interpolation, on obtient
 	\begin{equation}
-		\boxed{||\hat{u}-\hat{u_h}||_1\le\alpha h^k|\hat{u}|_{k+1}}
+		\boxed{||\hat{u}-\hat{u_h}||_1\le\alpha h^k |\hat{\phi}|_{1,\infty} |C|_{k+1}}
 		\label{norme_H1}
 	\end{equation} 
 
@@ -149,7 +158,7 @@
 	\end{equation}
 	et
 	\begin{equation}
-		||\hat{z}||_2\le \alpha||\hat{e_h}||_0^2 =\alpha||\hat{u}-\hat{u_h}||_0^2
+		||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
 		\label{prop_reg}
 	\end{equation}
 	Ainsi
@@ -159,22 +168,16 @@
 		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{par orthogonalité de Galerkin} \\
 		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{par continuité} \\
 		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{par \ref{z_H_2} et par inégalité d'interpolation} \\
-		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k|\hat{u}|_{k+1} &&\text{par \ref{norme_H1}} \\
-		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0|\hat{u}|_{k+1} &&\text{par \ref{prop_reg}}
+		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k|\hat{\phi}|_{1,\infty} |C|_{k+1} &&\text{par \ref{norme_H1}} \\
+		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0|\hat{\phi}|_{1,\infty} |C|_{k+1} &&\text{par \ref{prop_reg}}
 	\end{align*}
 	Finalement
 	\begin{equation}
-		\boxed{||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}|\hat{u}|_{k+1}}
+		\boxed{||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}|\hat{\phi}|_{1,\infty} |C|_{k+1}}
 	\end{equation}
 
-	\section{Partie 3 : Conclusion avec \ref{ine_a_dem}}
-	
-	On veut maintenant démontrer \ref{ine_a_dem} :
-	$$||C-C_h||_0\le \alpha h^{k+1}|C|_{k+1}||\hat{\phi}||_0$$
-	On a 
-	\begin{align*}
-		||C-C_h||_0&=\left|\left|\frac{\hat{u}-\hat{u_h}}{\hat{\phi}}\right|\right|_0
-	\end{align*}
-
-	\color{red}{Comment continuer ??}\color{black}
+	\begin{Rem}
+		On notera que
+		$$||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0$$
+	\end{Rem}
 \end{document}
