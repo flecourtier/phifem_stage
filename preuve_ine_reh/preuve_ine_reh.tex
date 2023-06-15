@@ -92,7 +92,7 @@
 	\textbf{But du document :} \\
 	Démonter la propriété suivante :
 	\begin{equation}
-		\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}|\hat{\phi}|_{1,\infty}\left|C\right|_{k+1}
+		\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
 		\label{ine_a_dem}
 	\end{equation}
 	
@@ -122,16 +122,20 @@
 	$$||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1$$
 	Or 
 	$$|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1$$
+	En posant $A=C-I_hC$, on a
+	$$|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0$$
+	Comme
+	$$||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1$$
 	et
-	\begin{align*}
-		|(C-I_hC)\hat{\phi}|_1&=||(C-I_hC)'\hat{\phi}'||_0 \\
-		&\le \max_\Omega\hat{\phi}'\times\sqrt{\int_\Omega \left((C-I_hC)'\right)^2} \\
-		&=||\hat{\phi}'||_\infty |C-I_hC|_1 \\
-		&\le|\hat{\phi}|_{1,\infty} ||C-I_hC||_1
-	\end{align*}
+	$$||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1$$
+	Ainsi
+	$$|A\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||A||_1$$
+	Donc
+	$$|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1$$
+
 	Finalement en utilisant l'inégalité d'interpolation, on obtient
 	\begin{equation}
-		\boxed{||\hat{u}-\hat{u_h}||_1\le\alpha h^k |\hat{\phi}|_{1,\infty} |C|_{k+1}}
+		\boxed{||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}}
 		\label{norme_H1}
 	\end{equation} 
 
@@ -168,12 +172,12 @@
 		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{par orthogonalité de Galerkin} \\
 		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{par continuité} \\
 		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{par \ref{z_H_2} et par inégalité d'interpolation} \\
-		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k|\hat{\phi}|_{1,\infty} |C|_{k+1} &&\text{par \ref{norme_H1}} \\
-		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0|\hat{\phi}|_{1,\infty} |C|_{k+1} &&\text{par \ref{prop_reg}}
+		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{par \ref{norme_H1}} \\
+		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{par \ref{prop_reg}}
 	\end{align*}
 	Finalement
 	\begin{equation}
-		\boxed{||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}|\hat{\phi}|_{1,\infty} |C|_{k+1}}
+		\boxed{||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}}
 	\end{equation}
 
 	\begin{Rem}
