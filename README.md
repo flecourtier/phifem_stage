@@ -5,3 +5,5 @@ On trouve [ICI](https://github.com/flecourtier/phifem_stage/blob/main/suivi/abst
 (Attention ce fichier ne se génère pas automatique il faut lancer manuellement le script "abstract.py")
 
 On trouve [ICI](https://github.com/flecourtier/phifem_stage/blob/main/suivi/suivi.pdf) un suivi des travaux efféctués chaque semaine.
+
+On trouve [ICI](https://github.com/flecourtier/phifem_stage/blob/main/rapport/rapport.pdf) le rapport de stage.
