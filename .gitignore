@@ -22,3 +22,7 @@ comp_meth_corr/comp_meth_corr*
 preuve_ine_reh/preuve_ine_reh*
 !preuve_ine_reh/preuve_ine_reh.tex
 !preuve_ine_reh/preuve_ine_reh.pdf
+
+rapport/rapport*
+!rapport/rapport.tex
+!rapport/rapport.pdf
