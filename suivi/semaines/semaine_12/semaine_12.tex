@@ -43,7 +43,7 @@ avec $\tilde{\phi}=u_p$ et $\tilde{u}=\tilde{\phi}C$.
 
 Ce document a pour but d'expliquer l'intérêt de rehausser la solution (avec FEM) afin de réduire le plus possible l'erreur $||u-u_{c}||_{L^2}$ où $u_{c}$ est la solution obtenu après la correction.
 
-\section*{Principe général de FEM}
+\subsubsection*{Principe général de FEM}
 
 La démarche générale de la méthode des éléments finis consiste à écrire la formulation variationnelle de cette EDP et ainsi à se ramener à un problème du type
 
@@ -87,7 +87,7 @@ Le théorème de convergence de FEM nous donne l'inégalité suivante :
 	||u-u_h||_{L^2(\Omega)}\le ch^{k+1}|u|_{H^{k+1}(\Omega)} \label{ine1}
 \end{equation}
 
-\section*{Application à la correction}
+\subsubsection*{Application à la correction}
 
 On considère à présent uniquement le problème (\ref{pb2}). On peut alors effectuer le même type de raisonnement dans le cas de la correction. Ainsi par (\ref{decomp1}), la décomposition de $u_h$ sur la base $(\varphi_1,\dots,\varphi_{N_h})$ de $V_h$ s'écrit pour ce problème
 
@@ -123,7 +123,7 @@ $$\left(\frac{u}{\tilde{\phi}}\right)''=\left(\frac{\tilde{\phi}+\epsilon P}{\ti
 avec
 $$\left(\frac{P}{\tilde{\phi}}\right)''=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{\tilde{\phi}^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{\tilde{\phi}^3}$$
 
-\section*{Rehaussement}
+\subsubsection*{Rehaussement}
 
 L'idée du rehaussement est la suivante : on considère cette fois
 $$\hat{\phi}=\tilde{\phi}+m$$
@@ -186,7 +186,7 @@ Et ainsi, quand $m$ est grand, l'erreur ne dépend plus de la solution mais dép
 
 Quand $m$ est petit, l'erreur est dominée par les dérivées et dérivées secondes de la solution perturbée $\tilde{\phi}$.
 
-\section*{Résultats numériques}
+\subsubsection*{Résultats numériques}
 
 On prend ici la solution analytique suivante
 $$u_{ex}(x,y) = S\times\sin(2\pi fx + p)\times\sin(2\pi fy + p)$$ 
@@ -218,6 +218,6 @@ Voici les résultats obtenus (avec à gauche les erreurs et à droite les facteu
 	\includegraphics[width=0.6\linewidth]{courbes.png}
 \end{minipage}
 
-\section*{Application à $\phi$-FEM}
+\subsubsection*{Application à $\phi$-FEM}
 
 On souhaitera par la suite obtenir le même type de résultats avec $\phi$-FEM. L'idée décrite ici sera la même mais pour l'instant les résultats obtenus ne sont pas ceux attendus.
