@@ -197,5 +197,30 @@ On calcule également les erreurs en normes $L^2$, $H^1$ et $H^2$ (en directe et
 	Il semblerait que le réseau ait vraiment du mal à approcher correctement les dérivées secondes.
 \end{Rem}
 
+\subsubsection{IPP pour la correction par additivité}
 
-\conclusion{...}
+Comme les dérivées semblent ne pas être bien approchés par le réseau, on va modifier la formulation variationnelle de la manière suivante.
+
+On a posé $\tilde{f}=f+\Delta\tilde{\phi}$ ainsi dans le terme à droite, on a 
+
+\begin{align*}
+	\int_{\Omega_h} \tilde{f}\phi v &= \int_{\Omega_h} f\phi v + \int_{\Omega_h} \Delta\tilde{\phi}\phi v \\
+	&=\int_{\Omega_h} f\phi v-\int_{\Omega_h}\nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v
+\end{align*}
+
+Sur une solution analytique perturbée, il semblerait que ce ne soit pas nécessaire :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.5\linewidth]{corr_add_IPP_sol_analytique.png}
+\end{minipage}
+
+Par contre sur le réseau, il semblerait que ça soit bien bénéfique 
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.7\linewidth]{corr_add_IPP.png}
+\end{minipage}
+
+
+\conclusion{La semaine prochaine, on relancera des entraînement avec la loss qui prend en compte les dérivées premières. On vérifiera de nouveau le comportement des dérivées.}
