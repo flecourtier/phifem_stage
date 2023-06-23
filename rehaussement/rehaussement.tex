@@ -150,10 +150,11 @@
 	Et ainsi l'inégalité (\ref{ine1}) se réécrit pour le problème (\ref{pb2}):
 	
 	\begin{equation}
-		\left|\left|\frac{u}{\tilde{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u}{\tilde{\phi}}\right|_{H^{k+1}(\Omega)}||\tilde{\phi}||_{L^2(\Omega)} \label{ine2}
+		\left|\left|u-u_h\right|\right|_0\le ch^{k+1}||\tilde{\phi}||_\infty\left|C\right|_{k+1}
+		\label{ine2}
 	\end{equation}
 
-	avec $C=\frac{u}{\tilde{\phi}}$ la solution exacte au problème et $C_h$ la solution obtenue par FEM.
+	avec $C=\frac{u}{\tilde{\phi}}$ la solution exacte du problème.
 	
 	\begin{Rem}
 		On notera que si $\epsilon=0$ (c'est-à-dire qu'il n'y a pas de perturbation), alors $C=1$.
@@ -162,7 +163,7 @@
 	On considère une solution $\mathbb{P}^1$ ($k=1$), ainsi
 	
 	\begin{equation}
-		\left|\frac{u}{\tilde{\phi}}\right|_{H^2(\Omega)}=\left|\left|\left(\frac{u}{\tilde{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}}\right)''\right|\right|_{L^2(\Omega)} \label{der1}
+		|C|_{H^2(\Omega)}=\left|\frac{u}{\tilde{\phi}}\right|_{H^2(\Omega)}=\left|\left|\left(\frac{u}{\tilde{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}}\right)''\right|\right|_{L^2(\Omega)} \label{der1}
 	\end{equation}
 	
 	car
@@ -193,13 +194,16 @@
 	En effet, l'inégalité (\ref{ine2}) se réécrit pour le problème (\ref{pb3}):
 	
 	\begin{equation}
-		\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\left|\frac{u+m}{\hat{\phi}}\right|_{H^{k+1}(\Omega)}||\hat{\phi}||_{L^2(\Omega)} \label{ine3}
+		\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
+		\label{ine3}
 	\end{equation}
+	
+	avec $C=\frac{u+m}{\hat{\phi}}$ la solution exacte du problème.
 	
 	De la même manière que (\ref{der1}), on a :
 	
 	\begin{equation}
-		\left|\frac{u+m}{\hat{\phi}}\right|_{H^2(\Omega)}=\left|\left|\left(\frac{u+m}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)} \label{der2}
+		|C|_{H^2(\Omega)}=\left|\frac{u+m}{\hat{\phi}}\right|_{H^2(\Omega)}=\left|\left|\left(\frac{u+m}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{L^2(\Omega)}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)} \label{der2}
 	\end{equation}
 	
 	avec
@@ -212,7 +216,7 @@
 	$$\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{L^2(\Omega)}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}$$
 
 	Alors, pour $m$ suffisamment grand :
-	$$||\hat{\phi}||_{L^2(\Omega)}\sim m$$
+	$$||\hat{\phi}||_\infty\sim m$$
 	et
 	$$\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}\sim\left|\left|P''\right|\right|_{L^2(\Omega)}$$
 	car

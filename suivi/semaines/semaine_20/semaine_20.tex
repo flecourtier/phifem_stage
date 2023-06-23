@@ -6,6 +6,8 @@
 	
 	On souhaitera dans un second temps appliqué une correction à la sortie du réseau en $\mathbb{P}^{10}$. 
 	
+	Après avoir discuté avec Emmanuel vendredi matin, il semblerait que le problème au niveau de la correction puisse venir des dérivées premières et secondes de la prédiction du modèles. C'est pourquoi il a conseillé de les afficher pour voir si le problème vient de là.
+	
 	On a aussi commencé à préparer le rapport de stage : page de garde + début de plan + lecture sur le FNO. Il faudra par la suite commencer la rédaction. A noter que j'ai demandé à Ouiza et je n'aurais pas la possibilité de venir en août, je n'ai donc pas réellement d'autres choix que de commencer dès maintenant.
 \end{abstract}
 
@@ -156,10 +158,44 @@ Il semblerait que les 12 modèles soient plus ou moins capable d'apprendre corre
 	\includegraphics[width=0.7\linewidth]{corr_mod2.png}
 \end{minipage}
 
+De la même manière en corrigeant par addition :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.7\linewidth]{corr_mod2_add.png}
+\end{minipage}
+
 Il semblerait alors que le solveur ne nous donne pas du tout la bonne solution. On dirait que le problème est toujours due au bord mais là c'est bizarre.
 
 \begin{Rem}
-	On obtient le même genre de solution en utilisant la correction par additivité.
+	En gardant le même code et en prenant une solution perturbée, on obtient les erreurs attendues. Il semblerait donc que le problème ne vienne pas de là.
 \end{Rem}
+
+\subsubsection{Dérivées premières et secondes}
+
+Emmanuel pense que le réseau peut avoir du mal à apprendre les dérivées premières et seconde de la solution et que c'est pour ça que la correction ne fonctionne pas. C'est pourquoi, on va afficher ces informations. Pour cela, on utilmisera la classe implémentée par Vincent Vigon pour le FNO qui permet de calculer les dérivées souhaitées par différences finies.
+
+\begin{minipage}{0.48\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{derivees_premieres.png}
+\end{minipage}
+\begin{minipage}{0.48\linewidth}
+	\centering
+	\includegraphics[width=0.9\linewidth]{derivees_secondes.png}
+\end{minipage}
+
+\newpage
+
+On calcule également les erreurs en normes $L^2$, $H^1$ et $H^2$ (en directe et pas relative). On considérera ces erreurs sur le carré et sur le cercle. Voici les résultats obtenus :
+
+\begin{minipage}{\linewidth}
+	\centering
+	\includegraphics[width=0.5\linewidth]{erreurs.png}
+\end{minipage}
+
+\begin{Rem}
+	Il semblerait que le réseau ait vraiment du mal à approcher correctement les dérivées secondes.
+\end{Rem}
+
 
 \conclusion{...}
