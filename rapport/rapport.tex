@@ -73,9 +73,9 @@
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 %bibliography (with section)
-\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
-\addbibresource{biblio_ref.bib}
-\addbibresource{biblio_doc.bib}
+%\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
+%\addbibresource{biblio_ref.bib}
+%\addbibresource{biblio_doc.bib}
 
 
 % Titlepage
@@ -91,6 +91,13 @@
 %\usepackage[noline, linesnumbered]{algorithm2e}% http://ctan.org/pkg/algorithm2e
 \SetNlSty{bfseries}{\color{black}}{}
 
+% pour rajouter des commentaires en rouge !
+\newcommand{\tmcolor}[2]{{\color{#1}{#2}}}
+\newcommand{\modif}[1]{\tmcolor{red}{#1}}
+\newcommand{\trad}[1]{\tmcolor{blue}{#1}}
+
+\usepackage{amsthm}
+\newtheorem*{Rem}{Remarque}
 
 \begin{document}
 	\nocite{*}
@@ -110,18 +117,37 @@
 			\item Contexte : Mimesis est spécialisé dans la simulation en temps réel de blabla. C'est pourquoi ils ont développé une méthode appelée PhiFEM (explication des intérêts de PhiFEM).
 			\item Objectifs : On cherche ici à améliorer la précision de la solution ainsi que les temps pour l'obtenir en passant par le biais d'un FNO que l'on va entraîner avec des solutions PhiFEM qui sont bien adapté à ce type de réseau de neurones, due aux grilles cartésienne.
 		\end{enumerate}
-		\item On veut expliquer les trucs suivants : \\
-		PhiFEM / FEM / FNO / 2 Différentes méthodes de Correction (2 cas tests solution analytique, sol FNO) / Legendre / Modèle Dense ?  \\
-		On veut mettre un schéma qui explique Entrainemùent du FNO -> Sortie -> Correction (-> Legendre ?)
+		\item Finite Element Methods (FEM)
+		\begin{enumerate}
+			\item Standard FEM
+			\item PhiFEM
+		\end{enumerate}
+		\item Fourier Neural Operator (FNO)
+		\item Correction : \\
+		Présentation des différentes méthodes de Correction (2 cas tests : solution analytique, sol FNO) / Legendre / Modèle Dense ?  \\
+		On veut mettre un schéma qui explique Entrainement du FNO -> Sortie -> Correction (-> Legendre ?)
+		\item Résultats ?
 		\item Conclu
 		\item Bibliography
 		\item Appendix (Organisation of the repository, Documentation, Github actions ...)
 	\end{enumerate}
 
 	\newpage
+	\section{Introduction}
 	
+	\newpage
+	\section{Finite Element Methods (FEMs)}
 	
+	\newpage	
+	\input{sections/fourier}
 	
-	% \input{...}
+	\newpage
+	\section{Correction}
+	
+	\newpage
+	\section{Numerical Results ?}
+	
+	\newpage
+	\section{Conclusion}
 	
 \end{document}
