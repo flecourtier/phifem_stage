@@ -1,22 +1,18 @@
 \section{Fourier Neural Operator (FNO)} \label{FNO}
 \graphicspath{{images/fourier}}
 
-
 We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following articles \modif{ADD REF !}.
-
-%\trad{En traitement d'image, on appelle image des tenseurs de taille $ni\times nj\times nk$ où $ni\times nj$ correspond à la résolution de l'image et $nk$ correspond à son nombre de channels. Par exemple, une image RGB (Red Green Blue) possède $nk=3$ channels. 
-%On choisit ici de présenter le FNO comme un opérateur agissant sur des images discrètes. Les articles de référence le présente sous son aspect continu qui est un point de vue intéressant. En effet, c'est grâce à cette propriété que l'on peut l'entraîner/évaluer avec des images de différentes résolutions.}
 
 In image treatment, we call image tensors of size $ni\times nj\times nk$, where $ni\times nj$ corresponds to the image resolution and $nk$ corresponds to its number of channels. For example, an RGB (Red Green Blue) image has $nk=3$ channels. 
 We choose here to present the FNO as an operator acting on discrete images. Reference articles present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.
 
 The FNO methodology creates a relationship between two spaces from a finite collection of observed input-output pairs. \modif{Est-ce que je gardes cette phrase ?}
 
-\modif{Section ?}
+\modif{A rajouter : - implémentation effectuée/fournie par Vincent Vigon
+
+- on ne trouvera pas ici de test de variation des paramètres (modes, width...)}
 
 \subsection{Architecture of the FNO}
-
-%\trad{La figure suivante \ref{FNO} décrit précisément l'architecture du FNO :}
 
 The following figure (Figure \ref{FNO_schema}) describes the FNO architecture in detail:
 
@@ -26,27 +22,17 @@ The following figure (Figure \ref{FNO_schema}) describes the FNO architecture in
 	\label{FNO_schema}
 \end{figure}
 
-%\trad{La structure du FNO est alors la suivante :}
-
-The structure of the FNO is as follows:
+The architecture of the FNO is as follows:
 
 \begin{equation*}
 	G_\theta = P \circ \mathcal{H}_\theta^1 \circ \dots \circ \mathcal{H}_\theta^L \circ Q
 \end{equation*}
 
-\subsubsection{General structure of the FNO} \label{FNO.general}
+\newpage
 
-%\trad{On va maintenant décrire un peu plus en détail la composition de ce schéma.
-%\begin{enumerate}[label=\textbullet]
-%	\item On part d'input X de shape (batch\_size, height, width, nb\_channels) avec batch\_size le nombre d'images que l'on traites en même temps, height et width les dimensions des images et nb\_channels le nombre de channels. On simplifiera par (bs,ni,nj,nk).
-%	\item On effectue une transformation $P$ dans le but de passer à un espace avec plus de channels. Cette étape permet au réseau de construire une représentation suffisement riche des données.  On pourra par exemple effectuer une couche  Dense (aussi appelée fully-connected). 	
-%	\item On applique ensuite $L$ couches de Fourier, notées $\mathcal{H}_\theta^l,\; l=1,\dots,L$, dont on détaillera les spécifications dans la section \modif{AJOUTER SECTION}.
-%	\item On se ramène alors à la dimension cible en effectuant une transformation $Q$. Dans notre cas le nombre de channels en sortie est de 1.
-%	\item On récupère alors la sortie du modèle $Y$ de shape (bs,ni,nj,1). 
-%\end{enumerate}
-%} 
+\subsection{General structure of the FNO} \label{FNO.general}
 
-We'll now describe the composition of this scheme in a little more detail :
+We'll now describe the composition of the Figure \ref{FNO_schema} in a little more detail :
 \begin{enumerate}[label=\textbullet]
 	\item We start with input X of shape (batch\_size, height, width, nb\_channels) with batch\_size the number of images to be processed at the same time, height and width the dimensions of the images and nb\_channels the number of channels. Simplify by (bs,ni,nj,nk).
 	\item We perform a $P$ transformation in order to move to a space with more channels. This step enables the network to build a sufficiently rich representation of the data.  For example, a Dense layer (also known as fully-connected) can be used. 	
@@ -55,11 +41,7 @@ We'll now describe the composition of this scheme in a little more detail :
 	\item We then obtain the output of the $Y$ model of shape (bs,ni,nj,1). 
 \end{enumerate}
 
-\modif{rajouter la valeur des paramètres dans un tableau : width,modes... }
-
-\subsubsection{Fourier Layer structure} \label{FNO.fourierlayer}
-
-%\trad{Chaque couche de Fourier est composé de deux sous-couches :}
+\subsection{Fourier Layer structure} \label{FNO.fourierlayer}
 
 Each Fourier layer is divided into two sublayers:
 
@@ -67,25 +49,21 @@ Each Fourier layer is divided into two sublayers:
 	\tilde{Y}=\mathcal{H}_\theta^l(\tilde{X})=\sigma\left(\mathcal{C}_\theta^l(\tilde{X})+\mathcal{B}_\theta^l(\tilde{X})\right)
 \end{equation*}
 
-%\trad{où 
-%\begin{enumerate}[label=\textbullet]
-%	\item $\tilde{X}$ correspond à l'entrée de la couche courante et $\tilde{Y}$ à la sortie.
-%	\item $\sigma$ est une fonction d'activation. Pour $l=1,\dots,L-1$, on prendra la fonction d'activation ReLU (Rectified linear unit) et pour $l=L$ on prendra la fonction d'activation GELU (Gaussian Error Linear Units).
-%	\item $\mathcal{C}_\theta^l$ est une couche de convolution où la convolution est faite par FFT
-%	\item $\mathcal{B}_\theta^l$ is the "bias-layer".
-%\end{enumerate}}
-
 where
 \begin{enumerate}[label=\textbullet]
 	\item $\tilde{X}$ corresponds to the input of the current layer and $\tilde{Y}$ to the output.
-	\item $\sigma$ is an activation function. For $l=1,\dots,L-1$, we'll take the activation function ReLU (Rectified Linear Unit) and for $l=L$ we'll take the activation function GELU (Gaussian Error Linear Units).\modif{rajouter schéma + argument fcts d'activation}.
-	\item $\mathcal{C}_\theta^l$ is a convolution layer where convolution is performed by FFT (Fast Fourier Transform).
-	\item $\mathcal{B}_\theta^l$ is the "bias-layer".
+	\item $\sigma$ is an activation function. For $l=1,\dots,L-1$, we'll take the activation function ReLU (Rectified Linear Unit) and for $l=L$ we'll take the activation function GELU (Gaussian Error Linear Units).
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\linewidth]{"activation_functions.png"}
+		\captionof{figure}{Activation functions used}
+	\end{figure}
+	
+	\item $\mathcal{C}_\theta^l$ is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see Section \ref{FNO.conv_sublayer}.
+	\item $\mathcal{B}_\theta^l$ is the "bias-layer". For more details, see Section \ref{FNO.bias_sublayer}.
 \end{enumerate}
 
-\paragraph{Convolution sublayer :}
-
-%\trad{Chaque couche de convolution $\mathcal{C}_\theta^l$ contient un kernel $\hat{W}$ entraînable et effectue la transformation}
+\subsubsection{Convolution sublayer} \label{FNO.conv_sublayer}
 
 Each $\mathcal{C}_\theta^l$ convolution layer contains a trainable kernel $\hat{W}$ and performs the transformation
 
@@ -93,19 +71,17 @@ Each $\mathcal{C}_\theta^l$ convolution layer contains a trainable kernel $\hat{
 	\mathcal{C}_\theta^l(X)=\mathcal{F}^{-1}(\mathcal{F}(X)\cdot\hat{W})
 \end{equation*}
 
-%\trad{où $\mathcal{F}$ correspond à la transformée de Fourier discrète (DFT) en 2D sur une grille de résolution $ni\times nj$}
-
 where $\mathcal{F}$ corresponds to the 2D Discrete Fourier Transform (DFT) on a $ni\times nj$ resolution grid and
 \begin{equation*}
 	(Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'}
 \end{equation*}
 In other words, this transormation is applied channel by channel.
 
-\newpage
+\begin{Rem}
+	An image is fundamentally a signal. Just as 1D signals show changes in amplitude (sound) over time, 2D signals show variations in intensity (light) over space. The Fourier transform allows us to move from the spatial or temporal domain into the frequency domain. In a sound signal (1D signal), low frequencies represent low-pitched sounds and high frequencies represent high-pitched sounds. In the case of an image (2D signal), low frequencies represent large homogeneous surfaces and blurred parts, while high frequencies represent contours, more generally abrupt changes in intensity and, finally, noise.
+\end{Rem}
 
 The 2D DFT is defined by :
-
-%\mathcal{F}(X)_{xyk}=\frac{1}{ni}\frac{1}{nj}\sum_{x'=0}^{ni-1}\sum_{y'=0}^{nj-1}X_{x'y'k}e^{2i\pi\frac{xx'}{ni}\frac{yy'}{nj}}
 
 \begin{equation*}
 \mathcal{F}(X)_{ijk}=\frac{1}{ni}\frac{1}{nj}\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}X_{i'j'k}e^{-2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)}
@@ -150,9 +126,7 @@ And finally $\mathcal{F}$ is the reciprocal function of $\mathcal{F}^{-1}$.
 
 For more details about the Convolution sublayer, see Section \ref{FNO.details_conv}.
 
-\paragraph{Bias subLayer :}
-
-%\trad{La bias layer est une convolution 2D avec un kernel-size de 1. C'est-à-dire que cela ne fait qu'une multiplication matricielle sur les chanels, mais pixel par pixel. Autrement dit, elle mélange les channels par un kernel mais ne permet pas d'interaction entres les pixels.}
+\subsubsection{Bias subLayer} \label{FNO.bias_sublayer}
 
 The bias layer is a 2D convolution with a kernel size of 1. This means that it only performs matrix multiplication on the channels, but pixel by pixel. In other words, it mixes channels via a kernel, but does not allow interaction between pixels.
 
@@ -162,15 +136,11 @@ Precisly,
 	\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k
 \end{equation*}
 
-\subsubsection{Some details on the convolution sublayer} \label{FNO.details_conv}
+\subsection{Some details on the convolution sublayer} \label{FNO.details_conv}
 
 In this section, we will specify some details for the convolution layer.
 
-\paragraph{FFT :}
-
-To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT is a fast algorithm to compute the DFT. It is recursive : The transformation of a signal of size $N$ is make from the decomposition of two sub-signals of size $N/2$. The complexity of the FFT is $N\log(N)$ whereas the natural algorithm, which is a matrix multiplication, has a complexity of $N^2$.
-
-\paragraph{Border issues :}
+\subsubsection{Border issues}
 
 Let $W=\mathcal{F}^{-1}(\hat{W})$, we have :
 \begin{equation*}
@@ -181,28 +151,50 @@ with
 	(\tilde{X}\star W)_{ij}=\sum_{i'j'}\tilde{X}_{i-i'[ni],j-j'[nj]}W_{i'j'}
 \end{equation*}
 
-In other words, multiplying in Fourier space is equivalent to performing a $\star$ circular convolution in real space. But these modulo operations are only natural for periodic images, which is not our case. \modif{Expliquer padding !}
+In other words, multiplying in Fourier space is equivalent to performing a $\star$ circular convolution in real space. But these modulo operations are only natural for periodic images, which is not our case. \modif{A compléter (expliquer padding par ex)}
 
-\paragraph{Real DFT :}
+\subsubsection{FFT}
+
+To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT is a fast algorithm to compute the DFT. It is recursive : The transformation of a signal of size $N$ is make from the decomposition of two sub-signals of size $N/2$. The complexity of the FFT is $N\log(N)$ whereas the natural algorithm, which is a matrix multiplication, has a complexity of $N^2$.
+
+\subsubsection{Real DFT}
 
 In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm).In fact, for $\mathcal{F}^{-1}(A)$ to be real if $A$ is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
 \begin{equation*}
-	A_{i,nj-j} = \bar{A}_{i,j}
+	A_{i,nj-(j+1)} = \bar{A}_{i,j}
 \end{equation*}
+
 In our case, we want $\mathcal{C}_\theta^l(X)$ to be a real image, so $\mathcal{F}(X)\cdot\hat{W}$ must verify Hermitian-symmetry.
 
-%\trad{Pour celà, il nous suffit de récupérer seulement la moitié des coefficients de Fourier Discret (DFC) $\mathcal{F}(X)_{ijk}$ et l'autre moitié sera déduit par la symétrie hermitienne. Plus précisément, en utilisant l'implémentation spécifique RFFT, les DFC sont stockés dans une matrice de taille $(ni,nj//2+1)$. On peut alors effectuer la multiplication par le kernel $\hat{W}$ puis  lorsque l'on effectue le RFFT inverse, les DFC seront automatiquement symétrisé. Ainsi la symétrie hermitienne de $\mathcal{F}\cdot\hat{W}$ est vérifiée et $\mathcal{C}_\theta^l(X)$ est bien une image réelle.}
+To do this, we only need to collect half of the Discrete Fourier Coefficients (DFC) and the other half will be deduced by Hermitian symmetry. More precisely, using the specific RFFT implementation, the DFCs are stored in a matrix of size $(ni,nj//2+1)$. Multiplication can then be performed by the $\hat{W}$ kernel, and when the inverse RFFT is performed, the DFCs will be automatically symmetrized. So the Hermitian symmetry of $\mathcal{F}(X)\cdot\hat{W}$ is verified and $\mathcal{C}_\theta^l(X)$ is indeed a real image.
 
-To do this, we only need to collect half of the Discrete Fourier Coefficients (DFC) and the other half will be deduced by Hermitian symmetry. More precisely, using the specific RFFT implementation, the DFCs are stored in a matrix of size $(ni,nj//2+1)$. Multiplication can then be performed by the $\hat{W}$ kernel, and when the inverse RFFT is performed, the DFCs will be automatically symmetrized. So the Hermitian symmetry of $\mathcal{F}(X)\cdot\hat{W}$ is verified and $\mathcal{C}_\theta^l(X)$ is indeed a real image. \modif{ajouter schéma exemple ?}
+To simplify, let's assume nk=1. Here is a diagram describing this idea:
 
-\paragraph{Low pass filter :}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{"symetry_schema.png"}
+	\captionof{figure}{RFFT with Hermitian-symmetry scheme}
+\end{figure}
 
-%\trad{Quand on effectue une DFT sur une image, les DFC associés aux hautes fréquences sont en pratique très faibles. C'est pourquoi, on peut facilement filtrer une image en ignorant ces hautes fréquences, c'est-à-dire en tronquant les hauts modes de Fourier. En fait, l'élimination des modes de Fourier supérieurs permet une sorte de régularisation qui aide à la généralisation. Ainsi, en pratique, il est suffisant de ne garder que les DFC correspondant aux basses fréquences. Typiquement, pour des images de résolution $32\times 32$ à $128\times 128$, on peut conserver seulement les $20\times 20$ DFC associés aux basses fréquence. }
+\subsubsection{Low pass filter}
 
 When we perform a DFT on an image, the DFCs related to high frequencies are in practice very low. This is why we can easily filter an image by ignoring these high frequencies, i.e. by truncating the high Fourier modes. In fact, eliminating the higher Fourier modes enables a kind of regularization that helps the generalization. So, in practice, it's sufficient to keep only the DFCs corresponding to low frequencies. Typically, for images of resolution $32\times 32$ to $128\times 128$, we can keep only the $20\times 20$ DFCs associated to low frequencies.
 
-\modif{ajouter schéma ?}
+Here is a representation of this idea in 1D :
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{"fourier_low_pass_filter.png"}
+	\captionof{figure}{Low pass filter}
+\end{figure}
+
+\subsubsection{Global aspect of the FNO}
+
+Classical Convolutional Neural Networks (CNN) use very small kernels (typically $3\times 3$). This operation only has a local effect, and it's the sequence of many convolutions that produces more global effects. 
+
+In addition, CNNs often use max or mean-pooling layers, which process the image on several scales. Max-pooling (respectively mean-pooling) consists in slicing the image into small pieces of size $n\times n$, then choosing the pixel with the highest value (respectively the average of the pixels) in each of the small pieces. In most cases, $n=2$ is used, which divides the number of pixels by 4.
+
+The FNO, on the other hand, uses a $\hat{W}$ frequency kernel and $W=\mathcal{F}^{-1}(\hat{W})$ has full support. For this reason, the effect is immediately non-local. As a result, we can use less layers and we don't need to use a pooling layer.
 \subsection{Application}
 
 \trad{Dans notre cas, on souhaite apprendre au FNO à prédire des solutions d'EDP. Plus précisément, on souhaite que le réseau soit capable de prédire la solution à partir d'un terme source $f$. 
