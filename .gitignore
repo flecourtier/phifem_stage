@@ -26,3 +26,7 @@ preuve_ine_reh/preuve_ine_reh*
 rapport/rapport*
 !rapport/rapport.tex
 !rapport/rapport.pdf
+
+antora/cache
+antora/public
+antora/node_modules
