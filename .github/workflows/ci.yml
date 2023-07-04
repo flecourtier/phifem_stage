@@ -33,6 +33,7 @@ jobs:
     - name: Run convert
       run: |
         python3 -m pip install --upgrade pip
+        pip install -r requirements.txt
         python3 antora/convert_latex_to_antora.py
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.4.1
