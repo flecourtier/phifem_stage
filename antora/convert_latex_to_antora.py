@@ -1,8 +1,6 @@
 import numpy as np
 import os
-import sys
 import shutil
-import re
 
 """
 But : Convertir un fichier latex en une documentation antora complète
