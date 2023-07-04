@@ -1,0 +1,4 @@
+= Introduction
+:stem: latexmath
+:xrefstyle: short
+

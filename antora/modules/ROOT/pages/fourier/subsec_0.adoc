@@ -1,1 +1,27 @@
 = Architecture of the FNO
+:stem: latexmath
+:xrefstyle: short
+
+The following figure (<<FNO_schema>>) describes the FNO architecture in detail:
+
+[[FNO_schema]]
+.Architecture of the FNO
+image::fourier/fno_schema.png[width=600.0,height=480.0]
+
+The architecture of the FNO is as follows:
+
+[stem]
+++++
+G_\theta = P \circ \mathcal{H}_\theta^1 \circ \dots \circ \mathcal{H}_\theta^L \circ Q
+++++
+
+
+We'll now describe the composition of the <<FNO_schema>> in a little more detail :
+
+*  We start with input X of shape (batch\_size, height, width, nb\_channels) with batch\_size the number of images to be processed at the same time, height and width the dimensions of the images and nb\_channels the number of channels. Simplify by (bs,ni,nj,nk).
+*  We perform a stem:[P] transformation in order to move to a space with more channels. This step enables the network to build a sufficiently rich representation of the data.  For example, a Dense layer (also known as fully-connected) can be used. 	
+*  We then apply stem:[L] Fourier layers, noted stem:[\mathcal{H}_\theta^l,\; l=1,\dots,L], whose specifications will be detailed in xref:fourier/subsec_1.adoc[Section FNO.fourierlayer].
+*  We then return to the target dimension by performing a stem:[Q] transformation. In our case, the number of output channels is 1.
+*  We then obtain the output of the stem:[Y] model of shape (bs,ni,nj,1). 
+
+

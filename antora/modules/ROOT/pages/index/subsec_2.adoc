@@ -1,0 +1,6 @@
+= Scientific Context
+:stem: latexmath
+:xrefstyle: short
+
+%The Φ-FEM method has an advantage that is very interesting in the context of organ geometries. Indeed, this type of geometry can deform in time and meshing a fictitious domain around this geometry avoids having to remesh the geometry in time. Thus only the levelset function will be modified and the mesh can be fixed. Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.
+

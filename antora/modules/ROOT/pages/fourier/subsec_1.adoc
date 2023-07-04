@@ -1,1 +1,112 @@
-= General structure of the FNO
+= Fourier Layer structure
+:stem: latexmath
+:xrefstyle: short
+
+Each Fourier layer is divided into two sublayers:
+
+[stem]
+++++
+\tilde{Y}=\mathcal{H}_\theta^l(\tilde{X})=\sigma\left(\mathcal{C}_\theta^l(\tilde{X})+\mathcal{B}_\theta^l(\tilde{X})\right)
+++++
+
+where
+
+*  stem:[\tilde{X}] corresponds to the input of the current layer and stem:[\tilde{Y}] to the output.
+*  stem:[\sigma] is an activation function. For stem:[l=1,\dots,L-1], we'll take the activation function ReLU (Rectified Linear Unit) and for stem:[l=L] we'll take the activation function GELU (Gaussian Error Linear Units).
+.Activation functions used
+image::fourier/activation_functions.png[width=180.0,height=144.0]
+
+*  stem:[\mathcal{C}_\theta^l] is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see xref:fourier/subsec_1.adoc[Section FNO.conv_sublayer].
+*  stem:[\mathcal{B}_\theta^l] is the "bias-layer". For more details, see xref:fourier/subsec_1.adoc[Section FNO.bias_sublayer].
+
+
+== Convolution sublayer
+
+Each stem:[\mathcal{C}_\theta^l] convolution layer contains a trainable kernel stem:[\hat{W}] and performs the transformation
+
+[stem]
+++++
+\mathcal{C}_\theta^l(X)=\mathcal{F}^{-1}(\mathcal{F}(X)\cdot\hat{W})
+++++
+
+where stem:[\mathcal{F}] corresponds to the 2D Discrete Fourier Transform (DFT) on a stem:[ni\times nj] resolution grid and
+[stem]
+++++
+(Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'}
+++++
+In other words, this transormation is applied channel by channel.
+
+
+[NOTE]
+====
+An image is fundamentally a signal. Just as 1D signals show changes in amplitude (sound) over time, 2D signals show variations in intensity (light) over space. The Fourier transform allows us to move from the spatial or temporal domain into the frequency domain. In a sound signal (1D signal), low frequencies represent low-pitched sounds and high frequencies represent high-pitched sounds. In the case of an image (2D signal), low frequencies represent large homogeneous surfaces and blurred parts, while high frequencies represent contours, more generally abrupt changes in intensity and, finally, noise.
+====
+
+The 2D DFT is defined by :
+
+[stem]
+++++
+\mathcal{F}(X)_{ijk}=\frac{1}{ni}\frac{1}{nj}\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}X_{i'j'k}e^{-2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)}
+++++
+
+The inverse of the 2D DFT is defined by :
+
+[stem]
+++++
+\mathcal{F}^{-1}(X)_{ijk}=\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}X_{i'j'k}e^{2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)}
+++++
+
+We can easily show that stem:[\mathcal{F}] is the reciprocal function of stem:[\mathcal{F}^{-1}]. We have 
+
+[stem]
+++++
+\begin{aligned}
+\mathcal{F}^{-1}(\mathcal{F}(X))_{ijk}&=\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}\mathcal{F}(X)_{i'j'k}e^{2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)} \\	
+&=\frac{1}{ni}\frac{1}{nj}\sum_{i'j'}\sum_{i''j''}X_{i''j''k}e^{-2\sqrt{-1}\pi\left(\frac{i'i''}{ni}+\frac{j'j''}{nj}\right)}e^{2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)} \\
+&=\frac{1}{ni}\frac{1}{nj}\sum_{i''j''}X_{i''j''k}\sum_{i'j'}e^{2\sqrt{-1}\pi\frac{i'}{ni}(i-i'')}e^{2\sqrt{-1}\pi\frac{j'}{nj}(j-j'')}
+\end{aligned}
+++++
+
+Let
+
+[stem]
+++++
+S=\sum_{i'j'}e^{2\sqrt{-1}\pi\frac{i'}{ni}(i-i'')}e^{2\sqrt{-1}\pi\frac{j'}{nj}(j-j'')}
+++++
+
+Thus
+
+*  If stem:[(i,j)=(i'',j'')] : stem:[S=\sum_{i',j'}1=ni\times nj]
+*  If stem:[(i,j)\ne(i'',j'')] : 
+[stem]
+++++
+\begin{aligned}
+	S&=\sum_{i'}\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{i'}\sum_{j'}\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{j'} \\
+	&=\frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{ni}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{nj}}{1-e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}} \\
+	&=\frac{1-e^{2\sqrt{-1}\pi(i-i'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-e^{2\sqrt{-1}\pi(j-j'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(j-j'')}}=0
+\end{aligned}
+++++
+as the sum of a geometric sequence.
+
+
+We deduce that
+[stem]
+++++
+\mathcal{F}^{-1}(\mathcal{F}(X))_{ijk} = \frac{1}{ni}\frac{1}{nj} \times ni\times nj\times X_{ijk} = X_{ijk}
+++++
+
+And finally stem:[\mathcal{F}] is the reciprocal function of stem:[\mathcal{F}^{-1}].
+
+For more details about the Convolution sublayer, see xref:fourier/subsec_2.adoc[Section FNO.details_conv].
+
+== Bias subLayer
+
+The bias layer is a 2D convolution with a kernel size of 1. This means that it only performs matrix multiplication on the channels, but pixel by pixel. In other words, it mixes channels via a kernel, but does not allow interaction between pixels.
+
+Precisly,
+
+[stem]
+++++
+\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k
+++++
+

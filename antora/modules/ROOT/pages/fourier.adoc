@@ -1,1 +1,14 @@
 = Fourier Neural Operator (FNO)
+:stem: latexmath
+:xrefstyle: short
+:imagesdir: \{moduledir\}/assets/images/fourier
+
+We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following articles #ADD REF !#.
+
+In image treatment, we call image tensors of size stem:[ni\times nj\times nk], where stem:[ni\times nj] corresponds to the image resolution and stem:[nk] corresponds to its number of channels. For example, an RGB (Red Green Blue) image has stem:[nk=3] channels. 
+We choose here to present the FNO as an operator acting on discrete images. Reference articles present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.
+
+The FNO methodology creates a relationship between two spaces from a finite collection of observed input-output pairs. #Est-ce que je gardes cette phrase ?#
+
+#A rajouter : implémentation effectuée/fournie par Vincent Vigon + on ne trouvera pas ici de test de variation des paramètres (modes, width...)#
+

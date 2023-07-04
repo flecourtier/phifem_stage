@@ -1,0 +1,8 @@
+= Presentation of Mimesis
+:stem: latexmath
+:xrefstyle: short
+
+The Mimesis research team is working on a set of scientific challenges in scientific computing, data assimilation, machine learning and control, with the goal of creating real-time digital twins of an organ. Their main application areas are surgical training and surgical guidance in complex procedures. Their main clinical objectives are liver surgery, lung surgery and neurostimulation.
+
+\trad{Mimesis est spécialisé dans la simulation en temps réel de blabla. C'est pourquoi ils ont développé une méthode appelée PhiFEM (explication des intérêts de PhiFEM).}
+

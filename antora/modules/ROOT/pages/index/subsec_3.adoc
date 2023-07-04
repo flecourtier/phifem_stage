@@ -1,0 +1,5 @@
+= Objectives
+:stem: latexmath
+:xrefstyle: short
+
+\trad{On cherche ici à améliorer la précision de la solution ainsi que les temps pour l'obtenir en passant par le biais d'un FNO que l'on va entraîner avec des solutions PhiFEM qui sont bien adapté à ce type de réseau de neurones, due aux grilles cartésienne.}

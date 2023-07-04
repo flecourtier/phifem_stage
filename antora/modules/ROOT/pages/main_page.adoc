@@ -1,1 +1,10 @@
-= PhiFEM project
+# Phi-FEM Project
+
+The features include
+
+** xref:index.adoc[Introduction]
+** xref:section_1.adoc[Finite Element Methods (FEMs)]
+** xref:fourier.adoc[Fourier Neural Operator (FNO)]
+** xref:section_3.adoc[Correction]
+** xref:section_4.adoc[Numerical Results ?]
+** xref:section_5.adoc[Conclusion]
