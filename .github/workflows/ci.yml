@@ -5,12 +5,12 @@ on: [push]
 jobs:
   activate:
     runs-on: ubuntu-latest
-    # if: |
-    #   github.repository == 'master-csmi/2022-m2-phifem' &&
-    #   !startsWith(github.event.head_commit.message, 'Release ') &&
-    #   !contains(github.event.head_commit.message, 'ci skip')
-    # steps:
-    # - run: echo ok go
+    if: |
+      github.repository == 'flecourtier/phifem_stage' &&
+      !startsWith(github.event.head_commit.message, 'Release ') &&
+      !contains(github.event.head_commit.message, 'ci skip')
+    steps:
+    - run: echo ok go
     
 
   build_docs:
