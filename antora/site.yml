@@ -7,7 +7,7 @@ content:
   - url: https://github.com/flecourtier/phifem_stage
 
     branches: main
-    start_path: docs/antora
+    start_path: antora
 ui:
   bundle:
     url: https://gitlab.com/feelpp/antora-ui-default/-/jobs/artifacts/feelpp/raw/build/ui-bundle.zip?job=bundle-stable
