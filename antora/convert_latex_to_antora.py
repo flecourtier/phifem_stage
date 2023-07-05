@@ -267,6 +267,9 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\\newpage",line):
             line=""
 
+        if search_word_in_line("\_",line):
+            line = line.replace("\_","_")
+            
         if line!="":
             if line[0]=="\t":
                 line = line[1:]
