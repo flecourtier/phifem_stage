@@ -1,0 +1,45 @@
+\section{Introduction}
+
+This end of study internship is a 2nd year internship in the CSMI Master ("Calcul Scientifique et Mathématique de l'Information") of the University of Strasbourg. It is the continuation of a project done during the first semester of M2, the main objective of this project was the discovery of an innovative non-conformal finite element method for augmented surgery, the $\phi$-FEM method. The purpose of this project was to have Cemosis and Mimesis collaborate through the use of Feel++ software (developed by Cemosis) in the framework of the $\phi$-FEM method (one of the research topics of the Mimesis team).
+
+\subsection{Scientific Context}
+
+Finite element methods (FEM) are used to solve partial differential equations numerically. These can, for example, represent analytically the dynamic behavior of certain physical systems (mechanical, thermodynamic, acoustic, etc.). Among other things, it is a discrete algorithm for determining the approximate solution of a partial differential equation (PDE) on a compact domain with boundary conditions. 
+
+The standard FEM method, which requires precise meshing of the domain under consideration and, in particular, fitting with its boundary, has its limitations. In particular, in the medical field, meshing complex and evolving geometries such as organs (e.g. the liver) can be very costly. More specifically, in the application context of creating real-time digital twins of an organ, the standard FEM method would require complete remeshing of the organ each time it is deformed, which in practice is not workable. 
+
+This is why other methods, known as non-conformal finite element methods, have emerged in the last few years. These include CutFEM \modif{ref 6} or XFEM \modif{ref 18}, based on the idea of introducing a fictitious domain larger than the domain under consideration. We're interested here in another non-conformal method, which we'll present in more detail later, called $\phi$-FEM. We'll only use it in the context of Poisson problem solving, for Dirichlet boundary conditions \modif{ref 12}. But the method has been extended to Neumann conditions \modif{ref 8} and then to solve various mechanical problems, including linear elasticity and heat transfer problems, and even to solve the Stokes problem \modif{ref 9}.
+
+\subsection{Presentation of Mimesis}
+
+Mimesis is a joint \href{https://www.inria.fr/fr}{Inria} ("Institut national de recherche en sciences et technologies du numérique") and \href{https://www.cnrs.fr/fr}{CNRS} ("Centre national de la recherche scientifique") Research Team. The Mimesis team was created in May 2021 with the Research Director, Stéphane Cotin, as leader.
+
+The Mimesis research team is working on a set of scientific challenges in scientific computing, data assimilation, machine learning and control, with the goal of creating real-time digital twins of an organ. Their main application areas are surgical training and surgical guidance in complex procedures. Their main clinical objectives are liver surgery, lung surgery and neurostimulation.
+
+\modif{A COMPLETER !}
+
+% rapport annuel 2022 : https://radar.inria.fr/report/2022/mimesis/index.html#MIMESIS-RA-2022-cid1
+%\modif{The MIMESIS team develops numerical methods for computer-based training, surgical planning and	computer-assisted interventions. The underlying objectives include patient-specific biophysical and electrophysiological modeling, novel numerical methods for real-time computation, data assimilation using Bayesian methods and more generally data-driven simulation. The aim is to significantly facilitate the development of digital twins and improve their predictive capabilities. This last topic is a transverse research theme which raises several challenges, related to the field of machine learning. To pursue these directions we have assembled a team with a multidisciplinary background, and have established close collaborations with academic and clinical partners. We also continue the development of the SOFA	framework as a means to disseminate our results to the community}
+
+% https://fr.linkedin.com/company/mimesisteam-inria
+%\modif{MIMESIS research team focuses on its global objective which is to create a synergy between clinicians and scientists in order to develop new technologies capable of redefining healthcare, with a strong emphasis on clinical translation. In our case we joined IHU institute for this purpose.
+%
+%The scientific objectives of our team, MIMESIS, are related to this ambitious objective. Over the past years we have developed new approaches supporting advanced simulations in the context of simulation for training. We now propose to focus our research on the use of real-time simulation for per-operative guidance. The underlying objectives include numerical techniques for real-time computation and data-driven simulation dedicated to patient-specific modeling. This last topic is a transversal research theme and raises several open problems, ranging from non-rigid registration to augmented reality.}
+
+\subsection{Objectives}
+
+\modif{Première étape : comprendre les FNO (phifem ok car projet)}
+
+\trad{L'objectif principal du stage a été de combiner méthodes d'éléments finis et Machine Learning afin de résoudre le problème de Poisson avec condition de Dirichlet. Plus précisément, on souhaite entraîner, avec des solutions $\phi-FEM$, un Fourier Neural Operator (FNO) à nous prédire les solutions pour une famille de problèmes donnée (c'est-à-dire un "type" de terme source). Les prédictions de ce réseau de neurones seront ensuite réinjecter dans un solveur élément finis afin d'y appliquer une correction. 
+
+Pour être plus précis, on testera différentes méthodes de correction qui permettront de réutiliser la prédiction du réseau pour aider le solveur à s'approcher le plus précisément possible de la solution.}
+
+\modif{On a testé sur une sol analytique, parler de sol plus perturbation, résultat analytique (preuve) et numérique...}
+
+\modif{On espère alors améliorer considérablement la précision du modèle et possiblement les temps de calcul.}
+
+Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.
+
+\subsection{Deliverables}
+
+\modif{AJOUTER : rapport antora (avec ci github) / github repo / doc sphinx / suivi hebdomadaire du travail ... ?}

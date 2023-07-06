@@ -8,9 +8,7 @@ We choose here to present the FNO as an operator acting on discrete images. Refe
 
 The FNO methodology creates a relationship between two spaces from a finite collection of observed input-output pairs. \modif{Est-ce que je gardes cette phrase ?}
 
-\modif{A rajouter : - implémentation effectuée/fournie par Vincent Vigon
-
-- on ne trouvera pas ici de test de variation des paramètres (modes, width...)}
+\modif{A rajouter : implémentation effectuée/fournie par Vincent Vigon + on ne trouvera pas ici de test de variation des paramètres (modes, width...)}
 
 \subsection{Architecture of the FNO}
 
@@ -25,12 +23,10 @@ The following figure (Figure \ref{FNO_schema}) describes the FNO architecture in
 The architecture of the FNO is as follows:
 
 \begin{equation*}
-	G_\theta = P \circ \mathcal{H}_\theta^1 \circ \dots \circ \mathcal{H}_\theta^L \circ Q
+	G_\theta = Q \circ \mathcal{H}_\theta^L \circ \dots \circ \mathcal{H}_\theta^1 \circ P
 \end{equation*}
 
 \newpage
-
-\subsection{General structure of the FNO} \label{FNO.general}
 
 We'll now describe the composition of the Figure \ref{FNO_schema} in a little more detail :
 \begin{enumerate}[label=\textbullet]
@@ -98,9 +94,14 @@ We can easily show that $\mathcal{F}$ is the reciprocal function of $\mathcal{F}
 \begin{align*}
 	\mathcal{F}^{-1}(\mathcal{F}(X))_{ijk}&=\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}\mathcal{F}(X)_{i'j'k}e^{2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)} \\	
 	&=\frac{1}{ni}\frac{1}{nj}\sum_{i'j'}\sum_{i''j''}X_{i''j''k}e^{-2\sqrt{-1}\pi\left(\frac{i'i''}{ni}+\frac{j'j''}{nj}\right)}e^{2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)} \\
-	&=\frac{1}{ni}\frac{1}{nj}\sum_{i''j''}X_{i''j''k}\color{blue}\sum_{i'j'}e^{2\sqrt{-1}\pi\frac{i'}{ni}(i-i'')}e^{2\sqrt{-1}\pi\frac{j'}{nj}(j-j'')}\color{black}\\
-	& \qquad \qquad \qquad \qquad \qquad \qquad\color{blue}:= S \color{black}
+	&=\frac{1}{ni}\frac{1}{nj}\sum_{i''j''}X_{i''j''k}\sum_{i'j'}e^{2\sqrt{-1}\pi\frac{i'}{ni}(i-i'')}e^{2\sqrt{-1}\pi\frac{j'}{nj}(j-j'')}
 \end{align*}
+
+Let
+
+\begin{equation*}
+	S=\sum_{i'j'}e^{2\sqrt{-1}\pi\frac{i'}{ni}(i-i'')}e^{2\sqrt{-1}\pi\frac{j'}{nj}(j-j'')}
+\end{equation*}
 
 Thus
 \begin{enumerate}[label=\textbullet]
@@ -111,10 +112,7 @@ Thus
 		&=\frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{ni}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{nj}}{1-e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}} \\
 		&=\frac{1-e^{2\sqrt{-1}\pi(i-i'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-e^{2\sqrt{-1}\pi(j-j'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(j-j'')}}=0
 	\end{align*}
-	because if $i\ne i''$
-	$$e^{2\sqrt{-1}\pi(i-i'')}=cos(2\pi(i-i''))+\sqrt{-1}sin(2\pi(i-i'')) = 1+0 =1$$
-	and if $j\ne j''$
-	$$e^{2\sqrt{-1}\pi(j-j'')}=cos(2\pi(j-j''))+\sqrt{-1}sin(2\pi(j-j'')) = 1+0 =1$$
+	as the sum of a geometric sequence.
 \end{enumerate}
 
 We deduce that
