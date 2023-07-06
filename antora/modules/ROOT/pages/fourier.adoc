@@ -1,6 +1,6 @@
-= Fourier Neural Operator (FNO)
 :stem: latexmath
 :xrefstyle: short
+= Fourier Neural Operator (FNO)
 :imagesdir: \{moduledir\}/assets/images/fourier
 
 We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following articles #ADD REF !#.

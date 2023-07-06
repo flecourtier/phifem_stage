@@ -1,6 +1,6 @@
-= Some details on the convolution sublayer
 :stem: latexmath
 :xrefstyle: short
+= Some details on the convolution sublayer
 
 In this section, we will specify some details for the convolution layer.
 

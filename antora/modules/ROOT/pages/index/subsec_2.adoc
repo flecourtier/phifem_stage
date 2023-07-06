@@ -1,6 +1,16 @@
-= Scientific Context
 :stem: latexmath
 :xrefstyle: short
+= Objectives
 
-%The Φ-FEM method has an advantage that is very interesting in the context of organ geometries. Indeed, this type of geometry can deform in time and meshing a fictitious domain around this geometry avoids having to remesh the geometry in time. Thus only the levelset function will be modified and the mesh can be fixed. Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.
+#Première étape : comprendre les FNO (phifem ok car projet)#
+
+\trad{L'objectif principal du stage a été de combiner méthodes d'éléments finis et Machine Learning afin de résoudre le problème de Poisson avec condition de Dirichlet. Plus précisément, on souhaite entraîner, avec des solutions stem:[\phi-FEM], un Fourier Neural Operator (FNO) à nous prédire les solutions pour une famille de problèmes donnée (c'est-à-dire un "type" de terme source). Les prédictions de ce réseau de neurones seront ensuite réinjecter dans un solveur élément finis afin d'y appliquer une correction. 
+
+Pour être plus précis, on testera différentes méthodes de correction qui permettront de réutiliser la prédiction du réseau pour aider le solveur à s'approcher le plus précisément possible de la solution.}
+
+#On a testé sur une sol analytique, parler de sol plus perturbation, résultat analytique (preuve) et numérique...#
+
+#On espère alors améliorer considérablement la précision du modèle et possiblement les temps de calcul.#
+
+Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.
 

@@ -14,12 +14,29 @@ result_dir = root_dir + "antora/modules/ROOT/"
 page_dir = result_dir + "pages/"
 images_dir = result_dir + "assets/images/"
 
+# return true if word is in line
 def search_word_in_line(word, line):
-    # return true if word is in line
     return word in line
 
-# list of all the sections and subsections
-def list_sections():
+def test_latex_title(title):
+    if search_word_in_line("$", title):
+        title_split = title.split("$")
+        title = ""
+        start_stem = 0
+        for i,part in enumerate(title_split):
+            title += part
+            if start_stem==0 and i!=len(title_split)-1:
+                title += "stem:["
+                start_stem = 1
+            elif start_stem==1 and i!=len(title_split)-1:
+                title += "]"
+                start_stem = 0
+
+    return title
+
+# read "rapport.tex" and return the list of the files of the sections (e.g. "sections/section_1")
+# if there is no input, the other sections are empty
+def get_section_files():
     file_read = open(rapport_file, 'r')
     # we start by complete sections
     section_files = []
@@ -31,7 +48,12 @@ def list_sections():
             section_files.append("")
             empty_sections.append(line.split("{")[1].split("}")[0])
     section_files.pop(0)
-    
+
+    return section_files,empty_sections
+
+# return the list of the sections and the list of the subsections
+# {"section1":[subsection1,subsection2],"section2":[subsection1,subsection2]}
+def get_sections(section_files,empty_sections):
     sections = {}
     for section in section_files:
         if section!="":
@@ -40,20 +62,26 @@ def list_sections():
             while line := file_read.readline():
                 if search_word_in_line("\section", line):
                     key = line.split("{")[1].split("}")[0]
+                    key = test_latex_title(key)
                 if search_word_in_line("\subsection", line):
-                    subsections.append(line.split("{")[1].split("}")[0])
+                    subsection = line.split("{")[1].split("}")[0]
+                    subsection = test_latex_title(subsection)
+                    subsections.append(subsection)
             sections[key] = subsections
         else:
             key = empty_sections.pop(0)
+            key = test_latex_title(key)
             sections[key] = None
 
-    return section_files, sections
+    return sections
 
+# create the nav.adoc file
 def create_nav_file(section_files,sections):
     # create the nav.adoc file
     nav_file = result_dir + "nav.adoc"
     file_write = open(nav_file, 'w')
 
+    file_write.write(":stem: latexmath\n")
     file_write.write("* xref:main_page.adoc[PhiFEM project]\n")
 
     for i,(section,subsections) in enumerate(sections.items()):        
@@ -69,6 +97,7 @@ def create_nav_file(section_files,sections):
 
     file_write.close()
 
+# create all directories and files of the documentation
 def create_nav(section_files,sections):
     # remove all the files in the page directory
     if os.path.exists(page_dir):
@@ -93,6 +122,7 @@ def create_nav(section_files,sections):
             section_file.write("= " + section + "\n")
             section_file.close()     
 
+# create the main page of the documentation
 def create_main_page_file(section_files,sections):
     # create the nav.adoc file
     main_page_file = page_dir + "main_page.adoc"
@@ -111,12 +141,13 @@ def create_main_page_file(section_files,sections):
 
     file_write.close()   
 
-# copy all the images of the tex report in 
+# copy all the images of the tex report in the antora documentation
 def cp_images():       
     if os.path.exists(images_dir):
         shutil.rmtree(images_dir)
     shutil.copytree(root_dir + source_dir + "images/", images_dir)
 
+# Test if there is a refernce to a figure in the line (many configurations possibles)
 def test_fig(line):
     possible_ref = ["Figure \\ref","Figure~\\ref","Fig \\ref","Fig~\\ref","Fig.~\\ref","Fig.\\ref"]
     for ref in possible_ref:
@@ -124,6 +155,7 @@ def test_fig(line):
             return ref,True
     return None,False
 
+# Test if there is a refernce to a section in the line (many configurations possibles)
 def test_section(line):
     possible_ref = ["Section \\ref","Section~\\ref","Sec \\ref","Sec~\\ref","Sec.~\\ref","Sec.\\ref"]
     for ref in possible_ref:
@@ -131,9 +163,11 @@ def test_section(line):
             return ref,True
     return None,False
 
+# create a 
 def get_label_sections(section_files):
     label_sections = {}
-    for section_file in section_files:
+    for (s,(section,subsections)) in enumerate(sections.items()):
+        section_file = section_files[s]
         if section_file!="":
             section_file_name = section_file.split("/")[1]
             file_read = open(root_dir + source_dir + section_file + ".tex", 'r')
@@ -142,17 +176,20 @@ def get_label_sections(section_files):
             while line := file_read.readline():
                 if search_word_in_line("\section", line):
                     if search_word_in_line("\label", line):
-                        label_sections[line.split("\label{")[1].split("}")[0]]=section_file_name
+                        label_sections[line.split("\label{")[1].split("}")[0]]={"xref":[section_file_name,section]}
                 
                 if search_word_in_line("\subsection", line):
                     num_subsection += 1
-                    subsection_name = line.split("{")[1].split("}")[0]
+                    subsection_name = subsections[num_subsection]
                     if search_word_in_line("\label", line):
-                        label_sections[line.split("\label{")[1].split("}")[0]]=section_file_name+"/subsec_"+str(num_subsection)
+                        label_sections[line.split("\label{")[1].split("}")[0]]={"xref":[section_file_name+"/subsec_"+str(num_subsection),subsection_name]}
 
                 if search_word_in_line("\subsubsection", line):
                     if search_word_in_line("\label", line):
-                        label_sections[line.split("\label{")[1].split("}")[0]]=section_file_name+"/subsec_"+str(num_subsection)
+                        subsubsection_name = line.split("{")[1].split("}")[0]
+                        subsubsection_name = subsubsection_name.replace(" ","_")
+                        subsubsection_name = "_"+subsubsection_name.lower()
+                        label_sections[line.split("\label{")[1].split("}")[0]]={"":subsubsection_name}
 
     return label_sections
 
@@ -166,18 +203,23 @@ def cp_section(section_file,label_sections):
     subsection_file = None
     while line := file_read.readline():
         if search_word_in_line("\section", line):
-            file_write.write("= " + line.split("{")[1].split("}")[0] + "\n")
+            title = line.split("{")[1].split("}")[0]
+            title = test_latex_title(title)
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
+            file_write.write("= " + title + "\n")
             line = ""
         
         if search_word_in_line("\subsection", line):
             num_subsection += 1
             subsection_file = "subsec_" + str(num_subsection) + ".adoc"
             file_write = open(page_dir + name_section_file + "/" + subsection_file, 'w')
-            file_write.write("= " + line.split("{")[1].split("}")[0] + "\n")
+
+            title = line.split("{")[1].split("}")[0]
+            title = test_latex_title(title)
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
+            file_write.write("= " + title + "\n")
             line=""
         
         if search_word_in_line("\graphicspath", line):
@@ -186,6 +228,11 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\modif", line):
             sentence = line.split("\modif")[1].split("{")[1].split("}")[0]
             to_replace = "\modif{" + sentence + "}"
+            line = line.replace(to_replace, "#" + sentence + "#")
+
+        if search_word_in_line("\\trad", line):
+            sentence = line.split("\\trad")[1].split("{")[1].split("}")[0]
+            to_replace = "\\trad{" + sentence + "}"
             line = line.replace(to_replace, "#" + sentence + "#")
 
         if search_word_in_line("$",line):
@@ -240,6 +287,7 @@ def cp_section(section_file,label_sections):
 
         if search_word_in_line("\subsubsection", line):
             name_subsubsection = line.split("{")[1].split("}")[0]
+            name_subsubsection = test_latex_title(name_subsubsection)
             line = "== " + name_subsubsection + "\n"
 
         if search_word_in_line("\\begin{enumerate", line) or search_word_in_line("\end{enumerate", line):
@@ -262,18 +310,29 @@ def cp_section(section_file,label_sections):
         ref,test = test_section(line)
         if test:
             name_label_sec = line.split("\\ref{")[1].split("}")[0]
-            line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label_sections[name_label_sec]+".adoc"+"[Section "+name_label_sec+"]")
+            label = label_sections[name_label_sec]
+            if "xref" in label:
+                line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label["xref"][0]+".adoc"+"[Section \""+label["xref"][1]+"\"]")
+            else:
+                line = line.replace(ref+"{"+name_label_sec+"}","<<"+label[""]+">>")
 
         if search_word_in_line("\\newpage",line):
             line=""
 
         if search_word_in_line("\_",line):
             line = line.replace("\_","_")
-            
+
+        while search_word_in_line("\href",line):
+            url = line.split("{")[1].split("}")[0]
+            text = line.split("{")[2].split("}")[0]
+            line = line.replace("\href{"+url+"}{"+text+"}",url+"["+text+"]")
+
         if line!="":
             if line[0]=="\t":
                 line = line[1:]
-            file_write.write(line)
+
+            if line[0]!="%":
+                file_write.write(line)
     
 def cp_all_sections(section_files,sections):
     label_sections = get_label_sections(section_files)
@@ -296,7 +355,8 @@ def rm_all():
 
 # si il y a déjà un dossier antora, on le supprime et on copie le dossier antora_base
 # rm_all()
-section_files,sections = list_sections()
+section_files,empty_sections = get_section_files()
+sections = get_sections(section_files,empty_sections)
 create_nav_file(section_files,sections)
 create_nav(section_files,sections)
 create_main_page_file(section_files,sections)

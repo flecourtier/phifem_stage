@@ -1,6 +1,6 @@
 site:
   title: PhiFEM Project // Docs
-  url:  http://127.0.0.1:8080/phifem_project/1.0.3/index.html
+  url:  http://127.0.0.1:8080/phifem_project/1.0.3/main_page.html
   start_page: phifem_project:ROOT:main_page.adoc
 content:
   sources:

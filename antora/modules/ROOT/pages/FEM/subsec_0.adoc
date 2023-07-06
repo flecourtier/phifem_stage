@@ -1,0 +1,7 @@
+:stem: latexmath
+:xrefstyle: short
+= Problème considéré
+
+
+#On considérera dans toute la suite, le problème de Poisson avec condition de Dirichlet homogène.#
+

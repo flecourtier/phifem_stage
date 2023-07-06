@@ -1,8 +1,12 @@
-= Presentation of Mimesis
 :stem: latexmath
 :xrefstyle: short
+= Presentation of Mimesis
+
+Mimesis is a joint https://www.inria.fr/fr[Inria] ("Institut national de recherche en sciences et technologies du numérique") and https://www.cnrs.fr/fr[CNRS] ("Centre national de la recherche scientifique") Research Team. The Mimesis team was created in May 2021 with the Research Director, Stéphane Cotin, as leader.
 
 The Mimesis research team is working on a set of scientific challenges in scientific computing, data assimilation, machine learning and control, with the goal of creating real-time digital twins of an organ. Their main application areas are surgical training and surgical guidance in complex procedures. Their main clinical objectives are liver surgery, lung surgery and neurostimulation.
 
-\trad{Mimesis est spécialisé dans la simulation en temps réel de blabla. C'est pourquoi ils ont développé une méthode appelée PhiFEM (explication des intérêts de PhiFEM).}
+#A COMPLETER !#
+
+
 

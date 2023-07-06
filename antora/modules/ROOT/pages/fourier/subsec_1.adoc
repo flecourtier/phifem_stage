@@ -1,6 +1,6 @@
-= Fourier Layer structure
 :stem: latexmath
 :xrefstyle: short
+= Fourier Layer structure
 
 Each Fourier layer is divided into two sublayers:
 
@@ -16,8 +16,8 @@ where
 .Activation functions used
 image::fourier/activation_functions.png[width=180.0,height=144.0]
 
-*  stem:[\mathcal{C}_\theta^l] is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see xref:fourier/subsec_1.adoc[Section FNO.conv_sublayer].
-*  stem:[\mathcal{B}_\theta^l] is the "bias-layer". For more details, see xref:fourier/subsec_1.adoc[Section FNO.bias_sublayer].
+*  stem:[\mathcal{C}_\theta^l] is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see <<_convolution_sublayer>>.
+*  stem:[\mathcal{B}_\theta^l] is the "bias-layer". For more details, see <<_bias_sublayer>>.
 
 
 == Convolution sublayer
@@ -97,7 +97,7 @@ We deduce that
 
 And finally stem:[\mathcal{F}] is the reciprocal function of stem:[\mathcal{F}^{-1}].
 
-For more details about the Convolution sublayer, see xref:fourier/subsec_2.adoc[Section FNO.details_conv].
+For more details about the Convolution sublayer, see xref:fourier/subsec_2.adoc[Section "Some details on the convolution sublayer"].
 
 == Bias subLayer
 

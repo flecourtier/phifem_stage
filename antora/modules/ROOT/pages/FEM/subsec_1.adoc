@@ -1,0 +1,6 @@
+:stem: latexmath
+:xrefstyle: short
+= Principle of the standard finite element method
+
+#On considère un domaine stem:[\Omega] dont la frontière est notée stem:[\partial\Omega]. On cherche à déterminer une fonction stem:[u] définie sur stem:[\Omega], solution d'une équation aux dérivées partielles (EDP) pour des conditions aux limites données.#
+
