@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Context of the internship :: PhiFEM Project // Docs</title>
+    <title>Scientific Context :: PhiFEM Project // Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/index/subsec_0.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -79,21 +79,33 @@
     <a class="nav-link" href="../index.html">Introduction</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="subsec_0.html">Context of the internship</a>
+    <a class="nav-link" href="subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="subsec_1.html">Presentation of Mimesis</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_2.html">Scientific Context</a>
+    <a class="nav-link" href="subsec_2.html">Objectives</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_3.html">Objectives</a>
+    <a class="nav-link" href="subsec_3.html">Deliverables</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_1.html">Finite Element Methods (FEMs)</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../FEM.html">Finite Element Methods (FEMs)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_0.html">Problème considéré</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_1.html">Principle of the standard finite element method</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_2.html">\(\phi\)-FEM</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -121,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../section_5.html">Conclusion</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../section_6.html">Biblio</a>
   </li>
 </ul>
   </li>
@@ -157,7 +172,7 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../index.html">Introduction</a></li>
-    <li><a href="subsec_0.html">Context of the internship</a></li>
+    <li><a href="subsec_0.html">Scientific Context</a></li>
   </ul>
 </nav>
 
@@ -214,9 +229,15 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Context of the internship</h1>
+<h1 class="page">Scientific Context</h1>
 <div class="paragraph">
-<p>\trad{Ce stage de fin d&#8217;étude se place dans le cadre d&#8217;un stage de 2ème année du Master CSMI de l&#8217;université de Strasbourg. C&#8217;est la continuité d&#8217;un projet effectué pendant le premier semestre de M2 dont l&#8217;objectif principal était la découverte d&#8217;une méthode non-conforme innovante d&#8217;éléments finis pour la chirurgie augmentée, la méthode PhiFEM.} The purpose of this project was to have Cemosis and Mimesis collaborate through the use of Feel++ software (developed by Cemosis) in the framework of the \(\phi\)-FEM method (one of the research topics of the Mimesis team).</p>
+<p>Finite element methods (FEM) are used to solve partial differential equations numerically. These can, for example, represent analytically the dynamic behavior of certain physical systems (mechanical, thermodynamic, acoustic, etc.). Among other things, it is a discrete algorithm for determining the approximate solution of a partial differential equation (PDE) on a compact domain with boundary conditions.</p>
+</div>
+<div class="paragraph">
+<p>The standard FEM method, which requires precise meshing of the domain under consideration and, in particular, fitting with its boundary, has its limitations. In particular, in the medical field, meshing complex and evolving geometries such as organs (e.g. the liver) can be very costly. More specifically, in the application context of creating real-time digital twins of an organ, the standard FEM method would require complete remeshing of the organ each time it is deformed, which in practice is not workable.</p>
+</div>
+<div class="paragraph">
+<p>This is why other methods, known as non-conformal finite element methods, have emerged in the last few years. These include CutFEM <mark>ref 6</mark> or XFEM \modif{ref 18}, based on the idea of introducing a fictitious domain larger than the domain under consideration. We&#8217;re interested here in another non-conformal method, which we&#8217;ll present in more detail later, called \(\phi\)-FEM. We&#8217;ll only use it in the context of Poisson problem solving, for Dirichlet boundary conditions \modif{ref 12}. But the method has been extended to Neumann conditions \modif{ref 8} and then to solve various mechanical problems, including linear elasticity and heat transfer problems, and even to solve the Stokes problem \modif{ref 9}.</p>
 </div>
 </article>
   </div>

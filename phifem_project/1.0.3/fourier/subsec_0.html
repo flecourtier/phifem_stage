@@ -79,21 +79,33 @@
     <a class="nav-link" href="../index.html">Introduction</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../index/subsec_0.html">Context of the internship</a>
+    <a class="nav-link" href="../index/subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../index/subsec_1.html">Presentation of Mimesis</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../index/subsec_2.html">Scientific Context</a>
+    <a class="nav-link" href="../index/subsec_2.html">Objectives</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../index/subsec_3.html">Objectives</a>
+    <a class="nav-link" href="../index/subsec_3.html">Deliverables</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_1.html">Finite Element Methods (FEMs)</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../FEM.html">Finite Element Methods (FEMs)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_0.html">Problème considéré</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_1.html">Principle of the standard finite element method</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_2.html">\(\phi\)-FEM</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -121,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../section_5.html">Conclusion</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../section_6.html">Biblio</a>
   </li>
 </ul>
   </li>
@@ -229,7 +244,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[G_\theta = P \circ \mathcal{H}_\theta^1 \circ \dots \circ \mathcal{H}_\theta^L \circ Q\]
+\[G_\theta = Q \circ \mathcal{H}_\theta^L \circ \dots \circ \mathcal{H}_\theta^1 \circ P\]
 </div>
 </div>
 <div class="paragraph">
@@ -244,7 +259,7 @@ title="Fullscreen mode"
 <p>We perform a \(P\) transformation in order to move to a space with more channels. This step enables the network to build a sufficiently rich representation of the data.  For example, a Dense layer (also known as fully-connected) can be used.</p>
 </li>
 <li>
-<p>We then apply \(L\) Fourier layers, noted \(\mathcal{H}_\theta^l,\; l=1,\dots,L\), whose specifications will be detailed in <a href="subsec_1.html" class="xref page">Section FNO.fourierlayer</a>.</p>
+<p>We then apply \(L\) Fourier layers, noted \(\mathcal{H}_\theta^l,\; l=1,\dots,L\), whose specifications will be detailed in <a href="subsec_1.html" class="xref page">Section "Fourier Layer structure"</a>.</p>
 </li>
 <li>
 <p>We then return to the target dimension by performing a \(Q\) transformation. In our case, the number of output channels is 1.</p>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Scientific Context :: PhiFEM Project // Docs</title>
+    <title>Objectives :: PhiFEM Project // Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/index/subsec_2.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -79,21 +79,33 @@
     <a class="nav-link" href="../index.html">Introduction</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_0.html">Context of the internship</a>
+    <a class="nav-link" href="subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="subsec_1.html">Presentation of Mimesis</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="subsec_2.html">Scientific Context</a>
+    <a class="nav-link" href="subsec_2.html">Objectives</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_3.html">Objectives</a>
+    <a class="nav-link" href="subsec_3.html">Deliverables</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_1.html">Finite Element Methods (FEMs)</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../FEM.html">Finite Element Methods (FEMs)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_0.html">Problème considéré</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_1.html">Principle of the standard finite element method</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../FEM/subsec_2.html">\(\phi\)-FEM</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -121,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../section_5.html">Conclusion</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../section_6.html">Biblio</a>
   </li>
 </ul>
   </li>
@@ -157,7 +172,7 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../index.html">Introduction</a></li>
-    <li><a href="subsec_2.html">Scientific Context</a></li>
+    <li><a href="subsec_2.html">Objectives</a></li>
   </ul>
 </nav>
 
@@ -214,9 +229,24 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Scientific Context</h1>
+<h1 class="page">Objectives</h1>
 <div class="paragraph">
-<p>%The Φ-FEM method has an advantage that is very interesting in the context of organ geometries. Indeed, this type of geometry can deform in time and meshing a fictitious domain around this geometry avoids having to remesh the geometry in time. Thus only the levelset function will be modified and the mesh can be fixed. Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.</p>
+<p><mark>Première étape : comprendre les FNO (phifem ok car projet)</mark></p>
+</div>
+<div class="paragraph">
+<p>\trad{L&#8217;objectif principal du stage a été de combiner méthodes d&#8217;éléments finis et Machine Learning afin de résoudre le problème de Poisson avec condition de Dirichlet. Plus précisément, on souhaite entraîner, avec des solutions \(\phi-FEM\), un Fourier Neural Operator (FNO) à nous prédire les solutions pour une famille de problèmes donnée (c&#8217;est-à-dire un "type" de terme source). Les prédictions de ce réseau de neurones seront ensuite réinjecter dans un solveur élément finis afin d&#8217;y appliquer une correction.</p>
+</div>
+<div class="paragraph">
+<p>Pour être plus précis, on testera différentes méthodes de correction qui permettront de réutiliser la prédiction du réseau pour aider le solveur à s&#8217;approcher le plus précisément possible de la solution.}</p>
+</div>
+<div class="paragraph">
+<p><mark>On a testé sur une sol analytique, parler de sol plus perturbation, résultat analytique (preuve) et numérique&#8230;&#8203;</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>On espère alors améliorer considérablement la précision du modèle et possiblement les temps de calcul.</mark></p>
+</div>
+<div class="paragraph">
+<p>Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.</p>
 </div>
 </article>
   </div>
