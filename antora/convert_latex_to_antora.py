@@ -222,6 +222,16 @@ def cp_section(section_file,label_sections):
             file_write.write("= " + title + "\n")
             line=""
         
+        if search_word_in_line("\subsubsection", line):
+            name_subsubsection = line.split("{")[1].split("}")[0]
+            name_subsubsection = test_latex_title(name_subsubsection)
+            line = "== " + name_subsubsection + "\n"
+
+        if search_word_in_line("\paragraph", line):
+            name_paragraph = line.split("{")[1].split("}")[0]
+            name_paragraph = test_latex_title(name_paragraph)
+            line = "=== " + name_paragraph + "\n"
+
         if search_word_in_line("\graphicspath", line):
             line = ":imagesdir: \{moduledir\}/assets/" + line.split("{")[2].split("}")[0] + "\n"
 
@@ -279,16 +289,11 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\end{equation", line):
             line = "++++\n"
 
-        if search_word_in_line("\\begin{align", line):
+        if search_word_in_line("\\begin{align*}", line) or search_word_in_line("\\begin{align}", line):
             line = "[stem]\n++++\n\\begin{aligned}\n"
 
-        if search_word_in_line("\end{align", line):
+        if search_word_in_line("\end{align*}", line) or search_word_in_line("\end{align}", line):
             line = "\\end{aligned}\n++++\n"
-
-        if search_word_in_line("\subsubsection", line):
-            name_subsubsection = line.split("{")[1].split("}")[0]
-            name_subsubsection = test_latex_title(name_subsubsection)
-            line = "== " + name_subsubsection + "\n"
 
         if search_word_in_line("\\begin{enumerate", line) or search_word_in_line("\end{enumerate", line):
             line = "\n"
@@ -327,8 +332,28 @@ def cp_section(section_file,label_sections):
             text = line.split("{")[2].split("}")[0]
             line = line.replace("\href{"+url+"}{"+text+"}",url+"["+text+"]")
 
+        if search_word_in_line("\\textbf",line):
+            sentence = line.split("\\textbf")[1].split("{")[1].split("}")[0]
+            line = line.replace("\\textbf{"+sentence+"}","*"+sentence+"*")
+
+        if search_word_in_line("\\textit",line):
+            sentence = line.split("\\textit")[1].split("{")[1].split("}")[0]
+            line = line.replace("\\textit{"+sentence+"}","_"+sentence+"_")
+
+        if search_word_in_line("\\begin{Prop}",line):
+            if search_word_in_line("[",line):
+                prop_title = line.split("[")[1].split("]")[0]
+                line = "\n[NOTE]\n====\n*Propositon ("+prop_title+").*\n"
+            else:
+                line = "\n[NOTE]\n====\n*Propositon.*\n"
+            
+
+        if search_word_in_line("\\end{Prop}",line):
+            line = "====\n"
+
+
         if line!="":
-            if line[0]=="\t":
+            while line[0]=="\t":
                 line = line[1:]
 
             if line[0]!="%":

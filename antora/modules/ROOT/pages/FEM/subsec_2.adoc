@@ -1,5 +1,0 @@
-:stem: latexmath
-:xrefstyle: short
-= stem:[\phi]-FEM
-
-
