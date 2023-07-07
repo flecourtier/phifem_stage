@@ -97,13 +97,10 @@
     <a class="nav-link" href="FEM.html">Finite Element Methods (FEMs)</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="FEM/subsec_0.html">Problème considéré</a>
+    <a class="nav-link" href="FEM/subsec_0.html">Standard FEM</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="FEM/subsec_1.html">Principle of the standard finite element method</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="FEM/subsec_2.html">\(\phi\)-FEM</a>
+    <a class="nav-link" href="FEM/subsec_1.html">\(\phi\)-FEM</a>
   </li>
 </ul>
   </li>
@@ -229,7 +226,28 @@ title="Fullscreen mode"
 
 <article class="doc">
 <h1 class="page">Finite Element Methods (FEMs)</h1>
-
+<div class="paragraph">
+<p>In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or inhomogeneous):</p>
+</div>
+<div class="paragraph">
+<p><strong>Problem :</strong> Find \(u : \Omega \rightarrow \mathbb{R}^d\) such that</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left\{
+\begin{aligned}
+-\Delta u &amp;= f \; &amp;&amp;\text{in } \; \Omega \\
+u&amp;=g \; &amp;&amp;\text{on } \; \partial\Omega
+\end{aligned}
+\right.\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(\Delta\) the Laplace operator and \(\Omega\subset\mathbb{R}^d\) a lipschitzian bounded open set (and \(\partial\Omega\) its boundary).</p>
+</div>
+<div class="paragraph">
+<p><strong>Associated physical model :</strong> Newtonian gravity, Electrostatics, Fluid dynamics&#8230;&#8203;</p>
+</div>
 </article>
   </div>
 </main>

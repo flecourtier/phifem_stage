@@ -97,13 +97,10 @@
     <a class="nav-link" href="../FEM.html">Finite Element Methods (FEMs)</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../FEM/subsec_0.html">Problème considéré</a>
+    <a class="nav-link" href="../FEM/subsec_0.html">Standard FEM</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../FEM/subsec_1.html">Principle of the standard finite element method</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../FEM/subsec_2.html">\(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
   </li>
 </ul>
   </li>
@@ -349,9 +346,9 @@ image::fourier/activation_functions.png[width=180.0,height=144.0]</p>
 </ul>
 </div>
 \begin{aligned}
-	S&=\sum_{i'}\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{i'}\sum_{j'}\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{j'} \\
-	&=\frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{ni}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{nj}}{1-e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}} \\
-	&=\frac{1-e^{2\sqrt{-1}\pi(i-i'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-e^{2\sqrt{-1}\pi(j-j'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(j-j'')}}=0
+S&=\sum_{i'}\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{i'}\sum_{j'}\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{j'} \\
+&=\frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{ni}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-\left(e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}\right)^{nj}}{1-e^{\frac{2\sqrt{-1}\pi}{nj}(j-j'')}} \\
+&=\frac{1-e^{2\sqrt{-1}\pi(i-i'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}}\times \frac{1-e^{2\sqrt{-1}\pi(j-j'')}}{1-e^{\frac{2\sqrt{-1}\pi}{ni}(j-j'')}}=0
 \end{aligned}
 <div class="paragraph">
 <p>as the sum of a geometric sequence.</p>
