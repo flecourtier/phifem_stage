@@ -4,7 +4,7 @@ site:
   start_page: phifem_project:ROOT:main_page.adoc
 content:
   sources:
-  - url: ..
+  - url: ../..
     branches: main
     start_path: docs/antora
 ui:

@@ -240,11 +240,6 @@ def cp_section(section_file,label_sections):
             to_replace = "\modif{" + sentence + "}"
             line = line.replace(to_replace, "#" + sentence + "#")
 
-        if search_word_in_line("\\trad", line):
-            sentence = line.split("\\trad")[1].split("{")[1].split("}")[0]
-            to_replace = "\\trad{" + sentence + "}"
-            line = line.replace(to_replace, "#" + sentence + "#")
-
         if search_word_in_line("$",line):
             tab_line = line.split("$")
             start_stem = 0
@@ -343,14 +338,28 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\\begin{Prop}",line):
             if search_word_in_line("[",line):
                 prop_title = line.split("[")[1].split("]")[0]
-                line = "\n[NOTE]\n====\n*Propositon ("+prop_title+").*\n"
+                line = "\n[]\n====\n*Propositon ("+prop_title+").*\n"
             else:
-                line = "\n[NOTE]\n====\n*Propositon.*\n"
-            
+                line = "\n[]\n====\n*Propositon.*\n"
 
         if search_word_in_line("\\end{Prop}",line):
             line = "====\n"
 
+        if search_word_in_line("\\begin{Def}",line):
+            if search_word_in_line("[",line):
+                def_title = line.split("[")[1].split("]")[0]
+                line = "\n[]\n====\n*Defintion ("+def_title+").*\n"
+            else:
+                line = "\n[]\n====\n*Defintion.*\n"
+
+        if search_word_in_line("\\end{Def}",line):
+            line = "====\n"
+
+        if search_word_in_line("\\begin{Example}",line):
+                line = "\n---\n*Example.*\n"
+
+        if search_word_in_line("\\end{Example}",line):
+            line = "\n---\n"
 
         if line!="":
             while line[0]=="\t":
@@ -368,7 +377,7 @@ def cp_all_sections(section_files,sections):
             section_file_name = "section_" + str(i)
             file_write = open(page_dir + section_file_name + ".adoc", 'w')
             file_write.write("= " + section + "\n\n")
-            file_write.write("#A COMPLETER !#\n")
+            file_write.write("#TO COMPLETE !#\n")
             file_write.close()
 
 def rm_all():
