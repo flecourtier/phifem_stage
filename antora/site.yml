@@ -1,5 +1,5 @@
 site:
-  title: PhiFEM Project // Docs
+  title: PhiFEM Project - Docs
   url: https://flecourtier.github.io/phifem_stage/
   start_page: phifem_project:ROOT:main_page.adoc
 content:
