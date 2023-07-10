@@ -1,6 +1,7 @@
 :stem: latexmath
 :xrefstyle: short
 = Finite Element Methods (FEMs)
+:imagesdir: \{moduledir\}/assets/images/FEM
 
 In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or inhomogeneous):
 

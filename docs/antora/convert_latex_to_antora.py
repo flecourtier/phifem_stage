@@ -6,7 +6,7 @@ import shutil
 But : Convertir un fichier latex en une documentation antora complète
 """
 
-root_dir = "/home/lecourtier/Bureau/rapport/"
+root_dir = "../../docs/"
 
 source_dir = "rapport/"
 rapport_file = root_dir + source_dir + "rapport.tex"
