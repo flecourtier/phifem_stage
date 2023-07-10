@@ -84,16 +84,19 @@ The choice of stem:[V_h] space is fundamental to have an efficient method that g
 
 === Finite Lagrange Element
 
-#Le type le plus classique et le plus simple d'éléments finis sont les éléments finis de Lagrange.#
+\trad{Le type le plus classique et le plus simple d'éléments finis sont les éléments finis de Lagrange.}
 
-\begin{Def}[Lagrange Finite Element]
+
+[]
+====
+*Defintion (Lagrange Finite Element).*
 \trad{Un élément fini de Lagrange est un triplet stem:[(K,\Sigma,P)] tel que 
 
 *  stem:[K] est un élément géométrique de stem:[\mathbb{R}^n] (stem:[n=1,2] ou stem:[3]), compact, connexe et d'intérieur non vide.
 *  stem:[\Sigma=\{a_1,\dots,a_N\}] est un ensemble fini de stem:[N] points distincts de stem:[K].
 *  stem:[P] est un espace vectoriel de dimension finie de fonctions réelles définies sur stem:[K] et tel que stem:[\Sigma] soit stem:[P]-unisolvant (donc stem:[\dim P=N]).
 
-\end{Def}
+====
 
 
 [NOTE]
@@ -107,7 +110,7 @@ L \; : \; P &\rightarrow \mathbb{R}^N \\
 p &\mapsto(p(a_1),\dots,p(a_N))
 \end{aligned}
 ++++
-#est bijective.#
+\trad{est bijective.}
 ====
 
 
@@ -117,7 +120,9 @@ En pratique, pour montrer que stem:[\Sigma] est stem:[P]-unisolvant, on vérifie
 ====
 
 #A mettre plus loin (base de stem:[P_1] à définir d'abord)#
-\begin{Example}
+
+---
+*Example.*
 \trad{Soit stem:[K] le segment stem:[[a_1,a_2]]. Montrons que stem:[\Sigma=\{a_1,a_2\}] est stem:[P]-unisolvant pour stem:[P=\mathbb{P}^1]. Comme stem:[\{1,x\}] est une base de stem:[\mathbb{P}^1], on a bien stem:[\dim P = \text{card } \Sigma = 2]. 
 
 De plus, on peut écrire stem:[p_i=\alpha_i x+\beta_i, i=1,2]. Ainsi
@@ -158,16 +163,17 @@ Donc
 p_1(x)=\frac{x-a_2}{a_1-a_2} \quad \text{and} \quad p_2(x)=\frac{x-a_1}{a_2-a_1}
 ++++
 On en déduit la surjectivité de stem:[L] et stem:[\Sigma] est stem:[\mathbb{P}^1]-unisolvant.}
-\end{Example}
+
+---
 
 === Mesh
 
-#La première étape consiste à construire un maillage de stem:[\Omega].#
+\trad{La première étape consiste à construire un maillage de stem:[\Omega].}
 
 
 [NOTE]
 ====
-#La partie de génération de maillage est une étape importante #
+\trad{La partie de génération de maillage est une étape importante }
 ====
 
 == Application to the Poisson problem
@@ -175,7 +181,7 @@ On en déduit la surjectivité de stem:[L] et stem:[\Sigma] est stem:[\mathbb{P}
 #Ajouter formulation variationnel Poisson#
 
 
-[NOTE]
+[]
 ====
 *Propositon (Lax-Milgram).*
 
