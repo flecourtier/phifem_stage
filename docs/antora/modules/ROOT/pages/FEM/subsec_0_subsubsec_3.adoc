@@ -1,0 +1,30 @@
+:stem: latexmath
+:xrefstyle: short
+= Standard FEM
+= Application to the Poisson problem
+
+#2 sous-sections ? -> Théorie -> Pratique#
+
+#Ajouter formulation variationnel Poisson#
+
+
+[]
+====
+*Propositon (Lax-Milgram).*
+
+Let stem:[a] be a continuous, coercive bilinear form on stem:[V] and stem:[l] a continuous, linear form on stem:[V]. Then the variational problem has a unique solution stem:[u\in V]. 
+
+Moreover, if the bilinear form is symmetrical, stem:[u] is a solution to the following minimization problem:
+[stem]
+++++
+J(u)=\min_{v\in V} J(v), \quad J(v)=\frac{1}{2}a(v,v)-l(v)
+++++
+====
+
+It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution.
+
+#rajouter preuve#
+
+
+#Rajouter : Calcul assemblage matrice dans le cas de ce problème ?#
+
