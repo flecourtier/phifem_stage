@@ -4,7 +4,7 @@ site:
   start_page: phifem_project:ROOT:main_page.adoc
 content:
   sources:
-  - url: https://github.com/flecourtier/phifem_stage
+  - url: .
     branches: main
     start_path: antora
 ui:
