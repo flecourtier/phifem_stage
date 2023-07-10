@@ -8,7 +8,7 @@
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
-    <script>!function(l,p){if(l.protocol!==p&&l.host=="antora.org"){l.protocol=p}else if(/\.gitlab\.io$/.test(l.host)){l.replace(p+"//antora.org"+l.pathname.substr(l.pathname.indexOf("/",1))+l.search+l.hash)}}(location,"https:")</script>
+    <script>!function(l,p){if(l.protocol!==p&&l.host=="docs.antora.org"){l.protocol=p}else if(/\.gitlab\.io$/.test(l.host)){l.replace(p+"//docs.antora.org"+l.pathname.substr(l.pathname.indexOf("/",1))+l.search+l.hash)}}(location,"https:")</script>
 
     <link rel="stylesheet" type="text/css" href="/_/css/style.css">
 
@@ -337,21 +337,37 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The choice of \(V_h\) space is fundamental to having an efficient method that gives a good approximation \(u_h\) of \(u\). In particular, the choice of the \(\{\varphi_i\}\) basis of \(V_h\) influences the structure of the \(A\) matrix in terms of its sparsity and condition number.</p>
+<p>The choice of \(V_h\) space is fundamental to have an efficient method that gives a good approximation \(u_h\) of \(u\). In particular, the choice of the \(\{\varphi_i\}\) basis of \(V_h\) influences the structure of the \(A\) matrix in terms of its sparsity and its condition number.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p><mark>TO COMPLETE !</mark></p>
-</div>
 <div class="sect2">
 <h3 id="_finite_lagrange_element"><a class="anchor" href="#_finite_lagrange_element"></a>3.1. Finite Lagrange Element</h3>
-
+<div class="paragraph">
+<p><mark>Le type le plus classique et le plus simple d&#8217;éléments finis sont les éléments finis de Lagrange.</mark></p>
 </div>
-<div class="sect2">
-<h3 id="_mesh"><a class="anchor" href="#_mesh"></a>3.2. Mesh</h3>
+<div class="paragraph">
+<p>\begin{Def}[Lagrange Finite Element]
+\trad{Un élément fini de Lagrange est un triplet \((K,\Sigma,P)\) tel que</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\(K\) est un élément géométrique de \(\mathbb{R}^n\) (\(n=1,2\) ou \(3\)), compact, connexe et d&#8217;intérieur non vide.</p>
+</li>
+<li>
+<p>\(\Sigma=\{a_1,\dots,a_N\}\) est un ensemble fini de \(N\) points distincts de \(K\).</p>
+</li>
+<li>
+<p>\(P\) est un espace vectoriel de dimension finie de fonctions réelles définies sur \(K\) et tel que \(\Sigma\) soit \(P\)-unisolvant (donc \(\dim P=N\)).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>\end{Def}</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -359,7 +375,110 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-
+<div class="paragraph">
+<p>\trad{On dit que \(\Sigma\) est \(P\)-unisolvant si et seulement si pour tous réels \(\alpha_1,\dots,\alpha_N\), il existe un unique élément \(p\) de \(P\) tel que \(p(a_i)=\alpha_i,i=1,\dots,N\).
+Ceci revient à dire que la fonction}</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+L \; : \; P &amp;\rightarrow \mathbb{R}^N \\
+p &amp;\mapsto(p(a_1),\dots,p(a_N))
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p><mark>est bijective.</mark></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>En pratique, pour montrer que \(\Sigma\) est \(P\)-unisolvant, on vérifiera simplement que \(\dim P=card(\Sigma)\) puis on montrera l&#8217;injectivité ou la surjectivité de \(L\). L&#8217;injectivité  de \(L\) se démontre en établissant que la seule fonction de \(P\) s&#8217;annulant sur tous les points de \(\Sigma\) est la fonction nulle. La surjectivité de \(L\) se démontre en exhibant une famille \(p_1,\dots,p_N\) d&#8217;éléments de \(P\) tels que \(p_i(a_j)=\delta_{ij}\). En effet, étant donné des réels \(\alpha_1,\dots,\alpha_N\), la fonction \(p=\sum_{i=1}^N\alpha_i p_i\) vérifie alors \(p(a_j)=\alpha_j,j=1\dots,N\).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>A mettre plus loin (base de \(P_1\) à définir d&#8217;abord)</mark>
+\begin{Example}
+\trad{Soit \(K\) le segment \([a_1,a_2\)]. Montrons que \(\Sigma=\{a_1,a_2\}\) est \(P\)-unisolvant pour \(P=\mathbb{P}^1\). Comme \(\{1,x\}\) est une base de \(\mathbb{P}^1\), on a bien \(\dim P = \text{card } \Sigma = 2\).</p>
+</div>
+<div class="paragraph">
+<p>De plus, on peut écrire \(p_i=\alpha_i x+\beta_i, i=1,2\). Ainsi</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left\{\begin{aligned}
+&amp;p_1(a_1)=1 \\
+&amp;p_1(a_2)=0
+\end{aligned}\right. \quad \iff	\quad
+\left\{\begin{aligned}
+&amp;\alpha_1 a_1+\beta_1=1 \\
+&amp;\alpha_1 a_2+\beta_1=0
+\end{aligned}\right. \quad \iff \quad
+\left\{\begin{aligned}
+&amp;\alpha_1 = \frac{1}{a_1-a_2} \\
+&amp;\beta_1 = -\frac{a_2}{a_1-a_2}
+\end{aligned}\right.\]
+</div>
+</div>
+<div class="paragraph">
+<p>et</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left\{\begin{aligned}
+&amp;p_2(a_1)=0 \\
+&amp;p_2(a_2)=1
+\end{aligned}\right. \quad \iff	\quad
+\left\{\begin{aligned}
+&amp;\alpha_2 a_1+\beta_2=0 \\
+&amp;\alpha_2 a_2+\beta_2=1
+\end{aligned}\right. \quad \iff \quad
+\left\{\begin{aligned}
+&amp;\alpha_1 = \frac{1}{a_2-a_1} \\
+&amp;\beta_1 = -\frac{a_1}{a_2-a_1}
+\end{aligned}\right.\]
+</div>
+</div>
+<div class="paragraph">
+<p>Donc</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[p_1(x)=\frac{x-a_2}{a_1-a_2} \quad \text{and} \quad p_2(x)=\frac{x-a_1}{a_2-a_1}\]
+</div>
+</div>
+<div class="paragraph">
+<p>On en déduit la surjectivité de \(L\) et \(\Sigma\) est \(\mathbb{P}^1\)-unisolvant.}
+\end{Example}</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mesh"><a class="anchor" href="#_mesh"></a>3.2. Mesh</h3>
+<div class="paragraph">
+<p><mark>La première étape consiste à construire un maillage de \(\Omega\).</mark></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>#La partie de génération de maillage est une étape importante #</p>
+</div>
 </td>
 </tr>
 </table>
