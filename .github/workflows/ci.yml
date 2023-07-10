@@ -31,14 +31,14 @@ jobs:
       working-directory: docs/antora
     - name: Commit
       run: |
-        git config --global user.email "
+        git config --global user.email "lecourtier.frederique@gmail.com"
         git config --global user.name "flecourtier"
         git add .
         git commit -m "Update latex"
         git push
 
   build_docs:
-    needs: activate
+    needs: [activate, convert_latex]
     runs-on: ubuntu-latest
     name: Build, Install, Package documentation
     if: "!contains(github.event.head_commit.message, 'docs skip')"
