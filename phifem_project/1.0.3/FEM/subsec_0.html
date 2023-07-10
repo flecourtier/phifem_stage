@@ -346,10 +346,12 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 <div class="sect2">
 <h3 id="_finite_lagrange_element"><a class="anchor" href="#_finite_lagrange_element"></a>3.1. Finite Lagrange Element</h3>
 <div class="paragraph">
-<p><mark>Le type le plus classique et le plus simple d&#8217;éléments finis sont les éléments finis de Lagrange.</mark></p>
+<p>\trad{Le type le plus classique et le plus simple d&#8217;éléments finis sont les éléments finis de Lagrange.}</p>
 </div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p>\begin{Def}[Lagrange Finite Element]
+<p><strong>Defintion (Lagrange Finite Element).</strong>
 \trad{Un élément fini de Lagrange est un triplet \((K,\Sigma,P)\) tel que</p>
 </div>
 <div class="ulist">
@@ -365,8 +367,7 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>\end{Def}</p>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -388,7 +389,7 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </div>
 </div>
 <div class="paragraph">
-<p><mark>est bijective.</mark></p>
+<p>\trad{est bijective.}</p>
 </div>
 </td>
 </tr>
@@ -409,8 +410,11 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </table>
 </div>
 <div class="paragraph">
-<p><mark>A mettre plus loin (base de \(P_1\) à définir d&#8217;abord)</mark>
-\begin{Example}
+<p><mark>A mettre plus loin (base de \(P_1\) à définir d&#8217;abord)</mark></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Example.</strong>
 \trad{Soit \(K\) le segment \([a_1,a_2\)]. Montrons que \(\Sigma=\{a_1,a_2\}\) est \(P\)-unisolvant pour \(P=\mathbb{P}^1\). Comme \(\{1,x\}\) est une base de \(\mathbb{P}^1\), on a bien \(\dim P = \text{card } \Sigma = 2\).</p>
 </div>
 <div class="paragraph">
@@ -460,14 +464,14 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </div>
 </div>
 <div class="paragraph">
-<p>On en déduit la surjectivité de \(L\) et \(\Sigma\) est \(\mathbb{P}^1\)-unisolvant.}
-\end{Example}</p>
+<p>On en déduit la surjectivité de \(L\) et \(\Sigma\) est \(\mathbb{P}^1\)-unisolvant.}</p>
 </div>
+<hr>
 </div>
 <div class="sect2">
 <h3 id="_mesh"><a class="anchor" href="#_mesh"></a>3.2. Mesh</h3>
 <div class="paragraph">
-<p><mark>La première étape consiste à construire un maillage de \(\Omega\).</mark></p>
+<p>\trad{La première étape consiste à construire un maillage de \(\Omega\).}</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -477,7 +481,7 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </td>
 <td class="content">
 <div class="paragraph">
-<p>#La partie de génération de maillage est une étape importante #</p>
+<p>\trad{La partie de génération de maillage est une étape importante }</p>
 </div>
 </td>
 </tr>
@@ -492,13 +496,8 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 <div class="paragraph">
 <p><mark>Ajouter formulation variationnel Poisson</mark></p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p><strong>Propositon (Lax-Milgram).</strong></p>
 </div>
@@ -513,9 +512,7 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 \[J(u)=\min_{v\in V} J(v), \quad J(v)=\frac{1}{2}a(v,v)-l(v)\]
 </div>
 </div>
-</td>
-</tr>
-</table>
+</div>
 </div>
 <div class="paragraph">
 <p>It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution.</p>
