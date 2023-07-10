@@ -29,6 +29,7 @@ jobs:
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
         python3 convert_latex_to_antora.py
+      working-directory: docs/antora
     - name: Build
       run: |
         python3 -m pip install --upgrade pip
