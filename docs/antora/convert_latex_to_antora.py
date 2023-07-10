@@ -18,6 +18,7 @@ images_dir = result_dir + "assets/images/"
 def search_word_in_line(word, line):
     return word in line
 
+# test if the title contains a latex formula
 def test_latex_title(title):
     if search_word_in_line("$", title):
         title_split = title.split("$")
@@ -35,7 +36,7 @@ def test_latex_title(title):
     return title
 
 # read "rapport.tex" and return the list of the files of the sections (e.g. "sections/section_1")
-# if there is no input, the other sections are empty
+# for section which are no input, we juste create an empty section
 def get_section_files():
     file_read = open(rapport_file, 'r')
     # we start by complete sections
@@ -52,13 +53,22 @@ def get_section_files():
     return section_files,empty_sections
 
 # return the list of the sections and the list of the subsections
+# if there is paragraph, we creates file for subsubsection 
 # {"section1":[subsection1,subsection2],"section2":[subsection1,subsection2]}
 def get_sections(section_files,empty_sections):
+    def test_paragraph(section):
+        file_read = open(root_dir + source_dir + section + ".tex", 'r')
+        while line := file_read.readline():
+            if search_word_in_line("\paragraph", line):
+                return True
+        return False
+
     sections = {}
     for section in section_files:
         if section!="":
             file_read = open(root_dir + source_dir + section + ".tex", 'r')
-            subsections = []
+            subsections = {}
+            add_subsubsections = test_paragraph(section)
             while line := file_read.readline():
                 if search_word_in_line("\section", line):
                     key = line.split("{")[1].split("}")[0]
@@ -66,7 +76,13 @@ def get_sections(section_files,empty_sections):
                 if search_word_in_line("\subsection", line):
                     subsection = line.split("{")[1].split("}")[0]
                     subsection = test_latex_title(subsection)
-                    subsections.append(subsection)
+                    subsections[subsection] = []
+                if search_word_in_line("\subsubsection", line):
+                    subsubsection = line.split("{")[1].split("}")[0]
+                    subsubsection = test_latex_title(subsubsection)
+                    if add_subsubsections:    
+                        subsections[subsection].append(subsubsection)
+                    
             sections[key] = subsections
         else:
             key = empty_sections.pop(0)
@@ -89,8 +105,11 @@ def create_nav_file(section_files,sections):
             section_file_name = section_files[i].split("/")[1]
             file_write.write("** xref:" + section_file_name + ".adoc[" + section + "]\n")
             if subsections!=None:
-                for j,subsection in enumerate(subsections):
+                for j,(subsection,subsubsections) in enumerate(subsections.items()):
                     file_write.write("*** xref:" + section_file_name + "/subsec_" + str(j) + ".adoc[" + subsection + "]\n")
+                    if len(subsubsections)!=0:
+                        for k,subsubsection in enumerate(subsubsections):
+                            file_write.write("**** xref:" + section_file_name + "/subsec_" + str(j) + "_subsubsec_" + str(k) + ".adoc[" + subsubsection + "]\n")
         else:
             section_file_name = "section_" + str(i)
             file_write.write("** xref:" + section_file_name + ".adoc[" + section + "]\n")
@@ -111,10 +130,16 @@ def create_nav(section_files,sections):
             section_file.write("= " + section + "\n")
             if subsections!=None:
                 os.mkdir(page_dir + section_file_name)
-                for j,subsection in enumerate(subsections):
+                for j,(subsection,subsubsections) in enumerate(subsections.items()):
                     subsection_file = open(page_dir + section_file_name + "/subsec_" + str(j) + ".adoc", 'w')
                     subsection_file.write("= " + subsection + "\n")
                     subsection_file.close()
+                    if len(subsubsections)!=0:
+                        for k,subsubsection in enumerate(subsubsections):
+                            subsubsection_file = open(page_dir + section_file_name + "/subsec_" + str(j) + "_subsubsec_" + str(k) + ".adoc", 'w')
+                            subsubsection_file.write("= " + subsubsection + "\n")
+                            subsubsection_file.close()
+                    
             section_file.close()
         else:
             section_file_name = "section_" + str(i)
@@ -180,7 +205,7 @@ def get_label_sections(section_files):
                 
                 if search_word_in_line("\subsection", line):
                     num_subsection += 1
-                    subsection_name = subsections[num_subsection]
+                    subsection_name = line.split("{")[1].split("}")[0]
                     if search_word_in_line("\label", line):
                         label_sections[line.split("\label{")[1].split("}")[0]]={"xref":[section_file_name+"/subsec_"+str(num_subsection),subsection_name]}
 
@@ -203,34 +228,44 @@ def cp_section(section_file,label_sections):
     subsection_file = None
     while line := file_read.readline():
         if search_word_in_line("\section", line):
-            title = line.split("{")[1].split("}")[0]
-            title = test_latex_title(title)
+            section = line.split("{")[1].split("}")[0]
+            section = test_latex_title(section)
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
-            file_write.write("= " + title + "\n")
+            file_write.write("= " + section + "\n")
             line = ""
         
         if search_word_in_line("\subsection", line):
             num_subsection += 1
+            num_subsubsection = -1
             subsection_file = "subsec_" + str(num_subsection) + ".adoc"
             file_write = open(page_dir + name_section_file + "/" + subsection_file, 'w')
 
-            title = line.split("{")[1].split("}")[0]
-            title = test_latex_title(title)
+            subsection = line.split("{")[1].split("}")[0]
+            subsection = test_latex_title(subsection)
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
-            file_write.write("= " + title + "\n")
+            file_write.write("= " + subsection + "\n")
             line=""
         
         if search_word_in_line("\subsubsection", line):
+            num_subsubsection += 1
             name_subsubsection = line.split("{")[1].split("}")[0]
             name_subsubsection = test_latex_title(name_subsubsection)
-            line = "== " + name_subsubsection + "\n"
+            if sections[section][subsection]!=[]:
+                subsubsection_file = "subsec_" + str(num_subsection) + "_subsubsec_" + str(num_subsubsection) + ".adoc"
+                file_write = open(page_dir + name_section_file + "/" + subsubsection_file, 'w')
+                file_write.write(":stem: latexmath\n")
+                file_write.write(":xrefstyle: short\n")
+                file_write.write("= " + subsection + "\n")
+                line = "= " + name_subsubsection + "\n"
+            else:
+                line = "== " + name_subsubsection + "\n"
 
         if search_word_in_line("\paragraph", line):
             name_paragraph = line.split("{")[1].split("}")[0]
             name_paragraph = test_latex_title(name_paragraph)
-            line = "=== " + name_paragraph + "\n"
+            line = "== " + name_paragraph + "\n"
 
         if search_word_in_line("\graphicspath", line):
             line = ":imagesdir: \{moduledir\}/assets/" + line.split("{")[2].split("}")[0] + "\n"
