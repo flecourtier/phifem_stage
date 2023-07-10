@@ -24,6 +24,11 @@ jobs:
       run: echo https://$GITHUB_OAUTH:@github.com > $HOME/.git-credentials
       env:
         GITHUB_OAUTH: ${{ secrets.DOCS_GITHUB_KEY }}
+    - name: Run convert
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python3 convert_latex_to_antora.py
     - name: Build
       run: |
         python3 -m pip install --upgrade pip
