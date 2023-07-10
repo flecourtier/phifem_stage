@@ -1,4 +1,5 @@
 \section{Finite Element Methods (FEMs)}
+\graphicspath{{images/FEM}}
 
 In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or inhomogeneous):
 
@@ -86,22 +87,84 @@ with
 After having seen the general principle of FEM, it remains to define the $V_h$ spaces and the $\{\varphi_i\}$ basis functions.
 
 \begin{Rem}
-	The choice of $V_h$ space is fundamental to having an efficient method that gives a good approximation $u_h$ of $u$. In particular, the choice of the $\{\varphi_i\}$ basis of $V_h$ influences the structure of the $A$ matrix in terms of its sparsity and condition number.
+	The choice of $V_h$ space is fundamental to have an efficient method that gives a good approximation $u_h$ of $u$. In particular, the choice of the $\{\varphi_i\}$ basis of $V_h$ influences the structure of the $A$ matrix in terms of its sparsity and its condition number.
 \end{Rem}
 
-\modif{TO COMPLETE !}
+\paragraph{Finite Lagrange Element}
 
-%\paragraph{Finite Lagrange Element}
-%
-%\modif{A COMPLETER !}
-%
-%\paragraph{Mesh}
-%
-%\trad{La première étape consiste à construire un maillage de $\Omega$.}
-%
-%\begin{Rem}
-%	\trad{La partie de génération de maillage est une étape importante }
-%\end{Rem}
+\trad{Le type le plus classique et le plus simple d'éléments finis sont les éléments finis de Lagrange.}
+
+\begin{Def}[Lagrange Finite Element]
+	\trad{Un élément fini de Lagrange est un triplet $(K,\Sigma,P)$ tel que 
+	\begin{enumerate}[label=\textbullet]
+		\item $K$ est un élément géométrique de $\mathbb{R}^n$ ($n=1,2$ ou $3$), compact, connexe et d'intérieur non vide.
+		\item $\Sigma=\{a_1,\dots,a_N\}$ est un ensemble fini de $N$ points distincts de $K$.
+		\item $P$ est un espace vectoriel de dimension finie de fonctions réelles définies sur $K$ et tel que $\Sigma$ soit $P$-unisolvant (donc $\dim P=N$).
+	\end{enumerate}}
+\end{Def}
+
+\begin{Rem}
+	\trad{On dit que $\Sigma$ est $P$-unisolvant si et seulement si pour tous réels $\alpha_1,\dots,\alpha_N$, il existe un unique élément $p$ de $P$ tel que $p(a_i)=\alpha_i,i=1,\dots,N$. 
+	Ceci revient à dire que la fonction}
+	\begin{align*}
+		L \; : \; P &\rightarrow \mathbb{R}^N \\
+		p &\mapsto(p(a_1),\dots,p(a_N))
+	\end{align*}
+	\trad{est bijective.}
+\end{Rem}
+
+\begin{Rem}
+	En pratique, pour montrer que $\Sigma$ est $P$-unisolvant, on vérifiera simplement que $\dim P=card(\Sigma)$ puis on montrera l'injectivité ou la surjectivité de $L$. L'injectivité  de $L$ se démontre en établissant que la seule fonction de $P$ s'annulant sur tous les points de $\Sigma$ est la fonction nulle. La surjectivité de $L$ se démontre en exhibant une famille $p_1,\dots,p_N$ d'éléments de $P$ tels que $p_i(a_j)=\delta_{ij}$. En effet, étant donné des réels $\alpha_1,\dots,\alpha_N$, la fonction $p=\sum_{i=1}^N\alpha_i p_i$ vérifie alors $p(a_j)=\alpha_j,j=1\dots,N$. 
+\end{Rem}
+
+\modif{A mettre plus loin (base de $P_1$ à définir d'abord)}
+\begin{Example}
+	\trad{Soit $K$ le segment $[a_1,a_2]$. Montrons que $\Sigma=\{a_1,a_2\}$ est $P$-unisolvant pour $P=\mathbb{P}^1$. Comme $\{1,x\}$ est une base de $\mathbb{P}^1$, on a bien $\dim P = \text{card } \Sigma = 2$. 
+		
+	De plus, on peut écrire $p_i=\alpha_i x+\beta_i, i=1,2$. Ainsi
+	\begin{equation*}
+		\left\{\begin{aligned}
+			&p_1(a_1)=1 \\
+			&p_1(a_2)=0
+		\end{aligned}\right. \quad \iff	\quad
+		\left\{\begin{aligned}
+			&\alpha_1 a_1+\beta_1=1 \\
+			&\alpha_1 a_2+\beta_1=0
+		\end{aligned}\right. \quad \iff \quad
+		\left\{\begin{aligned}
+		&\alpha_1 = \frac{1}{a_1-a_2} \\
+		&\beta_1 = -\frac{a_2}{a_1-a_2}
+	\end{aligned}\right.
+	\end{equation*}
+	et
+	\begin{equation*}
+		\left\{\begin{aligned}
+			&p_2(a_1)=0 \\
+			&p_2(a_2)=1
+		\end{aligned}\right. \quad \iff	\quad
+		\left\{\begin{aligned}
+			&\alpha_2 a_1+\beta_2=0 \\
+			&\alpha_2 a_2+\beta_2=1
+		\end{aligned}\right. \quad \iff \quad
+		\left\{\begin{aligned}
+			&\alpha_1 = \frac{1}{a_2-a_1} \\
+			&\beta_1 = -\frac{a_1}{a_2-a_1}
+		\end{aligned}\right.
+	\end{equation*}
+	Donc
+	\begin{equation*}
+		p_1(x)=\frac{x-a_2}{a_1-a_2} \quad \text{and} \quad p_2(x)=\frac{x-a_1}{a_2-a_1}
+	\end{equation*}
+	On en déduit la surjectivité de $L$ et $\Sigma$ est $\mathbb{P}^1$-unisolvant.}
+	\end{Example}
+
+\paragraph{Mesh}
+
+\trad{La première étape consiste à construire un maillage de $\Omega$.}
+
+\begin{Rem}
+	\trad{La partie de génération de maillage est une étape importante }
+\end{Rem}
 
 \subsubsection{Application to the Poisson problem}
 

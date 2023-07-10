@@ -6,7 +6,7 @@ content:
   sources:
   - url: ..
     branches: main
-    start_path: antora
+    start_path: docs/antora
 ui:
   bundle:
     url: https://gitlab.com/feelpp/antora-ui-default/-/jobs/artifacts/feelpp/raw/build/ui-bundle.zip?job=bundle-stable

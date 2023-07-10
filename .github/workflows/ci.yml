@@ -29,10 +29,10 @@ jobs:
         python3 -m pip install --upgrade pip
         npm install
         npm run antora
-      working-directory: antora
+      working-directory: docs/antora
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: antora/public # The folder the action should deploy.
+          FOLDER: docs/antora/public # The folder the action should deploy.

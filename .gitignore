@@ -1,32 +1,32 @@
-suivi/suivi*
-!suivi/suivi.tex
-!suivi/suivi.pdf
+docs/suivi/suivi*
+!docs/suivi/suivi.tex
+!docs/suivi/suivi.pdf
 
-suivi/abstract/abstract*
-!suivi/abstract/abstract.py
-!suivi/abstract/abstract.tex
-!suivi/abstract/abstract.pdf
+docs/suivi/abstract/abstract*
+!docs/suivi/abstract/abstract.py
+!docs/suivi/abstract/abstract.tex
+!docs/suivi/abstract/abstract.pdf
 
-extrapolate/extrapolate*
-!extrapolate/extrapolate.tex
-!extrapolate/extrapolate.pdf
+docs/extrapolate/extrapolate*
+!docs/extrapolate/extrapolate.tex
+!docs/extrapolate/extrapolate.pdf
 
-rehaussement/rehaussement*
-!rehaussement/rehaussement.tex
-!rehaussement/rehaussement.pdf
+docs/rehaussement/rehaussement*
+!docs/rehaussement/rehaussement.tex
+!docs/rehaussement/rehaussement.pdf
 
-comp_meth_corr/comp_meth_corr*
-!comp_meth_corr/comp_meth_corr.tex
-!comp_meth_corr/comp_meth_corr.pdf
+docs/comp_meth_corr/comp_meth_corr*
+!docs/comp_meth_corr/comp_meth_corr.tex
+!docs/comp_meth_corr/comp_meth_corr.pdf
 
-preuve_ine_reh/preuve_ine_reh*
-!preuve_ine_reh/preuve_ine_reh.tex
-!preuve_ine_reh/preuve_ine_reh.pdf
+docs/preuve_ine_reh/preuve_ine_reh*
+!docs/preuve_ine_reh/preuve_ine_reh.tex
+!docs/preuve_ine_reh/preuve_ine_reh.pdf
 
-rapport/rapport*
-!rapport/rapport.tex
-!rapport/rapport.pdf
+docs/rapport/rapport*
+!docs/rapport/rapport.tex
+!docs/rapport/rapport.pdf
 
-antora/cache
-antora/public
-antora/node_modules
+docs/antora/cache
+docs/antora/public
+docs/antora/node_modules
