@@ -2,3 +2,17 @@
 :xrefstyle: short
 = Standard FEM
 
+In this section, we will present the standard finite element method. We'll start by presenting some general notions of functional analysis, then explain the general principle of FEM. Then we'll give a few more details on the method and finish by describing the application to the Poisson problem (with Dirichlet condition).
+
+
+---
+The features include
+
+** xref:FEM/subsec_0_subsubsec_0.adoc[Some notions of functional analysis.]
+
+** xref:FEM/subsec_0_subsubsec_1.adoc[General principle of the method]
+
+** xref:FEM/subsec_0_subsubsec_2.adoc[Some details on FEM]
+
+** xref:FEM/subsec_0_subsubsec_3.adoc[Application to the Poisson problem]
+

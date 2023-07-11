@@ -21,7 +21,7 @@ J(u)=\min_{v\in V} J(v), \quad J(v)=\frac{1}{2}a(v,v)-l(v)
 ++++
 ====
 
-It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution.
+It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution #stem:[u\in H_0^1(\Omega)]#.
 
 #rajouter preuve#
 

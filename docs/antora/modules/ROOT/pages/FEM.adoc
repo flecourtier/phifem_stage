@@ -21,3 +21,11 @@ with stem:[\Delta] the Laplace operator and stem:[\Omega\subset\mathbb{R}^d] a l
 
 *Associated physical model :* Newtonian gravity, Electrostatics, Fluid dynamics...
 
+
+---
+The features include
+
+** xref:FEM/subsec_0.adoc[Standard FEM]
+
+** xref:FEM/subsec_1.adoc[stem:[\phi]-FEM]
+

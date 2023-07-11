@@ -12,3 +12,15 @@ The FNO methodology creates a relationship between two spaces from a finite coll
 
 #A rajouter : implémentation effectuée/fournie par Vincent Vigon + on ne trouvera pas ici de test de variation des paramètres (modes, width...)#
 
+
+---
+The features include
+
+** xref:fourier/subsec_0.adoc[Architecture of the FNO]
+
+** xref:fourier/subsec_1.adoc[Fourier Layer structure]
+
+** xref:fourier/subsec_2.adoc[Some details on the convolution sublayer]
+
+** xref:fourier/subsec_3.adoc[Application]
+
