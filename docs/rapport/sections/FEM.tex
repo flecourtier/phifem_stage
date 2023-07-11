@@ -20,6 +20,8 @@ with $\Delta$ the Laplace operator and $\Omega\subset\mathbb{R}^d$ a lipschitzia
 
 \subsection{Standard FEM}
 
+In this section, we will present the standard finite element method. We'll start by presenting some general notions of functional analysis, then explain the general principle of FEM. Then we'll give a few more details on the method and finish by describing the application to the Poisson problem (with Dirichlet condition).
+
 \subsubsection{Some notions of functional analysis.}
 
 \modif{AJOUTER : Déf Espace de Hilbert (+ ce qu'il faut pour def ça : Espace de Soboloev ? ... ) + Déf $L^2$,}
@@ -88,9 +90,11 @@ After having seen the general principle of FEM, it remains to define the $V_h$ s
 	The choice of $V_h$ space is fundamental to have an efficient method that gives a good approximation $u_h$ of $u$. In particular, the choice of the $\{\varphi_i\}$ basis of $V_h$ influences the structure of the $A$ matrix in terms of its sparsity and its condition number.
 \end{Rem}
 
-\modif{Rajouter intro différentes notions abordées !}
+%\modif{Rajouter intro différentes notions abordées !}
+%\trad{Pour ce faire, nous aurons besoin de plusieurs notions, qui seront détaillées dans les sections suivantes. Tout d'abord, nous aurons besoin de générer un \textbf{maillage} de notre domaine $\Omega$. Ainsi, nous pourrons résoudre l'EDP de manière discrète, en des points choisis. C'est alors qu'intervient la notion d'\textbf{éléments finis de Lagrange}. Les propriétés de ces éléments, notamment en terme de \textbf{famille affine d'élément fini} est un point clé de la méthode qui va nous permettre de ramener chaque élément du maillage à un \textbf{élément de référence} à l'aide d'une \textbf{transformation géométrique}.}
 
-\trad{Pour ce faire, nous aurons besoin de plusieurs notions, qui seront détaillées dans les sections suivantes. Tout d'abord, nous aurons besoin de générer un maillage de notre domaine $\Omega$. Ainsi, nous pourrons résoudre l'EDP de manière discrète, en des points choisis. C'est alors qu'intervient la notion d'éléments finis de Lagrange, les propriétés de ces éléments, notament en terme de famille affine d'élément fini est un point clé de la méthode qui va nous permettre de ramener chaque élément du maillage à un élément de référence à l'aide d'une transformation géométrique.}
+To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a \textbf{mesh} of our $\Omega$ domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we'll need to know 2 basic concepts: the \textbf{\modif{unisolvance}} principle and the definitions of the \textbf{polynomial spaces} used ($\mathbb{P}_k$ and $\mathbb{Q}_k$).
+
 
 \paragraph{Unisolvance}
 
@@ -198,8 +202,10 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 		We then call an \textbf{affine family of finite elements} a family of finite elements, all affine-equivalent to the same element $(\hat{K},\hat{\Sigma},\hat{P})$, called the \textbf{reference element}.
 	\end{Def}
 
-	\modif{Rajouter $p_i=\hat{p_i}\circ F^{-1}$}
-	
+	\begin{Rem}
+		Let $(\hat{K},\hat{\Sigma},\hat{P})$ and $(K,\Sigma,P)$ be two affine-equivalent finite elements, via an $F$ transformation. Let $\hat{p_i}$ be the local basis functions on $\hat{K}$. Then the local basis functions on $K$ are $p_i=\hat{p_i}\circ F^{-1}$.
+	\end{Rem}
+		
 	\begin{Rem}
 		In practice, working with an affine family of finite elements means that all integral calculations can be reduced to calculations on the reference element. 
 		
@@ -211,9 +217,9 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 		\end{figure}
 	\end{Rem}
 
-\paragraph{Mesh and geometric transformation}
+\paragraph{Mesh}
 
-In 1D, the construction of a mesh consists in creating a subdivision of the interval $[a,b]$. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements:
+In 1D, the construction of a mesh consists in creating a subdivision of the interval $[a,b]$. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements (see Fig~\ref{triangle_mesh}):
 \begin{equation*}
 	\mathcal{T}_h = \left\{K_1,\dots,K_{N_e}\right\}
 \end{equation*} 
@@ -221,13 +227,58 @@ where $N_e$ is the number of elements.
 
 In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahedrons, parallelepipeds or prisms.
 
-\modif{TO COMPLETE ! (Mesh image + Geometric Transformation)}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{"triangle_mesh.png"}
+	\captionof{figure}{Example of a triangular mesh on a circles}
+	\label{triangle_mesh}
+\end{figure}
 
-%\trad{La première étape consiste à construire un maillage de $\Omega$.}
-%
-%\begin{Rem}
-%	\trad{La partie de génération de maillage est une étape importante }
-%\end{Rem}
+\paragraph{Geometric transformation}
+
+A mesh is generated by
+\begin{enumerate}[label=\textbullet]
+	\item A reference element noted $\hat{K}$.
+	\item A family of geometric transformations mapping $\hat{K}$ to the elements $\left\{K_1,\dots,K_{N_e}\right\}$. Thus, for a cell $K\in\mathcal{T}_h$, we denote $T_K$ the geometric transformation mapping $\hat{K}$ to $K$ :
+	\begin{equation*}
+	T_K : \hat{K}\rightarrow K
+	\end{equation*}
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\linewidth]{"geometric_trans.png"}
+	\captionof{figure}{Geometric transformation applied to a triangle}
+	\label{trans_geo}
+\end{figure}
+
+Let $(\hat{K},\hat{\Sigma},\hat{P})$ be the finite reference element with 
+\begin{enumerate}[label=\textbullet]
+	\item the nodes of the reference element $\hat{K}$ : $\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_n\}$
+	\item the local base functions of $\hat{K}$: $\{\hat{\psi}_1,\dots,\hat{\psi}_n\}$ (also called form functions)
+\end{enumerate}
+
+So for each $K\in\mathcal{T}_h$, we consider a tuple $\{a_{K,1},\dots,a_{K,n}\}$ (degrees of freedom) and the associated geometric transformation is defined by :
+\begin{equation*}
+	T_K : \hat{x}\mapsto\sum_{i=1}^{n}a_{K,i}\hat{\psi}_i(\hat{x})
+\end{equation*}
+
+In particular, we have
+\begin{equation*}
+	T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n
+\end{equation*}
+
+\begin{Rem}
+	In particular, if the form functions are affine, the geometric transformations will be too. This is an interesting property, as the gradient of these geometric transformations will be constant.
+\end{Rem}
+
+\textbf{Construction of the basis $(\varphi_i)$ of $V_h$ :}
+
+\modif{TO COMPLETE !}
+
+\begin{Rem}
+	In the following, we'll assume that these transformations are $C^1$-diffeomorphisms (i.e. the transformation and its inverse are $C^1$ and bijective).
+\end{Rem}
 
 \subsubsection{Application to the Poisson problem}
 
@@ -245,7 +296,7 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 	\end{equation*}
 \end{Prop}
 
-It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution.
+It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution \modif{$u\in H_0^1(\Omega)$}.
 
 \modif{rajouter preuve}
 
