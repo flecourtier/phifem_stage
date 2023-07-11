@@ -1,6 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
-= Standard FEM
+= General principle of the method
 = General principle of the method
 
 Let's consider a domain stem:[\Omega] whose boundary is denoted stem:[\partial\Omega]. We seek to determine a function stem:[u] defined on stem:[\Omega], solution of a partial differential equation (PDE) for given boundary conditions.

@@ -1,6 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
-= Standard FEM
+= Some notions of functional analysis.
 = Some notions of functional analysis.
 
 #AJOUTER : Déf Espace de Hilbert (+ ce qu'il faut pour def ça : Espace de Soboloev ? ... ) + Déf stem:[L^2],#
