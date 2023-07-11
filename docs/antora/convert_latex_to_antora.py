@@ -274,7 +274,7 @@ def cp_section(section_file,sections,label_sections):
                 file_write = open(page_dir + name_section_file + "/" + subsubsection_file, 'w')
                 file_write.write(":stem: latexmath\n")
                 file_write.write(":xrefstyle: short\n")
-                file_write.write("= " + subsection + "\n")
+                file_write.write("= " + subsubsection + "\n")
                 line = "= " + name_subsubsection + "\n"
             else:
                 line = "== " + name_subsubsection + "\n"
