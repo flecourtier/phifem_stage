@@ -218,7 +218,7 @@ def get_label_sections(section_files):
 
     return label_sections
 
-def cp_section(section_file,label_sections):
+def cp_section(section_file,sections,label_sections):
     file_read = open(root_dir + source_dir + section_file + ".tex", 'r')
     
     name_section_file = section_file.split("/")[1]
@@ -230,19 +230,29 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\section", line):
             section = line.split("{")[1].split("}")[0]
             section = test_latex_title(section)
+            subsections = sections[section]
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
             file_write.write("= " + section + "\n")
             line = ""
-        
+
         if search_word_in_line("\subsection", line):
             num_subsection += 1
             num_subsubsection = -1
+
+            if num_subsection==0 and subsections!=None:
+                file_write.write("\n---\n")
+                file_write.write("The features include\n\n")
+                section_file_name = section_file.split("/")[1]
+                for i,subsection_ in enumerate(subsections):
+                    file_write.write("** xref:" + section_file_name + "/subsec_"+ str(i) + ".adoc[" + subsection_ + "]\n\n")
+
             subsection_file = "subsec_" + str(num_subsection) + ".adoc"
             file_write = open(page_dir + name_section_file + "/" + subsection_file, 'w')
 
             subsection = line.split("{")[1].split("}")[0]
             subsection = test_latex_title(subsection)
+            subsubsections = subsections[subsection]
             file_write.write(":stem: latexmath\n")
             file_write.write(":xrefstyle: short\n")
             file_write.write("= " + subsection + "\n")
@@ -252,7 +262,14 @@ def cp_section(section_file,label_sections):
             num_subsubsection += 1
             name_subsubsection = line.split("{")[1].split("}")[0]
             name_subsubsection = test_latex_title(name_subsubsection)
-            if sections[section][subsection]!=[]:
+            if subsubsections!=[]:
+                if num_subsubsection==0:
+                    file_write.write("\n---\n")
+                    file_write.write("The features include\n\n")
+                    section_file_name = section_file.split("/")[1]
+                    for i,subsubsection_ in enumerate(subsubsections):
+                        file_write.write("** xref:" + section_file_name + "/subsec_"+ str(num_subsection) + "_subsubsec_" + str(i) + ".adoc[" + subsubsection_ + "]\n\n")
+
                 subsubsection_file = "subsec_" + str(num_subsection) + "_subsubsec_" + str(num_subsubsection) + ".adoc"
                 file_write = open(page_dir + name_section_file + "/" + subsubsection_file, 'w')
                 file_write.write(":stem: latexmath\n")
@@ -383,9 +400,9 @@ def cp_section(section_file,label_sections):
         if search_word_in_line("\\begin{Def}",line):
             if search_word_in_line("[",line):
                 def_title = line.split("[")[1].split("]")[0]
-                line = "\n[]\n====\n*Defintion ("+def_title+").*\n"
+                line = "\n[]\n====\n*Definition ("+def_title+").*\n"
             else:
-                line = "\n[]\n====\n*Defintion.*\n"
+                line = "\n[]\n====\n*Definition.*\n"
 
         if search_word_in_line("\\end{Def}",line):
             line = "====\n"
@@ -407,7 +424,7 @@ def cp_all_sections(section_files,sections):
     label_sections = get_label_sections(section_files)
     for i,(section,subsections) in enumerate(sections.items()):        
         if section_files[i]!="":
-            cp_section(section_files[i],label_sections)
+            cp_section(section_files[i],sections,label_sections)
         else:
             section_file_name = "section_" + str(i)
             file_write = open(page_dir + section_file_name + ".adoc", 'w')
