@@ -272,6 +272,7 @@ def cp_section(section_file,sections,label_sections):
 
                 subsubsection_file = "subsec_" + str(num_subsection) + "_subsubsec_" + str(num_subsubsection) + ".adoc"
                 file_write = open(page_dir + name_section_file + "/" + subsubsection_file, 'w')
+                subsubsection = line.split("{")[1].split("}")[0]
                 file_write.write(":stem: latexmath\n")
                 file_write.write(":xrefstyle: short\n")
                 file_write.write("= " + subsubsection + "\n")
