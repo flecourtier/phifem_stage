@@ -263,10 +263,7 @@ title="Fullscreen mode"
 </table>
 </div>
 <div class="paragraph">
-<p><mark>Rajouter intro différentes notions abordées !</mark></p>
-</div>
-<div class="paragraph">
-<p>\trad{Pour ce faire, nous aurons besoin de plusieurs notions, qui seront détaillées dans les sections suivantes. Tout d&#8217;abord, nous aurons besoin de générer un maillage de notre domaine \(\Omega\). Ainsi, nous pourrons résoudre l&#8217;EDP de manière discrète, en des points choisis. C&#8217;est alors qu&#8217;intervient la notion d&#8217;éléments finis de Lagrange, les propriétés de ces éléments, notament en terme de famille affine d&#8217;élément fini est un point clé de la méthode qui va nous permettre de ramener chaque élément du maillage à un élément de référence à l&#8217;aide d&#8217;une transformation géométrique.}</p>
+<p>To do this, we&#8217;ll need several notions, which will be detailed in the following sections. First, we&#8217;ll need to generate a <strong>mesh</strong> of our \(\Omega\) domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we&#8217;ll need to know 2 basic concepts: the \textbf{<mark>unisolvance</mark>} principle and the definitions of the \textbf{polynomial spaces} used (\(\mathbb{P}_k\) and \(\mathbb{Q}_k\)).</p>
 </div>
 </div>
 </div>
@@ -276,7 +273,7 @@ title="Fullscreen mode"
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>Defintion.</strong>
+<p><strong>Definition.</strong>
 Let \(\Sigma=\{a_1,\dots,a_N\}\) be a set of \(N\) distinct points of \(\mathbb{R}^n\). Let \(P\) be a finite-dimensional vector space of \(\mathbb{R}^n\) functions taking values in \(\mathbb{R}\). We say that \(\Sigma\) is \(P\)-<mark>unisolvent</mark> if and only if for all real \(\alpha_1,\dots,\alpha_N\), there exists a unique element \(p\) of \(P\) such that \(p(a_i)=\alpha_i,i=1,\dots,N\).
 This means that the function</p>
 </div>
@@ -374,7 +371,7 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>Defintion (Lagrange Finite Element).</strong>
+<p><strong>Definition (Lagrange Finite Element).</strong>
 A finite Lagrange element is a triplet \((K,\Sigma,P)\) such that</p>
 </div>
 <div class="ulist">
@@ -453,7 +450,7 @@ Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>Defintion.</strong>
+<p><strong>Definition.</strong>
 Two finite elements \((\hat{K},\hat{\Sigma},\hat{P})\) and \((K,\Sigma,P)\) are affine-equivalent if and only if there exists an inversible affine function \(F\) such that</p>
 </div>
 <div class="ulist">
@@ -474,8 +471,19 @@ Two finite elements \((\hat{K},\hat{\Sigma},\hat{P})\) and \((K,\Sigma,P)\) are 
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>\modif{Rajouter \(p_i=\hat{p_i}\circ F^{-1}\)}</p>
+<p>Let \((\hat{K},\hat{\Sigma},\hat{P})\) and \((K,\Sigma,P)\) be two affine-equivalent finite elements, via an \(F\) transformation. Let \(\hat{p_i}\) be the local basis functions on \(\hat{K}\). Then the local basis functions on \(K\) are \(p_i=\hat{p_i}\circ F^{-1}\).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -499,10 +507,10 @@ image::FEM/reference_element.png[width=480.0,height=384.0]</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_mesh_and_geometric_transformation"><a class="anchor" href="#_mesh_and_geometric_transformation"></a>4. Mesh and geometric transformation</h2>
+<h2 id="_mesh"><a class="anchor" href="#_mesh"></a>4. Mesh</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In 1D, the construction of a mesh consists in creating a subdivision of the interval \([a,b\)]. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements:</p>
+<p>In 1D, the construction of a mesh consists in creating a subdivision of the interval \([a,b\)]. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements (see <a href="#triangle_mesh">Figure 1</a>):</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -515,8 +523,65 @@ image::FEM/reference_element.png[width=480.0,height=384.0]</p>
 <div class="paragraph">
 <p>In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahedrons, parallelepipeds or prisms.</p>
 </div>
+<div id="triangle_mesh" class="imageblock">
+<div class="content">
+<img src="../_images/FEM/triangle_mesh.png" alt="triangle mesh" width="180.0" height="144.0">
+</div>
+<div class="title">Figure 1. Example of a triangular mesh on a circles</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_geometric_transformation"><a class="anchor" href="#_geometric_transformation"></a>5. Geometric transformation</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><mark>TO COMPLETE ! (Mesh image + Geometric Transformation)</mark></p>
+<p>A mesh is generated by</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A reference element noted \(\hat{K}\).</p>
+</li>
+<li>
+<p>A family of geometric transformations mapping \(\hat{K}\) to the elements \(\left\{K_1,\dots,K_{N_e}\right\}\). Thus, for a cell \(K\in\mathcal{T}_h\), we denote \(T_K\) the geometric transformation mapping \(\hat{K}\) to \(K\) :</p>
+</li>
+</ul>
+</div>
+T_K : \hat{K}\rightarrow K
+<div id="trans_geo" class="imageblock">
+<div class="content">
+<img src="../_images/FEM/geometric_trans.png" alt="geometric trans" width="240.0" height="192.0">
+</div>
+<div class="title">Figure 2. Geometric transformation applied to a triangle</div>
+</div>
+<div class="paragraph">
+<p>Let \((\hat{K},\hat{\Sigma},\hat{P})\) be the finite reference element with</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the nodes of the reference element \(\hat{K}\) : \(\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_n\}\)</p>
+</li>
+<li>
+<p>the local base functions of \(\hat{K}\): \(\{\hat{\psi}_1,\dots,\hat{\psi}_n\}\) (also called form functions)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So for each \(K\in\mathcal{T}_h\), we consider a tuple \(\{a_{K,1},\dots,a_{K,n}\}\) (degrees of freedom) and the associated geometric transformation is defined by :</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[T_K : \hat{x}\mapsto\sum_{i=1}^{n}a_{K,i}\hat{\psi}_i(\hat{x})\]
+</div>
+</div>
+<div class="paragraph">
+<p>In particular, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n\]
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -525,7 +590,29 @@ image::FEM/reference_element.png[width=480.0,height=384.0]</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-
+<div class="paragraph">
+<p>In particular, if the form functions are affine, the geometric transformations will be too. This is an interesting property, as the gradient of these geometric transformations will be constant.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Construction of the basis \((\varphi_i)\) of \(V_h\) :</strong></p>
+</div>
+<div class="paragraph">
+<p><mark>TO COMPLETE !</mark></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the following, we&#8217;ll assume that these transformations are \(C^1\)-diffeomorphisms (i.e. the transformation and its inverse are \(C^1\) and bijective).</p>
+</div>
 </td>
 </tr>
 </table>
