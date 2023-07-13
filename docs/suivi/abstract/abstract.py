@@ -11,13 +11,15 @@ shutil.copyfile(to_include, abstract_file)
 file_write = open(abstract_file,"a")
 file_write.write('\n\\begin{document}\n')
 file_write.write('\tLECOURTIER Frédérique \hfill \\today\n\t\\begin{center}\n\t\t\Large\\textbf{{Abstracts}}\n\t\end{center}\n')
-repo = "../semaines/semaine_"
+repo = "../semaines/"
 
-i=1
-repo_name = repo+str(i)
+semaine_dir = np.array(os.listdir(repo))
+num_dir = [x.split("_")[1] for x in semaine_dir]
+mapping = np.argsort([int(x.split("-")[0]) for x in [x.split("_")[1] for x in os.listdir(repo)]])
+semaine_dir = semaine_dir[mapping]
 
-while( os.path.exists(repo_name) ):
-    file_name = repo_name + "/semaine_" + str(i) + ".tex"
+for i,dir_name in enumerate(semaine_dir):
+    file_name = repo + dir_name + "/" + dir_name + ".tex"
     print(file_name)
     file_read = open(file_name, 'r')
 
@@ -43,8 +45,5 @@ while( os.path.exists(repo_name) ):
         
         for line_to_write in lines_to_write:
             file_write.write(line_to_write)
-
-    i+=1
-    repo_name = repo+str(i)
 
 file_write.write('\end{document}')
