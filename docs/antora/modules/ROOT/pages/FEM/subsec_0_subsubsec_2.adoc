@@ -12,7 +12,7 @@ The choice of stem:[V_h] space is fundamental to have an efficient method that g
 ====
 
 
-To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a *mesh* of our stem:[\Omega] domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we'll need to know 2 basic concepts: the \textbf{#unisolvance#} principle and the definitions of the \textbf{polynomial spaces} used (stem:[\mathbb{P}_k] and stem:[\mathbb{Q}_k]).
+To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a *mesh* of our stem:[\Omega] domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of *finite Lagrange elements* comes in. The properties of these elements, particularly in terms of their *affine family of finite elements*, is a key point of the method, which will enable us to bring each element of the mesh back to a *reference element* by using a *geometric transformation*. To describe these steps, we'll need to know 2 basic concepts: the *#unisolvance#* principle and the definitions of the *polynomial spaces* used (stem:[\mathbb{P}_k] and stem:[\mathbb{Q}_k]).
 
 
 == Unisolvance
@@ -141,7 +141,7 @@ Two finite elements stem:[(\hat{K},\hat{\Sigma},\hat{P})] and stem:[(K,\Sigma,P)
 *  stem:[a_i=F(\hat{a_i}),i=1,\dots,N] 
 *  stem:[P=\{\hat{p}\circ F^{-1},\hat{p}\in\hat{P}\}].
 
-We then call an *affine family of finite elements* a family of finite elements, all affine-equivalent to the same element stem:[(\hat{K},\hat{\Sigma},\hat{P})], called the \textbf{reference element}.
+We then call an *affine family of finite elements* a family of finite elements, all affine-equivalent to the same element stem:[(\hat{K},\hat{\Sigma},\hat{P})], called the *reference element*.
 ====
 
 
