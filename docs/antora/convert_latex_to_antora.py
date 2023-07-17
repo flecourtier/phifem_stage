@@ -380,11 +380,11 @@ def cp_section(section_file,sections,label_sections):
             text = line.split("{")[2].split("}")[0]
             line = line.replace("\href{"+url+"}{"+text+"}",url+"["+text+"]")
 
-        if search_word_in_line("\\textbf",line):
+        while search_word_in_line("\\textbf",line):
             sentence = line.split("\\textbf")[1].split("{")[1].split("}")[0]
             line = line.replace("\\textbf{"+sentence+"}","*"+sentence+"*")
 
-        if search_word_in_line("\\textit",line):
+        while search_word_in_line("\\textit",line):
             sentence = line.split("\\textit")[1].split("{")[1].split("}")[0]
             line = line.replace("\\textit{"+sentence+"}","_"+sentence+"_")
 
