@@ -157,7 +157,7 @@ In practice, working with an affine family of finite elements means that all int
 
 The reference elements in 1D, 2D triangular and 3D tetrahedral are :
 .Example of reference Elements
-image::FEM/reference_element.png[width=480.0,height=384.0]
+image::FEM/FEM_reference_element.png[width=480.0,height=384.0]
 ====
 
 == Mesh
@@ -173,7 +173,7 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 
 [[triangle_mesh]]
 .Example of a triangular mesh on a circles
-image::FEM/triangle_mesh.png[width=180.0,height=144.0]
+image::FEM/FEM_triangle_mesh.png[width=180.0,height=144.0]
 
 == Geometric transformation
 
@@ -189,7 +189,7 @@ T_K : \hat{K}\rightarrow K
 
 [[trans_geo]]
 .Geometric transformation applied to a triangle
-image::FEM/geometric_trans.png[width=240.0,height=192.0]
+image::FEM/FEM_geometric_trans.png[width=240.0,height=192.0]
 
 Let stem:[(\hat{K},\hat{\Sigma},\hat{P})] be the finite reference element with 
 

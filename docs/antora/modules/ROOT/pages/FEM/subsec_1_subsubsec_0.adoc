@@ -1,0 +1,17 @@
+:stem: latexmath
+:xrefstyle: short
+= Context and general principle of the method
+= Context and general principle of the method
+
+The PhiFEM method is a new fictitious domain finite element method that does not require a boundary mesh. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step. Unlike this type of method, stem:[\phi]-FEM requires only the generation of a single mesh: the mesh of a fictitious domain containing the entire geometry. As the boundary of the geometry is represented by a levelset function stem:[\phi], only this function will change over time, which is a real time-saver.
+
+[[context]]
+.Left: active meshes for $\phi$-FEM (with cells from $\mathcal
+image::FEM/PhiFEM_context.png[width=420.0,height=336.0]
+
+
+[NOTE]
+====
+For the purposes of this internship, the geometries considered are not organs (such as the liver), because these are complex geometries. We'll be considering simpler geometries such as circles or squares. #Un article récent présente des résultats avec la combinaison de PhiFEM et d'un FNO sur des géométries d'ellipse + add ref si publié avant rendu.#
+====
+

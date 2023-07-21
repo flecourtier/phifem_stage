@@ -2,6 +2,18 @@
 :xrefstyle: short
 = stem:[\phi]-FEM
 
-#TO COMPLETE !#
+In this section, we will present the stem:[\phi]-FEM method. We will first present the context in which the method is used and its general principle, then go into a little more detail about the method in the case of the Poisson problem with Dirichlet condition. #Finally, we will present the main numerical results of the reference articles.#
 
+
+
+
+#Mettre quelques parts les trucs de géométries cartésiennes ! Utile pour FNO !#
+
+
+---
+The features include
+
+** xref:FEM/subsec_1_subsubsec_0.adoc[Context and general principle of the method]
+
+** xref:FEM/subsec_1_subsubsec_1.adoc[Presentation of the stem:[\phi]-FEM method]
 

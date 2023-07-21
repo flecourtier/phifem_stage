@@ -1,0 +1,7 @@
+:stem: latexmath
+:xrefstyle: short
+= Conclusion
+
+#Penser à parler de la thèse : sujet etc...#
+
+#TO COMPLETE !#

@@ -28,3 +28,5 @@ It can then be shown that the Poisson problem with Dirichlet condition has a uni
 
 #Rajouter : Calcul assemblage matrice dans le cas de ce problème ?#
 
+#Rajouter : Convergence FEM standard !#
+
