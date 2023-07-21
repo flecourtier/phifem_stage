@@ -226,6 +226,8 @@ def cp_section(section_file,sections,label_sections):
     
     num_subsection = -1
     subsection_file = None
+    first_minipage=True
+    minipage_width = 1.
     while line := file_read.readline():
         if search_word_in_line("\section", line):
             section = line.split("{")[1].split("}")[0]
@@ -319,8 +321,8 @@ def cp_section(section_file,sections,label_sections):
                         linewidth="1.0"
                     linewidth = float(linewidth)
 
-                    width = linewidth * 600
-                    height = linewidth * 480
+                    width = minipage_width * linewidth * 600
+                    height = minipage_width * linewidth * 480
 
                 if search_word_in_line("\caption", line):
                     caption = line.split("{")[2].split("}")[0]
@@ -328,8 +330,23 @@ def cp_section(section_file,sections,label_sections):
                 if search_word_in_line("\label", line):
                     label = line.split("{")[1].split("}")[0]
                     file_write.write("[["+label+"]]\n")
-
+            minipage_width = 1.
             line = "."+caption+"\nimage::" + name_section_file + "/" + image_name + "[width="+str(width)+",height="+str(height)+"]\n"
+
+        if search_word_in_line("\\begin{minipage}", line):
+            minipage_width = 0.5
+            if first_minipage:
+                line = "[cols=\"a,a\"]\n|===\n|"
+                first_minipage=False
+            else:
+                line = "|"
+                first_minipage=True
+        
+        if search_word_in_line("\end{minipage}", line):
+            if first_minipage:
+                line="\n|===\n"
+            else:
+                line="" 
 
         if search_word_in_line("\\begin{equation", line):
             line = "[stem]\n++++\n"
