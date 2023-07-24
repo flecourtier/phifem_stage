@@ -80,6 +80,9 @@
     <a class="nav-link" href="../main_page.html">PhiFEM project</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../section_0.html">PLAN du rapport</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../index.html">Introduction</a>
 <ul class="nav-list">
@@ -152,16 +155,16 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_3.html">Correction</a>
+    <a class="nav-link" href="../section_4.html">Correction</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_4.html">Numerical Results ?</a>
+    <a class="nav-link" href="../section_5.html">Numerical Results ?</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conclu.html">Conclusion</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_6.html">Biblio</a>
+    <a class="nav-link" href="../section_7.html">Biblio</a>
   </li>
 </ul>
   </li>
@@ -288,6 +291,15 @@ u&amp;=g, \; &amp;&amp;\text{on } \; \partial\Omega,
 \[\Omega=\{\phi &lt; 0\} \quad \text{and} \quad \Gamma=\{\phi = 0\}.\]
 </div>
 </div>
+<div class="paragraph">
+<p>The level-set function \(\phi\) is supposed to be known on \(\mathbb{R}^d\), smooth, and to behave near \(\Gamma\) as the signed distance to \(\Gamma\) (<a href="#space1">Figure 1</a>).</p>
+</div>
+<div id="space1" class="imageblock">
+<div class="content">
+<img src="../_images/FEM/PhiFEM_level_set.png" alt="PhiFEM level set" width="240.0" height="192.0">
+</div>
+<div class="title">Figure 1. Definition of the level-set function</div>
+</div>
 <hr>
 <div class="paragraph">
 <p><strong>Example.</strong>
@@ -308,17 +320,23 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 </div>
 <hr>
 <div class="paragraph">
-<p>The level-set function \(\phi\) is supposed to be known on \(\mathbb{R}^d\), smooth, and to behave near \(\Gamma\) as the signed distance to \(\Gamma\) (<a href="#space1">Figure 1</a>).</p>
-</div>
-<div id="space1" class="imageblock">
-<div class="content">
-<img src="../_images/FEM/PhiFEM_level_set.png" alt="PhiFEM level set" width="240.0" height="192.0">
-</div>
-<div class="title">Figure 1. Definition of the level-set function</div>
+<p>We assume that \(\Omega\) is inside a domain \(\mathcal{O}\) and we introduce a simple quasi-uniform mesh \(\mathcal{T}_h^\mathcal{O}\) on \(\mathcal{O}\) (<a href="#space2">Figure 2</a>).</p>
 </div>
 <div class="paragraph">
-<p>We assume that \(\Omega\) is inside a domain \(\mathcal{O}\) and we introduce a simple quasi-uniform mesh \(\mathcal{T}_h^\mathcal{O}\) on \(\mathcal{O}\) (<a href="#space2">Figure 2</a>).
-We will consider \(\mathcal{T}_h\) a sub-mesh of \(\mathcal{T}_h^\mathcal{O}\) obtained by removing the elements located entirely outside \(\Omega\). We note \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) the boundary of \(\Omega_h\) (see <a href="#space3">Figure 3</a>).</p>
+<p>We will consider \(\mathcal{T}_h\) a sub-mesh of \(\mathcal{T}_h^\mathcal{O}\) obtained by removing the elements located entirely outside \(\Omega\) (<a href="#space3">Figure 3</a>). To be more specific, \(\mathcal{T}_h\) is defines by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathcal{T}_h=\left\{T\in \mathcal{T}_h^\mathcal{O}:T\cap\{\phi_h&lt;0\}\ne\emptyset\right\}.\]
+</div>
+</div>
+<div class="paragraph">
+<p>We note \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) its boundary (<a href="#space3">Figure 3</a>). The domain \(\Omega_h\) is defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\Omega_h=\left(\cup_{T\in\mathcal{T}_h}T\right)^O\]
+</div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -343,11 +361,11 @@ We will consider \(\mathcal{T}_h\) a sub-mesh of \(\mathcal{T}_h^\mathcal{O}\) o
 </tbody>
 </table>
 <div class="paragraph">
-<p>We will introduce an approximation \(\phi_h\in V_{h,\mathcal{O}}^{(l)}\) of \(\phi\) given by \(\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)\) where \(I_{h,\mathcal{O}}^{(l)}\) is the standard Lagrange interpolation operator on</p>
+<p>Now, we can introduce an approximation \(\phi_h\in V_{h,\mathcal{O}}^{(l)}\) of \(\phi\) given by \(\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)\) where \(I_{h,\mathcal{O}}^{(l)}\) is the standard Lagrange interpolation operator on</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[V_{h,\mathcal{O}}^{(l)}=\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\}.\]
+\[V_{h,\mathcal{O}}^{(l)}=\left\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\right\}.\]
 </div>
 </div>
 <div class="paragraph">
@@ -356,7 +374,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\mathcal{T}_h^\Gamma=\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\}.\]
+\[\mathcal{T}_h^\Gamma=\left\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\right\}.\]
 </div>
 </div>
 <div class="paragraph">
@@ -364,7 +382,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\mathcal{F}_h^\Gamma=\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\}.\]
+\[\mathcal{F}_h^\Gamma=\left\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\right\}.\]
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -394,7 +412,83 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <div class="sect1">
 <h2 id="_description_of_the_phi_fem_method"><a class="anchor" href="#_description_of_the_phi_fem_method"></a>2. Description of the \(\phi\)-FEM method</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><mark>Attention là cas homogène !</mark></p>
+</div>
+<div class="paragraph">
+<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we&#8217;re no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our edge conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we&#8217;ll have to add terms to the variational formulation of the problem, called stabilization terms.</p>
+</div>
+<div class="paragraph">
+<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied. After integration by parts, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)\]
+</div>
+</div>
+<div class="paragraph">
+<p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in Section <mark>ADD paragraph label antora</mark>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.\]
+</div>
+</div>
+<div class="paragraph">
+<p>We can consider the finite element space \(V_h=V_h^{(k)}\) with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T) \;  \forall T\in\mathcal{T}_h\right\}.\]
+</div>
+</div>
+<div class="paragraph">
+<p>The bilinear form \(a_h\) and the linear form \(l_h\) are defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[a_h(w,v)=\int_{\Omega_h} \nabla (\Phi_h w) \cdot \nabla (\Phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\Phi_h w)\Phi_h v+G_h(w,v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[l_h(v)=\int_{\Omega_h} f \Phi_h v + G_h^{rhs}(v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(\sigma\) an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
+</div>
+<div class="paragraph">
+<p><mark>Ajouter remarque en disant que \(\Omega_h\) dépend implicitement de \(\phi\) ?</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>Ajouter remarque terme au bord ne s&#8217;annule pas sur \(\partial\Omega_h\) + expliquer ce que c&#8217;est crochets - termes de saut.</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>AJOUTER Explications termes de stabilisation !</mark></p>
+</div>
+<div class="paragraph">
+<p><mark>Ajouter explication cas non homogène (dual et direct).</mark></p>
+</div>
 </div>
 </div>
 </article>
