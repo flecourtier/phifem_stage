@@ -1,5 +1,6 @@
 :stem: latexmath
 * xref:main_page.adoc[PhiFEM project]
+** xref:section_0.adoc[PLAN du rapport]
 ** xref:index.adoc[Introduction]
 *** xref:index/subsec_0.adoc[Scientific Context]
 *** xref:index/subsec_1.adoc[Presentation of Mimesis]
@@ -19,7 +20,7 @@
 *** xref:fourier/subsec_1.adoc[Fourier Layer structure]
 *** xref:fourier/subsec_2.adoc[Some details on the convolution sublayer]
 *** xref:fourier/subsec_3.adoc[Application]
-** xref:section_3.adoc[Correction]
-** xref:section_4.adoc[Numerical Results ?]
+** xref:section_4.adoc[Correction]
+** xref:section_5.adoc[Numerical Results ?]
 ** xref:conclu.adoc[Conclusion]
-** xref:section_6.adoc[Biblio]
+** xref:section_7.adoc[Biblio]
