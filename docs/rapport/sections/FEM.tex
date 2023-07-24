@@ -305,18 +305,11 @@ It can then be shown that the Poisson problem with Dirichlet condition has a uni
 
 \modif{Rajouter : Convergence FEM standard !}
 
+\newpage
+
 \subsection{$\phi$-FEM}
 
-In this section, we will present the $\phi$-FEM method. We will first present the context in which the method is used and its general principle, then go into a little more detail about the method in the case of the Poisson problem with Dirichlet condition. \modif{Finally, we will present the main numerical results of the reference articles.}
-
-%\modif{\textbf{PLAN PhiFEM :}}
-%\begin{enumerate}[label=\textbullet]
-%	\item \modif{\textbf{Contexte et principe général :} pourquoi PhiFEM est utile : contexte de la chirurgie en temps réel + Schéma expliquant l'idée + remarque sur le fait que pour l'instant on ne considère que des géométries de cercle ou d'ellipse, si possible ajouter article Killian et parler des géométrie aléatoire}
-%	\item \modif{\textbf{Présentation de la méthode :} on ne considère que le pb de poisson} \\
-%	\modif{-> \textbf{mise en place des outils nécessaires :} définition des espaces comme pur projet (rapport sur github)} \\
-%	\modif{-> \textbf{description de la méthode :} présentation formulation variationnelle (+ termes de bord non nulle car on est sur $\partial \Omega_h$ + explication non homogène)+ explication sur les termes de stabilisation + présentation méthode duale + rq comme quoi au niveau de la méthode ensuite c'est comme pr les éléments finis standard (système linéaire matricielle...)} 
-%	\item  \modif{\textbf{Résultats numériques obtenus dans les articles ?}}
-%\end{enumerate}
+In this section, we will present the $\phi$-FEM method. We will first present the context in which the method is used and its general principle, then go into a little more detail about the method in the case of the Poisson problem with Dirichlet condition. \modif{Finally, we will present the main numerical results of the reference article ?}
 
 \modif{Mettre quelques parts les trucs de géométries cartésiennes ! Utile pour FNO !}
 
@@ -340,6 +333,7 @@ The PhiFEM method is a new fictitious domain finite element method that does not
 We will only consider here the case of the Poisson problem with Dirichlet condition. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \modif{ref 12,8,10,19}. Models $\phi$-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref ...}. For consideration of the elasticity problem, please refer to \modif{ref ...}.
 
 \paragraph{Description of spaces}
+\label{FEM.phifem.description_spaces}
 
 We will consider the Poisson-Dirichlet problem
 \begin{equation*}
@@ -356,6 +350,15 @@ where the domain $\Omega$ and its boundary $\Gamma$ are given by a level-set fun
 	\Omega=\{\phi < 0\} \quad \text{and} \quad \Gamma=\{\phi = 0\}.
 \end{equation*}
 
+The level-set function $\phi$ is supposed to be known on $\mathbb{R}^d$, smooth, and to behave near $\Gamma$ as the signed distance to $\Gamma$ (Figure \ref{space1}). 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\linewidth]{"PhiFEM_level_set.png"}
+	\captionof{figure}{Definition of the level-set function}
+	\label{space1}
+\end{figure}
+
 \begin{Example}
 	If $\Omega$ is a circle of center $A$ and radius $r$, the level-set function can be defined by
 	\begin{equation*}
@@ -367,17 +370,16 @@ where the domain $\Omega$ and its boundary $\Gamma$ are given by a level-set fun
 	\end{equation*}
 \end{Example}
 
-The level-set function $\phi$ is supposed to be known on $\mathbb{R}^d$, smooth, and to behave near $\Gamma$ as the signed distance to $\Gamma$ (Figure \ref{space1}). 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.4\linewidth]{"PhiFEM_level_set.png"}
-	\captionof{figure}{Definition of the level-set function}
-	\label{space1}
-\end{figure}
-
-We assume that $\Omega$ is inside a domain $\mathcal{O}$ and we introduce a simple quasi-uniform mesh $\mathcal{T}_h^\mathcal{O}$ on $\mathcal{O}$ (Figure \ref{space2}). 
-We will consider $\mathcal{T}_h$ a sub-mesh of $\mathcal{T}_h^\mathcal{O}$ obtained by removing the elements located entirely outside $\Omega$. We note $\Omega_h$ the domain covered by the $\mathcal{T}_h$ mesh ($\Omega_h$ will be slightly larger than $\Omega$) and $\partial\Omega_h$ the boundary of $\Omega_h$ (see Figure \ref{space3}).
+We assume that $\Omega$ is inside a domain $\mathcal{O}$ and we introduce a simple quasi-uniform mesh $\mathcal{T}_h^\mathcal{O}$ on $\mathcal{O}$ (Figure \ref{space2}).
+ 
+We will consider $\mathcal{T}_h$ a sub-mesh of $\mathcal{T}_h^\mathcal{O}$ obtained by removing the elements located entirely outside $\Omega$ (Figure \ref{space3}). To be more specific, $\mathcal{T}_h$ is defines by
+\begin{equation*}
+	\mathcal{T}_h=\left\{T\in \mathcal{T}_h^\mathcal{O}:T\cap\{\phi_h<0\}\ne\emptyset\right\}.
+\end{equation*}
+We note $\Omega_h$ the domain covered by the $\mathcal{T}_h$ mesh ($\Omega_h$ will be slightly larger than $\Omega$) and $\partial\Omega_h$ its boundary (Figure \ref{space3}). The domain $\Omega_h$ is defined by
+\begin{equation*}
+	\Omega_h=\left(\cup_{T\in\mathcal{T}_h}T\right)^O
+\end{equation*}
 
 \begin{minipage}{0.52\linewidth}
 	\begin{figure}[H]
@@ -396,18 +398,18 @@ We will consider $\mathcal{T}_h$ a sub-mesh of $\mathcal{T}_h^\mathcal{O}$ obtai
 	\end{figure}
 \end{minipage}
 
-We will introduce an approximation $\phi_h\in V_{h,\mathcal{O}}^{(l)}$ of $\phi$ given by $\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)$ where $I_{h,\mathcal{O}}^{(l)}$ is the standard Lagrange interpolation operator on
+Now, we can introduce an approximation $\phi_h\in V_{h,\mathcal{O}}^{(l)}$ of $\phi$ given by $\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)$ where $I_{h,\mathcal{O}}^{(l)}$ is the standard Lagrange interpolation operator on
 \begin{equation*}
-	V_{h,\mathcal{O}}^{(l)}=\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\}.
+	V_{h,\mathcal{O}}^{(l)}=\left\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\right\}.
 \end{equation*}
 By considering $\Gamma_h=\{\phi_h=0\}$, the approximate boundary of $\Gamma$, we can introduce $\mathcal{T}_h^\Gamma\subset \mathcal{T}_h$ (Figure \ref{space4}) which contains the mesh elements cut by the
 approximate boundary $\Gamma_h = \{\phi_h=0\}$, i.e. 
 \begin{equation*}
-	\mathcal{T}_h^\Gamma=\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\}.
+	\mathcal{T}_h^\Gamma=\left\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\right\}.
 \end{equation*}
 and $\mathcal{F}_h^\Gamma$ (Figure \ref{space5}) collects the interior facets of the mesh $\mathcal{T}_h$ either cut by $\Gamma_h$ or belonging to a cut mesh element
 \begin{equation*}
-	\mathcal{F}_h^\Gamma=\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\}.
+	\mathcal{F}_h^\Gamma=\left\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\right\}.
 \end{equation*}
 
 \begin{minipage}{0.48\linewidth}
@@ -429,4 +431,44 @@ and $\mathcal{F}_h^\Gamma$ (Figure \ref{space5}) collects the interior facets of
 
 \paragraph{Description of the $\phi$-FEM method}
 
-%To impose the Dirichlet boundary conditions, we look for the approximation of the solution as a product of a finite element function with the given level set function. Considering the Poisson equation, the optimal convergence of our method in both $L^2$ and $H^1$ norms is guaranteed and the discrete problem is well conditioned (the number of conditions of the associated finite element matrix is of the same order as that of a standard finite element method).
+\modif{Attention là cas homogène !}
+
+As with standard FEM, the general idea behind $\phi$-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we're no longer looking to solve the problem on $\Omega$ (of boundary $\Gamma$) but on $\Omega_h$ (of boundary $\partial\Omega_h$). Since our edge conditions are defined on $\Gamma$, we don't have a direct condition on the $\partial\Omega_h$ boundary, so we'll have to add terms to the variational formulation of the problem, called stabilization terms.
+
+Assuming that the right-hand side $f$ is currently well-defined on $\Omega_h$ and that the solution $u$ can be extended on $\Omega_h$ such that $-\Delta u=f$ on $\Omega_h$, we can introduce a new unknown $w\in H^1(\Omega_h)$ such that $u=\phi w$ and the boundary condition on $\Gamma$ is satisfied. After integration by parts, we have
+\begin{equation*}
+	\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)
+\end{equation*}
+Given an approximation $\phi_h$ of $\phi$ on the mesh $\mathcal{T}_h$, as defined in Section \ref{FEM.phifem.description_spaces}, and a finite element space $V_h$ on $\mathcal{T}_h$, we can then search for $w_h\in V_h$ such that
+\begin{equation*}
+	a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.
+\end{equation*}
+We can consider the finite element space $V_h=V_h^{(k)}$ with
+\begin{equation*}
+	V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T) \;  \forall T\in\mathcal{T}_h\right\}.
+\end{equation*}
+The bilinear form $a_h$ and the linear form $l_h$ are defined by
+\begin{equation*}
+	a_h(w,v)=\int_{\Omega_h} \nabla (\Phi_h w) \cdot \nabla (\Phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\Phi_h w)\Phi_h v+G_h(w,v)
+\end{equation*}
+and
+\begin{equation*}
+	l_h(v)=\int_{\Omega_h} f \Phi_h v + G_h^{rhs}(v)
+\end{equation*}
+with
+\begin{equation*}
+G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)
+\end{equation*}
+and
+\begin{equation*}
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v)
+\end{equation*}
+with $\sigma$ an independent parameter of h, which we'll call the stabilization parameter.
+
+\modif{Ajouter remarque en disant que $\Omega_h$ dépend implicitement de $\phi$ ?}
+
+\modif{Ajouter remarque terme au bord ne s'annule pas sur $\partial\Omega_h$ + expliquer ce que c'est crochets - termes de saut.}
+
+\modif{AJOUTER Explications termes de stabilisation !}
+
+\modif{Ajouter explication cas non homogène (dual et direct).}
