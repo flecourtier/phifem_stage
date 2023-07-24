@@ -9,10 +9,14 @@ But : Convertir un fichier latex en une documentation antora complète
 root_dir = "../../docs/"
 
 source_dir = "rapport/"
-rapport_file = root_dir + source_dir + "rapport.tex"
+rapport_dir = root_dir + source_dir
+suivi_dir = root_dir + "suivi/"
+rapport_file = rapport_dir + "rapport.tex"
+
 result_dir = root_dir + "antora/modules/ROOT/"
 page_dir = result_dir + "pages/"
 images_dir = result_dir + "assets/images/"
+attachments_dir = result_dir + "assets/attachments/"
 
 # return true if word is in line
 def search_word_in_line(word, line):
@@ -164,13 +168,23 @@ def create_main_page_file(section_files,sections):
             section_file_name = "section_" + str(i)
             file_write.write("** xref:" + section_file_name + ".adoc[" + section + "]\n")
 
+    file_write.write("\nYou can find the internship report in PDF just xref:attachment$rapport.pdf[HERE] as well as a weekly tracking of the internship xref:attachment$suivi.pdf[HERE] (in french).\n")
+
     file_write.close()   
 
 # copy all the images of the tex report in the antora documentation
-def cp_images():       
+def cp_assets():       
+    # Cp images
     if os.path.exists(images_dir):
         shutil.rmtree(images_dir)
     shutil.copytree(root_dir + source_dir + "images/", images_dir)
+
+    # Cp attachments
+    if os.path.exists(attachments_dir):
+        shutil.rmtree(attachments_dir)
+    os.mkdir(attachments_dir)
+    shutil.copyfile(rapport_dir + "rapport.pdf",attachments_dir + "rapport.pdf")
+    shutil.copyfile(suivi_dir + "suivi.pdf",attachments_dir + "suivi.pdf")
 
 # Test if there is a refernce to a figure in the line (many configurations possibles)
 def test_fig(line):
@@ -464,5 +478,5 @@ sections = get_sections(section_files,empty_sections)
 create_nav_file(section_files,sections)
 create_nav(section_files,sections)
 create_main_page_file(section_files,sections)
-cp_images()
+cp_assets()
 cp_all_sections(section_files,sections)

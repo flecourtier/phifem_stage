@@ -332,8 +332,8 @@ The PhiFEM method is a new fictitious domain finite element method that does not
 
 We will only consider here the case of the Poisson problem with Dirichlet condition. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \modif{ref 12,8,10,19}. Models $\phi$-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref ...}. For consideration of the elasticity problem, please refer to \modif{ref ...}.
 
-\paragraph{Description of spaces}
-\label{FEM.phifem.description_spaces}
+\paragraph{Description of spaces} 
+%\label{FEM.phifem.description_spaces}
 
 We will consider the Poisson-Dirichlet problem
 \begin{equation*}
@@ -439,7 +439,7 @@ Assuming that the right-hand side $f$ is currently well-defined on $\Omega_h$ an
 \begin{equation*}
 	\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)
 \end{equation*}
-Given an approximation $\phi_h$ of $\phi$ on the mesh $\mathcal{T}_h$, as defined in Section \ref{FEM.phifem.description_spaces}, and a finite element space $V_h$ on $\mathcal{T}_h$, we can then search for $w_h\in V_h$ such that
+Given an approximation $\phi_h$ of $\phi$ on the mesh $\mathcal{T}_h$, as defined in Section \modif{ADD paragraph label antora}, and a finite element space $V_h$ on $\mathcal{T}_h$, we can then search for $w_h\in V_h$ such that
 \begin{equation*}
 	a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.
 \end{equation*}
