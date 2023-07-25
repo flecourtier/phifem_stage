@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Presentation of the $\phi$-FEM method :: PhiFEM Project - Docs</title>
+    <title>General presentation of the $\phi$-FEM method :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/FEM/subsec_1_subsubsec_1.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -130,7 +130,10 @@
     <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_1.html">Presentation of the \(\phi\)-FEM method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
   </li>
 </ul>
   </li>
@@ -202,7 +205,7 @@
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../FEM.html">Finite Element Methods (FEMs)</a></li>
     <li><a href="subsec_1.html">\(\phi\)-FEM</a></li>
-    <li><a href="subsec_1_subsubsec_1.html">Presentation of the \(\phi\)-FEM method</a></li>
+    <li><a href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a></li>
   </ul>
 </nav>
 
@@ -259,11 +262,11 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Presentation of the $\phi$-FEM method</h1>
+<h1 class="page">General presentation of the $\phi$-FEM method</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>We will only consider here the case of the Poisson problem with Dirichlet condition. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to <mark>ref 12,8,10,19</mark>. Models \(\phi\)-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref &#8230;&#8203;}. For consideration of the elasticity problem, please refer to \modif{ref &#8230;&#8203;}.</p>
+<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we&#8217;ll give more details in <a href="#_some_details_on_$\phi$-fem">[_some_details_on_$\phi$-fem]</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to <mark>ref 12,8,10,19</mark>. Models \(\phi\)-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref &#8230;&#8203;}. For consideration of the elasticity problem, please refer to \modif{ref &#8230;&#8203;}.</p>
 </div>
 </div>
 </div>
@@ -347,7 +350,7 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="space2" class="imageblock">
 <div class="content">
-<img src="../_images/FEM/PhiFEM_domain.png" alt="PhiFEM domain" width="300.0" height="240.0">
+<img src="../_images/FEM/PhiFEM_domain.png" alt="PhiFEM domain" width="255.0" height="204.0">
 </div>
 <div class="title">Figure 2. Fictitious domain</div>
 </div></div></td>
@@ -385,6 +388,14 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 \[\mathcal{F}_h^\Gamma=\left\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\right\}.\]
 </div>
 </div>
+<div class="paragraph">
+<p>We denote by \(\Omega_h^\Gamma\) the domain covered by the \(\mathcal{T}_h^\Gamma\) mesh (<a href="#space4">Figure 4</a>) and also defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\Omega_h^\Gamma=\left(\cup_{T\in\mathcal{T}_h^\Gamma}T\right)^O\]
+</div>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -394,13 +405,13 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="space4" class="imageblock">
 <div class="content">
-<img src="../_images/FEM/PhiFEM_boundary_cells.png" alt="PhiFEM boundary cells" width="285.0" height="228.0">
+<img src="../_images/FEM/PhiFEM_boundary_cells.png" alt="PhiFEM boundary cells" width="270.0" height="216.0">
 </div>
 <div class="title">Figure 4. Boundary cells</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="space5" class="imageblock">
 <div class="content">
-<img src="../_images/FEM/PhiFEM_boundary_edges.png" alt="PhiFEM boundary edges" width="300.0" height="240.0">
+<img src="../_images/FEM/PhiFEM_boundary_edges.png" alt="PhiFEM boundary edges" width="270.0" height="216.0">
 </div>
 <div class="title">Figure 5. Boundary edges</div>
 </div></div></td>
@@ -413,10 +424,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <h2 id="_description_of_the_phi_fem_method"><a class="anchor" href="#_description_of_the_phi_fem_method"></a>2. Description of the \(\phi\)-FEM method</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><mark>Attention là cas homogène !</mark></p>
-</div>
-<div class="paragraph">
-<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we&#8217;re no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our edge conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we&#8217;ll have to add terms to the variational formulation of the problem, called stabilization terms.</p>
+<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we&#8217;re no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we&#8217;ll have to add terms to the variational formulation of the problem, called stabilization terms.</p>
 </div>
 <div class="paragraph">
 <p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied. After integration by parts, we have</p>
@@ -425,6 +433,20 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <div class="content">
 \[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)\]
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that \(\Omega_h\) is constructed using \(\phi_h\) and therefore implicitly depends on \(\phi\).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in Section <mark>ADD paragraph label antora</mark>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
@@ -471,23 +493,33 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v)\]
+\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v).\]
 </div>
 </div>
 <div class="paragraph">
-<p>with \(\sigma\) an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
+<p>\(\sigma\) is an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that \([\;\cdot\;\)] is the jump on the interface \(E\) defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left[\frac{\partial}{\partial n}(\phi_h w)\right]=\nabla(\phi_h w)^+\cdot n - \nabla(\phi_h w)^-\cdot n\]
+</div>
 </div>
 <div class="paragraph">
-<p><mark>Ajouter remarque en disant que \(\Omega_h\) dépend implicitement de \(\phi\) ?</mark></p>
+<p>with \(n\) is the unit normal vector outside \(E\).</p>
 </div>
-<div class="paragraph">
-<p><mark>Ajouter remarque terme au bord ne s&#8217;annule pas sur \(\partial\Omega_h\) + expliquer ce que c&#8217;est crochets - termes de saut.</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>AJOUTER Explications termes de stabilisation !</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>Ajouter explication cas non homogène (dual et direct).</mark></p>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
