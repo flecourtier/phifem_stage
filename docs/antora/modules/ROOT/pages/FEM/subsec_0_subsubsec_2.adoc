@@ -14,7 +14,6 @@ The choice of stem:[V_h] space is fundamental to have an efficient method that g
 
 To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a *mesh* of our stem:[\Omega] domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of *finite Lagrange elements* comes in. The properties of these elements, particularly in terms of their *affine family of finite elements*, is a key point of the method, which will enable us to bring each element of the mesh back to a *reference element* by using a *geometric transformation*. To describe these steps, we'll need to know 2 basic concepts: the *#unisolvance#* principle and the definitions of the *polynomial spaces* used (stem:[\mathbb{P}_k] and stem:[\mathbb{Q}_k]).
 
-
 == Unisolvance
 
 

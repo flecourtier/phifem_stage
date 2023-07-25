@@ -1,0 +1,85 @@
+:stem: latexmath
+:xrefstyle: short
+= Some details on $\phi$-FEM
+= Some details on stem:[\phi]-FEM
+
+== Stabilization terms
+
+As introduced previously, the stabilization terms are intended to reduce the errors created by the "fictitious" boundary, but they also have the effect of ensuring the correct condition number of the finite element matrix and permitting to restore the coercivity of the bilinear scheme.                                                                                      
+
+The first term of stem:[G_h(w,v)] defined by
+[stem]
+++++
+\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]
+++++
+is a first-order stabilization term. This stabilization term is based on the idea of a ghost penalty taken from the article #add E. Burman. Ghost Penality ref.#. It also ensures the continuity of the solution by penalizing gradient jumps.
+
+By substracting stem:[G_h^{rhs}(v)] from the second term of stem:[G_h(w,v)], i.e.
+[stem]
+++++
+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v),
+++++
+which can be rewritten as
+[stem]
+++++
+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\Phi_h w)+f\right)\Delta(\Phi_h v),
+++++
+we recognize the strong formulation of the Poisson problem. This second-order stabilization term penalizes the scheme by requiring the solution to verify the strong form on stem:[\Omega_h^\Gamma]. In fact, this term cancels out if stem:[\phi_h w] is the exact solution of the Poisson problem under consideration.
+
+== Non-homogeneous case
+
+In the case of a non-homogeneous Dirichlet condition, we want to impose stem:[u=g] on stem:[\Gamma]. To do this, we'll consider 2 approaches introduced in #add ref elasticity# and presented below:
+
+
+*  *Direct method :* In this method, we must suppose that stem:[g] is currently given over the entire stem:[\Omega_h] and not just over stem:[\Gamma]. We can then write the solution stem:[u] as
+[stem]
+++++
+u=\phi w +g, \; \text{on } \Omega_h.
+++++
+It can then be injected into the weak formulation of the homogeneous problem and we can then search for stem:[w_h] on stem:[\Omega_h] such that
+[stem]
+++++
+\begin{aligned}
+\int_{\Omega_h}\nabla(\phi_h w)\nabla(\phi_h v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi_h w)&\phi_h v+G_h(w,v)=\int_{\Omega_h}f\phi_h v \\
+&-\int_{\Omega_h}\nabla g\nabla(\phi_h v)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v+G_h^{rhs}(v), \; \forall v\in \Omega_h
+\end{aligned}
+++++
+with
+[stem]
+++++
+G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial}{\partial n}(\phi_h w)\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta(\phi_h w)\Delta(\phi_h v)
+++++
+and
+[stem]
+++++
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta(\phi_h v)-\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial g}{\partial n}\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta g\Delta(\phi_h v)
+++++
+*  *Dual method :* We now assume that stem:[g] is defined on stem:[\Omega_h^\Gamma] and not on stem:[\Omega_h]. We then introduce a new unknown stem:[p] on stem:[\Omega_h^\Gamma] in addition to the unknown stem:[u] on stem:[\Omega_h] and so we aim to impose
+[stem]
+++++
+u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
+++++
+So we look for stem:[u] on stem:[\Omega_h] and stem:[p] on stem:[\Omega_h^\Gamma] such that
+[stem]
+++++
+\begin{aligned}
+\int_{\Omega_h}\nabla u\nabla v-\int_{\partial\Omega_h}\frac{\partial u}{\partial n} v + \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T &\left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) + G_h(u,v) = \int_{\Omega_h}fv \\
+&+ \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T g\left(v-\frac{1}{h}\phi q\right) + G_h^{rhs}(v), \; \forall v \; \text{on } \Omega_h, \; q \; \text{on } \Omega_h^\Gamma.
+\end{aligned}
+++++
+with stem:[\gamma] an other positive stabilization parameter,
+[stem]
+++++
+G_h(u,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial u}{\partial n}\right]\left[\frac{\partial v}{\partial n}\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta u\Delta v
+++++
+and
+[stem]
+++++
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.
+++++
+
+[NOTE]
+====
+The factors stem:[\frac{1}{h}] and stem:[\frac{1}{h^2}] control the condition number of the finite element matrix. For more details, please refer to the article #ADD Art 14 de art sur dual#.
+====
+

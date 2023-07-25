@@ -1,11 +1,12 @@
 :stem: latexmath
 :xrefstyle: short
-= Presentation of the $\phi$-FEM method
-= Presentation of the stem:[\phi]-FEM method
+= General presentation of the $\phi$-FEM method
+= General presentation of the stem:[\phi]-FEM method
 
-We will only consider here the case of the Poisson problem with Dirichlet condition. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to #ref 12,8,10,19#. Models stem:[\phi]-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref ...}. For consideration of the elasticity problem, please refer to \modif{ref ...}.
+In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (stem:[g=0] on stem:[\Gamma]). For the case of non-homogeneous Dirichlet conditions, we'll give more details in <<_some_details_on_$\phi$-fem>>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to #ref 12,8,10,19#. Models stem:[\phi]-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref ...}. For consideration of the elasticity problem, please refer to \modif{ref ...}.
 
 == Description of spaces
+
 
 We will consider the Poisson-Dirichlet problem
 [stem]
@@ -63,7 +64,7 @@ We note stem:[\Omega_h] the domain covered by the stem:[\mathcal{T}_h] mesh (ste
 |===
 |[[space2]]
 .Fictitious domain
-image::FEM/PhiFEM_domain.png[width=300.0,height=240.0]
+image::FEM/PhiFEM_domain.png[width=255.0,height=204.0]
 |[[space3]]
 .Domain considered
 image::FEM/PhiFEM_domain_considered.png[width=300.0,height=240.0]
@@ -86,29 +87,37 @@ and stem:[\mathcal{F}_h^\Gamma] (<<space5>>) collects the interior facets of the
 ++++
 \mathcal{F}_h^\Gamma=\left\{E\;(\text{an internal facet of } \mathcal{T}_h) \text{ such that } \exists T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset \text{ and } E\in\partial T\right\}.
 ++++
+We denote by stem:[\Omega_h^\Gamma] the domain covered by the stem:[\mathcal{T}_h^\Gamma] mesh (<<space4>>) and also defined by
+[stem]
+++++
+\Omega_h^\Gamma=\left(\cup_{T\in\mathcal{T}_h^\Gamma}T\right)^O
+++++
 
 [cols="a,a"]
 |===
 |[[space4]]
 .Boundary cells
-image::FEM/PhiFEM_boundary_cells.png[width=285.0,height=228.0]
+image::FEM/PhiFEM_boundary_cells.png[width=270.0,height=216.0]
 |[[space5]]
 .Boundary edges
-image::FEM/PhiFEM_boundary_edges.png[width=300.0,height=240.0]
+image::FEM/PhiFEM_boundary_edges.png[width=270.0,height=216.0]
 
 |===
 
 == Description of the stem:[\phi]-FEM method
 
-#Attention là cas homogène !#
-
-As with standard FEM, the general idea behind stem:[\phi]-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we're no longer looking to solve the problem on stem:[\Omega] (of boundary stem:[\Gamma]) but on stem:[\Omega_h] (of boundary stem:[\partial\Omega_h]). Since our edge conditions are defined on stem:[\Gamma], we don't have a direct condition on the stem:[\partial\Omega_h] boundary, so we'll have to add terms to the variational formulation of the problem, called stabilization terms.
+As with standard FEM, the general idea behind stem:[\phi]-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we're no longer looking to solve the problem on stem:[\Omega] (of boundary stem:[\Gamma]) but on stem:[\Omega_h] (of boundary stem:[\partial\Omega_h]). Since our boundary conditions are defined on stem:[\Gamma], we don't have a direct condition on the stem:[\partial\Omega_h] boundary, so we'll have to add terms to the variational formulation of the problem, called stabilization terms.
 
 Assuming that the right-hand side stem:[f] is currently well-defined on stem:[\Omega_h] and that the solution stem:[u] can be extended on stem:[\Omega_h] such that stem:[-\Delta u=f] on stem:[\Omega_h], we can introduce a new unknown stem:[w\in H^1(\Omega_h)] such that stem:[u=\phi w] and the boundary condition on stem:[\Gamma] is satisfied. After integration by parts, we have
 [stem]
 ++++
 \int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)
 ++++
+
+[NOTE]
+====
+Note that stem:[\Omega_h] is constructed using stem:[\phi_h] and therefore implicitly depends on stem:[\phi].
+====
 Given an approximation stem:[\phi_h] of stem:[\phi] on the mesh stem:[\mathcal{T}_h], as defined in Section #ADD paragraph label antora#, and a finite element space stem:[V_h] on stem:[\mathcal{T}_h], we can then search for stem:[w_h\in V_h] such that
 [stem]
 ++++
@@ -137,14 +146,18 @@ G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\p
 and
 [stem]
 ++++
-G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v)
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v).
 ++++
-with stem:[\sigma] an independent parameter of h, which we'll call the stabilization parameter.
+stem:[\sigma] is an independent parameter of h, which we'll call the stabilization parameter.
 
-#Ajouter remarque en disant que stem:[\Omega_h] dépend implicitement de stem:[\phi] ?#
 
-#Ajouter remarque terme au bord ne s'annule pas sur stem:[\partial\Omega_h] + expliquer ce que c'est crochets - termes de saut.#
+[NOTE]
+====
+Note that stem:[[\;\cdot\;]] is the jump on the interface stem:[E] defined by
+[stem]
+++++
+\left[\frac{\partial}{\partial n}(\phi_h w)\right]=\nabla(\phi_h w)^+\cdot n - \nabla(\phi_h w)^-\cdot n
+++++
+with stem:[n] is the unit normal vector outside stem:[E].
+====
 
-#AJOUTER Explications termes de stabilisation !#
-
-#Ajouter explication cas non homogène (dual et direct).#
