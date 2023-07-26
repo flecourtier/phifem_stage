@@ -76,6 +76,8 @@
 %\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
 %\addbibresource{biblio_ref.bib}
 %\addbibresource{biblio_doc.bib}
+\usepackage{biblatex} 
+\addbibresource{biblio.bib}
 
 
 % Titlepage
@@ -193,6 +195,9 @@
 	\input{sections/conclu}
 	
 	\newpage
-	\section{Biblio}
+	\section*{Bibliography}
+	\addcontentsline{toc}{section}{Bibliography}
+		
+	\printbibliography
 	
 \end{document}
