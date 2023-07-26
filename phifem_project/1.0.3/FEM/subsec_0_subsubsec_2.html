@@ -167,7 +167,7 @@
     <a class="nav-link" href="../conclu.html">Conclusion</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_7.html">Biblio</a>
+    <a class="nav-link" href="../section_7.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -517,7 +517,7 @@ Two finite elements \((\hat{K},\hat{\Sigma},\hat{P})\) and \((K,\Sigma,P)\) are 
 </div>
 <div class="paragraph">
 <p>The reference elements in 1D, 2D triangular and 3D tetrahedral are :
-.Example of reference Elements
+.Example of reference Elements.
 image::FEM/FEM_reference_element.png[width=480.0,height=384.0]</p>
 </div>
 </td>
@@ -530,15 +530,7 @@ image::FEM/FEM_reference_element.png[width=480.0,height=384.0]</p>
 <h2 id="_mesh"><a class="anchor" href="#_mesh"></a>4. Mesh</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In 1D, the construction of a mesh consists in creating a subdivision of the interval \([a,b\)]. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements (see <a href="#triangle_mesh">Figure 1</a>):</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\mathcal{T}_h = \left\{K_1,\dots,K_{N_e}\right\}\]
-</div>
-</div>
-<div class="paragraph">
-<p>where \(N_e\) is the number of elements.</p>
+<p>In 1D, the construction of a mesh consists in creating a subdivision of the interval \([a,b\)]. We can extend this definition in 2D and 3D by considering that a mesh is formed by a family of elements \(\mathcal{T}_h = \left\{K_1,\dots,K_{N_e}\right\}\) (see <a href="#triangle_mesh">Figure 1</a>) where \(N_e\) is the number of elements.</p>
 </div>
 <div class="paragraph">
 <p>In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahedrons, parallelepipeds or prisms.</p>
@@ -547,7 +539,7 @@ image::FEM/FEM_reference_element.png[width=480.0,height=384.0]</p>
 <div class="content">
 <img src="../_images/FEM/FEM_triangle_mesh.png" alt="FEM triangle mesh" width="180.0" height="144.0">
 </div>
-<div class="title">Figure 1. Example of a triangular mesh on a circles</div>
+<div class="title">Figure 1. Example of a triangular mesh on a circles.</div>
 </div>
 </div>
 </div>
@@ -563,7 +555,7 @@ image::FEM/FEM_reference_element.png[width=480.0,height=384.0]</p>
 <p>A reference element noted \(\hat{K}\).</p>
 </li>
 <li>
-<p>A family of geometric transformations mapping \(\hat{K}\) to the elements \(\left\{K_1,\dots,K_{N_e}\right\}\). Thus, for a cell \(K\in\mathcal{T}_h\), we denote \(T_K\) the geometric transformation mapping \(\hat{K}\) to \(K\) :</p>
+<p>A family of geometric transformations mapping \(\hat{K}\) to the elements \(K_1,\dots,K_{N_e}\). Thus, for a cell \(K\in\mathcal{T}_h\), we denote \(T_K\) the geometric transformation mapping \(\hat{K}\) to \(K\) :</p>
 </li>
 </ul>
 </div>
@@ -572,7 +564,7 @@ T_K : \hat{K}\rightarrow K
 <div class="content">
 <img src="../_images/FEM/FEM_geometric_trans.png" alt="FEM geometric trans" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 2. Geometric transformation applied to a triangle</div>
+<div class="title">Figure 2. Geometric transformation applied to a triangle.</div>
 </div>
 <div class="paragraph">
 <p>Let \((\hat{K},\hat{\Sigma},\hat{P})\) be the finite reference element with</p>
@@ -631,7 +623,7 @@ T_K : \hat{K}\rightarrow K
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In the following, we&#8217;ll assume that these transformations are \(C^1\)-diffeomorphisms (i.e. the transformation and its inverse are \(C^1\) and bijective).</p>
+<p>In the following, we will assume that these transformations are \(C^1\)-diffeomorphisms (i.e. the transformation and its inverse are \(C^1\) and bijective).</p>
 </div>
 </td>
 </tr>

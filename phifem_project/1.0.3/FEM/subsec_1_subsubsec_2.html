@@ -167,7 +167,7 @@
     <a class="nav-link" href="../conclu.html">Conclusion</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_7.html">Biblio</a>
+    <a class="nav-link" href="../section_7.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -274,18 +274,18 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]\]
+\[\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]\]
 </div>
 </div>
 <div class="paragraph">
-<p>is a first-order stabilization term. This stabilization term is based on the idea of a ghost penalty taken from the article <mark>add E. Burman. Ghost Penality ref.</mark>. It also ensures the continuity of the solution by penalizing gradient jumps.</p>
+<p>is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.</p>
 </div>
 <div class="paragraph">
 <p>By substracting \(G_h^{rhs}(v)\) from the second term of \(G_h(w,v)\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v),\]
+\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v),\]
 </div>
 </div>
 <div class="paragraph">
@@ -293,7 +293,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\Phi_h w)+f\right)\Delta(\Phi_h v),\]
+\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\phi_h w)+f\right)\Delta(\phi_h v),\]
 </div>
 </div>
 <div class="paragraph">
@@ -305,7 +305,7 @@ title="Fullscreen mode"
 <h2 id="_non_homogeneous_case"><a class="anchor" href="#_non_homogeneous_case"></a>2. Non-homogeneous case</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the case of a non-homogeneous Dirichlet condition, we want to impose \(u=g\) on \(\Gamma\). To do this, we&#8217;ll consider 2 approaches introduced in <mark>add ref elasticity</mark> and presented below:</p>
+<p>In the case of a non-homogeneous Dirichlet condition, we want to impose \(u=g\) on \(\Gamma\). To do this, we will consider 2 approaches introduced in \cite{cotin_phi-fem_nodate} and presented below:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -385,7 +385,7 @@ u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The factors \(\frac{1}{h}\) and \(\frac{1}{h^2}\) control the condition number of the finite element matrix. For more details, please refer to the article <mark>ADD Art 14 de art sur dual</mark>.</p>
+<p>The factors \(\frac{1}{h}\) and \(\frac{1}{h^2}\) control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.</p>
 </div>
 </td>
 </tr>

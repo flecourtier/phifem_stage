@@ -167,7 +167,7 @@
     <a class="nav-link" href="../conclu.html">Conclusion</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_7.html">Biblio</a>
+    <a class="nav-link" href="../section_7.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -266,7 +266,7 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we&#8217;ll give more details in <a href="#_some_details_on_$\phi$-fem">[_some_details_on_$\phi$-fem]</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to <mark>ref 12,8,10,19</mark>. Models \(\phi\)-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \modif{ref &#8230;&#8203;}. For consideration of the elasticity problem, please refer to \modif{ref &#8230;&#8203;}.</p>
+<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we will give more details in <a href="#_some_details_on_$\phi$-fem">[_some_details_on_$\phi$-fem]</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. Models \(\phi\)-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. For consideration of the elasticity problem, please refer to \cite{cotin_phi-fem_nodate}.</p>
 </div>
 </div>
 </div>
@@ -274,7 +274,7 @@ title="Fullscreen mode"
 <h2 id="_description_of_spaces"><a class="anchor" href="#_description_of_spaces"></a>1. Description of spaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We will consider the Poisson-Dirichlet problem</p>
+<p>As previously said, we will consider the Poisson-Dirichlet problem</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -283,7 +283,8 @@ title="Fullscreen mode"
 -\Delta u &amp;= f, \; &amp;&amp;\text{in } \; \Omega, \\
 u&amp;=g, \; &amp;&amp;\text{on } \; \partial\Omega,
 \end{aligned}
-\right.\]
+\right.
+\label{eq.Poisson}\]
 </div>
 </div>
 <div class="paragraph">
@@ -295,18 +296,18 @@ u&amp;=g, \; &amp;&amp;\text{on } \; \partial\Omega,
 </div>
 </div>
 <div class="paragraph">
-<p>The level-set function \(\phi\) is supposed to be known on \(\mathbb{R}^d\), smooth, and to behave near \(\Gamma\) as the signed distance to \(\Gamma\) (<a href="#space1">Figure 1</a>).</p>
+<p>The level-set function \(\phi\) is supposed to be known on \(\mathbb{R}^d\), sufficiently smooth, and to behave near \(\Gamma\) as the signed distance to \(\Gamma\) (<a href="#space1">Figure 1</a>).</p>
 </div>
 <div id="space1" class="imageblock">
 <div class="content">
 <img src="../_images/FEM/PhiFEM_level_set.png" alt="PhiFEM level set" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 1. Definition of the level-set function</div>
+<div class="title">Figure 1. Definition of the level-set function.</div>
 </div>
 <hr>
 <div class="paragraph">
 <p><strong>Example.</strong>
-If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set function can be defined by</p>
+If \(\Omega\) is a circle of center \(A\) of coordinates \((x_A,y_A)\) and radius \(r\), the level-set function can be defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -314,7 +315,7 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 </div>
 </div>
 <div class="paragraph">
-<p>If \(\Omega\) is an ellipse with center \(A\) and parameter \((a,b)\), the level-set function can be defined by</p>
+<p>If \(\Omega\) is an ellipse with center \(A\) of coordinates \((x_A,y_A)\) and parameters \((a,b)\), the level-set function can be defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -326,7 +327,18 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 <p>We assume that \(\Omega\) is inside a domain \(\mathcal{O}\) and we introduce a simple quasi-uniform mesh \(\mathcal{T}_h^\mathcal{O}\) on \(\mathcal{O}\) (<a href="#space2">Figure 2</a>).</p>
 </div>
 <div class="paragraph">
-<p>We will consider \(\mathcal{T}_h\) a sub-mesh of \(\mathcal{T}_h^\mathcal{O}\) obtained by removing the elements located entirely outside \(\Omega\) (<a href="#space3">Figure 3</a>). To be more specific, \(\mathcal{T}_h\) is defines by</p>
+<p>We introduce now an approximation \(\phi_h\in V_{h,\mathcal{O}}^{(l)}\) of \(\phi\) given by \(\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)\) where \(I_{h,\mathcal{O}}^{(l)}\) is the standard Lagrange interpolation operator on</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[V_{h,\mathcal{O}}^{(l)}=\left\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\right\}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and we denote by \(\Gamma_h=\{\phi_h=0\}\), the approximate boundary of \(\Gamma\) (<a href="#space3">Figure 3</a>).</p>
+</div>
+<div class="paragraph">
+<p>We will consider \(\mathcal{T}_h\) a sub-mesh of \(\mathcal{T}_h^\mathcal{O}\) obtained by removing the elements located entirely outside \(\Omega\) (<a href="#space3">Figure 3</a>). To be more specific, \(\mathcal{T}_h\) is defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -334,11 +346,11 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 </div>
 </div>
 <div class="paragraph">
-<p>We note \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) its boundary (<a href="#space3">Figure 3</a>). The domain \(\Omega_h\) is defined by</p>
+<p>We denote \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) its boundary (<a href="#space3">Figure 3</a>). The domain \(\Omega_h\) is defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\Omega_h=\left(\cup_{T\in\mathcal{T}_h}T\right)^O\]
+\[\Omega_h=\left(\cup_{T\in\mathcal{T}_h}T\right)^O.\]
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -352,36 +364,28 @@ If \(\Omega\) is a circle of center \(A\) and radius \(r\), the level-set functi
 <div class="content">
 <img src="../_images/FEM/PhiFEM_domain.png" alt="PhiFEM domain" width="255.0" height="204.0">
 </div>
-<div class="title">Figure 2. Fictitious domain</div>
+<div class="title">Figure 2. Fictitious domain.</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="space3" class="imageblock">
 <div class="content">
 <img src="../_images/FEM/PhiFEM_domain_considered.png" alt="PhiFEM domain considered" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 3. Domain considered</div>
+<div class="title">Figure 3. Domain considered.</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Now, we can introduce an approximation \(\phi_h\in V_{h,\mathcal{O}}^{(l)}\) of \(\phi\) given by \(\phi_h=I_{h,\mathcal{O}}^{(l)}(\phi)\) where \(I_{h,\mathcal{O}}^{(l)}\) is the standard Lagrange interpolation operator on</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[V_{h,\mathcal{O}}^{(l)}=\left\{v_h\in H^1(\mathcal{O}):v_{h|_T}\in\mathbb{P}_l(T) \;  \forall T\in\mathcal{T}_h^\mathcal{O}\right\}.\]
-</div>
-</div>
-<div class="paragraph">
-<p>By considering \(\Gamma_h=\{\phi_h=0\}\), the approximate boundary of \(\Gamma\), we can introduce \(\mathcal{T}_h^\Gamma\subset \mathcal{T}_h\) (<a href="#space4">Figure 4</a>) which contains the mesh elements cut by the
+<p>Now, we can introduce \(\mathcal{T}_h^\Gamma\subset \mathcal{T}_h\) (<a href="#space4">Figure 4</a>) which contains the mesh elements cut by the
 approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\mathcal{T}_h^\Gamma=\left\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\right\}.\]
+\[\mathcal{T}_h^\Gamma=\left\{T\in \mathcal{T}_h:T\cap\Gamma_h\ne\emptyset\right\},\]
 </div>
 </div>
 <div class="paragraph">
-<p>and \(\mathcal{F}_h^\Gamma\) (<a href="#space5">Figure 5</a>) collects the interior facets of the mesh \(\mathcal{T}_h\) either cut by \(\Gamma_h\) or belonging to a cut mesh element</p>
+<p>and \(\mathcal{F}_h^\Gamma\) (<a href="#space5">Figure 5</a>) which collects the interior facets of the mesh \(\mathcal{T}_h\) either cut by \(\Gamma_h\) or belonging to a cut mesh element</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -393,7 +397,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\Omega_h^\Gamma=\left(\cup_{T\in\mathcal{T}_h^\Gamma}T\right)^O\]
+\[\Omega_h^\Gamma=\left(\cup_{T\in\mathcal{T}_h^\Gamma}T\right)^O.\]
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -407,13 +411,13 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <div class="content">
 <img src="../_images/FEM/PhiFEM_boundary_cells.png" alt="PhiFEM boundary cells" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 4. Boundary cells</div>
+<div class="title">Figure 4. Boundary cells.</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="space5" class="imageblock">
 <div class="content">
 <img src="../_images/FEM/PhiFEM_boundary_edges.png" alt="PhiFEM boundary edges" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 5. Boundary edges</div>
+<div class="title">Figure 5. Boundary edges.</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -424,10 +428,10 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <h2 id="_description_of_the_phi_fem_method"><a class="anchor" href="#_description_of_the_phi_fem_method"></a>2. Description of the \(\phi\)-FEM method</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the Poisson problem in question. The main difference lies in the spaces considered. In fact, we&#8217;re no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we&#8217;ll have to add terms to the variational formulation of the problem, called stabilization terms.</p>
+<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the considered problem (\ref{eq.Poisson}). The main difference lies in the spaces considered. In fact, we are no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we will have to add terms to the variational formulation of the problem, called stabilization terms.</p>
 </div>
 <div class="paragraph">
-<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied. After integration by parts, we have</p>
+<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied s(ince \(\phi=0\) on \(\Gamma\)). After an integration by parts, we have</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -469,7 +473,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[a_h(w,v)=\int_{\Omega_h} \nabla (\Phi_h w) \cdot \nabla (\Phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\Phi_h w)\Phi_h v+G_h(w,v)\]
+\[a_h(w,v)=\int_{\Omega_h} \nabla (\phi_h w) \cdot \nabla (\phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\phi_h w)\phi_h v+G_h(w,v)\]
 </div>
 </div>
 <div class="paragraph">
@@ -477,7 +481,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[l_h(v)=\int_{\Omega_h} f \Phi_h v + G_h^{rhs}(v)\]
+\[l_h(v)=\int_{\Omega_h} f \phi_h v + G_h^{rhs}(v)\]
 </div>
 </div>
 <div class="paragraph">
@@ -485,7 +489,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)\]
+\[G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)\]
 </div>
 </div>
 <div class="paragraph">
@@ -493,11 +497,11 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v).\]
+\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v).\]
 </div>
 </div>
 <div class="paragraph">
-<p>\(\sigma\) is an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
+<p>with \(\sigma\) an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
 </div>
 <div class="admonitionblock note">
 <table>
