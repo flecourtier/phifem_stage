@@ -9,6 +9,6 @@ The features include
 ** xref:section_4.adoc[Correction]
 ** xref:section_5.adoc[Numerical Results ?]
 ** xref:conclu.adoc[Conclusion]
-** xref:section_7.adoc[Biblio]
+** xref:section_7.adoc[Bibliography]
 
 You can find the internship report in PDF just xref:attachment$rapport.pdf[HERE] as well as a weekly tracking of the internship xref:attachment$suivi.pdf[HERE] (in french).

@@ -11,8 +11,8 @@ In the following, we will consider the Poisson problem with Dirichlet condition 
 ++++
 \left\{
 \begin{aligned}
--\Delta u &= f \; &&\text{in } \; \Omega \\
-u&=g \; &&\text{on } \; \partial\Omega
+-\Delta u &= f, \; &&\text{in } \; \Omega, \\
+u&=g, \; &&\text{on } \; \partial\Omega,
 \end{aligned}
 \right.
 ++++
@@ -20,6 +20,8 @@ u&=g \; &&\text{on } \; \partial\Omega
 with stem:[\Delta] the Laplace operator and stem:[\Omega\subset\mathbb{R}^d] a lipschitzian bounded open set (and stem:[\partial\Omega] its boundary).
 
 *Associated physical model :* Newtonian gravity, Electrostatics, Fluid dynamics...
+
+#AJOUTER REF !#
 
 
 ---

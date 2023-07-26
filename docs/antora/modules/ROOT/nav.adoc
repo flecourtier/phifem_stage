@@ -24,4 +24,4 @@
 ** xref:section_4.adoc[Correction]
 ** xref:section_5.adoc[Numerical Results ?]
 ** xref:conclu.adoc[Conclusion]
-** xref:section_7.adoc[Biblio]
+** xref:section_7.adoc[Bibliography]

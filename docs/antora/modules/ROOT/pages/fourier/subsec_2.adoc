@@ -37,7 +37,7 @@ To do this, we only need to collect half of the Discrete Fourier Coefficients (D
 
 To simplify, let's assume nk=1. Here is a diagram describing this idea:
 
-.RFFT with Hermitian-symmetry scheme
+.RFFT with Hermitian-symmetry scheme.
 image::fourier/symetry_schema.png[width=600.0,height=480.0]
 
 == Low pass filter
@@ -46,7 +46,7 @@ When we perform a DFT on an image, the DFCs related to high frequencies are in p
 
 Here is a representation of this idea in 1D :
 
-.Low pass filter
+.Low pass filter.
 image::fourier/fourier_low_pass_filter.png[width=300.0,height=240.0]
 
 == Global aspect of the FNO

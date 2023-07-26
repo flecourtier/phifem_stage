@@ -10,25 +10,25 @@ As introduced previously, the stabilization terms are intended to reduce the err
 The first term of stem:[G_h(w,v)] defined by
 [stem]
 ++++
-\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\Phi_h w)\right] \left[\frac{\partial}{\partial n}(\Phi_h v)\right]
+\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]
 ++++
-is a first-order stabilization term. This stabilization term is based on the idea of a ghost penalty taken from the article #add E. Burman. Ghost Penality ref.#. It also ensures the continuity of the solution by penalizing gradient jumps.
+is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.
 
 By substracting stem:[G_h^{rhs}(v)] from the second term of stem:[G_h(w,v)], i.e.
 [stem]
 ++++
-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\Phi_h w)\Delta(\Phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\Phi_h v),
+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v),
 ++++
 which can be rewritten as
 [stem]
 ++++
-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\Phi_h w)+f\right)\Delta(\Phi_h v),
+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\phi_h w)+f\right)\Delta(\phi_h v),
 ++++
 we recognize the strong formulation of the Poisson problem. This second-order stabilization term penalizes the scheme by requiring the solution to verify the strong form on stem:[\Omega_h^\Gamma]. In fact, this term cancels out if stem:[\phi_h w] is the exact solution of the Poisson problem under consideration.
 
 == Non-homogeneous case
 
-In the case of a non-homogeneous Dirichlet condition, we want to impose stem:[u=g] on stem:[\Gamma]. To do this, we'll consider 2 approaches introduced in #add ref elasticity# and presented below:
+In the case of a non-homogeneous Dirichlet condition, we want to impose stem:[u=g] on stem:[\Gamma]. To do this, we will consider 2 approaches introduced in \cite{cotin_phi-fem_nodate} and presented below:
 
 
 *  *Direct method :* In this method, we must suppose that stem:[g] is currently given over the entire stem:[\Omega_h] and not just over stem:[\Gamma]. We can then write the solution stem:[u] as
@@ -80,6 +80,6 @@ G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.
 
 [NOTE]
 ====
-The factors stem:[\frac{1}{h}] and stem:[\frac{1}{h^2}] control the condition number of the finite element matrix. For more details, please refer to the article #ADD Art 14 de art sur dual#.
+The factors stem:[\frac{1}{h}] and stem:[\frac{1}{h^2}] control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.
 ====
 
