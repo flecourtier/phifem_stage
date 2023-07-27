@@ -1,0 +1,143 @@
+\section{Correction}
+%
+%\textbf{PLAN Correction :} expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec $\tilde{\phi}$ sol phifem dans intro.}
+%
+%\modif{rajouter rq quelque part avec librairies utilisées : FEniCS, Tensorflow, Pytorch !}
+%
+%\modif{Pourquoi entrainement maillage fin puis correction maillage grossier ?}
+%
+%\begin{enumerate}
+%	\item \textbf{Présentation des différentes méthodes de Correction considérées :} présentation des différentes méthodes de correction (+ résultats analytiques en annexe ? comme "papier" rehaussement etc)  + ajouter schéma ?
+%	
+%	\modif{rq "précise" sur en quoi ça aide le solveur de lui fournir une solution proche de la solution exacte (fcts de base ?)}
+%	
+%	\item \textbf{Présentation des problèmes considérés :} Comme dit précédemment, on ne considérera ici que le pb de Poisson... + expliquer domaines (cercle et carré) + expliquer sol considérées (u trigo, f gaussienne => sol sur-raffinée, u polynomial pour PINNs) \modif{A faire en dernier en ne mettant que les trucs qu'on a considéré ensuite !!}
+%	
+%	\item \textbf{Différents résultats de correction}
+%	
+%	\begin{enumerate}[label=\textbullet]
+%		\item \textbf{Correction sur solution exacte :} Résultat sur sol exacte avec FEM et PhiFEM
+%		
+%		\item \textbf{Correction sur solution perturbée :} 
+%		\begin{itemize}
+%			\item solution perturbée manuellement
+%			\item correction sur PhiFEM : Pas encore tester mais intéressant \modif{à tester !!!}
+%		\end{itemize}
+%		
+%		\item \textbf{Correction avec FNO :} loss sur w (ou phi w)... + résultats Phifem P2 puis Legendre P10 (ajoute trop d'erreurs ?)
+%		
+%		\item \textbf{Correction avec d'autres réseaux :} expliquer pourquoi on fait ça (comprendre si la correction fonctionne sur des réseaux plus simple et donc ça pourrait confirmer qu'il y a bien un problème au niveau de la perturbation créé par le FNO) + rajouter première implémentation tensorflow puis utilisation d'un travail en cours (avec pytorch)
+%		\begin{itemize}
+%			\item \textbf{Multiperceptron :} présentation rapide avec schéma (+références) + résultats obtenus + expliquer qu'on doit rajouter l'apprentissage des dérivées car elles sont mauvaises et utilisées dans le solveur (dans la formulation variationnelle).
+%			\item \textbf{PINNs :} présentation rapide avec schéma ? + résultats obtenus pour $f=1$ (+rajouter rq que par manque de temps, on n'a pas trouvé la bonne architecture du PINNs pour apprendre la solution trigo et donc on n'a considéré pour l'instant que la correction pour $f=1$)
+%		\end{itemize} 
+%	\end{enumerate}
+%
+%\end{enumerate}
+%
+%\modif{+ rajouter rq ou dans conclusion pour expliquer qu'on pourrait également tester de faire varier le type de solveur matricielle dans les solveurs pour la correction !}
+
+\subsection{Presentation of the different problem considered}
+
+\modif{A faire à la fin !}
+
+\subsection{Presentation of the different correction methods considered}
+
+Here we are given $\tilde{\phi}$ an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a $\phi$-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to reinject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (Section \ref{Corr.method.add}), correction by multiplication (Section \ref{Corr.method.mult}) and correction by multiplication on an elevated problem (Section \ref{Corr.method.mult_reh}).
+
+\subsubsection{Correction by adding} \label{Corr.method.add}
+
+In this first method, we will try to approximate the solution obtained $\tilde{\phi}$ to the exact solution by completing the difference between the two, which is what we will call correction by adding. To do this, we will consider
+\begin{equation*}
+	\tilde{u}=\tilde{\phi}+C
+\end{equation*}
+and we want to find $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
+\begin{equation*}
+	\left\{\begin{aligned}
+		-\Delta \tilde{u}&=f, \; &&\text{on } \Omega, \\
+		\tilde{u}&=g, \; &&\text{in } \Gamma.
+	\end{aligned}\right.
+\end{equation*}
+\begin{Rem}
+	Note that this problem is in fact equivalent to the initial \modif{add ref} problem. We only hope that the approximate solution $tilde{u}$ obtained is more accurate than the approximate solution $u$ obtained by solving the initial problem.
+\end{Rem}
+Rewriting the problem, we seek to find $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
+\begin{equation}
+\label{eq.corr.pbc_add}
+\left\{\begin{aligned}
+	-\Delta C&=\tilde{f}, \; &&\text{on } \Omega, \\
+	C&=0, \; &&\text{in } \Gamma.
+\end{aligned}\right. \tag{$\mathcal{C}_{+}$}
+\end{equation}
+with $\tilde{f}=f+\Delta\tilde{\phi}$.
+
+\subsubsection{Correction by multiplying} \label{Corr.method.mult}
+
+In this second method, we try to approach the exact solution in a different way. In fact, we want to bring the factor between the $tilde{\phi}$ solution and the solution of the corrected problem closer to 1. In other words, by considering 
+\begin{equation*}
+	\tilde{u}=\tilde{\phi}C,
+\end{equation*}
+we try to bring $C=\frac{\tilde{u}}{\tilde{\phi}}$ closer to 1 (for $\tilde{\phi}\ne 0$). This type of correction is called correction by multiplying.
+
+So we're looking for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
+\begin{equation}
+	\label{eq.corr.pbc_mult}
+	\left\{\begin{aligned}
+		&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
+		&C=1 \quad &&\Gamma
+	\end{aligned}\right. \tag{$\mathcal{C}_\times$}
+\end{equation}
+
+\begin{Rem}
+	In the same way as for correction by adding, we note that this problem is equivalent to the initial \modif{add ref} problem.
+\end{Rem}
+
+\subsubsection{Correction by multiplying on an elevated problem} \label{Corr.method.mult_reh}
+
+We now introduce a third correction method, which we'll call multiplication correction on an elevated problem. This method is in fact very similar to the previous one (correction by multiplication), except that we are no longer trying to correct the same problem.
+
+The initial modified problem, which we now consider, consists in finding $u : \Omega \rightarrow \mathbb{R}^d$ such that
+\begin{equation}
+	\label{eq.corr.pb_reh}
+	\left\{
+	\begin{aligned}
+		-\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
+		\hat{u}=g+m, \; &&\text{on } \; \Gamma,
+	\end{aligned}
+	\right. \tag{$\mathcal{P}^\mathcal{M}$}
+\end{equation}
+with $\hat{u}=u+m$ and $m$ a constant.
+
+\modif{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
+
+We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant $m$. We then consider
+\begin{equation*}
+	\tilde{u}=\hat{\phi}C
+\end{equation*}
+avec 
+\begin{equation*}
+	\hat{\phi}=\tilde{\phi}+m
+\end{equation*}
+and so we look for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
+\begin{equation}
+	\label{eq.corr.pbc_mult_reh}
+	\left\{\begin{aligned}
+		&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
+		&C=1 \quad &&\Gamma
+	\end{aligned}\right. \tag{$\mathcal{C}_\times^\mathcal{M}$}
+\end{equation}
+
+\begin{Rem}
+	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. \modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.}
+\end{Rem}
+
+\subsection{Different correction results}
+
+\subsubsection{Correction on exact solution}
+\subsubsection{Correction on disturbed solution}
+\paragraph{Manually perturbed solution}
+\paragraph{correction on PhiFEM}
+\subsubsection{Correction with FNO}
+\subsubsection{Correction with other networks}
+\paragraph{Multiperceptron}
+\paragraph{PINNs}
