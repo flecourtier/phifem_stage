@@ -1,0 +1,6 @@
+:stem: latexmath
+:xrefstyle: short
+= Presentation of the different problem considered
+
+#A faire à la fin !#
+

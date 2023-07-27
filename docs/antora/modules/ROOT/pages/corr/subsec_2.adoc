@@ -1,0 +1,16 @@
+:stem: latexmath
+:xrefstyle: short
+= Different correction results
+
+
+---
+The features include
+
+** xref:corr/subsec_2_subsubsec_0.adoc[Correction on exact solution]
+
+** xref:corr/subsec_2_subsubsec_1.adoc[Correction on disturbed solution]
+
+** xref:corr/subsec_2_subsubsec_2.adoc[Correction with FNO]
+
+** xref:corr/subsec_2_subsubsec_3.adoc[Correction with other networks]
+

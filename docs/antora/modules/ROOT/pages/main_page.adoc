@@ -2,13 +2,11 @@
 
 The features include
 
-** xref:section_0.adoc[PLAN du rapport]
 ** xref:index.adoc[Introduction]
 ** xref:FEM.adoc[Finite Element Methods (FEMs)]
 ** xref:fourier.adoc[Fourier Neural Operator (FNO)]
-** xref:section_4.adoc[Correction]
-** xref:section_5.adoc[Numerical Results ?]
+** xref:corr.adoc[Correction]
 ** xref:conclu.adoc[Conclusion]
-** xref:section_7.adoc[Bibliography]
+** xref:section_5.adoc[Bibliography]
 
 You can find the internship report in PDF just xref:attachment$rapport.pdf[HERE] as well as a weekly tracking of the internship xref:attachment$suivi.pdf[HERE] (in french).

@@ -2,6 +2,9 @@
 :xrefstyle: short
 = stem:[\phi]-FEM
 
+
+
+
 In this section, we will present the stem:[\phi]-FEM method. We will first present the context in which the method is used and its general principle, then go into a little more detail about the method in the case of the Poisson problem with Dirichlet condition. #Finally, we will present the main numerical results of the reference article ?#
 
 

@@ -1,0 +1,34 @@
+:stem: latexmath
+:xrefstyle: short
+= Correction by adding
+= Correction by adding
+
+In this first method, we will try to approximate the solution obtained stem:[\tilde{\phi}] to the exact solution by completing the difference between the two, which is what we will call correction by adding. To do this, we will consider
+[stem]
+++++
+\tilde{u}=\tilde{\phi}+C
+++++
+and we want to find stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
+[stem]
+++++
+\left\{\begin{aligned}
+-\Delta \tilde{u}&=f, \; &&\text{on } \Omega, \\
+\tilde{u}&=g, \; &&\text{in } \Gamma.
+\end{aligned}\right.
+++++
+
+[NOTE]
+====
+Note that this problem is in fact equivalent to the initial #add ref# problem. We only hope that the approximate solution stem:[tilde{u}] obtained is more accurate than the approximate solution stem:[u] obtained by solving the initial problem.
+====
+Rewriting the problem, we seek to find stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
+[stem]
+++++
+\label{eq.corr.pbc_add}
+\left\{\begin{aligned}
+-\Delta C&=\tilde{f}, \; &&\text{on } \Omega, \\
+C&=0, \; &&\text{in } \Gamma.
+\end{aligned}\right. \tag{stem:[\mathcal{C}_{+}]}
+++++
+with stem:[\tilde{f}=f+\Delta\tilde{\phi}].
+

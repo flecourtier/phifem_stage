@@ -3,6 +3,8 @@
 = Fourier Neural Operator (FNO)
 :imagesdir: \{moduledir\}/assets/images/fourier
 
+#Est-ce que je rajouter réseau multi-perceptron et PINNs ? Si oui section "Neural Networks" puis sous-sections FNO,MultiPerceptron,PINNs#
+
 We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021}. #+ add article Killian#
 
 In image treatment, we call image tensors of size stem:[ni\times nj\times nk], where stem:[ni\times nj] corresponds to the image resolution and stem:[nk] corresponds to its number of channels. For example, an RGB (Red Green Blue) image has stem:[nk=3] channels. 

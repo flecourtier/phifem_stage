@@ -1,0 +1,6 @@
+:stem: latexmath
+:xrefstyle: short
+= Correction with other networks
+= Correction with other networks
+== Multiperceptron
+== PINNs

@@ -1,0 +1,18 @@
+:stem: latexmath
+:xrefstyle: short
+= Correction
+
+
+
+
+
+
+---
+The features include
+
+** xref:corr/subsec_0.adoc[Presentation of the different problem considered]
+
+** xref:corr/subsec_1.adoc[Presentation of the different correction methods considered]
+
+** xref:corr/subsec_2.adoc[Different correction results]
+

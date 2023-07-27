@@ -1,0 +1,28 @@
+:stem: latexmath
+:xrefstyle: short
+= Correction by multiplying
+= Correction by multiplying
+
+In this second method, we try to approach the exact solution in a different way. In fact, we want to bring the factor between the stem:[tilde{\phi}] solution and the solution of the corrected problem closer to 1. In other words, by considering 
+[stem]
+++++
+\tilde{u}=\tilde{\phi}C,
+++++
+we try to bring stem:[C=\frac{\tilde{u}}{\tilde{\phi}}] closer to 1 (for stem:[\tilde{\phi}\ne 0]). This type of correction is called correction by multiplying.
+
+So we're looking for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
+[stem]
+++++
+\label{eq.corr.pbc_mult}
+\left\{\begin{aligned}
+&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
+&C=1 \quad &&\Gamma
+\end{aligned}\right. \tag{stem:[\mathcal{C}_\times]}
+++++
+
+
+[NOTE]
+====
+In the same way as for correction by adding, we note that this problem is equivalent to the initial #add ref# problem.
+====
+
