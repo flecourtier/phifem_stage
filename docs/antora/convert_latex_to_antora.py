@@ -202,7 +202,7 @@ def test_section(line):
             return ref,True
     return None,False
 
-# create a 
+# create a dict which contains all the label of sections, subsections and subsubsections
 def get_label_sections(section_files):
     label_sections = {}
     for (s,(section,subsections)) in enumerate(sections.items()):
@@ -212,23 +212,30 @@ def get_label_sections(section_files):
             file_read = open(root_dir + source_dir + section_file + ".tex", 'r')
             
             num_subsection = -1
+            num_subsubsection = -1
             while line := file_read.readline():
                 if search_word_in_line("\section", line):
                     if search_word_in_line("\label", line):
-                        label_sections[line.split("\label{")[1].split("}")[0]]={"xref":[section_file_name,section]}
+                        section_name = line.split("\label{")[1].split("}")[0]
+                        section_name = test_latex_title(section_name)
+                        label_sections[section_name]={"xref":[section_file_name,section]}
                 
                 if search_word_in_line("\subsection", line):
                     num_subsection += 1
+                    num_subsubsection = -1
                     subsection_name = line.split("{")[1].split("}")[0]
+                    subsection_name = test_latex_title(subsection_name)
                     if search_word_in_line("\label", line):
                         label_sections[line.split("\label{")[1].split("}")[0]]={"xref":[section_file_name+"/subsec_"+str(num_subsection),subsection_name]}
 
                 if search_word_in_line("\subsubsection", line):
+                    num_subsubsection += 1
                     if search_word_in_line("\label", line):
                         subsubsection_name = line.split("{")[1].split("}")[0]
-                        subsubsection_name = subsubsection_name.replace(" ","_")
-                        subsubsection_name = "_"+subsubsection_name.lower()
-                        label_sections[line.split("\label{")[1].split("}")[0]]={"":subsubsection_name}
+                        subsubsection_name = test_latex_title(subsubsection_name)
+                        subsubsection_name_ = subsubsection_name.replace(" ","_")
+                        subsubsection_name_ = "_"+subsubsection_name_.lower()
+                        label_sections[line.split("\label{")[1].split("}")[0]]={"":subsubsection_name_,"xref":[section_file_name+"/subsec_"+str(num_subsection)+"_subsubsec_"+str(num_subsubsection),subsubsection_name]}
 
     return label_sections
 
@@ -288,10 +295,8 @@ def cp_section(section_file,sections,label_sections):
 
                 subsubsection_file = "subsec_" + str(num_subsection) + "_subsubsec_" + str(num_subsubsection) + ".adoc"
                 file_write = open(page_dir + name_section_file + "/" + subsubsection_file, 'w')
-                subsubsection = line.split("{")[1].split("}")[0]
                 file_write.write(":stem: latexmath\n")
                 file_write.write(":xrefstyle: short\n")
-                file_write.write("= " + subsubsection + "\n")
                 line = "= " + name_subsubsection + "\n"
             else:
                 line = "== " + name_subsubsection + "\n"
@@ -340,7 +345,8 @@ def cp_section(section_file,sections,label_sections):
 
                 if search_word_in_line("\caption", line):
                     caption = line.split("{")[2].split("}")[0]
-
+                    caption = test_latex_title(caption)
+                    
                 if search_word_in_line("\label", line):
                     label = line.split("{")[1].split("}")[0]
                     file_write.write("[["+label+"]]\n")
@@ -387,18 +393,29 @@ def cp_section(section_file,sections,label_sections):
             line = "====\n"
 
         ref,test= test_fig(line)
-        if test:
+        while test:
             name_label_fig = line.split("\\ref{")[1].split("}")[0]
             line = line.replace(ref+"{"+name_label_fig+"}","<<"+name_label_fig+">>")
+            ref,test= test_fig(line)
 
         ref,test = test_section(line)
-        if test:
+        while test:
             name_label_sec = line.split("\\ref{")[1].split("}")[0]
             label = label_sections[name_label_sec]
-            if "xref" in label:
+            print(label)
+            if "xref" in label and "" in label:
+                if subsubsections!=[]:
+                    print("xref")
+                    line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label["xref"][0]+".adoc"+"[Section \""+label["xref"][1]+"\"]")
+                else:
+                    print("")
+                    line = line.replace(ref+"{"+name_label_sec+"}","<<"+label[""]+">>")
+            elif "xref" in label:
                 line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label["xref"][0]+".adoc"+"[Section \""+label["xref"][1]+"\"]")
             else:
                 line = line.replace(ref+"{"+name_label_sec+"}","<<"+label[""]+">>")
+            
+            ref,test = test_section(line)
 
         if search_word_in_line("\\newpage",line):
             line=""
@@ -480,3 +497,5 @@ create_nav(section_files,sections)
 create_main_page_file(section_files,sections)
 cp_assets()
 cp_all_sections(section_files,sections)
+# label_sections = get_label_sections(section_files)
+# print(label_sections)
