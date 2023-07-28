@@ -1,47 +1,50 @@
 \section{Correction}
-%
-%\textbf{PLAN Correction :} expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec $\tilde{\phi}$ sol phifem dans intro.}
-%
-%\modif{rajouter rq quelque part avec librairies utilisées : FEniCS, Tensorflow, Pytorch !}
-%
-%\modif{Pourquoi entrainement maillage fin puis correction maillage grossier ?}
-%
-%\begin{enumerate}
-%	\item \textbf{Présentation des différentes méthodes de Correction considérées :} présentation des différentes méthodes de correction (+ résultats analytiques en annexe ? comme "papier" rehaussement etc)  + ajouter schéma ?
-%	
-%	\modif{rq "précise" sur en quoi ça aide le solveur de lui fournir une solution proche de la solution exacte (fcts de base ?)}
-%	
-%	\item \textbf{Présentation des problèmes considérés :} Comme dit précédemment, on ne considérera ici que le pb de Poisson... + expliquer domaines (cercle et carré) + expliquer sol considérées (u trigo, f gaussienne => sol sur-raffinée, u polynomial pour PINNs) \modif{A faire en dernier en ne mettant que les trucs qu'on a considéré ensuite !!}
-%	
-%	\item \textbf{Différents résultats de correction}
-%	
-%	\begin{enumerate}[label=\textbullet]
-%		\item \textbf{Correction sur solution exacte :} Résultat sur sol exacte avec FEM et PhiFEM
-%		
-%		\item \textbf{Correction sur solution perturbée :} 
-%		\begin{itemize}
-%			\item solution perturbée manuellement
-%			\item correction sur PhiFEM : Pas encore tester mais intéressant \modif{à tester !!!}
-%		\end{itemize}
-%		
-%		\item \textbf{Correction avec FNO :} loss sur w (ou phi w)... + résultats Phifem P2 puis Legendre P10 (ajoute trop d'erreurs ?)
-%		
-%		\item \textbf{Correction avec d'autres réseaux :} expliquer pourquoi on fait ça (comprendre si la correction fonctionne sur des réseaux plus simple et donc ça pourrait confirmer qu'il y a bien un problème au niveau de la perturbation créé par le FNO) + rajouter première implémentation tensorflow puis utilisation d'un travail en cours (avec pytorch)
-%		\begin{itemize}
-%			\item \textbf{Multiperceptron :} présentation rapide avec schéma (+références) + résultats obtenus + expliquer qu'on doit rajouter l'apprentissage des dérivées car elles sont mauvaises et utilisées dans le solveur (dans la formulation variationnelle).
-%			\item \textbf{PINNs :} présentation rapide avec schéma ? + résultats obtenus pour $f=1$ (+rajouter rq que par manque de temps, on n'a pas trouvé la bonne architecture du PINNs pour apprendre la solution trigo et donc on n'a considéré pour l'instant que la correction pour $f=1$)
-%		\end{itemize} 
-%	\end{enumerate}
-%
-%\end{enumerate}
-%
-%\modif{+ rajouter rq ou dans conclusion pour expliquer qu'on pourrait également tester de faire varier le type de solveur matricielle dans les solveurs pour la correction !}
+
+\textbf{PLAN Correction :} expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec $\tilde{\phi}$ sol phifem dans intro.}
+
+\modif{rajouter rq quelque part avec librairies utilisées : FEniCS, Tensorflow, Pytorch !}
+
+\modif{Pourquoi entrainement maillage fin puis correction maillage grossier ?}
+
+\begin{enumerate}
+	\item \textbf{Présentation des différentes méthodes de Correction considérées :} présentation des différentes méthodes de correction (+ résultats analytiques en annexe ? comme "papier" rehaussement etc)  + ajouter schéma ?
+	
+	\modif{rq "précise" sur en quoi ça aide le solveur de lui fournir une solution proche de la solution exacte (fcts de base ?)}
+	
+	\item \textbf{Présentation des problèmes considérés :} Comme dit précédemment, on ne considérera ici que le pb de Poisson... + expliquer domaines (cercle et carré) + expliquer sol considérées (u trigo, f gaussienne => sol sur-raffinée, u polynomial pour PINNs) \modif{A faire en dernier en ne mettant que les trucs qu'on a considéré ensuite !!}
+	
+	\item \textbf{Différents résultats de correction}
+	
+	\begin{enumerate}[label=\textbullet]
+		\item \textbf{Correction sur solution exacte :} Résultat sur sol exacte avec FEM et PhiFEM
+		
+		\item \textbf{Correction sur solution perturbée :} 
+		\begin{itemize}
+			\item solution perturbée manuellement
+			\item correction sur PhiFEM : Pas encore tester mais intéressant \modif{à tester !!!}
+		\end{itemize}
+		
+		\item \textbf{Correction avec FNO :} loss sur w (ou phi w)... + résultats Phifem P2 puis Legendre P10 (ajoute trop d'erreurs ?)
+		
+		\item \textbf{Correction avec d'autres réseaux :} expliquer pourquoi on fait ça (comprendre si la correction fonctionne sur des réseaux plus simple et donc ça pourrait confirmer qu'il y a bien un problème au niveau de la perturbation créé par le FNO) + rajouter première implémentation tensorflow puis utilisation d'un travail en cours (avec pytorch)
+		\begin{itemize}
+			\item \textbf{Multiperceptron :} présentation rapide avec schéma (+références) + résultats obtenus + expliquer qu'on doit rajouter l'apprentissage des dérivées car elles sont mauvaises et utilisées dans le solveur (dans la formulation variationnelle).
+			\item \textbf{PINNs :} présentation rapide avec schéma ? + résultats obtenus pour $f=1$ (+rajouter rq que par manque de temps, on n'a pas trouvé la bonne architecture du PINNs pour apprendre la solution trigo et donc on n'a considéré pour l'instant que la correction pour $f=1$)
+		\end{itemize} 
+	\end{enumerate}
+
+\end{enumerate}
+
+\modif{+ rajouter rq ou dans conclusion pour expliquer qu'on pourrait également tester de faire varier le type de solveur matricielle dans les solveurs pour la correction !}
 
 \subsection{Presentation of the different problem considered}
 
 \modif{A faire à la fin !}
 
-\subsection{Presentation of the different correction methods considered}
+\subsection{Presentation of the different correction methods considered} \label{Corr.methods}
+
+
+\modif{ajouter formulation variationnelle : FEM + PhiFEM ?}
 
 Here we are given $\tilde{\phi}$ an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a $\phi$-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to reinject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (Section \ref{Corr.method.add}), correction by multiplication (Section \ref{Corr.method.mult}) and correction by multiplication on an elevated problem (Section \ref{Corr.method.mult_reh}).
 
@@ -73,7 +76,7 @@ with $\tilde{f}=f+\Delta\tilde{\phi}$.
 
 \subsubsection{Correction by multiplying} \label{Corr.method.mult}
 
-In this second method, we try to approach the exact solution in a different way. In fact, we want to bring the factor between the $tilde{\phi}$ solution and the solution of the corrected problem closer to 1. In other words, by considering 
+In this second method, we try to approach the exact solution in a different way. In fact, we want to bring the factor between the $\tilde{\phi}$ solution and the solution of the corrected problem closer to 1. In other words, by considering 
 \begin{equation*}
 	\tilde{u}=\tilde{\phi}C,
 \end{equation*}
@@ -108,7 +111,7 @@ The initial modified problem, which we now consider, consists in finding $u : \O
 \end{equation}
 with $\hat{u}=u+m$ and $m$ a constant.
 
-\modif{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
+\night{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
 
 We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant $m$. We then consider
 \begin{equation*}
@@ -128,16 +131,28 @@ and so we look for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 \end{equation}
 
 \begin{Rem}
-	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. \modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.}
+	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. \modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.} \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé $\iff$ correction par addition + ajouter document}
 \end{Rem}
 
 \subsection{Different correction results}
 
-\subsubsection{Correction on exact solution}
-\subsubsection{Correction on disturbed solution}
+As explained above, we wish to combine $\phi$-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (Section \ref{Corr.methods}). It is important to note that, for practical purposes, almost all the following results obtained with $\phi$-FEM will be compared with those obtained with the standard FEM method.
+
+We'll start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). We'll consider here the "initial" solution $\tilde{\phi}$, which we'll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
+
+Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (Section \ref{Corr.results.disturbed}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
+
+Finally, we'll consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
+
+\subsubsection{Correction on exact solution} \label{Corr.results.ana}
+
+\subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
+
 \paragraph{Manually perturbed solution}
 \paragraph{correction on PhiFEM}
-\subsubsection{Correction with FNO}
-\subsubsection{Correction with other networks}
+
+\subsubsection{Correction with FNO} \label{Corr.results.FNO}
+
+\subsubsection{Correction with other networks} \label{Corr.results.neural_net}
 \paragraph{Multiperceptron}
 \paragraph{PINNs}

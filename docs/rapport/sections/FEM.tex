@@ -281,7 +281,7 @@ In particular, we have
 
 \modif{2 sous-sections ? -> Théorie -> Pratique}
 
-\modif{Ajouter formulation variationnel Poisson}
+\night{Ajouter formulation variationnel Poisson}
 
 \begin{Prop}[Lax-Milgram]
 	
@@ -298,7 +298,7 @@ It can then be shown that the Poisson problem with Dirichlet condition has a uni
 \modif{rajouter preuve}
 
 
-\modif{Rajouter : Calcul assemblage matrice dans le cas de ce problème ?}
+\night{Rajouter : Calcul assemblage matrice dans le cas de ce problème ?}
 
 \modif{Rajouter : Convergence FEM standard !}
 
@@ -323,7 +323,7 @@ In this section, we will present the $\phi$-FEM method. We will first present th
 The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (Figure \ref{mesh_fem}). Unlike this type of method, $\phi$-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (Figure \ref{mesh_phifem}). As the boundary of the geometry is represented by a levelset function $\phi$, only this function will change over time, which is a real time-saver.
 
 \begin{Rem}
-	Note that changing the $\phi$ function creates new sets of cells, all of them described in the section \modif{ADD paragraph label antora}.
+	Note that changing the $\phi$ function creates new sets of cells, all of them described in the section \night{ADD paragraph label antora}.
 \end{Rem}
 
 \begin{minipage}{0.52\linewidth}
@@ -467,7 +467,7 @@ Assuming that the right-hand side $f$ is currently well-defined on $\Omega_h$ an
 \begin{Rem}
 	Note that $\Omega_h$ is constructed using $\phi_h$ and therefore implicitly depends on $\phi$.
 \end{Rem}
-Given an approximation $\phi_h$ of $\phi$ on the mesh $\mathcal{T}_h$, as defined in Section \modif{ADD paragraph label antora}, and a finite element space $V_h$ on $\mathcal{T}_h$, we can then search for $w_h\in V_h$ such that
+Given an approximation $\phi_h$ of $\phi$ on the mesh $\mathcal{T}_h$, as defined in Section \night{ADD paragraph label antora}, and a finite element space $V_h$ on $\mathcal{T}_h$, we can then search for $w_h\in V_h$ such that
 \begin{equation*}
 	a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.
 \end{equation*}
