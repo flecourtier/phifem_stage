@@ -4,3 +4,5 @@
 
 \trad{Dans notre cas, on souhaite apprendre au FNO à prédire des solutions d'EDP. Plus précisément, on souhaite que le réseau soit capable de prédire la solution à partir d'un terme source stem:[f]. 
 #enrichissement des données, grilles régulières#}
+
+\night{rajouter schéma}

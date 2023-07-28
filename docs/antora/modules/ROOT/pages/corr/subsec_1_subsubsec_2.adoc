@@ -17,7 +17,7 @@ The initial modified problem, which we now consider, consists in finding stem:[u
 ++++
 with stem:[\hat{u}=u+m] and stem:[m] a constant.
 
-#ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)#
+\night{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
 
 We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant stem:[m]. We then consider
 [stem]
@@ -42,6 +42,6 @@ and so we look for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the pro
 
 [NOTE]
 ====
-Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose a problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}]. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. #En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.#
+Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose a problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}]. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. #En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.# \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé stem:[\iff] correction par addition + ajouter document}
 ====
 

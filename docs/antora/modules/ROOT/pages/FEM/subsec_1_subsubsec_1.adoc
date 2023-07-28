@@ -120,7 +120,7 @@ Assuming that the right-hand side stem:[f] is currently well-defined on stem:[\O
 ====
 Note that stem:[\Omega_h] is constructed using stem:[\phi_h] and therefore implicitly depends on stem:[\phi].
 ====
-Given an approximation stem:[\phi_h] of stem:[\phi] on the mesh stem:[\mathcal{T}_h], as defined in Section #ADD paragraph label antora#, and a finite element space stem:[V_h] on stem:[\mathcal{T}_h], we can then search for stem:[w_h\in V_h] such that
+Given an approximation stem:[\phi_h] of stem:[\phi] on the mesh stem:[\mathcal{T}_h], as defined in Section \night{ADD paragraph label antora}, and a finite element space stem:[V_h] on stem:[\mathcal{T}_h], we can then search for stem:[w_h\in V_h] such that
 [stem]
 ++++
 a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.

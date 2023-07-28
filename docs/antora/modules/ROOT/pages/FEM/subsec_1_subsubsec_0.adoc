@@ -7,7 +7,7 @@ The PhiFEM method is a new fictitious domain finite element method that does not
 
 [NOTE]
 ====
-Note that changing the stem:[\phi] function creates new sets of cells, all of them described in the section #ADD paragraph label antora#.
+Note that changing the stem:[\phi] function creates new sets of cells, all of them described in the section \night{ADD paragraph label antora}.
 ====
 
 [cols="a,a"]
