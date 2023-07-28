@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction by multiplying on an elevated problem
-= Correction by multiplying on an elevated problem
 
 We now introduce a third correction method, which we'll call multiplication correction on an elevated problem. This method is in fact very similar to the previous one (correction by multiplication), except that we are no longer trying to correct the same problem.
 

@@ -1,9 +1,8 @@
 :stem: latexmath
 :xrefstyle: short
-= General presentation of the $\phi$-FEM method
 = General presentation of the stem:[\phi]-FEM method
 
-In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (stem:[g=0] on stem:[\Gamma]). For the case of non-homogeneous Dirichlet conditions, we will give more details in <<_some_details_on_$\phi$-fem>>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. Models stem:[\phi]-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. For consideration of the elasticity problem, please refer to \cite{cotin_phi-fem_nodate}.
+In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (stem:[g=0] on stem:[\Gamma]). For the case of non-homogeneous Dirichlet conditions, we will give more details in xref:FEM/subsec_1_subsubsec_2.adoc[Section "Some details on stem:[\phi]-FEM"]. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. Models stem:[\phi]-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. For consideration of the elasticity problem, please refer to \cite{cotin_phi-fem_nodate}.
 
 == Description of spaces
 

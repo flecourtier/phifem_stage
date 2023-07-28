@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Some details on FEM
-= Some details on FEM
 
 After having seen the general principle of FEM, it remains to define the stem:[V_h] spaces and the stem:[\{\varphi_i\}] basis functions.
 

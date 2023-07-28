@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Application to the Poisson problem
-= Application to the Poisson problem
 
 #2 sous-sections ? -> Théorie -> Pratique#
 

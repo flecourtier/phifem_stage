@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction by adding
-= Correction by adding
 
 In this first method, we will try to approximate the solution obtained stem:[\tilde{\phi}] to the exact solution by completing the difference between the two, which is what we will call correction by adding. To do this, we will consider
 [stem]

@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction by multiplying
-= Correction by multiplying
 
 In this second method, we try to approach the exact solution in a different way. In fact, we want to bring the factor between the stem:[tilde{\phi}] solution and the solution of the corrected problem closer to 1. In other words, by considering 
 [stem]

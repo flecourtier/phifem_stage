@@ -1,4 +1,3 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction on exact solution
-= Correction on exact solution

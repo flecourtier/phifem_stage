@@ -1,6 +1,5 @@
 :stem: latexmath
 :xrefstyle: short
-= Some details on $\phi$-FEM
 = Some details on stem:[\phi]-FEM
 
 == Stabilization terms
