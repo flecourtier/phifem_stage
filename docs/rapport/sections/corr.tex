@@ -1,4 +1,5 @@
-\section{Correction}
+\section{Correction} \label{Corr}
+\graphicspath{{images/corr}}
 
 \textbf{PLAN Correction :} expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec $\tilde{\phi}$ sol phifem dans intro.}
 
@@ -39,10 +40,36 @@
 
 \subsection{Presentation of the different problem considered}
 
-\modif{A faire à la fin !}
+\modif{A faire au fur et à mesure !}
+
+\trad{Dans la suite, on considèrera 2 domaines avec différents types de solution qui seront présentés ici :}
+
+\subsubsection{First domain : the Circle.} \label{Corr.pb.circle}
+
+\trad{On considère $\Omega$ le cercle de rayon $\sqrt{2}/4$ et de centre $(0.5,0.5)$ avec $\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2$ et le domaine fictif $O=(0,1)^2$ (Figure \ref{geom_circle}).}
+		
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{"geom_circle.png"}
+	\captionof{figure}{Representation of the first domain considered : the Circle.}
+	\label{geom_circle}
+\end{figure} 
+	
+\trad{Voici les différents problèmes considérés :}
+
+\paragraph{$f$ Gaussian} \label{Corr.pb.circle.f_gaussian}
+
+\trad{Dans le cas suivant, nous ne connaissons pas de solution analytique. On considère le terme source $f$ comme étant une gaussienne définie par }
+\begin{equation*}
+	f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
+\end{equation*} 
+\trad{avec $\sigma \sim \mathcal{U}([0.1,0.6])$ et $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ à condition que $\phi(\mu_0, \mu_1) < -0.05$.}
+
+On considère la solution de référence $u_{ref}$ comme étant une solution sur-raffinée $\mathbb{P}^1$ obtenue par les EF standard (avec $h_{ref}\approx 0.006$ car $h_{ref}<<h_{FNO}$).
+
+\subsubsection{Second domain : the Square.} \label{Corr.pb.square}
 
 \subsection{Presentation of the different correction methods considered} \label{Corr.methods}
-
 
 \modif{ajouter formulation variationnelle : FEM + PhiFEM ?}
 
@@ -145,6 +172,8 @@ Next, in order to verify that correction solvers can improve accuracy when provi
 Finally, we'll consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
 
 \subsubsection{Correction on exact solution} \label{Corr.results.ana}
+
+\trad{On considère ici}
 
 \subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
 
