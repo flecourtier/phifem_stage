@@ -22,6 +22,8 @@
 *** xref:fourier/subsec_3.adoc[Application]
 ** xref:corr.adoc[Correction]
 *** xref:corr/subsec_0.adoc[Presentation of the different problem considered]
+**** xref:corr/subsec_0_subsubsec_0.adoc[First domain : the Circle.]
+**** xref:corr/subsec_0_subsubsec_1.adoc[Second domain : the Square.]
 *** xref:corr/subsec_1.adoc[Presentation of the different correction methods considered]
 **** xref:corr/subsec_1_subsubsec_0.adoc[Correction by adding]
 **** xref:corr/subsec_1_subsubsec_1.adoc[Correction by multiplying]

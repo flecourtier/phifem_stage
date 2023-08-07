@@ -2,3 +2,5 @@
 :xrefstyle: short
 = Correction on exact solution
 
+\trad{On considère ici}
+

@@ -2,5 +2,15 @@
 :xrefstyle: short
 = Presentation of the different problem considered
 
-#A faire à la fin !#
+#A faire au fur et à mesure !#
+
+\trad{Dans la suite, on considèrera 2 domaines avec différents types de solution qui seront présentés ici :}
+
+
+---
+The features include
+
+** xref:corr/subsec_0_subsubsec_0.adoc[First domain : the Circle.]
+
+** xref:corr/subsec_0_subsubsec_1.adoc[Second domain : the Square.]
 

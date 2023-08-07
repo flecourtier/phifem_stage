@@ -1,6 +1,7 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction
+:imagesdir: \{moduledir\}/assets/images/corr
 
 *PLAN Correction :* expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec stem:[\tilde{\phi}] sol phifem dans intro.}
 
