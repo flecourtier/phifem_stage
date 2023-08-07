@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Different correction results :: PhiFEM Project - Docs</title>
-    <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_2.html">
+    <title>First domain : the Circle. :: PhiFEM Project - Docs</title>
+    <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_0_subsubsec_0.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -162,7 +162,7 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="subsec_0.html">Presentation of the different problem considered</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="4">
+  <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="subsec_0_subsubsec_0.html">First domain : the Circle.</a>
   </li>
   <li class="nav-item" data-depth="4">
@@ -185,7 +185,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="subsec_2.html">Different correction results</a>
 <ul class="nav-list">
@@ -246,7 +246,8 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
-    <li><a href="subsec_2.html">Different correction results</a></li>
+    <li><a href="subsec_0.html">Presentation of the different problem considered</a></li>
+    <li><a href="subsec_0_subsubsec_0.html">First domain : the Circle.</a></li>
   </ul>
 </nav>
 
@@ -273,7 +274,7 @@
 
     <a href="https://github.com/flecourtier/phifem_stage">Open repository <i class="fab fa-github"></i></a>
     
-  <a href="https://github.com/flecourtier/phifem_stage/edit/main/docs/antora/modules/ROOT/pages/corr/subsec_2.adoc">Edit this Page <i class="fas fa-edit"></i></a>
+  <a href="https://github.com/flecourtier/phifem_stage/edit/main/docs/antora/modules/ROOT/pages/corr/subsec_0_subsubsec_0.adoc">Edit this Page <i class="fas fa-edit"></i></a>
 
     <a href="https://github.com/feelpp/book.feelpp.org/issues/new">Open issue <i class="fas fa-lightbulb"></i></a>
 
@@ -303,38 +304,41 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Different correction results</h1>
+<h1 class="page">First domain : the Circle.</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>As explained above, we wish to combine \(\phi\)-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (<a href="subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a>). It is important to note that, for practical purposes, almost all the following results obtained with \(\phi\)-FEM will be compared with those obtained with the standard FEM method.</p>
+<p>\trad{On considère \(\Omega\) le cercle de rayon \(\sqrt{2}/4\) et de centre \((0.5,0.5)\) avec \(\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2\) et le domaine fictif \(O=(0,1)^2\) (<a href="#geom_circle">Figure 1</a>).}</p>
+</div>
+<div id="geom_circle" class="imageblock">
+<div class="content">
+<img src="../_images/corr/geom_circle.png" alt="geom circle" width="180.0" height="144.0">
+</div>
+<div class="title">Figure 1. Representation of the first domain considered : the Circle.</div>
 </div>
 <div class="paragraph">
-<p>We&#8217;ll start by presenting the results obtained on an analytical solution (<a href="subsec_2_subsubsec_0.html" class="xref page">Section "Correction on exact solution"</a>). We&#8217;ll consider here the "initial" solution \(\tilde{\phi}\), which we&#8217;ll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.</p>
+<p>\trad{Voici les différents problèmes considérés :}</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_f_gaussian"><a class="anchor" href="#_f_gaussian"></a>1. \(f\) Gaussian</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>\trad{Dans le cas suivant, nous ne connaissons pas de solution analytique. On considère le terme source \(f\) comme étant une gaussienne définie par }</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,\]
+</div>
 </div>
 <div class="paragraph">
-<p>Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (<a href="subsec_2_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.</p>
+<p>\trad{avec \(\sigma \sim \mathcal{U}([0.1,0.6\))] et \(\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4\))] à condition que \(\phi(\mu_0, \mu_1) &lt; -0.05\).}</p>
 </div>
 <div class="paragraph">
-<p>Finally, we&#8217;ll consider the case of neural networks with an FNO in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Correction with FNO"</a> and then with a multi-perceptron network and PINNs in <a href="subsec_2_subsubsec_3.html" class="xref page">Section "Correction with other networks"</a>. The reasons for considering other neural networks will be explained in detail in these sections.</p>
+<p>On considère la solution de référence \(u_{ref}\) comme étant une solution sur-raffinée \(\mathbb{P}^1\) obtenue par les EF standard (avec \(h_{ref}\approx 0.006\) car \(h_{ref}&lt;&lt;h_{FNO}\)).</p>
 </div>
-<hr>
-<div class="paragraph">
-<p>The features include</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="subsec_2_subsubsec_0.html" class="xref page">Correction on exact solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_1.html" class="xref page">Correction on disturbed solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_2.html" class="xref page">Correction with FNO</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_3.html" class="xref page">Correction with other networks</a></p>
-</li>
-</ul>
 </div>
 </article>
   </div>

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Different correction results :: PhiFEM Project - Docs</title>
-    <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_2.html">
+    <title>Second domain : the Square. :: PhiFEM Project - Docs</title>
+    <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_0_subsubsec_1.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="icon" href="../../../_/img/favicon.ico" type="image/x-icon">
@@ -165,7 +165,7 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_0_subsubsec_0.html">First domain : the Circle.</a>
   </li>
-  <li class="nav-item" data-depth="4">
+  <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="subsec_0_subsubsec_1.html">Second domain : the Square.</a>
   </li>
 </ul>
@@ -185,7 +185,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="subsec_2.html">Different correction results</a>
 <ul class="nav-list">
@@ -246,7 +246,8 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
-    <li><a href="subsec_2.html">Different correction results</a></li>
+    <li><a href="subsec_0.html">Presentation of the different problem considered</a></li>
+    <li><a href="subsec_0_subsubsec_1.html">Second domain : the Square.</a></li>
   </ul>
 </nav>
 
@@ -273,7 +274,7 @@
 
     <a href="https://github.com/flecourtier/phifem_stage">Open repository <i class="fab fa-github"></i></a>
     
-  <a href="https://github.com/flecourtier/phifem_stage/edit/main/docs/antora/modules/ROOT/pages/corr/subsec_2.adoc">Edit this Page <i class="fas fa-edit"></i></a>
+  <a href="https://github.com/flecourtier/phifem_stage/edit/main/docs/antora/modules/ROOT/pages/corr/subsec_0_subsubsec_1.adoc">Edit this Page <i class="fas fa-edit"></i></a>
 
     <a href="https://github.com/feelpp/book.feelpp.org/issues/new">Open issue <i class="fas fa-lightbulb"></i></a>
 
@@ -303,39 +304,8 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Different correction results</h1>
-<div class="paragraph">
-<p>As explained above, we wish to combine \(\phi\)-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (<a href="subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a>). It is important to note that, for practical purposes, almost all the following results obtained with \(\phi\)-FEM will be compared with those obtained with the standard FEM method.</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start by presenting the results obtained on an analytical solution (<a href="subsec_2_subsubsec_0.html" class="xref page">Section "Correction on exact solution"</a>). We&#8217;ll consider here the "initial" solution \(\tilde{\phi}\), which we&#8217;ll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.</p>
-</div>
-<div class="paragraph">
-<p>Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (<a href="subsec_2_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.</p>
-</div>
-<div class="paragraph">
-<p>Finally, we&#8217;ll consider the case of neural networks with an FNO in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Correction with FNO"</a> and then with a multi-perceptron network and PINNs in <a href="subsec_2_subsubsec_3.html" class="xref page">Section "Correction with other networks"</a>. The reasons for considering other neural networks will be explained in detail in these sections.</p>
-</div>
-<hr>
-<div class="paragraph">
-<p>The features include</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="subsec_2_subsubsec_0.html" class="xref page">Correction on exact solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_1.html" class="xref page">Correction on disturbed solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_2.html" class="xref page">Correction with FNO</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_3.html" class="xref page">Correction with other networks</a></p>
-</li>
-</ul>
-</div>
+<h1 class="page">Second domain : the Square.</h1>
+
 </article>
   </div>
 </main>
