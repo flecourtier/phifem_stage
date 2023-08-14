@@ -2,22 +2,47 @@
 :xrefstyle: short
 = First domain : the Circle.
 
-\trad{On considère stem:[\Omega] le cercle de rayon stem:[\sqrt{2}/4] et de centre stem:[(0.5,0.5)] avec stem:[\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2] et le domaine fictif stem:[O=(0,1)^2] (<<geom_circle>>).}
+Here, we'll consider the stem:[\Omega] domain to be the circle of radius stem:[\sqrt{2}/4] and center stem:[(0.5,0.5)].This domain is entirely included in the fictitious domain stem:[O=[0,1]^2] (<<geom_circle>>).
 
-[[geom_circle]]
-.Representation of the first domain considered : the Circle.
-image::corr/geom_circle.png[width=180.0,height=144.0]
-
-\trad{Voici les différents problèmes considérés :}
-
-== stem:[f] Gaussian
-
-\trad{Dans le cas suivant, nous ne connaissons pas de solution analytique. On considère le terme source stem:[f] comme étant une gaussienne définie par }
+We will consider the levelset function stem:[\phi] defined by
 [stem]
 ++++
-f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
+\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2,
 ++++
-\trad{avec stem:[\sigma \sim \mathcal{U}([0.1,0.6])] et stem:[\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])] à condition que stem:[\phi(\mu_0, \mu_1) < -0.05].}
+negative function inside the domain, null at the boundary and positive outside it
 
-On considère la solution de référence stem:[u_{ref}] comme étant une solution sur-raffinée stem:[\mathbb{P}^1] obtenue par les EF standard (avec stem:[h_{ref}\approx 0.006] car stem:[h_{ref}<<h_{FNO}]).
+We then consider different problems #à compléter#.
+
+== First problem
+
+Here, we are interested in the Poisson problem with an analytical solution
+[stem]
+++++
+u_{ex}(x,y)=S\times\sin\left(8\pi f\left((x-0.5)^2+(y-0.5)^2\right)+\varphi\right)
+++++
+where stem:[S\in[0,1]] is the amplitude of the signal, stem:[f\in\mathbb{N}] can be associated with the "frequency" of the signal and stem:[\varphi\in[0,1]] the phase at the origin
+
+Thus, the second associated member is defined by
+[stem]
+++++
+\begin{aligned}
+f(x,y)=256\pi^2 S f^2&\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right] \\
+&- 32\pi S f\cos\left[8\pi f \left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right]
+\end{aligned}
+++++
+
+
+[NOTE]
+====
+Note that for stem:[\varphi=0], the Dirichlet conditions considered are then homogeneous on the circle (i.e. stem:[g=0] on stem:[\Gamma]).
+====
+
+#ajouter image solution et f#
+
+#ajouter les autres cas tests : f gaussienne...#
+
+== stem:[f] Gaussian
+[stem]
+++++
+++++
 

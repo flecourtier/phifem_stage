@@ -22,18 +22,18 @@
 *  *Correction sur solution exacte :* Résultat sur sol exacte avec FEM et PhiFEM
 
 *  *Correction sur solution perturbée :* 
-\begin{itemize}
+
 *  solution perturbée manuellement
 *  correction sur PhiFEM : Pas encore tester mais intéressant #à tester !!!#
-\end{itemize}
+
 
 *  *Correction avec FNO :* loss sur w (ou phi w)... + résultats Phifem P2 puis Legendre P10 (ajoute trop d'erreurs ?)
 
 *  *Correction avec d'autres réseaux :* expliquer pourquoi on fait ça (comprendre si la correction fonctionne sur des réseaux plus simple et donc ça pourrait confirmer qu'il y a bien un problème au niveau de la perturbation créé par le FNO) + rajouter première implémentation tensorflow puis utilisation d'un travail en cours (avec pytorch)
-\begin{itemize}
+
 *  *Multiperceptron :* présentation rapide avec schéma (+références) + résultats obtenus + expliquer qu'on doit rajouter l'apprentissage des dérivées car elles sont mauvaises et utilisées dans le solveur (dans la formulation variationnelle).
 *  *PINNs :* présentation rapide avec schéma ? + résultats obtenus pour stem:[f=1] (+rajouter rq que par manque de temps, on n'a pas trouvé la bonne architecture du PINNs pour apprendre la solution trigo et donc on n'a considéré pour l'instant que la correction pour stem:[f=1])
-\end{itemize} 
+
 
 
 
@@ -44,7 +44,7 @@
 ---
 The features include
 
-** xref:corr/subsec_0.adoc[Presentation of the different problem considered]
+** xref:corr/subsec_0.adoc[Presentation of different problems considered]
 
 ** xref:corr/subsec_1.adoc[Presentation of the different correction methods considered]
 

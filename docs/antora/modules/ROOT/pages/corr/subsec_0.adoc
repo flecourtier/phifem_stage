@@ -1,10 +1,32 @@
 :stem: latexmath
 :xrefstyle: short
-= Presentation of the different problem considered
+= Presentation of different problems considered
 
 #A faire au fur et à mesure !#
 
-\trad{Dans la suite, on considèrera 2 domaines avec différents types de solution qui seront présentés ici :}
+In this section, we present the different problems we'll be considering in xref:corr/subsec_2.adoc[Section "Different correction results"]. We will consider the geometry of a circle in xref:corr/subsec_0_subsubsec_0.adoc[Section "First domain : the Circle."] represented in <<geom_circle>> as well as the geometry of a square in xref:corr/subsec_0_subsubsec_1.adoc[Section "Second domain : the Square."] represented in <<geom_square>>. We'll also look at different solutions #à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)#.
+
+[cols="a,a"]
+|===
+|[[geom_circle]]
+.Representation of the first domain considered : the Circle.
+image::corr/geom_circle.png[width=180.0,height=144.0]
+|[[geom_square]]
+.Representation of the second domain considered : the Square.
+image::corr/geom_square.png[width=180.0,height=144.0]
+
+|===
+
+
+[NOTE]
+====
+Note that in the case where the problem is non-homogeneous, we can consider
+[stem]
+++++
+g(x,y)=u_{ex}(x,y)\times(1+\phi(x,y))
+++++
+with stem:[\phi] the levelset function, null by definition on stem:[\Gamma].
+====
 
 
 ---

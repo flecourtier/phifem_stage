@@ -4,7 +4,7 @@
 
 #2 sous-sections ? -> Théorie -> Pratique#
 
-\night{Ajouter formulation variationnel Poisson}
+#Ajouter formulation variationnel Poisson#
 
 
 []
@@ -25,7 +25,7 @@ It can then be shown that the Poisson problem with Dirichlet condition has a uni
 #rajouter preuve#
 
 
-\night{Rajouter : Calcul assemblage matrice dans le cas de ce problème ?}
+#Rajouter : Calcul assemblage matrice dans le cas de ce problème ?#
 
 #Rajouter : Convergence FEM standard !#
 
