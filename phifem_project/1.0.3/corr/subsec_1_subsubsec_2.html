@@ -160,7 +160,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_0.html">Presentation of the different problem considered</a>
+    <a class="nav-link" href="subsec_0.html">Presentation of different problems considered</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_0_subsubsec_0.html">First domain : the Circle.</a>
@@ -326,7 +326,7 @@ title="Fullscreen mode"
 <p>with \(\hat{u}=u+m\) and \(m\) a constant.</p>
 </div>
 <div class="paragraph">
-<p>\night{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}</p>
+<p><mark>ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)</mark></p>
 </div>
 <div class="paragraph">
 <p>We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant \(m\). We then consider</p>
@@ -355,6 +355,44 @@ title="Fullscreen mode"
 &amp;C=1 \quad &amp;&amp;\Gamma
 \end{aligned}\right. \tag{stem:[\mathcal{C}_\times^\mathcal{M}]}\]
 </div>
+</div>
+<div class="paragraph">
+<p>So for the standard FEM method, the weak formulation will be given by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int_\Omega \nabla (\hat{\phi}C)\cdot\nabla (\hat{\phi}v)=\int_\Omega f\hat{\phi}v\]
+</div>
+</div>
+<div class="paragraph">
+<p>where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination&#8230;&#8203;)</p>
+</div>
+<div class="paragraph">
+<p>For the \(\phi\)-FEM method, the weak formulation for the homogeneous problem is given by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int_{\Omega_h} \nabla (\hat{\phi} C) \cdot \nabla (\hat{\phi} v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\hat{\phi} C)\hat{\phi} v+G_h(w,v)=\int_{\Omega_h} f \hat{\phi} v + G_h^{rhs}(v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[G_h(C,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\hat{\phi} C)\right] \left[\frac{\partial}{\partial n}(\hat{\phi} v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\hat{\phi} C)\Delta(\hat{\phi} v)\]
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\phi} v).\]
+</div>
+</div>
+<div class="paragraph">
+<p>In the non-homogeneous case, it is important to impose the edge conditions either by the direct method or by the dual method presented in section <mark>add section</mark>. \modif{PAS SURE !}</p>
 </div>
 <div class="admonitionblock note">
 <table>

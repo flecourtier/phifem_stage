@@ -160,7 +160,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_0.html">Presentation of the different problem considered</a>
+    <a class="nav-link" href="subsec_0.html">Presentation of different problems considered</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_0_subsubsec_0.html">First domain : the Circle.</a>
@@ -246,7 +246,7 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
-    <li><a href="subsec_0.html">Presentation of the different problem considered</a></li>
+    <li><a href="subsec_0.html">Presentation of different problems considered</a></li>
     <li><a href="subsec_0_subsubsec_1.html">Second domain : the Square.</a></li>
   </ul>
 </nav>
@@ -305,7 +305,82 @@ title="Fullscreen mode"
 
 <article class="doc">
 <h1 class="page">Second domain : the Square.</h1>
-
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here, we&#8217;ll consider the \(\Omega\) domain to be the unit square \(\Omega=[0,1\)^2]. This domain is entirely included in the fictitious domain \(O=[-0.5,1.5\)^2] (<a href="#geom_square">[geom_square]</a>).</p>
+</div>
+<div class="paragraph">
+<p>In this case, we&#8217;ll consider two levelset functions. The first function \(\phi\), defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\phi(x,y)=x(1-x)y(1-y),\]
+</div>
+</div>
+<div class="paragraph">
+<p>will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, as it is only negative within the \(\Omega\) domain (<a href="#levelset_square">Figure 1</a>).</p>
+</div>
+<div id="levelset_square" class="imageblock">
+<div class="content">
+<img src="../_images/corr/levelset_square.png" alt="levelset square" width="180.0" height="144.0">
+</div>
+<div class="title">Figure 1. Representation of \(\phi(x,y)&lt;0\).</div>
+</div>
+<div class="paragraph">
+<p>To construct the sets of cells and faces needed to perform the \(\phi\)-FEM method, we will consider a second function, denoted \(\phi_C\) and defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\phi_C(x,y)=\max(|x-0.5|,|y-0.5|)-0.5,\]
+</div>
+</div>
+<div class="paragraph">
+<p>which is indeed negative inside the domain, zero at the boundary and positive outside, but which does not sufficiently satisfy the regularity conditions necessary for \(\phi\)-FEM.</p>
+</div>
+<div class="paragraph">
+<p>We the considered different problems <mark>à compléter</mark>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_first_problem"><a class="anchor" href="#_first_problem"></a>1. First problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here, we are interested in the Poisson problem with as analytical solution</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[u_{ex}(x,y)=S\times\sin\left(2\pi fx+\varphi\right)\times\sin\left(2\pi fy+\varphi\right)\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(S\in[0,1\)] is the amplitude of the signal, \(f\in\mathbb{N}\) can be associated with the "frequency" of the signal and \(\varphi\in[0,1\)] the phase at the origin.</p>
+</div>
+<div class="paragraph">
+<p>Thus, the associated second member is defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[f(x,y)=8\pi^2 Sf^2\sin\left(2\pi fx + \varphi\right)\sin\left(2\pi fy + \varphi\right)\]
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It should be noted that as for the circle for \(\varphi=0\), the Dirichlet conditions considered are then homogeneous on the square (i.e. \(g=0\) on \(\Gamma\)).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
