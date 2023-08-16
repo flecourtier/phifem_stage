@@ -17,7 +17,7 @@ The initial modified problem, which we now consider, consists in finding stem:[u
 ++++
 with stem:[\hat{u}=u+m] and stem:[m] a constant.
 
-\night{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
+#ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)#
 
 We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant stem:[m]. We then consider
 [stem]
@@ -38,6 +38,31 @@ and so we look for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the pro
 &C=1 \quad &&\Gamma
 \end{aligned}\right. \tag{stem:[\mathcal{C}_\times^\mathcal{M}]}
 ++++
+
+So for the standard FEM method, the weak formulation will be given by
+[stem]
+++++
+\int_\Omega \nabla (\hat{\phi}C)\cdot\nabla (\hat{\phi}v)=\int_\Omega f\hat{\phi}v
+++++
+where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...)
+
+For the stem:[\phi]-FEM method, the weak formulation for the homogeneous problem is given by
+[stem]
+++++
+\int_{\Omega_h} \nabla (\hat{\phi} C) \cdot \nabla (\hat{\phi} v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\hat{\phi} C)\hat{\phi} v+G_h(w,v)=\int_{\Omega_h} f \hat{\phi} v + G_h^{rhs}(v)
+++++
+with
+[stem]
+++++
+G_h(C,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\hat{\phi} C)\right] \left[\frac{\partial}{\partial n}(\hat{\phi} v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\hat{\phi} C)\Delta(\hat{\phi} v)
+++++
+and
+[stem]
+++++
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\phi} v).
+++++
+
+In the non-homogeneous case, it is important to impose the edge conditions either by the direct method or by the dual method presented in section #add section#. \modif{PAS SURE !}
 
 
 [NOTE]

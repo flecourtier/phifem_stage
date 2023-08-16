@@ -324,7 +324,7 @@ Next, in order to verify that correction solvers can improve accuracy when provi
 Finally, we'll consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
 
 \subsubsection{Correction on exact solution} \label{Corr.results.ana}
-\graphicspath{{images/corr/corr_ana}}
+%\graphicspath{{images/corr/corr_ana}}
 
 First, we will look at the correction of an exact solution. In other words, we consider
 \begin{equation*}
@@ -350,7 +350,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_fem_circle.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_circle.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle}
 		\end{figure} 
@@ -358,7 +358,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_phifem_circle.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_circle.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with $\phi$-FEM.}
 			\label{tab_errors_phifem_circle}
 		\end{figure} 
@@ -371,7 +371,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_fem_circle_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_circle_nh.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle_nh}
 		\end{figure} 
@@ -379,7 +379,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_phifem_circle_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_circle_nh.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with $\phi$-FEM.}
 			\label{tab_errors_phifem_circle_nh}
 		\end{figure} 
@@ -396,7 +396,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_fem_square.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_square.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square}
 		\end{figure} 
@@ -404,7 +404,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_phifem_square.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_square.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with $\phi$-FEM.}
 			\label{tab_errors_phifem_square}
 		\end{figure} 
@@ -417,7 +417,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_fem_square_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_square_nh.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square_nh}
 		\end{figure} 
@@ -425,7 +425,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"tab_errors_phifem_square_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_square_nh.png"}
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with $\phi$-FEM.}
 			\label{tab_errors_phifem_square_nh}
 		\end{figure} 
@@ -451,7 +451,7 @@ where $u_{ex}$ defines the exact solution to the problem, $P$ the perturbation a
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"norms.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/norms.png"}
 			\captionof{figure}{Table summarizing the errors obtained by standard FEM and $\phi$-FEM on the circle and the square (homogeneous case).}
 			\label{norms}
 		\end{figure} 
@@ -459,7 +459,7 @@ where $u_{ex}$ defines the exact solution to the problem, $P$ the perturbation a
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"norms_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/norms_nh.png"}
 			\captionof{figure}{Table summarizing the errors obtained by standard FEM and $\phi$-FEM on the circle and the square (non-homogeneous case).}
 			\label{norms_nh}
 		\end{figure} 
@@ -502,7 +502,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_fem_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with standard FEM.}
 			\label{corr_pert_circle_fem_add}
 		\end{figure} 
@@ -510,7 +510,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_phifem_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM.}
 			\label{corr_pert_circle_phifem_add}
 		\end{figure} 
@@ -521,7 +521,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_fem_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM.}
 			\label{corr_pert_circle_fem_mult}
 		\end{figure} 
@@ -529,7 +529,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_phifem_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM.}
 			\label{corr_pert_circle_phifem_mult}
 		\end{figure} 
@@ -542,7 +542,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_fem_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_fem_add.png"}
 			\captionof{figure}{Correction by adding on the Square with standard FEM.}
 			\label{corr_pert_square_fem_add}
 		\end{figure} 
@@ -550,7 +550,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_phifem_add.png"}
 			\captionof{figure}{Correction by adding on the Square with $\phi$-FEM.}
 			\label{corr_pert_square_phifem_add}
 		\end{figure} 
@@ -561,7 +561,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_fem_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_fem_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with standard FEM.}
 			\label{corr_pert_square_fem_mult}
 		\end{figure} 
@@ -569,7 +569,7 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_phifem_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM.}
 			\label{corr_pert_square_phifem_mult}
 		\end{figure} 

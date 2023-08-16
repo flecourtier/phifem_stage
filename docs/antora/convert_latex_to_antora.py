@@ -237,6 +237,14 @@ def get_label_sections(section_files):
                         subsubsection_name_ = "_"+subsubsection_name_.lower()
                         label_sections[line.split("\label{")[1].split("}")[0]]={"":subsubsection_name_,"xref":[section_file_name+"/subsec_"+str(num_subsection)+"_subsubsec_"+str(num_subsubsection),subsubsection_name]}
 
+                if search_word_in_line("\paragraph", line):
+                    if search_word_in_line("\label", line):
+                        paragraph_name = line.split("{")[1].split("}")[0]
+                        paragraph_name = test_latex_title(paragraph_name)
+                        paragraph_name_ = paragraph_name.replace(" ","_")
+                        paragraph_name_ = "_"+paragraph_name_.lower()
+                        label_sections[line.split("\label{")[1].split("}")[0]]={"":paragraph_name_}
+
     return label_sections
 
 def cp_section(section_file,sections,label_sections):
@@ -382,6 +390,9 @@ def cp_section(section_file,sections,label_sections):
 
         if search_word_in_line("\\begin{enumerate", line) or search_word_in_line("\end{enumerate", line):
             line = "\n"
+
+        if search_word_in_line("\\begin{itemize", line) or search_word_in_line("\end{itemize", line):
+            line = "\n"
         
         if search_word_in_line("\item",line):
             line = line.replace("\item", "* ")
@@ -394,13 +405,13 @@ def cp_section(section_file,sections,label_sections):
 
         ref,test= test_fig(line)
         while test:
-            name_label_fig = line.split("\\ref{")[1].split("}")[0]
+            name_label_fig = line.split(ref+"{")[1].split("}")[0]
             line = line.replace(ref+"{"+name_label_fig+"}","<<"+name_label_fig+">>")
-            ref,test= test_fig(line)
+            ref,test = test_fig(line)
 
         ref,test = test_section(line)
         while test:
-            name_label_sec = line.split("\\ref{")[1].split("}")[0]
+            name_label_sec = line.split(ref+"{")[1].split("}")[0]
             label = label_sections[name_label_sec]
             print(label)
             if "xref" in label and "" in label:

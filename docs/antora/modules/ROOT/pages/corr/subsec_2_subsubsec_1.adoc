@@ -2,6 +2,130 @@
 :xrefstyle: short
 = Correction on disturbed solution
 
+Now, let's consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. First, we'll consider a manually disturbed solution, i.e. the exact solution to which we've added a small, analytically known perturbation (<<_manually_perturbed_solution>>). Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A stem:[\phi]-FEM solution can be considered for injection into correction solvers (<<_correction_on_stem:[\phi]-fem>>).
+
 == Manually perturbed solution
-== correction on PhiFEM
+:imagesdir: \{moduledir\}/assets/images/corr/corr_pert
+
+As explained above, we begin by considering stem:[\tilde{\phi}] as a manually perturbed solution defined by
+[stem]
+++++
+\tilde{\phi}(x,y)=u_{ex}(x,y)+\epsilon P(x,y)
+++++
+where stem:[u_{ex}] defines the exact solution to the problem, stem:[P] the perturbation applied to it and stem:[\epsilon] is a real number that allows the amplitude of the perturbation to be easily increased or decreased. 
+
+
+[NOTE]
+====
+Notice that by taking stem:[\epsilon=0], we return to the case of correction on an exact solution presented in xref:corr/subsec_2_subsubsec_0.adoc[Section "Correction on exact solution"]. Recall the relative errors obtained by standard FEM and stem:[\phi]-FEM on the circle and on the square for frequencies stem:[f\in\{1,2,3,4\}] for the homogeneous  (<<norms>>) and non-homogeneous problem  (<<norms_nh>>).
+
+[cols="a,a"]
+|===
+|[[norms]]
+.Table summarizing the errors obtained by standard FEM and stem:[\phi]-FEM on the circle and the square (homogeneous case).
+image::corr/corr_pert/norms.png[width=240.0,height=192.0]
+|[[norms_nh]]
+.Table summarizing the errors obtained by standard FEM and stem:[\phi]-FEM on the circle and the square (non-homogeneous case).
+image::corr/corr_pert/norms_nh.png[width=240.0,height=192.0]
+
+|===
+====
+
+In our case, we will choose to consider stem:[P] as being of the same form as our exact solution (defined with different parameters), but we could very well consider a completely different perturbation. 
+
+
+[NOTE]
+====
+Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of stem:[\phi]-FEM in <<_correction_on_stem:[\phi]-fem>> or FNO in xref:corr/subsec_2_subsubsec_2.adoc[Section "Correction with FNO"]).
+====
+
+In the case of Circle geometry where we consider the problem \ref{Corr.pb.circle.1}, the perturbation will be defined by
+[stem]
+++++
+P(x,y)=S_p\times\sin\left(8\pi f_p\left((x-0.5)^2+(y-0.5)^2\right)+\varphi_p\right)
+++++
+where stem:[S_p\in[0,1]] is the amplitude of the signal, stem:[f_p\in\mathbb{N}] can be associated with the "frequency" of the signal and stem:[\varphi_p\in[0,1]] the phase at the origin.
+
+In the case of Square geometry where we consider the problem \ref{Corr.pb.square.1}, the perturbation will be defined by
+[stem]
+++++
+P(x,y)=S_p\times\sin\left(2\pi f_px+\varphi_p\right)\times\sin\left(2\pi f_py+\varphi_p\right)
+++++
+where stem:[S_p\in[0,1]] is the amplitude of the signal, stem:[f_p\in\mathbb{N}] can be associated with the "frequency" of the signal and stem:[\varphi_p\in[0,1]] the phase at the origin.
+
+
+[NOTE]
+====
+Note that for the boundary conditions of the solution to be satisfied, i.e. for stem:[\tilde{\phi}=u_{ex}] on stem:[\Gamma], it is essential that stem:[P=0] on stem:[\Gamma]. In the case of both circle and square, we will then take stem:[\varphi_p=0].
+====
+
+*Results on the homogeneous case :*
+
+First, we consider the homogeneous case (i.e. with stem:[\varphi=0]). The aim is to test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying stem:[\epsilon]). We'll consider the case of the circle and the square for standard FEM and stem:[\phi]-FEM methods, and we'll try to separate the cases according to the frequencies considered. In other words, for stem:[f,f_p\in\{1,2,3,4\}], we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency (stem:[f>f_p]), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal (stem:[f=f_p]), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution (stem:[f<f_p]).
+
+
+*  *Results on the Circle :*
+
+We consider here the Circle problem with the solution defined in <<_first_problem>>. Here, we consider correction by adding (without IPP) with standard FEM (<<corr_pert_circle_fem_add>>) and with stem:[\phi]-FEM (<<corr_pert_circle_phifem_add>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_circle_fem_add]]
+.Correction by adding on the Circle with standard FEM.
+image::corr/corr_pert/corr_pert_circle_fem_add.png[width=300.0,height=240.0]
+|[[corr_pert_circle_phifem_add]]
+.Correction by adding on the Circle with stem:[\phi]-FEM.
+image::corr/corr_pert/corr_pert_circle_phifem_add.png[width=300.0,height=240.0]
+
+|===
+
+Then, we consider correction by multiplying with standard FEM (<<corr_pert_circle_fem_mult>>) and with stem:[\phi]-FEM (<<corr_pert_circle_phifem_mult>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_circle_fem_mult]]
+.Correction by multiplying on the Circle with standard FEM.
+image::corr/corr_pert/corr_pert_circle_fem_mult.png[width=300.0,height=240.0]
+|[[corr_pert_circle_phifem_mult]]
+.Correction by multiplying on the Circle with stem:[\phi]-FEM.
+image::corr/corr_pert/corr_pert_circle_phifem_mult.png[width=300.0,height=240.0]
+
+|===
+
+*  *Results on the Square :*
+
+We consider here the Square problem with the solution defined in <<_first_problem>>. Here, we consider correction by adding (without IPP) with standard FEM (<<corr_pert_square_fem_add>>) and with stem:[\phi]-FEM (<<corr_pert_square_phifem_add>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_square_fem_add]]
+.Correction by adding on the Square with standard FEM.
+image::corr/corr_pert/corr_pert_square_fem_add.png[width=300.0,height=240.0]
+|[[corr_pert_square_phifem_add]]
+.Correction by adding on the Square with stem:[\phi]-FEM.
+image::corr/corr_pert/corr_pert_square_phifem_add.png[width=300.0,height=240.0]
+
+|===
+
+Then, we consider correction by multiplying with standard FEM (<<corr_pert_square_fem_mult>>) and with stem:[\phi]-FEM (<<corr_pert_square_phifem_mult>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_square_fem_mult]]
+.Correction by multiplying on the Square with standard FEM.
+image::corr/corr_pert/corr_pert_square_fem_mult.png[width=300.0,height=240.0]
+|[[corr_pert_square_phifem_mult]]
+.Correction by multiplying on the Square with stem:[\phi]-FEM.
+image::corr/corr_pert/corr_pert_square_phifem_mult.png[width=300.0,height=240.0]
+
+|===
+
+
+\trad{Il semblerait donc que globalement, plus la perturbation appliquée est minime (c'est-à-dire plus stem:[\epsilon] est petit) et plus les solveurs de correction par addition et par multiplication sont efficace en terme de précision. On peut cependant faire quelques remarques sur les résultats obtenus.}
+
+*  Tout d'abord, il semblerait que pour comme pour les solveurs FEM standard et stem:[\phi]-FEM sans correction, plus la solution varie (c'est-à-dire plus stem:[f] est grand) et plus l'erreur est importante. Ce résultat est un résultat assez intuitif car plus la solution varie et plus on a besoin de points pour l'approcher.
+*  Il semblerait également que pour stem:[\epsilon=1] (donc une perturbation importante), ce paramètre est plus d'impact sur le correcteur multiplicatif que sur le correcteur additif. On a expliqué précédemment l'intérêt de rehausser le problème, ce qui pourrait être bénéfique ici. 
+
+
+== Correction on stem:[\phi]-FEM
 

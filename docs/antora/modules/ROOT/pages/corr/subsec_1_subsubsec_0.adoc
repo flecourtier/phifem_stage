@@ -5,9 +5,9 @@
 In this first method, we will try to approximate the solution obtained stem:[\tilde{\phi}] to the exact solution by completing the difference between the two, which is what we will call correction by adding. To do this, we will consider
 [stem]
 ++++
-\tilde{u}=\tilde{\phi}+C
+\tilde{u}=\tilde{\phi}+\tilde{C}
 ++++
-and we want to find stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
+and we want to find stem:[\tilde{C}: \Omega \rightarrow \mathbb{R}^d] solution to the problem
 [stem]
 ++++
 \left\{\begin{aligned}
@@ -18,16 +18,45 @@ and we want to find stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the pr
 
 [NOTE]
 ====
-Note that this problem is in fact equivalent to the initial #add ref# problem. We only hope that the approximate solution stem:[tilde{u}] obtained is more accurate than the approximate solution stem:[u] obtained by solving the initial problem.
+Note that this problem is in fact equivalent to the initial #add ref# problem. We only hope that the approximate solution stem:[\tilde{u}] obtained is more accurate than the approximate solution stem:[u] obtained by solving the initial problem.
 ====
-Rewriting the problem, we seek to find stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
+Rewriting the problem, we seek to find stem:[\tilde{C}: \Omega \rightarrow \mathbb{R}^d] solution to the problem
 [stem]
 ++++
 \label{eq.corr.pbc_add}
 \left\{\begin{aligned}
--\Delta C&=\tilde{f}, \; &&\text{on } \Omega, \\
-C&=0, \; &&\text{in } \Gamma.
+-\Delta \tilde{C}&=\tilde{f}, \; &&\text{on } \Omega, \\
+\tilde{C}&=0, \; &&\text{in } \Gamma.
 \end{aligned}\right. \tag{stem:[\mathcal{C}_{+}]}
 ++++
 with stem:[\tilde{f}=f+\Delta\tilde{\phi}].
+
+Thus for the standard FEM method, the weak formulation will be given by
+[stem]
+++++
+\int_\Omega \nabla\tilde{C}\cdot\nabla v=\int_\Omega \tilde{f}v
+++++
+where the homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...).
+
+For the stem:[\phi]-FEM method, we look for stem:[C] such that stem:[\tilde{C}=\phi C] and the weak formulation (associated with a homogeneous problem because stem:[\tilde{C}=0] on stem:[\Gamma]) is given by
+[stem]
+++++
+\int_{\Omega_h} \nabla (\phi C) \cdot \nabla (\phi v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\phi C)\phi v+G_h(w,v)=\int_{\Omega_h} \tilde{f} \phi v + G_h^{rhs}(v)
+++++
+with
+[stem]
+++++
+G_h(C,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi C)\right] \left[\frac{\partial}{\partial n}(\phi v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi C)\Delta(\phi v)
+++++
+and
+[stem]
+++++
+G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \tilde{f} \Delta(\phi v).
+++++
+
+
+[NOTE]
+====
+In practice, it may be useful to integrate by parts (IPP) the term containing stem:[\Delta \tilde{\phi}] (implicitly included in stem:[\tilde{f}]). #expliciter !#
+====
 
