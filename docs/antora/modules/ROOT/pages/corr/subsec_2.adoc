@@ -8,7 +8,7 @@ We'll start by presenting the results obtained on an analytical solution (xref:c
 
 Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (xref:corr/subsec_2_subsubsec_1.adoc[Section "Correction on disturbed solution"]). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
 
-Finally, we'll consider the case of neural networks with an FNO in xref:corr/subsec_2_subsubsec_2.adoc[Section "Correction with FNO"] and then with a multi-perceptron network and PINNs in xref:corr/subsec_2_subsubsec_3.adoc[Section "Correction with other networks"]. The reasons for considering other neural networks will be explained in detail in these sections.
+Finally, we'll consider the case of neural networks with an FNO in xref:corr/subsec_2_subsubsec_3.adoc[Section "Correction with FNO"] and then with a multi-perceptron network and PINNs in xref:corr/subsec_2_subsubsec_4.adoc[Section "Correction with other networks"]. The reasons for considering other neural networks will be explained in detail in these sections.
 
 
 ---
@@ -18,7 +18,9 @@ The features include
 
 ** xref:corr/subsec_2_subsubsec_1.adoc[Correction on disturbed solution]
 
-** xref:corr/subsec_2_subsubsec_2.adoc[Correction with FNO]
+** xref:corr/subsec_2_subsubsec_2.adoc[Correction on stem:[\phi]-FEM solution]
 
-** xref:corr/subsec_2_subsubsec_3.adoc[Correction with other networks]
+** xref:corr/subsec_2_subsubsec_3.adoc[Correction with FNO]
+
+** xref:corr/subsec_2_subsubsec_4.adoc[Correction with other networks]
 

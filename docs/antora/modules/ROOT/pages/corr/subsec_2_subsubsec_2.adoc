@@ -1,4 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
-= Correction with FNO
+= Correction on stem:[\phi]-FEM solution
+
+#Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A stem:[\phi]-FEM solution can be considered for injection into correction solvers.#
 

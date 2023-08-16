@@ -3,7 +3,7 @@
 = Finite Element Methods (FEMs)
 :imagesdir: \{moduledir\}/assets/images/FEM
 
-In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or inhomogeneous):
+In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or non-homogeneous):
 
 *Problem :* Find stem:[u : \Omega \rightarrow \mathbb{R}^d] such that
 
@@ -18,10 +18,6 @@ u&=g, \; &&\text{on } \; \partial\Omega,
 ++++
 
 with stem:[\Delta] the Laplace operator and stem:[\Omega\subset\mathbb{R}^d] a lipschitzian bounded open set (and stem:[\partial\Omega] its boundary).
-
-*Associated physical model :* Newtonian gravity, Electrostatics, Fluid dynamics...
-
-#AJOUTER REF !#
 
 
 ---

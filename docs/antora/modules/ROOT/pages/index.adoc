@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Introduction
 
-This end of study internship is a 2nd year internship in the CSMI Master ("Calcul Scientifique et Mathématique de l'Information") of the University of Strasbourg. It is the continuation of a project done during the first semester of M2, the main objective of this project was the discovery of an innovative non-conformal finite element method for augmented surgery, the stem:[\phi]-FEM method. The purpose of this project was to have Cemosis and Mimesis collaborate through the use of Feel++ software (developed by Cemosis) in the framework of the stem:[\phi]-FEM method (one of the research topics of the Mimesis team).
+This end of study internship is a 2nd year internship in the CSMI Master ("Calcul Scientifique et Mathématiques de l'Information") of the University of Strasbourg. It is the continuation of a project done during the first semester of M2, the main objective of this project was the discovery of an innovative non-conformal finite element method for augmented surgery, the stem:[\phi]-FEM method. The purpose of this project was to have Cemosis and Mimesis collaborate through the use of Feel++ software (developed by Cemosis) in the framework of the stem:[\phi]-FEM method (one of the research topics of the Mimesis team). This project was followed by a 6-month internship whose main objective was to correct the output of a Fourier Neural Operator (FNO) by a solver using the stem:[\phi]-FEM method.
 
 
 ---
@@ -10,7 +10,7 @@ The features include
 
 ** xref:index/subsec_0.adoc[Scientific Context]
 
-** xref:index/subsec_1.adoc[Presentation of Mimesis]
+** xref:index/subsec_1.adoc[Presentation of the team]
 
 ** xref:index/subsec_2.adoc[Objectives]
 
