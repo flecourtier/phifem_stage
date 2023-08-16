@@ -352,7 +352,13 @@ def cp_section(section_file,sections,label_sections):
                     height = minipage_width * linewidth * 480
 
                 if search_word_in_line("\caption", line):
-                    caption = line.split("{")[2].split("}")[0]
+                    count = line.count("{")
+                    if count>=3:
+                        while line[0]=="\t":
+                            line = line[1:]
+                        caption = line.replace("\captionof{figure}{","")[:-2]+"\n"
+                    else:
+                        caption = line.split("{")[2].split("}")[0]
                     caption = test_latex_title(caption)
                     
                 if search_word_in_line("\label", line):
