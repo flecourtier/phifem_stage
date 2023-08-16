@@ -87,7 +87,7 @@
     <a class="nav-link" href="../index/subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../index/subsec_1.html">Presentation of Mimesis</a>
+    <a class="nav-link" href="../index/subsec_1.html">Presentation of the team</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../index/subsec_2.html">Objectives</a>
@@ -196,10 +196,13 @@
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -308,13 +311,8 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, let&#8217;s consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. First, we&#8217;ll consider a manually disturbed solution, i.e. the exact solution to which we&#8217;ve added a small, analytically known perturbation (<a href="#_manually_perturbed_solution">Section 1</a>). Then we&#8217;ll look at correcting a disturbed solution for which we don&#8217;t know the form of the perturbation. A \(\phi\)-FEM solution can be considered for injection into correction solvers (<a href="#_correction_on_\(\phi\)-fem">[_correction_on_\(\phi\)-fem]</a>).</p>
+<p>Now, let&#8217;s consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. In this section, we will consider a manually disturbed solution, i.e. the exact solution to which we&#8217;ve added a small, analytically known perturbation.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_manually_perturbed_solution"><a class="anchor" href="#_manually_perturbed_solution"></a>1. Manually perturbed solution</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>As explained above, we begin by considering \(\tilde{\phi}\) as a manually perturbed solution defined by</p>
 </div>
@@ -373,7 +371,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of \(\phi\)-FEM in <a href="#_correction_on_\(\phi\)-fem">[_correction_on_\(\phi\)-fem]</a> or FNO in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Correction with FNO"</a>).</p>
+<p>Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of \(\phi\)-FEM in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Correction on \(\phi\)-FEM solution"</a> or FNO in <a href="subsec_2_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a>).</p>
 </div>
 </td>
 </tr>
@@ -415,6 +413,11 @@ title="Fullscreen mode"
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_results_with_differents_epsilon"><a class="anchor" href="#_results_with_differents_epsilon"></a>1. Results with differents \(\epsilon\)</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Results on the homogeneous case :</strong></p>
 </div>
@@ -536,24 +539,215 @@ title="Fullscreen mode"
 </tbody>
 </table>
 <div class="paragraph">
-<p>\trad{Il semblerait donc que globalement, plus la perturbation appliquée est minime (c&#8217;est-à-dire plus \(\epsilon\) est petit) et plus les solveurs de correction par addition et par multiplication sont efficace en terme de précision. On peut cependant faire quelques remarques sur les résultats obtenus.}</p>
+<p>It would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the \(\epsilon\)), the more efficient the addition and multiplication correction solvers are in terms of accuracy. However, we would like to make a few comments on the results obtained:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Tout d&#8217;abord, il semblerait que pour comme pour les solveurs FEM standard et \(\phi\)-FEM sans correction, plus la solution varie (c&#8217;est-à-dire plus \(f\) est grand) et plus l&#8217;erreur est importante. Ce résultat est un résultat assez intuitif car plus la solution varie et plus on a besoin de points pour l&#8217;approcher.</p>
+<p>First of all, it would appear that, as with the standard FEM and \(\phi\)-FEM solvers without correction, the more the solution varies (i.e. the larger \(f\)), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.</p>
 </li>
 <li>
-<p>Il semblerait également que pour \(\epsilon=1\) (donc une perturbation importante), ce paramètre est plus d&#8217;impact sur le correcteur multiplicatif que sur le correcteur additif. On a expliqué précédemment l&#8217;intérêt de rehausser le problème, ce qui pourrait être bénéfique ici.</p>
+<p>It would also seem that for \(\epsilon=1\) (i.e. a large perturbation), this parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the <a href="#_results_on_the_elevated_problem">Section 2</a>.</p>
+</li>
+<li>
+<p>In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.</p>
+</li>
+<li>
+<p>An interesting result can also be observed. Indeed, it seems that in the case where \(f=f_p\), the multiplication correction with \(\phi\)-FEM seems to approach the solution almost perfectly for all \(\epsilon\) considered.
+In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to the solution (i.e. \(P=u_{ex}\)) and so the solution injected into the correction solvers is of the form</p>
 </li>
 </ul>
+</div>
+\tilde{\phi}=u_{ex}+\epsilon P=(1+\epsilon)u_{ex}
+<div class="paragraph">
+<p>In the case of correction by multiplication, we have \(\tilde{u}=\tilde{\phi}C\). So for \(\tilde{u}=u_{ex}\), we must have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\tilde{\phi}C=u_{ex} \quad \iff \quad (1+\epsilon)u_{ex}C=u_{ex}\]
+</div>
+</div>
+<div class="paragraph">
+<p>So if the solution does not cancel out on \(\Omega\), we must have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[C=\frac{1}{1+\epsilon} \quad \text{on } \Omega\]
+</div>
+</div>
+<div class="paragraph">
+<p>By imposing \(C=\frac{1}{1+\epsilon}\) on \(\Gamma\) for FEM instead of \(C=1\), we should get closer to the \(\phi\)-FEM results obtained. We can see in <a href="#norms_circle_f_eq_fp">Figure 11</a> and <a href="#norms_square_f_eq_fp">Figure 12</a> that we obtain the expected results for FEM by changing the boundary condition \(C=1\) to \(C=\frac{1}{1+\epsilon}\).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="norms_circle_f_eq_fp" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/norms_circle_f_eq_fp.png" alt="norms circle f eq fp" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 11. Results by changing FEM boundary conditions on the circle.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="norms_square_f_eq_fp" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/norms_square_f_eq_fp.png" alt="norms square f eq fp" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 12. Results by changing FEM boundary conditions on the square.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It should be noted, however, that in practice, for example in the case where \(\tilde{\phi}\) is a \(\phi\)-FEM solution or an FNO output, this case is not very realistic. There&#8217;s no reason to expect the form of the perturbation created by the \(\phi\)-FEM solver or by the FNO to be exactly identical to the solution under consideration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Results on the non-homogeneous case :</strong></p>
+</div>
+<div class="paragraph">
+<p>Then, we consider the non-homogeneous case (i.e. with \(\varphi=1\)). The aim here is the same as in the homogeneous case, test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying \(\epsilon\)). We&#8217;ll consider the case of the circle and the square for standard FEM and \(\phi\)-FEM methods, and we&#8217;ll try to separate the cases according to the frequencies considered. In other words, for \(f,f_p\in\{1,2,3,4\}\), we&#8217;re interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency (\(f&gt;f_p\)), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal (\(f=f_p\)), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution (\(f&lt;f_p\)).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Results on the Circle :</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We consider here the Circle problem with the solution defined in <a href="#_first_problem">[_first_problem]</a>. Here, we consider correction by adding (without IPP) with standard FEM (<a href="#corr_pert_circle_fem_nh_add">Figure 13</a>) and with \(\phi\)-FEM (<a href="#corr_pert_circle_phifem_nh_add">Figure 14</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_circle_fem_nh_add" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_circle_fem_nh_add.png" alt="corr pert circle fem nh add" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 13. Correction by adding on the Circle with standard FEM.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_circle_phifem_nh_add" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_circle_phifem_nh_add.png" alt="corr pert circle phifem nh add" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 14. Correction by adding on the Circle with \(\phi\)-FEM.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Then, we consider correction by multiplying with standard FEM (<a href="#corr_pert_circle_fem_nh_mult">Figure 15</a>) and with \(\phi\)-FEM (<a href="#corr_pert_circle_phifem_nh_mult">Figure 16</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_circle_fem_nh_mult" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_circle_fem_nh_mult.png" alt="corr pert circle fem nh mult" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 15. Correction by multiplying on the Circle with standard FEM.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_circle_phifem_nh_mult" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_circle_phifem_nh_mult.png" alt="corr pert circle phifem nh mult" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 16. Correction by multiplying on the Circle with \(\phi\)-FEM.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Results on the Square :</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We consider here the Square problem with the solution defined in <a href="#_first_problem">[_first_problem]</a>. Here, we consider correction by adding (without IPP) with standard FEM (<a href="#corr_pert_square_fem_nh_add">Figure 17</a>) and with \(\phi\)-FEM (<a href="#corr_pert_square_phifem_nh_add">Figure 18</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_square_fem_nh_add" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_square_fem_nh_add.png" alt="corr pert square fem nh add" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 17. Correction by adding on the Square with standard FEM.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_square_phifem_nh_add" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_square_phifem_nh_add.png" alt="corr pert square phifem nh add" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 18. Correction by adding on the Square with \(\phi\)-FEM.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Then, we consider correction by multiplying with standard FEM (<a href="#corr_pert_square_fem_nh_mult">Figure 19</a>) and with \(\phi\)-FEM (<a href="#corr_pert_square_phifem_nh_mult">Figure 20</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_square_fem_nh_mult" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_square_fem_nh_mult.png" alt="corr pert square fem nh mult" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 19. Correction by multiplying on the Square with standard FEM.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_square_phifem_nh_mult" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/corr_pert_square_phifem_nh_mult.png" alt="corr pert square phifem nh mult" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 20. Correction by multiplying on the Square with \(\phi\)-FEM.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case. Except for the case where \(f=f_p\), because in the case where the solution is non-homogeneous (i.e. \(u_{ex}=g\) on \(\Gamma\)), the perturbation \(P\) is no longer equal to the solution \(u_{ex}\) because \(P=0\) on \(\Gamma\).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_correction_on_phi_fem"><a class="anchor" href="#_correction_on_phi_fem"></a>2. Correction on \(\phi\)-FEM</h2>
+<h2 id="_results_on_the_elevated_problem"><a class="anchor" href="#_results_on_the_elevated_problem"></a>2. Results on the elevated problem</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>\trad{On testera que en homogène ici}</p>
+</div>
+<div class="paragraph">
+<p><mark>Résultats sur le rehaussement + montrer que quand la solution s&#8217;annule c&#8217;est bcp mieux</mark></p>
+</div>
 </div>
 </div>
 </article>

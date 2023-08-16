@@ -87,7 +87,7 @@
     <a class="nav-link" href="subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_1.html">Presentation of Mimesis</a>
+    <a class="nav-link" href="subsec_1.html">Presentation of the team</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="subsec_2.html">Objectives</a>
@@ -196,10 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_3.html">Correction with other networks</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_3.html">Correction with FNO</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -311,7 +314,7 @@ title="Fullscreen mode"
 <p>The standard FEM method, which requires precise meshing of the domain under consideration and, in particular, fitting with its boundary, has its limitations. In particular, in the medical field, meshing complex and evolving geometries such as organs (e.g. the liver) can be very costly. More specifically, in the application context of creating real-time digital twins of an organ, the standard FEM method would require complete remeshing of the organ each time it is deformed, which in practice is not workable.</p>
 </div>
 <div class="paragraph">
-<p>This is why other methods, known as non-conformal finite element methods, have emerged in the last few years. These include CutFEM \cite{burman_cutfem_2015} or XFEM \cite{moes_x-fem_2002}, based on the idea of introducing a fictitious domain larger than the domain under consideration. We&#8217;re interested here in another non-conformal method, which we&#8217;ll present in more detail later, called \(\phi\)-FEM. We&#8217;ll only use it in the context of Poisson problem solving, for Dirichlet boundary conditions \cite{duprez_phi-fem_2020}. But the method has been extended to Neumann conditions \cite{duprez_new_2023} and then to solve various mechanical problems, including linear elasticity and heat transfer problems, and even to solve the Stokes problem \cite{duprez_phi-fem_2023}</p>
+<p>This is why other methods, known as non-conformal finite element methods, have emerged in the last few years. These include CutFEM \cite{burman_cutfem_2015} or XFEM \cite{moes_x-fem_2002}, based on the idea of introducing a fictitious domain larger than the domain under consideration. We&#8217;re interested here in another non-conformal method, which we&#8217;ll present in more detail later, called \(\phi\)-FEM. We&#8217;ll only use it in the context of Poisson problem solving, for Dirichlet boundary conditions \cite{duprez_phi-fem_2020}. But the method has been extended to Neumann conditions \cite{duprez_new_2023} and then to solve various mechanical problems, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate} and heat transfer problems \cite[Chapter~5]{cotin_phi-fem_nodate}.</p>
 </div>
 </article>
   </div>

@@ -87,7 +87,7 @@
     <a class="nav-link" href="subsec_0.html">Scientific Context</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_1.html">Presentation of Mimesis</a>
+    <a class="nav-link" href="subsec_1.html">Presentation of the team</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="subsec_2.html">Objectives</a>
@@ -196,10 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_3.html">Correction with other networks</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_3.html">Correction with FNO</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -305,22 +308,16 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Objectives</h1>
 <div class="paragraph">
-<p><mark>Première étape : comprendre les FNO (phifem ok car projet)</mark></p>
+<p>The main objective of the internship was to combine finite element methods and Machine Learning in order to solve the Poisson problem with Dirichlet condition. More precisely, we want to train a neural network called Fourier Neural Network (FNO) \cite{li_fourier_2021} to predict the solutions of a PDE for a given problem family (i.e. a "type" of source term). This neural network is trained with a data set consisting of the \(\phi\)-FEM solutions of the problems considered. The predictions of this neural network will then be fed back into a finite element solver to apply a correction to improve the accuracy of the solution : this was the subject covered during the internship. The finite element methods considered will be presented in <a href="../FEM.html" class="xref page">Section "Finite Element Methods (FEMs)"</a> and the FNO in <a href="../fourier.html" class="xref page">Section "Fourier Neural Operator (FNO)"</a>.</p>
 </div>
 <div class="paragraph">
-<p>\trad{L&#8217;objectif principal du stage a été de combiner méthodes d&#8217;éléments finis et Machine Learning afin de résoudre le problème de Poisson avec condition de Dirichlet. Plus précisément, on souhaite entraîner, avec des solutions \(\phi\)-FEM, un Fourier Neural Operator (FNO) à nous prédire les solutions pour une famille de problèmes donnée (c&#8217;est-à-dire un "type" de terme source). Les prédictions de ce réseau de neurones seront ensuite réinjecter dans un solveur élément finis afin d&#8217;y appliquer une correction.</p>
+<p>It is important to note that the \(\phi\)-FEM method has an advantage that is very interesting in the context of organ geometries. Indeed, this type of geometry can deform in time and meshing a fictitious domain around this geometry avoids having to remesh the geometry in time. Thus only the levelset function will be modified and the mesh can be fixed. Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images (especially FNO).</p>
 </div>
 <div class="paragraph">
-<p>Pour être plus précis, on testera différentes méthodes de correction qui permettront de réutiliser la prédiction du réseau pour aider le solveur à s&#8217;approcher le plus précisément possible de la solution.}</p>
+<p>To be more precise, we will test different correction methods (presented in <a href="../corr/subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a>) on different problems (presented in <a href="../corr/subsec_0.html" class="xref page">Section "Presentation of different problems considered"</a>) which will enable us to use the network prediction to help the solver get as close as possible to the solution. We will start by testing these different types of solver on an analytical solution (<a href="#_correction_on_exact_solution">[_correction_on_exact_solution]</a>), then on a "manually perturbed" solution (<a href="#_correction_on_disturbed_solution">[_correction_on_disturbed_solution]</a>) and finally on a \(\phi\)-FEM solution (<a href="#_correction_on_\(\phi\)-fem_solution">[_correction_on_\(\phi\)-fem_solution]</a>).</p>
 </div>
 <div class="paragraph">
-<p><mark>On a testé sur une sol analytique, parler de sol plus perturbation, résultat analytique (preuve) et numérique&#8230;&#8203;</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>On espère alors améliorer considérablement la précision du modèle et possiblement les temps de calcul.</mark></p>
-</div>
-<div class="paragraph">
-<p>The \(\phi\)-FEM method has an advantage that is very interesting in the context of organ geometries. Indeed, this type of geometry can deform in time and meshing a fictitious domain around this geometry avoids having to remesh the geometry in time. Thus only the levelset function will be modified and the mesh can be fixed. Moreover, a Cartesian mesh of the fictitious domain allows us to use the same type of neural network as those applied to images: this is the subject that will be approached during the internship.</p>
+<p>After testing the various types of correction on the previous test cases, we&#8217;ll apply these same methods to the prediction of an FNO (<a href="#_correction_with_fno">[_correction_with_fno]</a>). The main objective is to enable the combination of FNO and correction to be more accurate than the conventional \(\phi\)-FEM solver. By first testing the different corrections on the previous test cases, we hope to get an idea of the order of errors to be expected. During the course of the internship, we realized that the results obtained on the FNO did not correspond to the expected analytical results. For this reason, other types of neural networks were considered, namely multi-perceptron networks (<a href="#_multiperceptron">[_multiperceptron]</a>) and PINNs (<a href="#_pinns">[_pinns]</a>), with the aim of checking whether the results obtained are related to the use of the FNO.</p>
 </div>
 </article>
   </div>
