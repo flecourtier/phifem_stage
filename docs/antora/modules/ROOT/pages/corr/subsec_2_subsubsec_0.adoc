@@ -30,10 +30,12 @@ We consider here the homogeneous problem (i.e. with stem:[\varphi=0]) and seek t
 [cols="a,a"]
 |===
 |[[tab_errors_fem_circle]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with standard FEM.
+
 image::corr/corr_ana/tab_errors_fem_circle.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_circle]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with stem:[\phi]-FEM.
+
 image::corr/corr_ana/tab_errors_phifem_circle.png[width=240.0,height=192.0]
 
 |===
@@ -45,10 +47,12 @@ We consider here the non-homogeneous problem (i.e. with stem:[\varphi=1]) and se
 [cols="a,a"]
 |===
 |[[tab_errors_fem_circle_nh]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with standard FEM.
+
 image::corr/corr_ana/tab_errors_fem_circle_nh.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_circle_nh]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with stem:[\phi]-FEM.
+
 image::corr/corr_ana/tab_errors_phifem_circle_nh.png[width=240.0,height=192.0]
 
 |===
@@ -64,10 +68,12 @@ We consider here the homogeneous problem (i.e. with stem:[\varphi=0]) and seek t
 [cols="a,a"]
 |===
 |[[tab_errors_fem_square]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with standard FEM.
+
 image::corr/corr_ana/tab_errors_fem_square.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_square]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with stem:[\phi]-FEM.
+
 image::corr/corr_ana/tab_errors_phifem_square.png[width=240.0,height=192.0]
 
 |===
@@ -79,10 +85,12 @@ We consider here the non-homogeneous problem (i.e. with stem:[\varphi=1]) and se
 [cols="a,a"]
 |===
 |[[tab_errors_fem_square_nh]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with standard FEM.
+
 image::corr/corr_ana/tab_errors_fem_square_nh.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_square_nh]]
-.Errors stem:[||\cdot||_
+.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with stem:[\phi]-FEM.
+
 image::corr/corr_ana/tab_errors_phifem_square_nh.png[width=240.0,height=192.0]
 
 |===
