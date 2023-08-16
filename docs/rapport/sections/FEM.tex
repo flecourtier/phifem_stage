@@ -1,7 +1,7 @@
-\section{Finite Element Methods (FEMs)}
+\section{Finite Element Methods (FEMs)} \label{FEMs}
 \graphicspath{{images/FEM}}
 
-In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or inhomogeneous):
+In the following, we will consider the Poisson problem with Dirichlet condition (homogeneous or non-homogeneous):
 
 \textbf{Problem :} Find $u : \Omega \rightarrow \mathbb{R}^d$ such that
 
@@ -16,13 +16,9 @@ In the following, we will consider the Poisson problem with Dirichlet condition 
 
 with $\Delta$ the Laplace operator and $\Omega\subset\mathbb{R}^d$ a lipschitzian bounded open set (and $\partial\Omega$ its boundary).
 
-\textbf{Associated physical model :} Newtonian gravity, Electrostatics, Fluid dynamics...
-
-\modif{AJOUTER REF !}
-
 \subsection{Standard FEM}
 
-In this section, we will present the standard finite element method. We'll start by presenting some general notions of functional analysis, then explain the general principle of FEM. Then we'll give a few more details on the method and finish by describing the application to the Poisson problem (with Dirichlet condition).
+In this section, we will present the standard finite element method. We'll start by presenting some general notions of functional analysis, then explain the general principle of FEM. Then we'll give a few more details on the method and finish by describing the application to the Poisson problem (with Dirichlet condition). For more information, please refer to \cite{quarteroni_methodes_2007} and \cite{noauthor_methodes_nodate}.
 
 \subsubsection{Some notions of functional analysis.}
 

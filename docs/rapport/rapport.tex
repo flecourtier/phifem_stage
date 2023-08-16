@@ -73,11 +73,9 @@
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 %bibliography (with section)
-%\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
-
-
+\usepackage[backend=biber,style=numeric,sorting=nyt]{biblatex}
 %\usepackage{biblatex} 
-%\addbibresource{biblio.bib}
+\addbibresource{biblio.bib}
 
 
 % Titlepage
@@ -115,6 +113,8 @@
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 \usepackage{fontawesome5}
+
+\sloppy
 
 \begin{document}
 	\nocite{*}
@@ -162,10 +162,10 @@
 	\newpage
 	\input{sections/conclu}
 	
-%	\newpage
-%	\section*{Bibliography}
-%	\addcontentsline{toc}{section}{Bibliography}
-%		
-%	\printbibliography
+	\newpage
+	\section*{Bibliography}
+	\addcontentsline{toc}{section}{Bibliography}
+		
+	\printbibliography
 	
 \end{document}

@@ -38,7 +38,7 @@
 
 \modif{+ rajouter rq ou dans conclusion pour expliquer qu'on pourrait également tester de faire varier le type de solveur matricielle dans les solveurs pour la correction !}
 
-\subsection{Presentation of different problems considered}
+\subsection{Presentation of different problems considered} \label{Corr.problems}
 
 \modif{A faire au fur et à mesure !}
 
@@ -435,11 +435,9 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 It would therefore seem that the various correction methods work in the different cases considered.
 
 \subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
-
-Now, let's consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. First, we'll consider a manually disturbed solution, i.e. the exact solution to which we've added a small, analytically known perturbation (Section \ref{Corr.results.disturbed.ana}). Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers (Section \ref{Corr.results.disturbed.phifem}).
-
-\paragraph{Manually perturbed solution} \label{Corr.results.disturbed.ana}
 \graphicspath{{images/corr/corr_pert}}
+
+Now, let's consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. In this section, we will consider a manually disturbed solution, i.e. the exact solution to which we've added a small, analytically known perturbation.
 
 As explained above, we begin by considering $\tilde{\phi}$ as a manually perturbed solution defined by
 \begin{equation*}
@@ -471,7 +469,7 @@ where $u_{ex}$ defines the exact solution to the problem, $P$ the perturbation a
 In our case, we will choose to consider $P$ as being of the same form as our exact solution (defined with different parameters), but we could very well consider a completely different perturbation. 
 
 \begin{Rem}
-	Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of $\phi$-FEM in Section \ref{Corr.results.disturbed.phifem} or FNO in Section \ref{Corr.results.FNO}).
+	Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of $\phi$-FEM in Section \ref{Corr.results.phifem} or FNO in Section \ref{Corr.results.FNO}).
 \end{Rem}
 
 In the case of Circle geometry where we consider the problem \ref{Corr.pb.circle.1}, the perturbation will be defined by
@@ -489,6 +487,8 @@ where $S_p\in[0,1]$ is the amplitude of the signal, $f_p\in\mathbb{N}$ can be as
 \begin{Rem}
 	Note that for the boundary conditions of the solution to be satisfied, i.e. for $\tilde{\phi}=u_{ex}$ on $\Gamma$, it is essential that $P=0$ on $\Gamma$. In the case of both circle and square, we will then take $\varphi_p=0$.
 \end{Rem}
+
+\paragraph{Results with differents $\epsilon$} \label{Corr.results.disturbed.eps} 
 
 \textbf{Results on the homogeneous case :}
 
@@ -576,16 +576,149 @@ First, we consider the homogeneous case (i.e. with $\varphi=0$). The aim is to t
 	\end{minipage}
 \end{enumerate}
 
-\trad{Il semblerait donc que globalement, plus la perturbation appliquée est minime (c'est-à-dire plus $\epsilon$ est petit) et plus les solveurs de correction par addition et par multiplication sont efficace en terme de précision. On peut cependant faire quelques remarques sur les résultats obtenus.}
-\trad{\begin{itemize}
-	\item Tout d'abord, il semblerait que pour comme pour les solveurs FEM standard et $\phi$-FEM sans correction, plus la solution varie (c'est-à-dire plus $f$ est grand) et plus l'erreur est importante. Ce résultat est un résultat assez intuitif car plus la solution varie et plus on a besoin de points pour l'approcher.
-	\item Il semblerait également que pour $\epsilon=1$ (donc une perturbation importante), ce paramètre est plus d'impact sur le correcteur multiplicatif que sur le correcteur additif. On a expliqué précédemment l'intérêt de rehausser le problème, ce qui pourrait être bénéfique ici. 
-\end{itemize}}
+It would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the $\epsilon$), the more efficient the addition and multiplication correction solvers are in terms of accuracy. However, we would like to make a few comments on the results obtained:
+\begin{itemize}
+	\item First of all, it would appear that, as with the standard FEM and $\phi$-FEM solvers without correction, the more the solution varies (i.e. the larger $f$), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
+	\item It would also seem that for $\epsilon=1$ (i.e. a large perturbation), this parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the Section \ref{Corr.results.disturbed.reh}.
+	\item In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.
+	\item An interesting result can also be observed. Indeed, it seems that in the case where $f=f_p$, the multiplication correction with $\phi$-FEM seems to approach the solution almost perfectly for all $\epsilon$ considered.
+	In fact, in the homogeneous case, for $f=f_p$ the perturbation is identical to the solution (i.e. $P=u_{ex}$) and so the solution injected into the correction solvers is of the form
+	\begin{equation*}
+		\tilde{\phi}=u_{ex}+\epsilon P=(1+\epsilon)u_{ex}
+	\end{equation*}
+	In the case of correction by multiplication, we have $\tilde{u}=\tilde{\phi}C$. So for $\tilde{u}=u_{ex}$, we must have
+	\begin{equation*}
+		\tilde{\phi}C=u_{ex} \quad \iff \quad (1+\epsilon)u_{ex}C=u_{ex}
+	\end{equation*}
+	So if the solution does not cancel out on $\Omega$, we must have
+	\begin{equation*}
+		C=\frac{1}{1+\epsilon} \quad \text{on } \Omega
+	\end{equation*}
+	By imposing $C=\frac{1}{1+\epsilon}$ on $\Gamma$ for FEM instead of $C=1$, we should get closer to the $\phi$-FEM results obtained. We can see in Figure \ref{norms_circle_f_eq_fp} and Figure \ref{norms_square_f_eq_fp} that we obtain the expected results for FEM by changing the boundary condition $C=1$ to $C=\frac{1}{1+\epsilon}$.
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"norms_circle_f_eq_fp.png"}
+			\captionof{figure}{Results by changing FEM boundary conditions on the circle.}
+			\label{norms_circle_f_eq_fp}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"norms_square_f_eq_fp.png"}
+			\captionof{figure}{Results by changing FEM boundary conditions on the square.}
+			\label{norms_square_f_eq_fp}
+		\end{figure} 
+	\end{minipage}
+	\begin{Rem}
+		It should be noted, however, that in practice, for example in the case where $\tilde{\phi}$ is a $\phi$-FEM solution or an FNO output, this case is not very realistic. There's no reason to expect the form of the perturbation created by the $\phi$-FEM solver or by the FNO to be exactly identical to the solution under consideration.
+	\end{Rem}
+\end{itemize}
 
-\paragraph{Correction on $\phi$-FEM} \label{Corr.results.disturbed.phifem}
+\textbf{Results on the non-homogeneous case :}
+
+Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here is the same as in the homogeneous case, test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying $\epsilon$). We'll consider the case of the circle and the square for standard FEM and $\phi$-FEM methods, and we'll try to separate the cases according to the frequencies considered. In other words, for $f,f_p\in\{1,2,3,4\}$, we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency ($f>f_p$), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal ($f=f_p$), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution ($f<f_p$).
+
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{Results on the Circle :}
+	
+	We consider here the Circle problem with the solution defined in Section \ref{Corr.pb.circle.1}. Here, we consider correction by adding (without IPP) with standard FEM (Figure \ref{corr_pert_circle_fem_nh_add}) and with $\phi$-FEM (Figure \ref{corr_pert_circle_phifem_nh_add}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_nh_add.png"}
+			\captionof{figure}{Correction by adding on the Circle with standard FEM.}
+			\label{corr_pert_circle_fem_nh_add}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_nh_add.png"}
+			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM.}
+			\label{corr_pert_circle_phifem_nh_add}
+		\end{figure} 
+	\end{minipage}
+	
+	Then, we consider correction by multiplying with standard FEM (Figure \ref{corr_pert_circle_fem_nh_mult}) and with $\phi$-FEM (Figure \ref{corr_pert_circle_phifem_nh_mult}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_nh_mult.png"}
+			\captionof{figure}{Correction by multiplying on the Circle with standard FEM.}
+			\label{corr_pert_circle_fem_nh_mult}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_nh_mult.png"}
+			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM.}
+			\label{corr_pert_circle_phifem_nh_mult}
+		\end{figure} 
+	\end{minipage}
+	
+	\item \textbf{Results on the Square :}
+	
+	We consider here the Square problem with the solution defined in Section \ref{Corr.pb.square.1}. Here, we consider correction by adding (without IPP) with standard FEM (Figure \ref{corr_pert_square_fem_nh_add}) and with $\phi$-FEM (Figure \ref{corr_pert_square_phifem_nh_add}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_square_fem_nh_add.png"}
+			\captionof{figure}{Correction by adding on the Square with standard FEM.}
+			\label{corr_pert_square_fem_nh_add}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_nh_add.png"}
+			\captionof{figure}{Correction by adding on the Square with $\phi$-FEM.}
+			\label{corr_pert_square_phifem_nh_add}
+		\end{figure} 
+	\end{minipage}
+	
+	Then, we consider correction by multiplying with standard FEM (Figure \ref{corr_pert_square_fem_nh_mult}) and with $\phi$-FEM (Figure \ref{corr_pert_square_phifem_nh_mult}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_square_fem_nh_mult.png"}
+			\captionof{figure}{Correction by multiplying on the Square with standard FEM.}
+			\label{corr_pert_square_fem_nh_mult}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_nh_mult.png"}
+			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM.}
+			\label{corr_pert_square_phifem_nh_mult}
+		\end{figure} 
+	\end{minipage}
+\end{enumerate}
+
+In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case. Except for the case where $f=f_p$, because in the case where the solution is non-homogeneous (i.e. $u_{ex}=g$ on $\Gamma$), the perturbation $P$ is no longer equal to the solution $u_{ex}$ because $P=0$ on $\Gamma$.
+
+\paragraph{Results on the elevated problem} \label{Corr.results.disturbed.reh} 
+
+\trad{On testera que en homogène ici}
+
+\modif{Résultats sur le rehaussement + montrer que quand la solution s'annule c'est bcp mieux}
+
+\subsubsection{Correction on $\phi$-FEM solution} \label{Corr.results.phifem}
+
+\modif{Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
 
 \subsubsection{Correction with FNO} \label{Corr.results.FNO}
 
 \subsubsection{Correction with other networks} \label{Corr.results.neural_net}
-\paragraph{Multiperceptron}
-\paragraph{PINNs}
+
+\paragraph{Multiperceptron} \label{Corr.results.neural_net.multiperceptron}
+
+\paragraph{PINNs} \label{Corr.results.neural_net.PINNs}
