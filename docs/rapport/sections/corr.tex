@@ -435,7 +435,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 It would therefore seem that the various correction methods work in the different cases considered.
 
 \subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
-\graphicspath{{images/corr/corr_pert}}
+%\graphicspath{{images/corr/corr_pert}}
 
 Now, let's consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. In this section, we will consider a manually disturbed solution, i.e. the exact solution to which we've added a small, analytically known perturbation.
 
@@ -599,7 +599,7 @@ It would therefore seem that, overall, the smaller the perturbation applied (i.e
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"norms_circle_f_eq_fp.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/norms_circle_f_eq_fp.png"}
 			\captionof{figure}{Results by changing FEM boundary conditions on the circle.}
 			\label{norms_circle_f_eq_fp}
 		\end{figure} 
@@ -607,7 +607,7 @@ It would therefore seem that, overall, the smaller the perturbation applied (i.e
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"norms_square_f_eq_fp.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/norms_square_f_eq_fp.png"}
 			\captionof{figure}{Results by changing FEM boundary conditions on the square.}
 			\label{norms_square_f_eq_fp}
 		\end{figure} 
@@ -629,7 +629,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_nh_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_fem_nh_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with standard FEM.}
 			\label{corr_pert_circle_fem_nh_add}
 		\end{figure} 
@@ -637,7 +637,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_nh_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_phifem_nh_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM.}
 			\label{corr_pert_circle_phifem_nh_add}
 		\end{figure} 
@@ -648,7 +648,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_fem_nh_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_fem_nh_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM.}
 			\label{corr_pert_circle_fem_nh_mult}
 		\end{figure} 
@@ -656,7 +656,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_circle_phifem_nh_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_circle_phifem_nh_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM.}
 			\label{corr_pert_circle_phifem_nh_mult}
 		\end{figure} 
@@ -669,7 +669,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_fem_nh_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_fem_nh_add.png"}
 			\captionof{figure}{Correction by adding on the Square with standard FEM.}
 			\label{corr_pert_square_fem_nh_add}
 		\end{figure} 
@@ -677,7 +677,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_nh_add.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_phifem_nh_add.png"}
 			\captionof{figure}{Correction by adding on the Square with $\phi$-FEM.}
 			\label{corr_pert_square_phifem_nh_add}
 		\end{figure} 
@@ -688,7 +688,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_fem_nh_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_fem_nh_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with standard FEM.}
 			\label{corr_pert_square_fem_nh_mult}
 		\end{figure} 
@@ -696,7 +696,7 @@ Then, we consider the non-homogeneous case (i.e. with $\varphi=1$). The aim here
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert_square_phifem_nh_mult.png"}
+			\includegraphics[width=\linewidth]{"corr_pert/corr_pert_square_phifem_nh_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM.}
 			\label{corr_pert_square_phifem_nh_mult}
 		\end{figure} 
