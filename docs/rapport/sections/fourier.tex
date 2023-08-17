@@ -1,16 +1,15 @@
 \section{Fourier Neural Operator (FNO)} \label{FNO}
 \graphicspath{{images/fourier}}
 
-\modif{Est-ce que je rajouter réseau multi-perceptron et PINNs ? Si oui section "Neural Networks" puis sous-sections FNO,MultiPerceptron,PINNs}
-
-We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021}. \modif{+ add article Killian}
+We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.
 
 In image treatment, we call image tensors of size $ni\times nj\times nk$, where $ni\times nj$ corresponds to the image resolution and $nk$ corresponds to its number of channels. For example, an RGB (Red Green Blue) image has $nk=3$ channels. 
-We choose here to present the FNO as an operator acting on discrete images. Reference articles present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.
+We choose here to present the FNO as an operator acting on discrete images. The reference article \cite{li_fourier_2021} present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.
 
-The FNO methodology creates a relationship between two spaces from a finite collection of observed input-output pairs. \modif{Est-ce que je gardes cette phrase ?}
-
-\modif{A rajouter : implémentation effectuée/fournie par Vincent Vigon + on ne trouvera pas ici de test de variation des paramètres (modes, width...)}
+\begin{Rem}
+	The FNO used was implemented by Vincent Vigon\footnote{Vincent Vigon: https://irma.math.unistra.fr/~vigon/} using Python's tensorflow library\footnote{Tensorflow: https://www.tensorflow.org/?hl=fr}.
+	Furthermore, note that this report does not include a test of model parameter variation.
+\end{Rem}
 
 \subsection{Architecture of the FNO}
 
@@ -151,7 +150,12 @@ with
 	(\tilde{X}\star W)_{ij}=\sum_{i'j'}\tilde{X}_{i-i'[ni],j-j'[nj]}W_{i'j'}
 \end{equation*}
 
-In other words, multiplying in Fourier space is equivalent to performing a $\star$ circular convolution in real space. But these modulo operations are only natural for periodic images, which is not our case. \modif{A compléter (expliquer padding par ex)}
+In other words, multiplying in Fourier space is equivalent to performing a $\star$ circular convolution in real space. 
+
+\begin{Rem}
+	These modulo operations are only natural for periodic images, which is not our case. The
+	discontinuity that appears when we periodize the image causes oscillations on the edges of the filtered	images. To limit this problem, we will apply a padding on the image which is the fact to extend the images by adding pixels all around, before performing the convolution. After the convolution, we restrict the image to partially erase the oscillations.
+\end{Rem}
 
 \subsubsection{FFT}
 
@@ -159,7 +163,7 @@ To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT 
 
 \subsubsection{Real DFT}
 
-In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm).In fact, for $\mathcal{F}^{-1}(A)$ to be real if $A$ is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
+In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm). In fact, for $\mathcal{F}^{-1}(A)$ to be real if $A$ is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
 \begin{equation*}
 	A_{i,nj-(j+1)} = \bar{A}_{i,j}
 \end{equation*}
@@ -175,6 +179,10 @@ To simplify, let's assume nk=1. Here is a diagram describing this idea:
 	\includegraphics[width=\linewidth]{"symetry_schema.png"}
 	\captionof{figure}{RFFT with Hermitian-symmetry scheme.}
 \end{figure}
+
+\begin{Rem}
+	In fact, we can check that $\mathcal{F}(X)$ satisfies Hermitian symmetry immediately.
+\end{Rem}
 
 \subsubsection{Low pass filter}
 
@@ -195,9 +203,97 @@ Classical Convolutional Neural Networks (CNN) use very small kernels (typically 
 In addition, CNNs often use max or mean-pooling layers, which process the image on several scales. Max-pooling (respectively mean-pooling) consists in slicing the image into small pieces of size $n\times n$, then choosing the pixel with the highest value (respectively the average of the pixels) in each of the small pieces. In most cases, $n=2$ is used, which divides the number of pixels by 4.
 
 The FNO, on the other hand, uses a $\hat{W}$ frequency kernel and $W=\mathcal{F}^{-1}(\hat{W})$ has full support. For this reason, the effect is immediately non-local. As a result, we can use less layers and we don't need to use a pooling layer.
+
 \subsection{Application}
 
-\trad{Dans notre cas, on souhaite apprendre au FNO à prédire des solutions d'EDP. Plus précisément, on souhaite que le réseau soit capable de prédire la solution à partir d'un terme source $f$. 
-\modif{enrichissement des données, grilles régulières}}
+In our case, we want to use the FNO to predict the solutions of a PDE. As explained above, we'll train the FNO with a data set (sample of size $n_{data}$) generated by a $\phi$-FEM solver. We will then inject the output of our FNO into a new solver that can correct the solution, i.e. improve its accuracy. 
 
-\modif{rajouter schéma}
+We are still trying to solve the Poisson problem with Dirichlet condition, defined by
+\begin{equation*}
+	\left\{\begin{aligned}
+		-\Delta (\phi w)&=f, \; &&\text{on } \Omega, \\
+		u&=g, \; &&\text{in } \Gamma,
+	\end{aligned}\right.
+\end{equation*}
+with $u=\phi w$.
+
+This problem can be approached in different ways.
+For example, we may want to consider a case where the level-set function $\phi$ changes, as in the case where we want to solve the problem of the geometry of an organ at different time steps. In this case, we'll need to generate a $\{\phi_i\}_{i=1,\dots,n_{data}}$ collection of level-sets sufficiently representative of the possible variations of the levelset. In a more simple case, if our geometry is defined by an ellipse in a precise domain, the $\{\phi_i\}_{i=1,\dots,n_{data}}$ family will group $n_{data}$ ellipses whose parameters change, such as center or axes.
+
+We may also want to solve the problem for a collection of source terms $\{f_i\}_{i=1,\dots,n_{data}}$. For example, this set could be a Gaussian set whose esperance and variance are varied. In the same idea, we might wish to vary the Dirchlet condition and thus create a collection $\{g_i\}_{i=1,\dots,n_{data}}$.
+
+\begin{Rem}
+	Note that we're working in a discrete way here, so for each $i$, the terms $f_i$, $g_i$ and $\phi_i$ are in fact 2D matrices of size $(ni,nj)$.
+\end{Rem}
+
+\begin{Rem}
+	Note also that the FNO has less difficulty learning solutions that don't have a wide range of values. This is why the collection of $\{f_i\}$ that we'll be using in the following will in fact be the normalization of the previous collection :
+	\begin{equation*}
+		f_{i,norm} = \frac{f_i}{max_{i=1},\dots,n_{data} ||f_i||_{L^2(\mathcal{O})}}.
+	\end{equation*}
+\end{Rem}
+
+Here are the steps that will be performed to train the FNO (Figure \ref{FNO_train_schema}):
+\begin{enumerate}[label=\textbullet]
+	\item We start by creating a dataset containing the level-set, source term and boundary condition collections, defined by
+	\begin{equation*}
+		X\_train = \{f_i,g_i,\phi_i\}_{i=1,\dots,n_{data}}.
+	\end{equation*}
+	\begin{Rem}
+		Note that we can also consider the problem as homogeneous, in which case X\_train will only be generated from $f$ and $\phi$. We may also wish to fix the geometry, in which case the training sample X\_train will not contain the $\phi$ term.
+	\end{Rem}
+	We can then solve these $n_{data}$ problems using the $\phi$-FEM method, where the solution to each of them is defined by $u=\phi w$. We then define the training sample
+	\begin{equation*}
+		Y\_train=\{w_i\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	where $u_i = \phi_i w_i$ is the solution associated to the i-th problem of the X\_train sample, i.e. solution of
+	\begin{equation*}
+		\left\{\begin{aligned}
+			-\Delta (\phi_i w_i)&=f_i, \; &&\text{on } \Omega, \\
+			u_i&=g_i, \; &&\text{in } \Gamma.
+		\end{aligned}\right.
+	\end{equation*}
+	\begin{Rem}
+		Note that in practice, we have enriched the data by increasing the number of channels in the X\_train sample. In fact, for each problem $i$, we add to the sample the primitives of $f_i$ according to x and y, as well as the second primitives according to xx and yy. The X\_train sample is then of size $(n_{data},ni,nj,nk)$ with $nk=7$ the number of channels if we consider the 3 collections. The Y\_train sample is of size $(n_{data},ni,nj,1)$.
+	\end{Rem}
+	\item At this moment, we have the (X\_train,Y\_train) pair that will enable us to train our FNO. More precisely, we're looking to minimize a loss function on the model's $\theta$ parameters by using gradient descent. We'll choose the following loss function:
+	\begin{equation*}
+		loss_\theta = loss_\theta^{(0)} + loss_\theta^{(1)} + loss_\theta^{(2)}
+	\end{equation*}
+	with 
+	\begin{align*}
+		loss_\theta^{(0)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\phi_iw_i-\phi_iw_{\theta,i}) \\
+		loss_\theta^{(1)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_x(\phi_iw_i)-\nabla_x(\phi_iw_{\theta,i}))+mse(\nabla_y(\phi_iw_i)-\nabla_y(\phi_iw_{\theta,i})) \\
+		loss_\theta^{(2)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}(\phi_iw_i)-\nabla_{xx}(\phi_iw_{\theta,i})) + mse(\nabla_{yy}(\phi_iw_i)-\nabla_{yy}(\phi_iw_{\theta,i}))
+	\end{align*}
+	with $w_i$ the $\phi$-FEM solution associated to the i-th problem considered (i.e. the i-th Y\_train sample data), $w_{\theta,i}$ the FNO prediction associated to the i-th problem, $\phi_i$ the i-th levelset and mse the "Mean Square Error" function defined by
+	\begin{equation*}
+		mse(A)=\frac{1}{ni}\frac{1}{nj}\sum_{i=0}^{ni-1}\sum_{j=0}^{nj-1}A_{i,j}^2.
+	\end{equation*}
+	\begin{Rem}
+		Note that first and second derivatives according to x and y are calculated here by finite differences.
+	\end{Rem}
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{"FNO_train_schema.png"}
+	\captionof{figure}{Representation of the FNO training.}
+	\label{FNO_train_schema}
+\end{figure}
+
+We can now proceed to the correction stage (Figure \ref{FNO_test_schema}), where we consider a type of correction defined in Section \ref{Corr.methods} (correction by adding, correction by multiplying or correction by multiplying on an enhanced problem). We can then consider a new test sample X\_test constructed in the same way as the training sample and defined by
+\begin{equation*}
+	X\_test = \{f^{test}_i,g^{test}_i,\phi^{test}_i\}_{i=1,\dots,n_{test}}.
+\end{equation*}
+We will then provide this sample as input to the FNO in order to obtain its prediction $w^{test}_{\theta,i}$ for each problem $i$ of the test sample (where $\theta$ corresponds to the parameters learned during training). We then construct $u^{test}_{\theta_i}=\phi_i w^{test}_{\theta,i}$ which will be given as input to one of the correction solvers. We will then obtain what we call the corrected solution.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{"FNO_test_schema.png"}
+	\captionof{figure}{Representation of correction steps}
+	\label{FNO_test_schema}
+\end{figure}
+
+
+
