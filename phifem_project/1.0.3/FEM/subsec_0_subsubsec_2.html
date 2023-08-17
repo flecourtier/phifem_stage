@@ -328,7 +328,7 @@ title="Fullscreen mode"
 </table>
 </div>
 <div class="paragraph">
-<p>To do this, we&#8217;ll need several notions, which will be detailed in the following sections. First, we&#8217;ll need to generate a <strong>mesh</strong> of our \(\Omega\) domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of <strong>finite Lagrange elements</strong> comes in. The properties of these elements, particularly in terms of their <strong>affine family of finite elements</strong>, is a key point of the method, which will enable us to bring each element of the mesh back to a <strong>reference element</strong> by using a <strong>geometric transformation</strong>. To describe these steps, we&#8217;ll need to know 2 basic concepts: the <strong><mark>unisolvance</mark></strong> principle and the definitions of the <strong>polynomial spaces</strong> used (\(\mathbb{P}_k\) and \(\mathbb{Q}_k\)).</p>
+<p>To do this, we&#8217;ll need several notions, which will be detailed in the following sections. First, we&#8217;ll need to generate a <strong>mesh</strong> of our \(\Omega\) domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of <strong>finite Lagrange elements</strong> comes in. The properties of these elements, particularly in terms of their <strong>affine family of finite elements</strong>, is a key point of the method, which will enable us to bring each element of the mesh back to a <strong>reference element</strong> by using a <strong>geometric transformation</strong>. To describe these steps, we&#8217;ll need to know 2 basic concepts: the <strong>unisolvence</strong> principle and the definitions of the <strong>polynomial spaces</strong> used (\(\mathbb{P}_k\) and \(\mathbb{Q}_k\)).</p>
 </div>
 </div>
 </div>
@@ -339,7 +339,7 @@ title="Fullscreen mode"
 <div class="content">
 <div class="paragraph">
 <p><strong>Definition.</strong>
-Let \(\Sigma=\{a_1,\dots,a_N\}\) be a set of \(N\) distinct points of \(\mathbb{R}^n\). Let \(P\) be a finite-dimensional vector space of \(\mathbb{R}^n\) functions taking values in \(\mathbb{R}\). We say that \(\Sigma\) is \(P\)-<mark>unisolvent</mark> if and only if for all real \(\alpha_1,\dots,\alpha_N\), there exists a unique element \(p\) of \(P\) such that \(p(a_i)=\alpha_i,i=1,\dots,N\).
+Let \(\Sigma=\{a_1,\dots,a_N\}\) be a set of \(N\) distinct points of \(\mathbb{R}^n\). Let \(P\) be a finite-dimensional vector space of \(\mathbb{R}^n\) functions taking values in \(\mathbb{R}\). We say that \(\Sigma\) is \(P\)-unisolvent if and only if for all real \(\alpha_1,\dots,\alpha_N\), there exists a unique element \(p\) of \(P\) such that \(p(a_i)=\alpha_i,i=1,\dots,N\).
 This means that the function</p>
 </div>
 <div class="stemblock">
@@ -363,7 +363,7 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In practice, to show that \(\Sigma\) is \(P\)-<mark>unisolvent</mark>, we simply check that \(\dim P= \text{card } (\Sigma)\) and then prove the injectivity or surjectivity of \(L\). The injectivity of \(L\) is demonstrated by showing that the only function of \(P\) that annuls on all points of \(\Sigma\) is the null function. The surjectivity of \(L\) is shown by identifying a family \(p_1,\dots,p_N\) of elements of \(P\) such that \(p_i(a_j)=\delta_{ij}\). Given real \(\alpha_1,\dots,\alpha_N\), the function \(p=\sum_{i=1}^N\alpha_i p_i\) then verifies \(p(a_j)=\alpha_j,j=1\dots,N\).</p>
+<p>In practice, to show that \(\Sigma\) is \(P\)-unisolvent, we simply check that \(\dim P= \text{card } (\Sigma)\) and then prove the injectivity or surjectivity of \(L\). The injectivity of \(L\) is demonstrated by showing that the only function of \(P\) that annuls on all points of \(\Sigma\) is the null function. The surjectivity of \(L\) is shown by identifying a family \(p_1,\dots,p_N\) of elements of \(P\) such that \(p_i(a_j)=\delta_{ij}\). Given real \(\alpha_1,\dots,\alpha_N\), the function \(p=\sum_{i=1}^N\alpha_i p_i\) then verifies \(p(a_j)=\alpha_j,j=1\dots,N\).</p>
 </div>
 </td>
 </tr>
@@ -425,6 +425,20 @@ p &amp;\mapsto(p(a_1),\dots,p(a_N))
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In practice, we will use the \(\mathbb{P}^k\) family for triangles/tetrahedra and \(\mathbb{Q}_k\) for quadrilaterals.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -448,7 +462,7 @@ A finite Lagrange element is a triplet \((K,\Sigma,P)\) such that</p>
 <p>\(\Sigma=\{a_1,\dots,a_N\}\) is a finite set of \(N\) distinct points of \(K\).</p>
 </li>
 <li>
-<p>\(P\) is a finite-dimensional vector space of real functions defined on \(K\) and such that \(\Sigma\) is \(P\)-<mark>unisolvent</mark> (so \(\dim P=N\)).</p>
+<p>\(P\) is a finite-dimensional vector space of real functions defined on \(K\) and such that \(\Sigma\) is \(P\)-unisolvent (so \(\dim P=N\)).</p>
 </li>
 </ul>
 </div>
@@ -457,7 +471,7 @@ A finite Lagrange element is a triplet \((K,\Sigma,P)\) such that</p>
 <hr>
 <div class="paragraph">
 <p><strong>Example.</strong>
-Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2\}\) is \(P\)-<mark>unisolvent</mark> for \(P=\mathbb{P}^1\). Since \(\{1,x\}\) is a base of \(\mathbb{P}^1\), we have \(\dim P = \text{card } \Sigma = 2\).</p>
+Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2\}\) is \(P\)-unisolvent for \(P=\mathbb{P}^1\). Since \(\{1,x\}\) is a base of \(\mathbb{P}^1\), we have \(\dim P = \text{card } \Sigma = 2\).</p>
 </div>
 <div class="paragraph">
 <p>Moreover, we can write \(p_i=\alpha_i x+\beta_i, i=1,2\). Thus</p>
@@ -506,7 +520,7 @@ Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2
 </div>
 </div>
 <div class="paragraph">
-<p>We deduce the surjectivity of \(L\) and \(\Sigma\) is \(\mathbb{P}^1\)-<mark>unisolvent</mark>.</p>
+<p>We deduce the surjectivity of \(L\) and \(\Sigma\) is \(\mathbb{P}^1\)-unisolvent.</p>
 </div>
 <div class="paragraph">
 <p>Thus \((K,\Sigma,P)\) is a Lagrange Finite Element.</p>
@@ -589,10 +603,11 @@ image::FEM/FEM_reference_element.png[width=480.0,height=384.0]</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_geometric_transformation"><a class="anchor" href="#_geometric_transformation"></a>5. Geometric transformation</h2>
+<h2 id="_construction_of_v_h_space"><a class="anchor" href="#_construction_of_v_h_space"></a>5. Construction of \(V_h\) space</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A mesh is generated by</p>
+<p><strong>Geometric transformation :</strong>
+A mesh is generated by</p>
 </div>
 <div class="ulist">
 <ul>
@@ -617,19 +632,19 @@ T_K : \hat{K}\rightarrow K
 <div class="ulist">
 <ul>
 <li>
-<p>the nodes of the reference element \(\hat{K}\) : \(\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_n\}\)</p>
+<p>the degrees of freedom of the reference element \(\hat{K}\) : \(\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_{n_f}\}\) with \(n_f\) the number of degrees of freedom.</p>
 </li>
 <li>
-<p>the local base functions of \(\hat{K}\): \(\{\hat{\psi}_1,\dots,\hat{\psi}_n\}\) (also called form functions)</p>
+<p>the local basis functions of \(\hat{K}\): \(\{\hat{\psi}_1,\dots,\hat{\psi}_{n_f}\}\) (also called form functions)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>So for each \(K\in\mathcal{T}_h\), we consider a tuple \(\{a_{K,1},\dots,a_{K,n}\}\) (degrees of freedom) and the associated geometric transformation is defined by :</p>
+<p>So for each \(K\in\mathcal{T}_h\), we consider a tuple \(\{a_{K,1},\dots,a_{K,n_f}\}\) (degrees of freedom) and the associated geometric transformation is defined by :</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[T_K : \hat{x}\mapsto\sum_{i=1}^{n}a_{K,i}\hat{\psi}_i(\hat{x})\]
+\[T_K : \hat{x}\mapsto\sum_{i=1}^{n_f}a_{K,i}\hat{\psi}_i(\hat{x})\]
 </div>
 </div>
 <div class="paragraph">
@@ -637,7 +652,7 @@ T_K : \hat{K}\rightarrow K
 </div>
 <div class="stemblock">
 <div class="content">
-\[T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n\]
+\[T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n_f\]
 </div>
 </div>
 <div class="admonitionblock note">
@@ -654,12 +669,6 @@ T_K : \hat{K}\rightarrow K
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p><strong>Construction of the basis \((\varphi_i)\) of \(V_h\) :</strong></p>
-</div>
-<div class="paragraph">
-<p><mark>TO COMPLETE !</mark></p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -673,6 +682,41 @@ T_K : \hat{K}\rightarrow K
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p><strong>Construction of the basis \((\varphi_i)\) of \(V_h\) :</strong></p>
+</div>
+<div class="paragraph">
+<p>For each \(K\in\mathcal{T}_h\), let \((K,\Sigma,P)\) be an finite element with</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the degrees of freedom of the element \(K\) : \(\Sigma=\{a_{K,i}=T_K(\hat{a}_i), i=1,\dots,n_f\}\)</p>
+</li>
+<li>
+<p>the local basis functions of \(K\): \(\{\psi_{K,i}=\hat{\psi}_i\circ T_K^{-1}, i=1,\dots,n_f\}\) (because \((\hat{K},\hat{\Sigma},\hat{P})\) and \((K,\Sigma,P)\) are affine-equivalent).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By noting \(\{a_1,\dots,a_{N_f}\}=\bigcup_{K\in\mathcal{T}_h}\{a_{K,1},\dots,a_{K,n_f}\}\) with \(N_f\) the total number of degrees of freedom (over all the geometry), we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\forall j\in\{1,\dots,N_f\}, \quad {\varphi_j}_{|K}=\psi_{K,a_{K,j}}\]
+</div>
+</div>
+<div class="paragraph">
+<p>The \(\phi_j\) functions are then in the space of piecewise affine continuous functions, defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}\subset H^1(\Omega)\]
+</div>
+</div>
+<div class="paragraph">
+<p>In fact, the functions \(\{\varphi_1,\dots,\varphi_{N_f}\}\) form a basis of \(P_{C,h}^k\) and so we can choose \(V_h=P_{C,h}^k\).</p>
 </div>
 </div>
 </div>

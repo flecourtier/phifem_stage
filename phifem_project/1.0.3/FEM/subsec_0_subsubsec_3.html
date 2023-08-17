@@ -309,10 +309,59 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Application to the Poisson problem</h1>
 <div class="paragraph">
-<p><mark>2 sous-sections ? &#8594; Théorie &#8594; Pratique</mark></p>
+<p><strong>Weak formulation :</strong></p>
 </div>
 <div class="paragraph">
-<p><mark>Ajouter formulation variationnel Poisson</mark></p>
+<p>We want to apply the standard FEM method to the Poisson problem with Dirichlet condition under consideration. Let&#8217;s start by writing the variational formulation of the problem. We start with the strong formulation of the problem :</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[-\Delta u = f \text{ on } \Omega\]
+</div>
+</div>
+<div class="paragraph">
+<p>Multiplying by a test function \(v\in H_0^1(\Omega)\) and integrating over \(\Omega\), we obtain</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[-\int_\Omega \Delta u v = \int_\Omega f v.\]
+</div>
+</div>
+<div class="paragraph">
+<p>By integration by parts, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[-\int_\Omega \Delta u v = \int_\Omega \nabla u\cdot\nabla v-\int_\Gamma \frac{\partial u}{\partial n}v.\]
+</div>
+</div>
+<div class="paragraph">
+<p>This leads to the following weak formulation</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\text{Find } u\in V \text{ such that } a(u,v)=l(v), \;\forall v\in V\]
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left\{\begin{aligned}
+&amp;a(u,v) = \int_\Omega \nabla u\cdot\nabla v \\
+&amp;l(v) = \int_\Omega f v
+\end{aligned}\right.\]
+</div>
+</div>
+<div class="paragraph">
+<p>because \(v\in H_0^1(\Omega)\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Unicity of the solution :</strong></p>
+</div>
+<div class="paragraph">
+<p>An important result of the FEM method is the following theorem, which shows the unicity of the solution:</p>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -333,16 +382,7 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution <mark>\(u\in H_0^1(\Omega)\)</mark>.</p>
-</div>
-<div class="paragraph">
-<p><mark>rajouter preuve</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>Rajouter : Calcul assemblage matrice dans le cas de ce problème ?</mark></p>
-</div>
-<div class="paragraph">
-<p><mark>Rajouter : Convergence FEM standard !</mark></p>
+<p>It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution \(u\in H^2(\Omega)\).</p>
 </div>
 </article>
   </div>
