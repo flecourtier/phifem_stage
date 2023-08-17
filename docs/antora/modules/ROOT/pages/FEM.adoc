@@ -19,6 +19,8 @@ u&=g, \; &&\text{on } \; \partial\Omega,
 
 with stem:[\Delta] the Laplace operator and stem:[\Omega\subset\mathbb{R}^d] a lipschitzian bounded open set (and stem:[\partial\Omega] its boundary).
 
+Here, we present the 2 finite element methods we will be considering. First, we will present the standard FEM method in xref:FEM/subsec_0.adoc[Section "Standard FEM"], followed by the stem:[\phi]-FEM method in xref:FEM/subsec_1.adoc[Section "stem:[\phi]-FEM"].
+
 
 ---
 The features include

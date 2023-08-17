@@ -14,7 +14,7 @@ The general approach of the finite element method is to write down the variation
 
 where stem:[V] is a Hilbert space, stem:[a] is a bilinear form and stem:[l] is a linear form.
 
-To do this, we multiply the PDE by a test function stem:[v\in V], then integrate over stem:[L^2(\Omega)].
+To do this, we multiply the PDE by a test function stem:[v\in V], then integrate over stem:[L^2(\Omega)]. #remarque Michel "pas assez précis", qu'est-ce que je dois rajouter ?#
 
 The idea of FEM is to use Galerkin's method. We then look for an approximate solution stem:[u_h] in stem:[V_h], a finite-dimensional space dependent on a positive parameter stem:[h] such that
 

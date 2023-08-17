@@ -2,9 +2,41 @@
 :xrefstyle: short
 = Application to the Poisson problem
 
-#2 sous-sections ? -> Théorie -> Pratique#
+*Weak formulation :*
 
-#Ajouter formulation variationnel Poisson#
+We want to apply the standard FEM method to the Poisson problem with Dirichlet condition under consideration. Let's start by writing the variational formulation of the problem. We start with the strong formulation of the problem :
+[stem]
+++++
+-\Delta u = f \text{ on } \Omega
+++++
+Multiplying by a test function stem:[v\in H_0^1(\Omega)] and integrating over stem:[\Omega], we obtain
+[stem]
+++++
+-\int_\Omega \Delta u v = \int_\Omega f v.
+++++
+By integration by parts, we have
+[stem]
+++++
+-\int_\Omega \Delta u v = \int_\Omega \nabla u\cdot\nabla v-\int_\Gamma \frac{\partial u}{\partial n}v.
+++++
+This leads to the following weak formulation
+[stem]
+++++
+\text{Find } u\in V \text{ such that } a(u,v)=l(v), \;\forall v\in V
+++++
+with
+[stem]
+++++
+\left\{\begin{aligned}
+&a(u,v) = \int_\Omega \nabla u\cdot\nabla v \\
+&l(v) = \int_\Omega f v
+\end{aligned}\right.
+++++
+because stem:[v\in H_0^1(\Omega)].
+
+*Unicity of the solution :*
+
+An important result of the FEM method is the following theorem, which shows the unicity of the solution:
 
 
 []
@@ -20,13 +52,5 @@ J(u)=\min_{v\in V} J(v), \quad J(v)=\frac{1}{2}a(v,v)-l(v)
 ++++
 ====
 
-It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution #stem:[u\in H_0^1(\Omega)]#.
-
-#rajouter preuve#
-
-
-#Rajouter : Calcul assemblage matrice dans le cas de ce problème ?#
-
-#Rajouter : Convergence FEM standard !#
-
+It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution stem:[u\in H^2(\Omega)].
 
