@@ -17,7 +17,14 @@ with
 (\tilde{X}\star W)_{ij}=\sum_{i'j'}\tilde{X}_{i-i'[ni],j-j'[nj]}W_{i'j'}
 ++++
 
-In other words, multiplying in Fourier space is equivalent to performing a stem:[\star] circular convolution in real space. But these modulo operations are only natural for periodic images, which is not our case. #A compléter (expliquer padding par ex)#
+In other words, multiplying in Fourier space is equivalent to performing a stem:[\star] circular convolution in real space. 
+
+
+[NOTE]
+====
+These modulo operations are only natural for periodic images, which is not our case. The
+discontinuity that appears when we periodize the image causes oscillations on the edges of the filtered	images. To limit this problem, we will apply a padding on the image which is the fact to extend the images by adding pixels all around, before performing the convolution. After the convolution, we restrict the image to partially erase the oscillations.
+====
 
 == FFT
 
@@ -25,7 +32,7 @@ To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT 
 
 == Real DFT
 
-In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm).In fact, for stem:[\mathcal{F}^{-1}(A)] to be real if stem:[A] is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
+In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm). In fact, for stem:[\mathcal{F}^{-1}(A)] to be real if stem:[A] is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
 [stem]
 ++++
 A_{i,nj-(j+1)} = \bar{A}_{i,j}
@@ -39,6 +46,12 @@ To simplify, let's assume nk=1. Here is a diagram describing this idea:
 
 .RFFT with Hermitian-symmetry scheme.
 image::fourier/symetry_schema.png[width=600.0,height=480.0]
+
+
+[NOTE]
+====
+In fact, we can check that stem:[\mathcal{F}(X)] satisfies Hermitian symmetry immediately.
+====
 
 == Low pass filter
 
@@ -56,3 +69,4 @@ Classical Convolutional Neural Networks (CNN) use very small kernels (typically 
 In addition, CNNs often use max or mean-pooling layers, which process the image on several scales. Max-pooling (respectively mean-pooling) consists in slicing the image into small pieces of size stem:[n\times n], then choosing the pixel with the highest value (respectively the average of the pixels) in each of the small pieces. In most cases, stem:[n=2] is used, which divides the number of pixels by 4.
 
 The FNO, on the other hand, uses a stem:[\hat{W}] frequency kernel and stem:[W=\mathcal{F}^{-1}(\hat{W})] has full support. For this reason, the effect is immediately non-local. As a result, we can use less layers and we don't need to use a pooling layer.
+

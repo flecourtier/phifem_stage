@@ -2,10 +2,7 @@
 :xrefstyle: short
 = stem:[\phi]-FEM
 
-
-
-
-In this section, we will present the stem:[\phi]-FEM method. We will first present the context in which the method is used and its general principle, then go into a little more detail about the method in the case of the Poisson problem with Dirichlet condition. #Finally, we will present the main numerical results of the reference article ?#
+In this section, we will present the stem:[\phi]-FEM method. We will first present the context in which the method is used and its general principle (xref:FEM/subsec_1_subsubsec_0.adoc[Section "Context and general principle of the method"]. Next, we will give a general presentation of the method, starting with a description of the spaces required (<<_description_of_spaces>>), followed by a description of the stem:[\phi]-FEM method (<<_description_of_the_stem:[\phi]-fem_method>>). Finally, we will give some details on the stem:[\phi]-FEM method (section \ref{FEMs.PhiFEM.details}).
 
 
 ---

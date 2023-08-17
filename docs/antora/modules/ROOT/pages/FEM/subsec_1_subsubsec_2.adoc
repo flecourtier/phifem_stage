@@ -2,6 +2,8 @@
 :xrefstyle: short
 = Some details on stem:[\phi]-FEM
 
+In this section, we first give some information on stabilization terms (<<_stabilization_terms>>) and then present two methods for imposing non-homogeneous Dirichlet conditions, the direct method and the dual method (<<_non-homogeneous_case>>).
+
 == Stabilization terms
 
 As introduced previously, the stabilization terms are intended to reduce the errors created by the "fictitious" boundary, but they also have the effect of ensuring the correct condition number of the finite element matrix and permitting to restore the coercivity of the bilinear scheme.                                                                                      
@@ -39,8 +41,8 @@ It can then be injected into the weak formulation of the homogeneous problem and
 [stem]
 ++++
 \begin{aligned}
-\int_{\Omega_h}\nabla(\phi_h w)\nabla(\phi_h v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi_h w)&\phi_h v+G_h(w,v)=\int_{\Omega_h}f\phi_h v \\
-&-\int_{\Omega_h}\nabla g\nabla(\phi_h v)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v+G_h^{rhs}(v), \; \forall v\in \Omega_h
+\int_{\Omega_h}\nabla(\phi_h w_h)\nabla(\phi_h v_h)-\int_{\partial\Omega_h}&\frac{\partial}{\partial n}(\phi_h w_h)\phi_h v_h+G_h(w_h,v_h)=\int_{\Omega_h}f\phi_h v_h \\
+&-\int_{\Omega_h}\nabla g\nabla(\phi_h v_h)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v_h+G_h^{rhs}(v_h), \; \forall v_h\in \Omega_h
 \end{aligned}
 ++++
 with

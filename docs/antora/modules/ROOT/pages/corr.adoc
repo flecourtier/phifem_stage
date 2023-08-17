@@ -3,42 +3,7 @@
 = Correction
 :imagesdir: \{moduledir\}/assets/images/corr
 
-*PLAN Correction :* expliquer le contexte général (on souhaite corriger la sortie d'un FNO et faire référence à 3.4 Application où il faut mettre un schéma) puis expliquer en intro le cheminement (résultats sr sol analytique -> sol ana + pert -> FNO -> pb FNO -> test Legendre (car P10) -> rajouter trop d'erreurs donc Multiperceptron -> pb dérivées donc PINNS (on pourrait inclure les dérivées dans la loss)) + expliquer que le but est de considérer PhiFEM mais que certains résultats théoriques et pratiques sont avec FEM standard \modif{rajouter si c'est fait résultat correction avec stem:[\tilde{\phi}] sol phifem dans intro.}
-
-#rajouter rq quelque part avec librairies utilisées : FEniCS, Tensorflow, Pytorch !#
-
-#Pourquoi entrainement maillage fin puis correction maillage grossier ?#
-
-
-*  *Présentation des différentes méthodes de Correction considérées :* présentation des différentes méthodes de correction (+ résultats analytiques en annexe ? comme "papier" rehaussement etc)  + ajouter schéma ?
-
-#rq "précise" sur en quoi ça aide le solveur de lui fournir une solution proche de la solution exacte (fcts de base ?)#
-
-*  *Présentation des problèmes considérés :* Comme dit précédemment, on ne considérera ici que le pb de Poisson... + expliquer domaines (cercle et carré) + expliquer sol considérées (u trigo, f gaussienne => sol sur-raffinée, u polynomial pour PINNs) #A faire en dernier en ne mettant que les trucs qu'on a considéré ensuite !!#
-
-*  *Différents résultats de correction*
-
-
-*  *Correction sur solution exacte :* Résultat sur sol exacte avec FEM et PhiFEM
-
-*  *Correction sur solution perturbée :* 
-
-*  solution perturbée manuellement
-*  correction sur PhiFEM : Pas encore tester mais intéressant #à tester !!!#
-
-
-*  *Correction avec FNO :* loss sur w (ou phi w)... + résultats Phifem P2 puis Legendre P10 (ajoute trop d'erreurs ?)
-
-*  *Correction avec d'autres réseaux :* expliquer pourquoi on fait ça (comprendre si la correction fonctionne sur des réseaux plus simple et donc ça pourrait confirmer qu'il y a bien un problème au niveau de la perturbation créé par le FNO) + rajouter première implémentation tensorflow puis utilisation d'un travail en cours (avec pytorch)
-
-*  *Multiperceptron :* présentation rapide avec schéma (+références) + résultats obtenus + expliquer qu'on doit rajouter l'apprentissage des dérivées car elles sont mauvaises et utilisées dans le solveur (dans la formulation variationnelle).
-*  *PINNs :* présentation rapide avec schéma ? + résultats obtenus pour stem:[f=1] (+rajouter rq que par manque de temps, on n'a pas trouvé la bonne architecture du PINNs pour apprendre la solution trigo et donc on n'a considéré pour l'instant que la correction pour stem:[f=1])
-
-
-
-
-
-#+ rajouter rq ou dans conclusion pour expliquer qu'on pourrait également tester de faire varier le type de solveur matricielle dans les solveurs pour la correction !#
+#Intro !#
 
 
 ---
