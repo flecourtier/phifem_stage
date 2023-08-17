@@ -334,7 +334,22 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>In other words, multiplying in Fourier space is equivalent to performing a \(\star\) circular convolution in real space. But these modulo operations are only natural for periodic images, which is not our case. <mark>A compléter (expliquer padding par ex)</mark></p>
+<p>In other words, multiplying in Fourier space is equivalent to performing a \(\star\) circular convolution in real space.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These modulo operations are only natural for periodic images, which is not our case. The
+discontinuity that appears when we periodize the image causes oscillations on the edges of the filtered	images. To limit this problem, we will apply a padding on the image which is the fact to extend the images by adding pixels all around, before performing the convolution. After the convolution, we restrict the image to partially erase the oscillations.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -350,7 +365,7 @@ title="Fullscreen mode"
 <h2 id="_real_dft"><a class="anchor" href="#_real_dft"></a>3. Real DFT</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In reality, we&#8217;ll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm).In fact, for \(\mathcal{F}^{-1}(A)\) to be real if \(A\) is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:</p>
+<p>In reality, we&#8217;ll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm). In fact, for \(\mathcal{F}^{-1}(A)\) to be real if \(A\) is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -371,6 +386,20 @@ title="Fullscreen mode"
 <img src="../_images/fourier/symetry_schema.png" alt="symetry schema" width="600.0" height="480.0">
 </div>
 <div class="title">Figure 1. RFFT with Hermitian-symmetry scheme.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In fact, we can check that \(\mathcal{F}(X)\) satisfies Hermitian symmetry immediately.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

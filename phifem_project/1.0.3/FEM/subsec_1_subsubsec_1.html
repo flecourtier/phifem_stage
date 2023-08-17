@@ -311,7 +311,7 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we will give more details in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Some details on \(\phi\)-FEM"</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. Models \(\phi\)-FEM for the Poisson problem with Neumann or mixed conditions (Dirichlet and Neumann) are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. For consideration of the elasticity problem, please refer to \cite{cotin_phi-fem_nodate}.</p>
+<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we will give more details in <a href="#_non-homogeneous_case">[_non-homogeneous_case]</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. \(\phi\)-FEM schemes for the Poisson problem with Neumann or mixed (Dirichlet and Neumann) conditions are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. The \(\phi\)-FEM scheme can also be found for other PDEs, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate}, the heat equation \cite[Chapter~5]{cotin_phi-fem_nodate} and the Stokes problem  \cite{duprez_phi-fem_2023}.</p>
 </div>
 </div>
 </div>
@@ -476,11 +476,11 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 <p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the considered problem (\ref{eq.Poisson}). The main difference lies in the spaces considered. In fact, we are no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we will have to add terms to the variational formulation of the problem, called stabilization terms.</p>
 </div>
 <div class="paragraph">
-<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied s(ince \(\phi=0\) on \(\Gamma\)). After an integration by parts, we have</p>
+<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied (since \(\phi=0\) on \(\Gamma\)). After an integration by parts, we have</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h)\]
+\[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h).\]
 </div>
 </div>
 <div class="admonitionblock note">
@@ -498,7 +498,7 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in Section <mark>ADD paragraph label antora</mark>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
+<p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in <a href="#_description_of_spaces">Section 1</a>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
 </div>
 <div class="stemblock">
 <div class="content">

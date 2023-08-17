@@ -308,6 +308,13 @@ title="Fullscreen mode"
 
 <article class="doc">
 <h1 class="page">Some details on \(\phi\)-FEM</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we first give some information on stabilization terms (<a href="#_stabilization_terms">Section 1</a>) and then present two methods for imposing non-homogeneous Dirichlet conditions, the direct method and the dual method (<a href="#_non-homogeneous_case">[_non-homogeneous_case]</a>).</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_stabilization_terms"><a class="anchor" href="#_stabilization_terms"></a>1. Stabilization terms</h2>
 <div class="sectionbody">
@@ -366,8 +373,8 @@ u=\phi w +g, \; \text{on } \Omega_h.
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
-\int_{\Omega_h}\nabla(\phi_h w)\nabla(\phi_h v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi_h w)&amp;\phi_h v+G_h(w,v)=\int_{\Omega_h}f\phi_h v \\
-&amp;-\int_{\Omega_h}\nabla g\nabla(\phi_h v)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v+G_h^{rhs}(v), \; \forall v\in \Omega_h
+\int_{\Omega_h}\nabla(\phi_h w_h)\nabla(\phi_h v_h)-\int_{\partial\Omega_h}&amp;\frac{\partial}{\partial n}(\phi_h w_h)\phi_h v_h+G_h(w_h,v_h)=\int_{\Omega_h}f\phi_h v_h \\
+&amp;-\int_{\Omega_h}\nabla g\nabla(\phi_h v_h)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v_h+G_h^{rhs}(v_h), \; \forall v_h\in \Omega_h
 \end{aligned}\]
 </div>
 </div>

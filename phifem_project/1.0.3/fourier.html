@@ -307,20 +307,26 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Fourier Neural Operator (FNO)</h1>
 <div class="paragraph">
-<p><mark>Est-ce que je rajouter réseau multi-perceptron et PINNs ? Si oui section "Neural Networks" puis sous-sections FNO,MultiPerceptron,PINNs</mark></p>
-</div>
-<div class="paragraph">
-<p>We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021}. <mark>+ add article Killian</mark></p>
+<p>We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.</p>
 </div>
 <div class="paragraph">
 <p>In image treatment, we call image tensors of size \(ni\times nj\times nk\), where \(ni\times nj\) corresponds to the image resolution and \(nk\) corresponds to its number of channels. For example, an RGB (Red Green Blue) image has \(nk=3\) channels.
-We choose here to present the FNO as an operator acting on discrete images. Reference articles present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.</p>
+We choose here to present the FNO as an operator acting on discrete images. The reference article \cite{li_fourier_2021} present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>The FNO methodology creates a relationship between two spaces from a finite collection of observed input-output pairs. <mark>Est-ce que je gardes cette phrase ?</mark></p>
+<p>The FNO used was implemented by Vincent Vigon\footnote{Vincent Vigon: <a href="https://irma.math.unistra.fr/~vigon/}" class="bare">irma.math.unistra.fr/~vigon/}</a> using Python&#8217;s tensorflow library\footnote{Tensorflow: <a href="https://www.tensorflow.org/?hl=fr}" class="bare">www.tensorflow.org/?hl=fr}</a>.
+Furthermore, note that this report does not include a test of model parameter variation.</p>
 </div>
-<div class="paragraph">
-<p><mark>A rajouter : implémentation effectuée/fournie par Vincent Vigon + on ne trouvera pas ici de test de variation des paramètres (modes, width&#8230;&#8203;)</mark></p>
+</td>
+</tr>
+</table>
 </div>
 <hr>
 <div class="paragraph">
