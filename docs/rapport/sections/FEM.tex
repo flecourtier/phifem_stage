@@ -16,13 +16,78 @@ In the following, we will consider the Poisson problem with Dirichlet condition 
 
 with $\Delta$ the Laplace operator and $\Omega\subset\mathbb{R}^d$ a lipschitzian bounded open set (and $\partial\Omega$ its boundary).
 
+Here, we present the 2 finite element methods we will be considering. First, we will present the standard FEM method in Section \ref{FEMs.FEM}, followed by the $\phi$-FEM method in Section \ref{FEMs.PhiFEM}.
+
 \subsection{Standard FEM} \label{FEMs.FEM}
 
 In this section, we will present the standard finite element method. We'll start by presenting some general notions of functional analysis, then explain the general principle of FEM. Then we'll give a few more details on the method and finish by describing the application to the Poisson problem (with Dirichlet condition). For more information, please refer to \cite{quarteroni_methodes_2007} and \cite{noauthor_methodes_nodate}.
 
 \subsubsection{Some notions of functional analysis.}
 
-\modif{AJOUTER : Déf Espace de Hilbert (+ ce qu'il faut pour def ça : Espace de Soboloev ? ... ) + Déf $L^2$,}
+In this section, we'll recall some of the notions of functional analysis that will be used in the next sections. In particular, Lebesgue spaces and Sobolev spaces. Please refer to the book \cite{brezis_functional_2011}. Let's consider $\Omega$ an open of $\mathbb{R}^d$ ($d=1,2,3$) with boundary $\Gamma$.
+
+We begin here by defining Lebesgue spaces:
+
+\begin{Def}[Lebesgue spaces]
+	Lebesgue spaces, denoted $L^p$, are vector spaces of classes of functions whose exponent power $p$ is integrable in the Lebesgue sense, where $p$ is a strictly positive real number. They are defined by
+	\begin{equation*}
+		L^p(\Omega)=\left\{u:\Omega\rightarrow\mathbb{R}|\int_\Omega u^p d\nu<+\infty\right\}
+	\end{equation*}
+	In particular, taking $p=2$, we define the space
+	\begin{equation*}
+		L^2(\Omega)=\left\{u:\Omega\rightarrow\mathbb{R}|\int_\Omega u^2 d\nu<+\infty\right\}
+	\end{equation*}
+	which is the space of integrable square functions.
+\end{Def}
+
+We also define Sobolev spaces of order 1 and order 2:
+
+\begin{Def}[Sobolev spaces]
+	The Sobolev space of order 1, denoted $H^1$, is defined by
+	\begin{align*}
+		H^1(\Omega)&=\left\{u\in L^2(\Omega)|\partial_{x_i}u\in L^2(\Omega)\right\} \\
+		&=\left\{u\in L^2(\Omega),\nabla u\in L^2(\Omega)^d\right\}
+	\end{align*}
+	with the scalar product $\langle u, v\rangle_{H^1(\Omega)}$, defined by :
+	\begin{equation*}
+		\langle u, v\rangle_{H^1(\Omega)} = \int_\Omega uv + \nabla u \cdot \nabla v, \forall u,v\in H^^1(\Omega)
+	\end{equation*}
+	and the induced norm $||\cdot||_{H^1(\Omega)}$.
+	
+	We also define the space
+	\begin{equation*}
+		H_0^1(\Omega)=\left\{u\in H^1(\Omega)|u_{|\Gamma}=0\right\}
+	\end{equation*}
+	
+	The Sobolev space of order 2, denoted $H^2$, is defined by
+	\begin{equation*}
+		H^2(\Omega)=\left\{u,u',u''\in L^2(\Omega)\right\}
+	\end{equation*}
+	with scalar product $\langle u, v\rangle_{H^2(\Omega)}$, defined by :
+	\begin{equation*}
+		\langle u, v\rangle_{H^2(\Omega)} = \int_\Omega uv + u'v' + u''v'', \forall u,v\in H^1(\Omega)
+	\end{equation*}
+	and the induced norm $||\cdot||_{H^2(\Omega)}$.
+\end{Def}
+
+\begin{Rem}
+	In view of these definitions, we can see that
+	\begin{equation*}
+		||u||^2_{H^1(\Omega)}=||u||^2_{L^2(\Omega)}+|u|^2_{H^1\Omega)}
+	\end{equation*}
+	with $|u|_{H^1\Omega)}=||\nabla u||_{L^2(\Omega)}$ called $H^1$ semi-norm.
+	
+	We also note that
+	\begin{equation*}
+		||u||^2_{H^2(\Omega)}=||u||^2_{L^2(\Omega)}+|u|^2_{H^1(\Omega)}+|u|^2_{H^2(\Omega)}
+	\end{equation*}
+	with $|u|_{H^2\Omega)}=||u''||_{L^2(\Omega)}$ called $H^2$ semi-norm.
+\end{Rem}
+
+\begin{Rem}
+	In the following, we will note $||\cdot||_{0,\Omega}$ the $L^2$ norm on $\Omega$, $||\cdot||_{1,\Omega}$ the $H^1$ norm on $\Omega$ and $||\cdot||_{2,\Omega}$ the $H^2$ norm on $\Omega$.
+	We will also note $|\cdot|_{1,\Omega}$ the $H^1$ semi-norm on $\Omega$ and $|\cdot|_{2,\Omega}$ the $H^2$ semi-norm on $\Omega$.
+\end{Rem}
 
 \subsubsection{General principle of the method}
 
@@ -37,7 +102,7 @@ The general approach of the finite element method is to write down the variation
 
 where $V$ is a Hilbert space, $a$ is a bilinear form and $l$ is a linear form.
 
-To do this, we multiply the PDE by a test function $v\in V$, then integrate over $L^2(\Omega)$.
+To do this, we multiply the PDE by a test function $v\in V$, then integrate over $L^2(\Omega)$. \modif{remarque Michel "pas assez précis", qu'est-ce que je dois rajouter ?}
 
 The idea of FEM is to use Galerkin's method. We then look for an approximate solution $u_h$ in $V_h$, a finite-dimensional space dependent on a positive parameter $h$ such that
 
@@ -91,12 +156,12 @@ After having seen the general principle of FEM, it remains to define the $V_h$ s
 %\modif{Rajouter intro différentes notions abordées !}
 %\trad{Pour ce faire, nous aurons besoin de plusieurs notions, qui seront détaillées dans les sections suivantes. Tout d'abord, nous aurons besoin de générer un \textbf{maillage} de notre domaine $\Omega$. Ainsi, nous pourrons résoudre l'EDP de manière discrète, en des points choisis. C'est alors qu'intervient la notion d'\textbf{éléments finis de Lagrange}. Les propriétés de ces éléments, notamment en terme de \textbf{famille affine d'élément fini} est un point clé de la méthode qui va nous permettre de ramener chaque élément du maillage à un \textbf{élément de référence} à l'aide d'une \textbf{transformation géométrique}.}
 
-To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a \textbf{mesh} of our $\Omega$ domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we'll need to know 2 basic concepts: the \textbf{\modif{unisolvance}} principle and the definitions of the \textbf{polynomial spaces} used ($\mathbb{P}_k$ and $\mathbb{Q}_k$).
+To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a \textbf{mesh} of our $\Omega$ domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we'll need to know 2 basic concepts: the \textbf{unisolvence} principle and the definitions of the \textbf{polynomial spaces} used ($\mathbb{P}_k$ and $\mathbb{Q}_k$).
 
 \paragraph{Unisolvance}
 
 \begin{Def}
-	Let $\Sigma=\{a_1,\dots,a_N\}$ be a set of $N$ distinct points of $\mathbb{R}^n$. Let $P$ be a finite-dimensional vector space of $\mathbb{R}^n$ functions taking values in $\mathbb{R}$. We say that $\Sigma$ is $P$-\modif{unisolvent} if and only if for all real $\alpha_1,\dots,\alpha_N$, there exists a unique element $p$ of $P$ such that $p(a_i)=\alpha_i,i=1,\dots,N$. 
+	Let $\Sigma=\{a_1,\dots,a_N\}$ be a set of $N$ distinct points of $\mathbb{R}^n$. Let $P$ be a finite-dimensional vector space of $\mathbb{R}^n$ functions taking values in $\mathbb{R}$. We say that $\Sigma$ is $P$-unisolvent if and only if for all real $\alpha_1,\dots,\alpha_N$, there exists a unique element $p$ of $P$ such that $p(a_i)=\alpha_i,i=1,\dots,N$. 
 	This means that the function
 	\begin{align*}
 		L \; : \; P &\rightarrow \mathbb{R}^N \\
@@ -106,7 +171,7 @@ To do this, we'll need several notions, which will be detailed in the following 
 \end{Def}
 
 \begin{Rem}
-	In practice, to show that $\Sigma$ is $P$-\modif{unisolvent}, we simply check that $\dim P= \text{card } (\Sigma)$ and then prove the injectivity or surjectivity of $L$. The injectivity of $L$ is demonstrated by showing that the only function of $P$ that annuls on all points of $\Sigma$ is the null function. The surjectivity of $L$ is shown by identifying a family $p_1,\dots,p_N$ of elements of $P$ such that $p_i(a_j)=\delta_{ij}$. Given real $\alpha_1,\dots,\alpha_N$, the function $p=\sum_{i=1}^N\alpha_i p_i$ then verifies $p(a_j)=\alpha_j,j=1\dots,N$. 
+	In practice, to show that $\Sigma$ is $P$-unisolvent, we simply check that $\dim P= \text{card } (\Sigma)$ and then prove the injectivity or surjectivity of $L$. The injectivity of $L$ is demonstrated by showing that the only function of $P$ that annuls on all points of $\Sigma$ is the null function. The surjectivity of $L$ is shown by identifying a family $p_1,\dots,p_N$ of elements of $P$ such that $p_i(a_j)=\delta_{ij}$. Given real $\alpha_1,\dots,\alpha_N$, the function $p=\sum_{i=1}^N\alpha_i p_i$ then verifies $p(a_j)=\alpha_j,j=1\dots,N$. 
 \end{Rem}
 
 \begin{Rem}
@@ -134,6 +199,10 @@ Let $\mathbb{Q}_k$ be the vector space of polynomials of degree less than or equ
 	\item In $\mathbb{R}^3$ : $\mathbb{Q}_k=\text{Vect}\{1,X^iY^jZ^l,0\le i,j,l\le k\}$ and $\dim\mathbb{Q}_k=(k+1)^3$
 \end{enumerate}
 
+\begin{Rem}
+	In practice, we will use the $\mathbb{P}^k$ family for triangles/tetrahedra and $\mathbb{Q}_k$ for quadrilaterals.
+\end{Rem}
+
 \paragraph{Finite Lagrange Element}
 
 The most classic and simplest type of finite element is the Lagrange finite element.
@@ -143,12 +212,12 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 	\begin{enumerate}[label=\textbullet]
 		\item $K$ is a geometric element of $\mathbb{R}^n$ ($n=1,2$ or $3$), compact, connected and of non-empty interior.
 		\item $\Sigma=\{a_1,\dots,a_N\}$ is a finite set of $N$ distinct points of $K$.
-		\item $P$ is a finite-dimensional vector space of real functions defined on $K$ and such that $\Sigma$ is $P$-\modif{unisolvent} (so $\dim P=N$).
+		\item $P$ is a finite-dimensional vector space of real functions defined on $K$ and such that $\Sigma$ is $P$-unisolvent (so $\dim P=N$).
 	\end{enumerate}
 \end{Def}
 
 \begin{Example}
-	Let $K$ be the segment $[a_1,a_2]$. Let's show that $\Sigma=\{a_1,a_2\}$ is $P$-\modif{unisolvent} for $P=\mathbb{P}^1$. Since $\{1,x\}$ is a base of $\mathbb{P}^1$, we have $\dim P = \text{card } \Sigma = 2$. 
+	Let $K$ be the segment $[a_1,a_2]$. Let's show that $\Sigma=\{a_1,a_2\}$ is $P$-unisolvent for $P=\mathbb{P}^1$. Since $\{1,x\}$ is a base of $\mathbb{P}^1$, we have $\dim P = \text{card } \Sigma = 2$. 
 	
 	Moreover, we can write $p_i=\alpha_i x+\beta_i, i=1,2$. Thus
 	\begin{equation*}
@@ -184,7 +253,7 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 	\begin{equation*}
 		p_1(x)=\frac{x-a_2}{a_1-a_2} \quad \text{and} \quad p_2(x)=\frac{x-a_1}{a_2-a_1}
 	\end{equation*}
-	We deduce the surjectivity of $L$ and $\Sigma$ is $\mathbb{P}^1$-\modif{unisolvent}. 
+	We deduce the surjectivity of $L$ and $\Sigma$ is $\mathbb{P}^1$-unisolvent. 
 	
 	Thus $(K,\Sigma,P)$ is a Lagrange Finite Element.
 	\end{Example}
@@ -227,8 +296,9 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 	\label{triangle_mesh}
 \end{figure}
 
-\paragraph{Geometric transformation}
+\paragraph{Construction of $V_h$ space}
 
+\textbf{Geometric transformation :}
 A mesh is generated by
 \begin{enumerate}[label=\textbullet]
 	\item A reference element noted $\hat{K}$.
@@ -247,37 +317,79 @@ A mesh is generated by
 
 Let $(\hat{K},\hat{\Sigma},\hat{P})$ be the finite reference element with 
 \begin{enumerate}[label=\textbullet]
-	\item the nodes of the reference element $\hat{K}$ : $\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_n\}$
-	\item the local base functions of $\hat{K}$: $\{\hat{\psi}_1,\dots,\hat{\psi}_n\}$ (also called form functions)
+	\item the degrees of freedom of the reference element $\hat{K}$ : $\hat{\Sigma}=\{\hat{a}_1,\dots,\hat{a}_{n_f}\}$ with $n_f$ the number of degrees of freedom.
+	\item the local basis functions of $\hat{K}$: $\{\hat{\psi}_1,\dots,\hat{\psi}_{n_f}\}$ (also called form functions)
 \end{enumerate}
 
-So for each $K\in\mathcal{T}_h$, we consider a tuple $\{a_{K,1},\dots,a_{K,n}\}$ (degrees of freedom) and the associated geometric transformation is defined by :
+So for each $K\in\mathcal{T}_h$, we consider a tuple $\{a_{K,1},\dots,a_{K,n_f}\}$ (degrees of freedom) and the associated geometric transformation is defined by :
 \begin{equation*}
-	T_K : \hat{x}\mapsto\sum_{i=1}^{n}a_{K,i}\hat{\psi}_i(\hat{x})
+	T_K : \hat{x}\mapsto\sum_{i=1}^{n_f}a_{K,i}\hat{\psi}_i(\hat{x})
 \end{equation*}
 
 In particular, we have
 \begin{equation*}
-	T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n
+	T_K(\hat{a_i})=a_{K,i}, \quad i=1,\dots,n_f
 \end{equation*}
 
 \begin{Rem}
 	In particular, if the form functions are affine, the geometric transformations will be too. This is an interesting property, as the gradient of these geometric transformations will be constant.
 \end{Rem}
 
-\textbf{Construction of the basis $(\varphi_i)$ of $V_h$ :}
-
-\modif{TO COMPLETE !}
-
 \begin{Rem}
 	In the following, we will assume that these transformations are $C^1$-diffeomorphisms (i.e. the transformation and its inverse are $C^1$ and bijective).
 \end{Rem}
 
+\textbf{Construction of the basis $(\varphi_i)$ of $V_h$ :}
+
+For each $K\in\mathcal{T}_h$, let $(K,\Sigma,P)$ be an finite element with 
+\begin{enumerate}[label=\textbullet]
+	\item the degrees of freedom of the element $K$ : $\Sigma=\{a_{K,i}=T_K(\hat{a}_i), i=1,\dots,n_f\}$
+	\item the local basis functions of $K$: $\{\psi_{K,i}=\hat{\psi}_i\circ T_K^{-1}, i=1,\dots,n_f\}$ (because $(\hat{K},\hat{\Sigma},\hat{P})$ and $(K,\Sigma,P)$ are affine-equivalent).
+\end{enumerate}
+
+By noting $\{a_1,\dots,a_{N_f}\}=\bigcup_{K\in\mathcal{T}_h}\{a_{K,1},\dots,a_{K,n_f}\}$ with $N_f$ the total number of degrees of freedom (over all the geometry), we have
+\begin{equation*}
+	\forall j\in\{1,\dots,N_f\}, \quad {\varphi_j}_{|K}=\psi_{K,a_{K,j}}
+\end{equation*}
+
+The $\phi_j$ functions are then in the space of piecewise affine continuous functions, defined by
+\begin{equation*}
+	P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}\subset H^1(\Omega)
+\end{equation*}
+In fact, the functions $\{\varphi_1,\dots,\varphi_{N_f}\}$ form a basis of $P_{C,h}^k$ and so we can choose $V_h=P_{C,h}^k$.
+
 \subsubsection{Application to the Poisson problem}
 
-\modif{2 sous-sections ? -> Théorie -> Pratique}
+\textbf{Weak formulation :}
 
-\modif{Ajouter formulation variationnel Poisson}
+We want to apply the standard FEM method to the Poisson problem with Dirichlet condition under consideration. Let's start by writing the variational formulation of the problem. We start with the strong formulation of the problem :
+\begin{equation*}
+	-\Delta u = f \text{ on } \Omega
+\end{equation*}
+Multiplying by a test function $v\in H_0^1(\Omega)$ and integrating over $\Omega$, we obtain
+\begin{equation*}
+	-\int_\Omega \Delta u v = \int_\Omega f v.
+\end{equation*}
+By integration by parts, we have
+\begin{equation*}
+	-\int_\Omega \Delta u v = \int_\Omega \nabla u\cdot\nabla v-\int_\Gamma \frac{\partial u}{\partial n}v.
+\end{equation*}
+This leads to the following weak formulation
+\begin{equation*}
+		\text{Find } u\in V \text{ such that } a(u,v)=l(v), \;\forall v\in V
+\end{equation*}
+with
+\begin{equation*}
+	\left\{\begin{aligned}
+		&a(u,v) = \int_\Omega \nabla u\cdot\nabla v \\
+		&l(v) = \int_\Omega f v
+	\end{aligned}\right.
+\end{equation*}
+because $v\in H_0^1(\Omega)$.
+
+\textbf{Unicity of the solution :}
+
+An important result of the FEM method is the following theorem, which shows the unicity of the solution:
 
 \begin{Prop}[Lax-Milgram]
 	
@@ -289,16 +401,7 @@ In particular, we have
 	\end{equation*}
 \end{Prop}
 
-It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution \modif{$u\in H_0^1(\Omega)$}.
-
-\modif{rajouter preuve}
-
-
-\modif{Rajouter : Calcul assemblage matrice dans le cas de ce problème ?}
-
-\modif{Rajouter : Convergence FEM standard !}
-
-\newpage
+It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution $u\in H^2(\Omega)$.
 
 \subsection{$\phi$-FEM} \label{FEMs.PhiFEM}
 
