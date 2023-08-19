@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -371,18 +374,38 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 <div class="paragraph">
 <p><mark>ajouter image solution et f</mark></p>
 </div>
-<div class="paragraph">
-<p><mark>ajouter les autres cas tests : f gaussienne&#8230;&#8203;</mark></p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_f_gaussian"><a class="anchor" href="#_f_gaussian"></a>2. \(f\) Gaussian</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In the case considered here, no analytical solution is known. We consider the source term \(f\) to be a Gaussian defined by</p>
+</div>
 <div class="stemblock">
 <div class="content">
-
+\[f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,\]
 </div>
+</div>
+<div class="paragraph">
+<p>with \(\sigma \sim \mathcal{U}([0.1,0.6\))] and \(\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4\))] with the condition \(\phi(\mu_0, \mu_1) &lt; -0.05\).</p>
+</div>
+<div class="paragraph">
+<p>ince we don&#8217;t have an exact solution, we&#8217;ll consider a so-called reference solution, denoted \(u_{ref}\). This reference solution is defined as an over-refined \(\mathbb{P}^1\) solution obtained by the standard FEM method (with \(h_{ref}\approx 0.006\)). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For this problem, we choose to consider only the homogeneous case, i.e. we take \(g=0\) on \(\Gamma\).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

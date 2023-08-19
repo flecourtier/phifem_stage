@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -335,7 +338,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that this problem is in fact equivalent to the initial <mark>add ref</mark> problem. We only hope that the approximate solution \(\tilde{u}\) obtained is more accurate than the approximate solution \(u\) obtained by solving the initial problem.</p>
+<p>Note that this problem is in fact equivalent to the initial problem. We only hope that the approximate solution \(\tilde{u}\) obtained is more accurate than the approximate solution \(u\) obtained by solving the initial problem.</p>
 </div>
 </td>
 </tr>
@@ -391,6 +394,9 @@ title="Fullscreen mode"
 \[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \tilde{f} \Delta(\phi v).\]
 </div>
 </div>
+<div class="paragraph">
+<p>In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous (\(tilde{C}=0\) on \(\Gamma\)).</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -399,7 +405,23 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In practice, it may be useful to integrate by parts (IPP) the term containing \(\Delta \tilde{\phi}\) (implicitly included in \(\tilde{f}\)). <mark>expliciter !</mark></p>
+<p>In practice, it may be useful to integrate by parts (IPP) the term containing \(\Delta \tilde{\phi}\) (implicitly included in \(\tilde{f}\)).</p>
+</div>
+<div class="paragraph">
+<p>So for FEM, as \(v\in H_0^1(\Omega)\), we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int_\Omega \tilde{f}v=\int_\Omega fv+\int_\Omega \Delta\tilde{\phi}v=\int_\Omega fv-\int_\Omega \nabla\tilde{\phi}\cdot\nabla v.\]
+</div>
+</div>
+<div class="paragraph">
+<p>For \(\phi\)-FEM, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.\]
+</div>
 </div>
 </td>
 </tr>

@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../corr/subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../corr/subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="../corr/subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -357,7 +360,7 @@ For example, we may want to consider a case where the level-set function \(\phi\
 </div>
 <div class="stemblock">
 <div class="content">
-\[f_{i,norm} = \frac{f_i}{max_{i=1},\dots,n_{data} ||f_i||_{L^2(\mathcal{O})}}.\]
+\[f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}.\]
 </div>
 </div>
 </td>
@@ -468,7 +471,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <div class="content">
 <img src="../_images/fourier/FNO_train_schema.png" alt="FNO train schema" width="480.0" height="384.0">
 </div>
-<div class="title">Figure 1. Representation of the FNO training.</div>
+<div class="title">Figure 1. figure</div>
 </div>
 <div class="paragraph">
 <p>We can now proceed to the correction stage (<a href="#FNO_test_schema">Figure 2</a>), where we consider a type of correction defined in <a href="../corr/subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a> (correction by adding, correction by multiplying or correction by multiplying on an enhanced problem). We can then consider a new test sample X_test constructed in the same way as the training sample and defined by</p>
@@ -485,7 +488,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <div class="content">
 <img src="../_images/fourier/FNO_test_schema.png" alt="FNO test schema" width="480.0" height="384.0">
 </div>
-<div class="title">Figure 2. Representation of correction steps</div>
+<div class="title">Figure 2. figure</div>
 </div>
 </article>
   </div>

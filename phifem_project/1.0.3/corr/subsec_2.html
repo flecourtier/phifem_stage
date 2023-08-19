@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Different correction results :: PhiFEM Project - Docs</title>
+    <title>Theorical results :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_2.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -249,7 +252,7 @@
     <li><a href="../index.html">Phi-FEM Project</a></li>
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
-    <li><a href="subsec_2.html">Different correction results</a></li>
+    <li><a href="subsec_2.html">Theorical results</a></li>
   </ul>
 </nav>
 
@@ -306,41 +309,9 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Different correction results</h1>
+<h1 class="page">Theorical results</h1>
 <div class="paragraph">
-<p>As explained above, we wish to combine \(\phi\)-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (<a href="subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a>). It is important to note that, for practical purposes, almost all the following results obtained with \(\phi\)-FEM will be compared with those obtained with the standard FEM method.</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start by presenting the results obtained on an analytical solution (<a href="subsec_2_subsubsec_0.html" class="xref page">Section "Correction on exact solution"</a>). We&#8217;ll consider here the "initial" solution \(\tilde{\phi}\), which we&#8217;ll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.</p>
-</div>
-<div class="paragraph">
-<p>Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (<a href="subsec_2_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.</p>
-</div>
-<div class="paragraph">
-<p>Finally, we&#8217;ll consider the case of neural networks with an FNO in <a href="subsec_2_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a> and then with a multi-perceptron network and PINNs in <a href="subsec_2_subsubsec_4.html" class="xref page">Section "Correction with other networks"</a>. The reasons for considering other neural networks will be explained in detail in these sections.</p>
-</div>
-<hr>
-<div class="paragraph">
-<p>The features include</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="subsec_2_subsubsec_0.html" class="xref page">Correction on exact solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_1.html" class="xref page">Correction on disturbed solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_2.html" class="xref page">Correction on \(\phi\)-FEM solution</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_3.html" class="xref page">Correction with FNO</a></p>
-</li>
-<li>
-<p><a href="subsec_2_subsubsec_4.html" class="xref page">Correction with other networks</a></p>
-</li>
-</ul>
+<p><mark>En annexe, on a un document expliquant l&#8217;intérêt de rehausser le problème +add ref.</mark> \modif{rajouter également document qui explique qu&#8217;au final on s&#8217;est rendu compte que correction par multiplication sur problème rehaussé \(\iff\) correction par addition + ajouter document}</p>
 </div>
 </article>
   </div>

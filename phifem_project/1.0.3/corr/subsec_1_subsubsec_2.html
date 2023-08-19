@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -395,7 +398,10 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>In the non-homogeneous case, it is important to impose the edge conditions either by the direct method or by the dual method presented in section <mark>add section</mark>. \modif{PAS SURE !}</p>
+<p>In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for \(m\ne 0\)), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in <a href="#_non-homogeneous_case">[_non-homogeneous_case]</a>.</p>
+</div>
+<div class="paragraph">
+<p><mark>rajouter les formulation</mark></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -405,7 +411,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing \(C=\frac{\tilde{u}}{\hat{\phi}}\) closer to 1 doesn&#8217;t pose a problem (since in this case \(\hat{\phi}\ne 0\)). Moreover, we can easily return to the original problem by subtracting \(m\) from \(\tilde{u}\). In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. <mark>En annexe, on a un document expliquant l&#8217;intérêt de rehausser le problème +add ref.</mark> \modif{rajouter également document qui explique qu&#8217;au final on s&#8217;est rendu compte que correction par multiplication sur problème rehaussé \(\iff\) correction par addition + ajouter document}</p>
+<p>Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing \(C=\frac{\tilde{u}}{\hat{\phi}}\) closer to 1 doesn&#8217;t pose a problem (since in this case \(\hat{\phi}\ne 0\)). Moreover, we can easily return to the original problem by subtracting \(m\) from \(\tilde{u}\). In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication.</p>
 </div>
 </td>
 </tr>

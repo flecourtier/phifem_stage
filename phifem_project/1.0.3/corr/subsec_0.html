@@ -186,23 +186,26 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Different correction results</a>
+    <a class="nav-link" href="subsec_3.html">Numerical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Correction on exact solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_0.html">Correction on exact solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Correction on disturbed solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_1.html">Correction on disturbed solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
+    <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_4.html">Correction with other networks</a>
+    <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
   </li>
 </ul>
   </li>
@@ -308,10 +311,7 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Presentation of different problems considered</h1>
 <div class="paragraph">
-<p><mark>A faire au fur et à mesure !</mark></p>
-</div>
-<div class="paragraph">
-<p>In this section, we present the different problems we&#8217;ll be considering in <a href="subsec_2.html" class="xref page">Section "Different correction results"</a>. We will consider the geometry of a circle in <a href="subsec_0_subsubsec_0.html" class="xref page">Section "First domain : the Circle."</a> represented in <a href="#geom_circle">Figure 1</a> as well as the geometry of a square in <a href="subsec_0_subsubsec_1.html" class="xref page">Section "Second domain : the Square."</a> represented in <a href="#geom_square">Figure 2</a>. We&#8217;ll also look at different solutions <mark>à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)</mark>.</p>
+<p>In this section, we present the different problems we&#8217;ll be considering in <a href="subsec_3.html" class="xref page">Section "Numerical results"</a>. We will consider the geometry of a circle in <a href="subsec_0_subsubsec_0.html" class="xref page">Section "First domain : the Circle."</a> represented in <a href="#geom_circle">Figure 1</a> as well as the geometry of a square in <a href="subsec_0_subsubsec_1.html" class="xref page">Section "Second domain : the Square."</a> represented in <a href="#geom_square">Figure 2</a>. We&#8217;ll also look at different solutions <mark>à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)</mark>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -324,13 +324,13 @@ title="Fullscreen mode"
 <div class="content">
 <img src="../_images/corr/geom_circle.png" alt="geom circle" width="180.0" height="144.0">
 </div>
-<div class="title">Figure 1. Representation of the first domain considered : the Circle.</div>
+<div class="title">Figure 1. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="geom_square" class="imageblock">
 <div class="content">
 <img src="../_images/corr/geom_square.png" alt="geom square" width="180.0" height="144.0">
 </div>
-<div class="title">Figure 2. Representation of the second domain considered : the Square.</div>
+<div class="title">Figure 2. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -343,7 +343,43 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that in the case where the problem is non-homogeneous, we can consider</p>
+<p>To generate meshes with FEM, we&#8217;ll consider a mesh comparable to \(\phi\)-FEM. To do this, we generate our \(\phi\)-FEM grid, which is simply the regular mesh of the \(\mathcal{O}\) domain of \(n_{vert}\times n_{vert}\) nodes. From this mesh we generate a FEM mesh whose largest element diameter \(h_{FEM}\) is very close to the largest diameter associated with \(\phi-FEM\), \(h_{\phi-FEM}\) (\(h_{FEM}\sim h_{\phi-FEM}\)). Here&#8217;s a representation of the meshes generated for FEM and \(\phi\)-FEM on the circle and on the square with \(n_{vert}=10\) :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="mesh_circle" class="imageblock">
+<div class="content">
+<img src="../_images/corr/mesh_circle.png" alt="mesh circle" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 3. figure</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="mesh_square" class="imageblock">
+<div class="content">
+<img src="../_images/corr/mesh_square.png" alt="mesh square" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 4. figure</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that in the case where the problem is non-homogeneous, if we don&#8217;t have a definition of the Dirichlet boundary condition, we can consider</p>
 </div>
 <div class="stemblock">
 <div class="content">
