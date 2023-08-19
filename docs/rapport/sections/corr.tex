@@ -1,11 +1,9 @@
 \section{Correction} \label{Corr}
 \graphicspath{{images/corr}}
 
-\modif{Intro !}
+In this section, we'll look at the different correction methods. We'll start by presenting the different problems considered (Section \ref{Corr.problems}), then we'll introduce the different correction methods (Section \ref{Corr.methods}), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (Section \ref{Corr.theo_results}), and finish by presenting the numerical results obtained (Section \ref{Corr.results}).
 
 \subsection{Presentation of different problems considered} \label{Corr.problems}
-
-\modif{A faire au fur et à mesure !}
 
 In this section, we present the different problems we'll be considering in Section \ref{Corr.results}. We will consider the geometry of a circle in Section \ref{Corr.pb.circle} represented in Figure \ref{geom_circle} as well as the geometry of a square in Section \ref{Corr.pb.square} represented in Figure \ref{geom_square}. We'll also look at different solutions \modif{à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)}.
 
@@ -27,7 +25,28 @@ In this section, we present the different problems we'll be considering in Secti
 \end{minipage}
 
 \begin{Rem}
-	Note that in the case where the problem is non-homogeneous, we can consider
+	To generate meshes with FEM, we'll consider a mesh comparable to $\phi$-FEM. To do this, we generate our $\phi$-FEM grid, which is simply the regular mesh of the $\mathcal{O}$ domain of $n_{vert}\times n_{vert}$ nodes. From this mesh we generate a FEM mesh whose largest element diameter $h_{FEM}$ is very close to the largest diameter associated with $\phi-FEM$, $h_{\phi-FEM}$ ($h_{FEM}\sim h_{\phi-FEM}$). Here's a representation of the meshes generated for FEM and $\phi$-FEM on the circle and on the square with $n_{vert}=10$ :
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"mesh_circle.png"}
+			\captionof{figure}{Representation of meshes for FEM and $\phi$-FEM on the Circle.}
+			\label{mesh_circle}
+		\end{figure} 
+	\end{minipage}
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"mesh_square.png"}
+			\captionof{figure}{Representation of meshes for FEM and $\phi$-FEM on the Square.}
+			\label{mesh_square}
+		\end{figure} 
+	\end{minipage}
+\end{Rem}
+
+\begin{Rem}
+	Note that in the case where the problem is non-homogeneous, if we don't have a definition of the Dirichlet boundary condition, we can consider
 	\begin{equation*}
 	g(x,y)=u_{ex}(x,y)\times(1+\phi(x,y))
 	\end{equation*}
@@ -66,16 +85,19 @@ Thus, the second associated member is defined by
 
 \modif{ajouter image solution et f}
 
-\modif{ajouter les autres cas tests : f gaussienne...}
+\paragraph{$f$ Gaussian} \label{Corr.pb.circle.2}
 
-%\paragraph{$f$ Gaussian} \label{Corr.pb.circle.f_gaussian}
-%
-%\trad{Dans le cas suivant, nous ne connaissons pas de solution analytique. On considère le terme source $f$ comme étant une gaussienne définie par }
-%\begin{equation*}
-%	f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
-%\end{equation*} 
-%\trad{avec $\sigma \sim \mathcal{U}([0.1,0.6])$ et $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ à condition que $\phi(\mu_0, \mu_1) < -0.05$.}
-%\trad{On considère la solution de référence $u_{ref}$ comme étant une solution sur-raffinée $\mathbb{P}^1$ obtenue par les EF standard (avec $h_{ref}\approx 0.006$ car $h_{ref}<<h_{FNO}$).}
+In the case considered here, no analytical solution is known. We consider the source term $f$ to be a Gaussian defined by
+\begin{equation*}
+	f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
+\end{equation*} 
+with $\sigma \sim \mathcal{U}([0.1,0.6])$ and $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ with the condition $\phi(\mu_0, \mu_1) < -0.05$.
+
+ince we don't have an exact solution, we'll consider a so-called reference solution, denoted $u_{ref}$. This reference solution is defined as an over-refined $\mathbb{P}^1$ solution obtained by the standard FEM method (with $h_{ref}\approx 0.006$). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
+
+\begin{Rem}
+	For this problem, we choose to consider only the homogeneous case, i.e. we take $g=0$ on $\Gamma$.
+\end{Rem}
 
 \subsubsection{Second domain : the Square.} \label{Corr.pb.square}
 
@@ -141,7 +163,7 @@ and we want to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the
 	\end{aligned}\right.
 \end{equation*}
 \begin{Rem}
-	Note that this problem is in fact equivalent to the initial \modif{add ref} problem. We only hope that the approximate solution $\tilde{u}$ obtained is more accurate than the approximate solution $u$ obtained by solving the initial problem.
+	Note that this problem is in fact equivalent to the initial problem. We only hope that the approximate solution $\tilde{u}$ obtained is more accurate than the approximate solution $u$ obtained by solving the initial problem.
 \end{Rem}
 Rewriting the problem, we seek to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 \begin{equation}
@@ -171,6 +193,8 @@ and
 \begin{equation*}
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \tilde{f} \Delta(\phi v).
 \end{equation*}
+
+In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous ($tilde{C}=0$ on $\Gamma$).
 
 \begin{Rem}
 	In practice, it may be useful to integrate by parts (IPP) the term containing $\Delta \tilde{\phi}$ (implicitly included in $\tilde{f}$).
@@ -225,7 +249,9 @@ and
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\tilde{\phi} v).
 \end{equation*}
 
-In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in section \modif{add section}. \modif{PAS SURE !}
+In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
+
+\modif{rajouter les formulation}
 
 \subsubsection{Correction by multiplying on an elevated problem} \label{Corr.method.mult_reh}
 
@@ -281,15 +307,19 @@ and
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\phi} v).
 \end{equation*}
 
-In the non-homogeneous case, it is important to impose the edge conditions either by the direct method or by the dual method presented in section \modif{add section}. \modif{PAS SURE !}
+In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for $m\ne 0$), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
+
+\modif{rajouter les formulation}
 
 \begin{Rem}
-	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. \modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.} \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé $\iff$ correction par addition + ajouter document}
+	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. 
 \end{Rem}
 
-\modif{nv sous-section "Theorical result" avec intérêt de rehausser le pb etc et modif sous-section suivante par "Numerical result"}
+\subsection{Theorical results} \label{Corr.theo_results}
 
-\subsection{Different correction results} \label{Corr.results}
+\modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.} \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé $\iff$ correction par addition + ajouter document}
+
+\subsection{Numerical results} \label{Corr.results}
 
 As explained above, we wish to combine $\phi$-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (Section \ref{Corr.methods}). It is important to note that, for practical purposes, almost all the following results obtained with $\phi$-FEM will be compared with those obtained with the standard FEM method.
 
@@ -308,7 +338,7 @@ First, we will look at the correction of an exact solution. In other words, we c
 \end{equation*}
 This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error).
 
-In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction \textit{nb\_vert}=100.
+In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
 
 \begin{Rem}
 	We will consider here only the case of correction by addition (with and without IPP on $\Delta\tilde{\phi}$) as well as the case of correction by multiplication.
@@ -466,6 +496,8 @@ Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle
 	\end{figure} 
 \end{minipage}
 
+\modif{pas forcémenent ici, méthode direct pr pb non homogène + dire on prend $g=u_{ex}*(1+\phi)$}
+
 \paragraph{Results with differents $\epsilon$} \label{Corr.results.disturbed.eps} 
 
 The aim of this section is to test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying $\epsilon$). 
@@ -519,11 +551,13 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 		\end{figure} 
 	\end{minipage}
 	
-	\textbf{\textit{Observation :}} It would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the $\epsilon$), the more efficient the addition and multiplication correction solvers are in terms of accuracy. However, we would like to make a few comments on the results obtained:
+	\textbf{\textit{Observation :}} However, we would like to make a few comments on the results obtained:
 	\begin{itemize}
-		\item First of all, it would appear that, as with the standard FEM and $\phi$-FEM solvers without correction, the more the solution varies (i.e. the larger $f$), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
+		\item  First of all,, it would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the $\epsilon$), the more efficient the addition and multiplication correction solvers are in terms of accuracy.
+		\item Then, it would appear that, as with the standard FEM and $\phi$-FEM solvers without correction, the more the solution varies (i.e. the larger $f$), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
 		\item It would also seem that for $\epsilon=1$ (i.e. a large perturbation), this parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the Section \ref{Corr.results.disturbed.reh}.
 		\item In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.
+		\item There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed $\epsilon$). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem \modif{add ref} (for $m$ large, similar to correction by addition as explained above).
 	\end{itemize}
 	
 	\item \textbf{Results on the non-homogeneous case :}
@@ -743,6 +777,393 @@ In this section, we aim to show numerically the interest of elevating the proble
 \modif{Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
 
 \subsubsection{Correction with FNO} \label{Corr.results.FNO}
+
+\modif{A TRADUIRE !!!}
+
+In this section, we'll consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we'll take an over-refined solution (calculated with FEM) as our reference solution. 
+
+We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we'll follow the steps presented in Section \ref{FNO.application}. In the following, we'll choose an FNO with 4 Fourier layers.
+
+\paragraph{Training the FNO} \label{Corr.results.FNO.Training}
+
+We start by training the FNO with $\phi$-FEM solutions. To do this, we consider a number of training data $n_{data}$ and perform the following steps:
+\begin{enumerate}[label=\textbullet]
+	\item First, we randomly generate a sample of parameters defined by
+	\begin{equation*}
+		\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	with $\sigma \sim \mathcal{U}([0.1,0.6])$ and $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ with the condition $\phi(\mu_0, \mu_1) < -0.05$.
+	
+	\begin{Rem}
+		The condition $\phi(\mu_0, \mu_1) < -0.05$ ensures that the center $(\mu_0, \mu_1)$ of the Gaussian is inside the domain.
+	\end{Rem}
+	
+	From the parameter sample created, we can generate a Gaussian sample defined by
+	\begin{equation*}
+		\{f_i\}_{i=1,\dots,n_{data}}=\left\{\exp\left(-\frac{(x-\mu_0^{(i)})^2 + (y-\mu_1^{(i)})^2}{2(\sigma^{(i)})^2}\right)\right\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	
+	\begin{Rem}
+		As explained in Section \ref{FNO.application}, each Gaussian is in fact evaluated at the nodes of our grid, so they are 2D matrices of size $n_{vert}\times n_{vert}$.
+		
+		We can also consider the degrees of freedom $\mathbb{P}_2$, which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size $n_{dofs}\times n_{dofs}$ (with $n_{dofs}=2n_{vert}-1$). In the following, we'll choose $n_{vert}$=32 and thus $n_{dofs}=63$.
+	\end{Rem}
+	
+	In our case, the geometry is fixed (the circle with center $(0.5,0.5)$ and radius $\sqrt{2}/4$), so we will not have a level-set collection in our training data. Similarly, we choose to consider the homogeneous problem and so, since $g=0$ on $\Gamma$, we won't have a collection of Dirichlet conditions in our training data either.
+	
+	\item We can now use the $\phi$-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in Section \ref{FEMs.PhiFEM.Pres.method} to solve for each $i=1,\dots,n_{data}$, the problem
+	\begin{equation*}
+		\left\{
+		\begin{aligned}
+			-\Delta (\phi w_i) &= f_i, \; &&\text{in } \; \Omega, \\
+			u_i&=0, \; &&\text{on } \; \partial\Omega,
+		\end{aligned}
+		\right.
+	\end{equation*}
+	with $u_i=\phi w_i$.
+	
+	We thus have a collection of $\phi$-FEM solutions of the problem defined by
+	\begin{equation*}
+		\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	
+	\item From the previous collections, we can now create the X\_train and Y\_train samples that will enable us to train the FNO. We'll start by performing a kind of pre-processing on our data (explained in Section \ref{FNO.application}) by normalizing the source term collection. We thus consider
+	\begin{equation*}
+		f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in 1,\dots,n_{data}.
+	\end{equation*}
+	We can now define X\_train as follows
+	\begin{equation*}
+		X\_train =  \left\{f_{i,norm},F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)},F_{i,norm}^{(yy)}\right\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	of size $(n_{data},n_{vert},n_{vert},5)$ where $F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}$ and $F_{i,norm}^{(yy)}$ are respectively the first primitives of $f_{i,norm}$ according to x and y and the second primitives of $f_{i,norm}$ according to x and y.
+	Y\_train can also be constructed as follows
+	\begin{equation*}
+		Y\_train = \{w_i\}_{i=1,\dots,n_{data}}
+	\end{equation*}
+	of size $(n_{data},n_{vert},n_{vert},1)$.
+	
+	\begin{Rem}
+		Considering the term $w$ as training data rather than $u$ ensures that the conditions at the edge will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by $\phi$ guarantees $u=0$ on $\Gamma$. 
+		
+		Similarly, in the non-homogeneous case, we simply multiply the FNO prediction by $\phi$ and then add the Dirichlet condition $g$.
+	\end{Rem}
+	
+	\begin{Rem}
+		In practice, the set defined above is separated into 2 sets: the training set (X\_train,Y\_train), which trains the FNO, and the validation set (X\_val,Y\_val), which validates the training. Together, these two sets contain the $n_{data}$ under consideration. In the following, we'll consider $n_{data}$ to be the size of our separate training set (for 1000 data at the beginning, after separation we have $n_{data}=875$). 
+	\end{Rem}
+	\item We can now train our FNO by minimizing the loss defined by
+	\begin{equation*}
+		loss_\theta = loss_\theta^{(0)} + loss_\theta^{(1)} + loss_\theta^{(2)}
+	\end{equation*}
+	with 
+	\begin{align*}
+		loss_\theta^{(0)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(w_i-w_{\theta,i}) \\
+		loss_\theta^{(1)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_x(w_i)-\nabla_x(w_{\theta,i}))+mse(\nabla_y(w_i)-\nabla_y(w_{\theta,i})) \\
+		loss_\theta^{(2)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}(w_i)-\nabla_{xx}(w_{\theta,i})) + mse(\nabla_{yy}(w_i)-\nabla_{yy}(w_{\theta,i}))
+	\end{align*}
+	where $loss_\theta^{(i)}$ will in practice be called misfit $i$, $i=0,1,2$.
+	\begin{Rem}
+		In practice, it may be more interesting to train the FNO directly on $\phi w$. However, all the results presented here were obtained with loss on w and not $\phi w$.
+	\end{Rem}
+\end{enumerate}
+
+By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (Figure \ref{misfits_f_gaussian}):
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{corr_FNO/misfits_f_gaussienne.png}
+	\caption{Misfits obtained during FNO training by epoch (line - training set, point - validation set).}
+	\label{misfits_f_gaussienne}
+\end{figure}
+
+\textbf{Results on the validation set :}
+
+We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we'll have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (Figure \ref{error_val_f_gaussian}):
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/erreur_val_f_gaussienne.png}
+	\caption{Errors obtained on the validation set at different training checkpoints (every 500 epochs).}
+	\label{erreur_val_f_gaussienne}
+\end{figure} 
+
+Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (Figure \ref{infos_val_f_gaussian}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_val_f_gaussian}):
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{corr_FNO/infos_val_f_gaussienne.png}
+		\caption{Mean, standard deviation, minimum and maximum errors on the validation set according to checkpoints.}
+		\label{infos_val_f_gaussienne}
+	\end{figure} 
+\end{minipage}
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{corr_FNO/boxplot_val_f_gaussienne.png}
+		\caption{Boxplots of the errors on the validation set according to checkpoints.}
+		\label{boxplot_val_f_gaussienne}
+	\end{figure} 
+\end{minipage}
+
+\textbf{Results on a test set :}
+
+This time we're interested in a new test sample of size $n_{test}=100$, denoted X\_test, created in exactly the same way as the training sample (with parameters again created randomly) and we're looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (Figure \ref{error_test_f_gaussian}):
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/erreur_test_f_gaussienne.png}
+	\caption{Errors obtained on the test set at different training checkpoints (every 500 epochs).}
+	\label{erreur_test_f_gaussienne}
+\end{figure} 
+
+Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (Figure \ref{infos_test_f_gaussian}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_test_f_gaussian}):
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{corr_FNO/infos_test_f_gaussienne.png}
+		\caption{Mean, standard deviation, minimum and maximum errors on the test set according to checkpoints.}
+		\label{infos_test_f_gaussienne}
+	\end{figure} 
+\end{minipage}
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{corr_FNO/boxplot_test_f_gaussienne.png}
+		\caption{Boxplots of the errors on the test set according to checkpoints.}
+		\label{boxplot_test_f_gaussienne}
+	\end{figure} 
+\end{minipage}
+
+\textbf{Observation :} \modif{A FAIRE !}
+
+\paragraph{Correction of the FNO prediction} \label{Corr.results.FNO.Corr}
+
+As with the analytical solution and the perturbed solution, the $\phi$-FEM method is used to test the various correction methods presented in Section \ref{Corr.methods} on the test sample (of size $n_{test}=100$) created in Section \ref{Corr.results.FNO.Training}, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider  
+\begin{equation*}
+	\tilde{\phi}=u_{FNO}=\phi w_{FNO}
+\end{equation*}
+with $w_{FNO}$ the prediction made by the FNO on the current data.
+
+\begin{Rem}
+	Note that, unlike correction on analytic or perturbed solutions, the FNO can only predict the solution at points on the regular grid (i.e. nodes or degrees of freedom $\mathbb{P}^2$). At FNO output, we can therefore only provide our correctors with $\tilde{\phi}$ in $\mathbb{P}_2$.
+\end{Rem}
+
+For correction by multiplication on a elevated problem, we use the dual method to impose conditions at the boundary.
+
+Here are the errors obtained with the different correction methods, in addition to those obtained directly at the FNO output, according to the checkpoints (Figure \ref{corr_errors}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/corr_errors.png}
+	\caption{Errors obtained with the FNO and with different correction methods according to checkpoints.}
+	\label{corr_errors}
+\end{figure} 
+
+We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot}):
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{corr_FNO/corr_boxplot.png}
+	\caption{Errors obtained with the FNO and with different correction methods according to checkpoints.}
+	\label{corr_boxplot}
+\end{figure} 
+
+\textbf{Observation :} \modif{A faire !}
+
+\paragraph{High degree interpolation} \label{Corr.results.FNO.Legendre}
+
+As explained in Section \ref{Corr.results.FNO.Corr}, it would seem that considering $\tilde{\phi}$ only in $\mathbb{P}^2$, is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial $\phi$-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a $\mathbb{P}_k$ space of higher degree ($k>2$). To do this, we'll decompose our solution into a series of polynomials, choosing Legendre polynomials.
+
+\textbf{Explanation :}
+
+We want to decompose a function into a series of Legendre polynomials as follows:
+\begin{equation*}
+	f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+	\label{decomp}
+\end{equation*}
+where the Legendre polynomials are defined for all $n\in\mathbb{N}$ and $x\in\mathbb{R}$ by
+\begin{equation*}
+	P_n(x)=\frac{1}{2^n n!}\frac{d^n}{dx^n}[(x^2-1)^n]
+\end{equation*}
+and $P$ and $Q$ are respectively the number of Legendre polynomials associated with $x$ and $y$.
+Note that the Legendre polynomials are orthogonal in the space $L^2(]-1,1[)$ and more precisely $\forall n,m\in\mathbb{N}$,
+\begin{equation*}
+	\langle P_n,P_m\rangle_{L^2(]-1,1[)}=\int_{-1}^1 P_n(x)P_m(x)dx=\frac{2}{2n+1}\delta_{nm}.
+	\label{ortho}
+\end{equation*}
+
+Let us first show that for $p\in\{0,\dots,P-1\}$ and $q\in\{0,\dots,Q-1\}$, the polynomials
+\begin{equation*}
+	Q_{p,q}(x,y)=P_p(x)P_q(y)
+\end{equation*}
+are orthogonal in space $L^2(]-1,1[^2)$ :
+
+\begin{Rem}
+	Numerically, we'll use the trapezoid method to calculate the scalar product on $L^2(]-1,1[^2)$.
+\end{Rem}
+
+Let $p,p'\in\{0,\dots,P-1\}$ and $q,q'\in\{0,\dots,Q-1\}$, then
+
+\begin{align*}
+	\langle Q_{p,q},Q_{p',q'}\rangle_{L^2(]-1,1[^2)}\int_{-1}^1 \int_{-1}^1 Q_{p,q}(x,y)Q_{p',q'}(x,y)dxdy&=\int_{-1}^1 \int_{-1}^1 P_p(x)P_q(y)P_{p'}(x)P_{q'}(y)dxdy \\
+	&=\int_{-1}^1 P_p(x)P_{p'}(x)dx\times \int_{-1}^1 P_q(y)P_{q'}(y)dy \\
+	&=\frac{2}{2p+1}\delta_{pp'}\frac{2}{2q+1}\delta_{qq'} \\
+	&=\frac{4}{(2p+1)(2q+1)}\delta_{(p,q)(p',q')}
+\end{align*}
+
+Thus
+
+\begin{align*}
+	\int_{-1}^1 \int_{-1}^1 f(x,y)Q_{p,q}(x,y)dxdy &= \langle f,Q_{p,q}\rangle_{L^2(]-1,1[^2)} \\
+	&=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q} \langle Q_{p,q},Q_{p',q'}\rangle_{L^2(]-1,1[^2)} \\
+	&=\alpha_{p',q'} \langle Q_{p',q'},Q_{p',q'}\rangle_{L^2(]-1,1[^2)} \\
+\end{align*}
+
+by orthogonality of polynomials $Q_{p,q}$ in  $L^2(]-1,1[^2)$. 
+
+We deduce
+
+$$\alpha_{p',q'} = \frac{\langle f,Q_{p',q'}\rangle_{L^2(]-1,1[^2)}}{\langle Q_{p',q'},Q_{p',q'}\rangle_{L^2(]-1,1[^2)}}=\frac{(2p'+1)(2q'+1)}{4}\langle f,Q_{p',q'}\rangle_{L^2(]-1,1[^2)}$$
+
+\begin{Rem}
+	For $x\in[a,b]$, we make a change of variable to bring us back to the interval $[-1,1]$ by considering
+	\begin{equation*}
+		\tilde{x}=\frac{2}{b-a}x+\frac{a+b}{a-b}
+	\end{equation*}
+\end{Rem}
+
+So, assuming that the function $f$ is evaluated on a regular grid, of domain $\mathcal{O}$, of size $N\times N$ (which corresponds to the type of output we get from FNO), then we can calculate the coefficients $\alpha_{p,q}$ for $p\in\{0,\dots,P-1\}$ and $q\in\{0,\dots,Q-1\}$. This gives us an analytical expression for the function corresponding to a series of Legendre polynomials, enabling us to interpolate our function in all $x,y\in\Omega$.
+
+\textbf{Decomposition of an analytical function into a Legendre polynomial series :}
+
+We want to test Legendre's polynomial series decomposition on the following analytical function
+\begin{equation*}
+	f(x,y)=\exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)
+\end{equation*}
+with $x,y\in [0,1]$, $\mu=0$ and $\sigma=1$.
+
+\begin{Rem}
+	In practice, with the FNO, it's $u$ that we want to interpolate (for which we don't have an analytical expression) and not $f$.
+\end{Rem}
+
+Let's take $P=Q=5$ and consider the evaluation of $f$ on a regular $N\times N$ grid of $[0,1]^2$ with $N=100$. After calculating the coefficients $\alpha_{p,q}$ for $p\in \{0,\dots,P-1\}$ and $q\in \{0,\dots,Q-1\}$, we can evaluate the expression
+\begin{equation*}
+	f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+\end{equation*}
+at any point $x,y\in[0,1]$. Considering, for example, a new regular grid of size $N_2\times N_2$ of $[0,1]^2$ with $N_2=500$, we obtain an error $||\cdot||_0$ between the analytical solution and the expression of the solution in a series of Legendre polynomials of $8.1e-4$ (Figure \ref{legendre_ana}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{corr_FNO/legendre_ana.png}
+	\caption{Reconstruction of the solution by Legendre polynomials on a new grid of size $500\times 500$.}
+	\label{legendre_ana}
+\end{figure} 
+
+\textbf{Decomposition of the FNO predictions into a Legendre polynomial series :}
+
+We will again consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ as being a Gaussian. We again consider the sample $X\_test$ (of size $n_{test}=100$) but this time with $n_{vert}=300$ (and therefore $n_{dofs}=599$) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output $w_{\theta,i}$, $i=1,\dots,n_{test}$ into a series of Legendre polynomials, defined by
+\begin{equation*}
+	w_{\theta,i}(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+\end{equation*}
+and thus
+\begin{equation*}
+	u_{\theta,i}=\phi(x,y)w_{\theta,i}(x,y).
+\end{equation*}
+
+\begin{Rem}
+	Note that each data in the test sample has its own decomposition.
+\end{Rem}
+
+In the following, we'll consider $P=Q$ and test the decomposition for $P=4$, $P=6$ and $P=8$ on each data of the test sample and at each checkpoint considered. First, we'll look at the mean error made by the decomposition into a series of Legendre polynomials, which we'll call the mean reconstruction error (Figure \ref{mean_error_reconstruction}). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom $\mathbb{P}_2$, denoted W\_pred (of size $(n_{test},n_{dofs},n_{dofs})$). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom $\mathbb{P}_2$, denoted W\_pred\_reconstruct (of size $(n_{test},n_{dofs},n_{dofs})$), then we calculate the error
+\begin{center}
+	 mean\_error\_reconstruction = $||$W\_pred-W\_pred\_reconstruct$||_{0,\mathcal{O}}$
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/mean_error_reconstruction.png}
+	\caption{Mean reconstruction error for each data in test set (at each checkpoint).}
+	\label{mean_error_reconstruction}
+\end{figure} 
+
+Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.
+
+We can now look at the maximum error made by the Legendre polynomial series decomposition, which we'll call the maximum reconstruction error (Figure \ref{max_error_reconstruction}), which is the error defined by
+\begin{center}
+	max\_error\_reconstruction = $\max|$W\_pred-W\_pred\_reconstruct$|$
+\end{center}
+This will allow us to see if there are any error spikes at certain points.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/max_error_reconstruction.png}
+	\caption{Maximal reconstruction error for each data in test set (at each checkpoint).}
+	\label{max_error_reconstruction}
+\end{figure} 
+
+We can also display solutions in the case of an example (Figure \ref{example_w}). We'll take the first data item from the first checkpoint to compare W\_pred and W\_pred\_reconstruct.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/example_w.png}
+	\caption{Example of result on $w$ (first data from first checkpoint).}
+	\label{example_w}
+\end{figure} 
+
+It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the $u$ solution, rather than $w$, and consider it on the circle only. To do this, we multiply the predicted solution by $\phi$ and apply a mask ( equal to 1 on the domain and 0 outside). We're then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (Figure \ref{mean_error_solution}), defined by
+\begin{center}
+	mean\_error\_solution = $||$(W\_pred-W\_pred\_reconstruct)$\times\phi||_{0,\Omega}$
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/mean_error_solution.png}
+	\caption{Mean solution error for each data in test set (at each checkpoint).}
+	\label{mean_error_solution}
+\end{figure} 
+
+Then we also look at the maximum error on the solution (Figure \ref{max_error_solution}), defined by
+\begin{center}
+	max\_error\_solution = $\max_\Omega|$W\_pred-W\_pred\_reconstruct$|\times\phi$
+\end{center}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/max_error_solution.png}
+	\caption{Max solution error for each data in test set (at each checkpoint).}
+	\label{max_error_solution}
+\end{figure} 
+
+We can then compare the solution with the one reconstructed by the series decomposition of Legendre polynomials on the same example (Figure \ref{example_y_mask}).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/example_y_mask.png}
+	\caption{Example of result on $y$ (first data from first checkpoint).}
+	\label{example_y_mask}
+\end{figure} 
+
+We can therefore see that it was more interesting to decompose into a series of Legendre polynomials $w$ and then multiply by $\phi$, rather than considering $u$ directly.
+
+\textbf{Correction with the evaluation of the legendre decomposition :}
+
+We have now recovered the $\alpha_{p,q}$ coefficients for each data item in the test sample and at each checkpoint. We'll try applying the multiplication correction by taking 
+\begin{equation*}
+	\tilde{\phi}(x,y)=\left(\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q} P_p(x)P_q(y)\right)\times \phi(x,y)
+\end{equation*}
+where $x,y$ are the degrees of freedom associated with $\mathbb{P}^k$ with $k$ large enough.
+
+For each data item at each checkpoint, we'll compare the following errors (Figure \ref{FNO_corr_Pk}): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with $\tilde{\phi}$ in $\mathbb{P}_2$ without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for $k=3$ and $k=5$. To do this, we'll simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom $\mathbb{P}_k$ (for $k=3$ and $k=5$). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{corr_FNO/FNO_corr_Pk.png}
+	\caption{Correction by multuiplication with $tild{\phi}$ of high degree.}
+	\label{FNO_corr_Pk}
+\end{figure} 
+
+At this stage, the error generated by the decomposition into Legendre polynomial series is probably affecting the correction too much. For this reason, we have not pursued this approach.
 
 \subsubsection{Correction with other networks} \label{Corr.results.neural_net}
 

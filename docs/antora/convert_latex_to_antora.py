@@ -2,6 +2,8 @@ import numpy as np
 import os
 import shutil
 
+check_while = False
+
 """
 But : Convertir un fichier latex en une documentation antora complète
 """
@@ -257,6 +259,7 @@ def cp_section(section_file,sections,label_sections):
     subsection_file = None
     first_minipage=True
     minipage_width = 1.
+    bf_and_it = False
     while line := file_read.readline():
         if search_word_in_line("\section", line):
             section = line.split("{")[1].split("}")[0]
@@ -358,7 +361,7 @@ def cp_section(section_file,sections,label_sections):
                             line = line[1:]
                         caption = line.replace("\captionof{figure}{","")[:-2]+"\n"
                     else:
-                        caption = line.split("{")[2].split("}")[0]
+                        caption = line.split("{")[1].split("}")[0]
                     caption = test_latex_title(caption)
                     
                 if search_word_in_line("\label", line):
@@ -411,21 +414,25 @@ def cp_section(section_file,sections,label_sections):
 
         ref,test= test_fig(line)
         while test:
+            if check_while:
+                print("while 1")
             name_label_fig = line.split(ref+"{")[1].split("}")[0]
             line = line.replace(ref+"{"+name_label_fig+"}","<<"+name_label_fig+">>")
             ref,test = test_fig(line)
 
         ref,test = test_section(line)
         while test:
+            if check_while:
+                print("while 2")
             name_label_sec = line.split(ref+"{")[1].split("}")[0]
             label = label_sections[name_label_sec]
             print(label)
             if "xref" in label and "" in label:
                 if subsubsections!=[]:
-                    print("xref")
+                    # print("xref")
                     line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label["xref"][0]+".adoc"+"[Section \""+label["xref"][1]+"\"]")
                 else:
-                    print("")
+                    # print("")
                     line = line.replace(ref+"{"+name_label_sec+"}","<<"+label[""]+">>")
             elif "xref" in label:
                 line = line.replace(ref+"{"+name_label_sec+"}","xref:"+label["xref"][0]+".adoc"+"[Section \""+label["xref"][1]+"\"]")
@@ -441,17 +448,36 @@ def cp_section(section_file,sections,label_sections):
             line = line.replace("\_","_")
 
         while search_word_in_line("\href",line):
+            if check_while:
+                print("while 3")
             url = line.split("{")[1].split("}")[0]
             text = line.split("{")[2].split("}")[0]
             line = line.replace("\href{"+url+"}{"+text+"}",url+"["+text+"]")
 
-        while search_word_in_line("\\textbf",line):
-            sentence = line.split("\\textbf")[1].split("{")[1].split("}")[0]
-            line = line.replace("\\textbf{"+sentence+"}","*"+sentence+"*")
-
-        while search_word_in_line("\\textit",line):
+        while search_word_in_line("\\textbf{\\textit",line):
+            bf_and_it = True
             sentence = line.split("\\textit")[1].split("{")[1].split("}")[0]
-            line = line.replace("\\textit{"+sentence+"}","_"+sentence+"_")
+            line = line.replace("\\textbf{\\textit{"+sentence+"}}","*_"+sentence+"_*")
+
+        while search_word_in_line("\\textit{\\textbf",line):
+            bf_and_it = True
+            sentence = line.split("\\textbf")[1].split("{")[1].split("}")[0]
+            line = line.replace("\\textit{\\textbf{"+sentence+"}}","*_"+sentence+"_*")
+
+        if bf_and_it:
+            bf_and_it=False
+        else:
+            while search_word_in_line("\\textbf",line):
+                if check_while:
+                    print("while 4")
+                sentence = line.split("\\textbf")[1].split("{")[1].split("}")[0]
+                line = line.replace("\\textbf{"+sentence+"}","*"+sentence+"*")
+
+            while search_word_in_line("\\textit",line):
+                if check_while:
+                    print("while 5")
+                sentence = line.split("\\textit")[1].split("{")[1].split("}")[0]
+                line = line.replace("\\textit{"+sentence+"}","_"+sentence+"_")
 
         if search_word_in_line("\\begin{Prop}",line):
             if search_word_in_line("[",line):
