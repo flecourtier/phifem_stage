@@ -1,0 +1,388 @@
+:stem: latexmath
+:xrefstyle: short
+= Correction with FNO
+
+#A TRADUIRE !!!#
+
+In this section, we'll consider the problem presented in <<_stem:[f]_gaussian>>, where we take as geometry the circle and stem:[f] Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we'll take an over-refined solution (calculated with FEM) as our reference solution. 
+
+We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we'll follow the steps presented in xref:fourier/subsec_3.adoc[Section "Application"]. In the following, we'll choose an FNO with 4 Fourier layers.
+
+== Training the FNO
+
+We start by training the FNO with stem:[\phi]-FEM solutions. To do this, we consider a number of training data stem:[n_{data}] and perform the following steps:
+
+*  First, we randomly generate a sample of parameters defined by
+[stem]
+++++
+\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\}_{i=1,\dots,n_{data}}
+++++
+with stem:[\sigma \sim \mathcal{U}([0.1,0.6])] and stem:[\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])] with the condition stem:[\phi(\mu_0, \mu_1) < -0.05].
+
+
+[NOTE]
+====
+The condition stem:[\phi(\mu_0, \mu_1) < -0.05] ensures that the center stem:[(\mu_0, \mu_1)] of the Gaussian is inside the domain.
+====
+
+From the parameter sample created, we can generate a Gaussian sample defined by
+[stem]
+++++
+\{f_i\}_{i=1,\dots,n_{data}}=\left\{\exp\left(-\frac{(x-\mu_0^{(i)})^2 + (y-\mu_1^{(i)})^2}{2(\sigma^{(i)})^2}\right)\right\}_{i=1,\dots,n_{data}}
+++++
+
+
+[NOTE]
+====
+As explained in xref:fourier/subsec_3.adoc[Section "Application"], each Gaussian is in fact evaluated at the nodes of our grid, so they are 2D matrices of size stem:[n_{vert}\times n_{vert}].
+
+We can also consider the degrees of freedom stem:[\mathbb{P}_2], which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size stem:[n_{dofs}\times n_{dofs}] (with stem:[n_{dofs}=2n_{vert}-1]). In the following, we'll choose stem:[n_{vert}]=32 and thus stem:[n_{dofs}=63].
+====
+
+In our case, the geometry is fixed (the circle with center stem:[(0.5,0.5)] and radius stem:[\sqrt{2}/4]), so we will not have a level-set collection in our training data. Similarly, we choose to consider the homogeneous problem and so, since stem:[g=0] on stem:[\Gamma], we won't have a collection of Dirichlet conditions in our training data either.
+
+*  We can now use the stem:[\phi]-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in <<_description_of_the_stem:[\phi]-fem_method>> to solve for each stem:[i=1,\dots,n_{data}], the problem
+[stem]
+++++
+\left\{
+\begin{aligned}
+-\Delta (\phi w_i) &= f_i, \; &&\text{in } \; \Omega, \\
+u_i&=0, \; &&\text{on } \; \partial\Omega,
+\end{aligned}
+\right.
+++++
+with stem:[u_i=\phi w_i].
+
+We thus have a collection of stem:[\phi]-FEM solutions of the problem defined by
+[stem]
+++++
+\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}
+++++
+
+*  From the previous collections, we can now create the X_train and Y_train samples that will enable us to train the FNO. We'll start by performing a kind of pre-processing on our data (explained in xref:fourier/subsec_3.adoc[Section "Application"]) by normalizing the source term collection. We thus consider
+[stem]
+++++
+f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in 1,\dots,n_{data}.
+++++
+We can now define X_train as follows
+[stem]
+++++
+X_train =  \left\{f_{i,norm},F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)},F_{i,norm}^{(yy)}\right\}_{i=1,\dots,n_{data}}
+++++
+of size stem:[(n_{data},n_{vert},n_{vert},5)] where stem:[F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}] and stem:[F_{i,norm}^{(yy)}] are respectively the first primitives of stem:[f_{i,norm}] according to x and y and the second primitives of stem:[f_{i,norm}] according to x and y.
+Y_train can also be constructed as follows
+[stem]
+++++
+Y_train = \{w_i\}_{i=1,\dots,n_{data}}
+++++
+of size stem:[(n_{data},n_{vert},n_{vert},1)].
+
+
+[NOTE]
+====
+Considering the term stem:[w] as training data rather than stem:[u] ensures that the conditions at the edge will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by stem:[\phi] guarantees stem:[u=0] on stem:[\Gamma]. 
+
+Similarly, in the non-homogeneous case, we simply multiply the FNO prediction by stem:[\phi] and then add the Dirichlet condition stem:[g].
+====
+
+
+[NOTE]
+====
+In practice, the set defined above is separated into 2 sets: the training set (X_train,Y_train), which trains the FNO, and the validation set (X_val,Y_val), which validates the training. Together, these two sets contain the stem:[n_{data}] under consideration. In the following, we'll consider stem:[n_{data}] to be the size of our separate training set (for 1000 data at the beginning, after separation we have stem:[n_{data}=875]). 
+====
+*  We can now train our FNO by minimizing the loss defined by
+[stem]
+++++
+loss_\theta = loss_\theta^{(0)} + loss_\theta^{(1)} + loss_\theta^{(2)}
+++++
+with 
+[stem]
+++++
+\begin{aligned}
+loss_\theta^{(0)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(w_i-w_{\theta,i}) \\
+loss_\theta^{(1)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_x(w_i)-\nabla_x(w_{\theta,i}))+mse(\nabla_y(w_i)-\nabla_y(w_{\theta,i})) \\
+loss_\theta^{(2)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}(w_i)-\nabla_{xx}(w_{\theta,i})) + mse(\nabla_{yy}(w_i)-\nabla_{yy}(w_{\theta,i}))
+\end{aligned}
+++++
+where stem:[loss_\theta^{(i)}] will in practice be called misfit stem:[i], stem:[i=0,1,2].
+
+[NOTE]
+====
+In practice, it may be more interesting to train the FNO directly on stem:[\phi w]. However, all the results presented here were obtained with loss on w and not stem:[\phi w].
+====
+
+
+By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (<<misfits_f_gaussian>>):
+
+[[misfits_f_gaussienne]]
+.Misfits obtained during FNO training by epoch (line - training set, point - validation set).
+image::corr/orr_FNO/misfits_f_gaussienne.pn[width=360.0,height=288.0]
+
+*Results on the validation set :*
+
+We're interested here in the stem:[||\cdot||_{0,abs}] errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we'll have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (<<error_val_f_gaussian>>):
+
+[[erreur_val_f_gaussienne]]
+.Errors obtained on the validation set at different training checkpoints (every 500 epochs).
+image::corr/orr_FNO/erreur_val_f_gaussienne.pn[width=540.0,height=432.0]
+
+Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (<<infos_val_f_gaussian>>), as well as the boxplots of the errors at each checkpoint (<<boxplot_val_f_gaussian>>):
+
+[cols="a,a"]
+|===
+|[[infos_val_f_gaussienne]]
+.Mean, standard deviation, minimum and maximum errors on the validation set according to checkpoints.
+image::corr/orr_FNO/infos_val_f_gaussienne.pn[width=270.0,height=216.0]
+|[[boxplot_val_f_gaussienne]]
+.Boxplots of the errors on the validation set according to checkpoints.
+image::corr/orr_FNO/boxplot_val_f_gaussienne.pn[width=270.0,height=216.0]
+
+|===
+
+*Results on a test set :*
+
+This time we're interested in a new test sample of size stem:[n_{test}=100], denoted X_test, created in exactly the same way as the training sample (with parameters again created randomly) and we're looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (<<error_test_f_gaussian>>):
+
+[[erreur_test_f_gaussienne]]
+.Errors obtained on the test set at different training checkpoints (every 500 epochs).
+image::corr/orr_FNO/erreur_test_f_gaussienne.pn[width=540.0,height=432.0]
+
+Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (<<infos_test_f_gaussian>>), as well as the boxplots of the errors at each checkpoint (<<boxplot_test_f_gaussian>>):
+
+[cols="a,a"]
+|===
+|[[infos_test_f_gaussienne]]
+.Mean, standard deviation, minimum and maximum errors on the test set according to checkpoints.
+image::corr/orr_FNO/infos_test_f_gaussienne.pn[width=270.0,height=216.0]
+|[[boxplot_test_f_gaussienne]]
+.Boxplots of the errors on the test set according to checkpoints.
+image::corr/orr_FNO/boxplot_test_f_gaussienne.pn[width=270.0,height=216.0]
+
+|===
+
+*Observation :* #A FAIRE !#
+
+== Correction of the FNO prediction
+
+As with the analytical solution and the perturbed solution, the stem:[\phi]-FEM method is used to test the various correction methods presented in xref:corr/subsec_1.adoc[Section "Presentation of the different correction methods considered"] on the test sample (of size stem:[n_{test}=100]) created in <<_training_the_fno>>, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider  
+[stem]
+++++
+\tilde{\phi}=u_{FNO}=\phi w_{FNO}
+++++
+with stem:[w_{FNO}] the prediction made by the FNO on the current data.
+
+
+[NOTE]
+====
+Note that, unlike correction on analytic or perturbed solutions, the FNO can only predict the solution at points on the regular grid (i.e. nodes or degrees of freedom stem:[\mathbb{P}^2]). At FNO output, we can therefore only provide our correctors with stem:[\tilde{\phi}] in stem:[\mathbb{P}_2].
+====
+
+For correction by multiplication on a elevated problem, we use the dual method to impose conditions at the boundary.
+
+Here are the errors obtained with the different correction methods, in addition to those obtained directly at the FNO output, according to the checkpoints (<<corr_errors>>).
+
+[[corr_errors]]
+.Errors obtained with the FNO and with different correction methods according to checkpoints.
+image::corr/orr_FNO/corr_errors.pn[width=540.0,height=432.0]
+
+We can also plot the error boxplots at each checkpoint (<<corr_boxplot>>):
+
+[[corr_boxplot]]
+.Errors obtained with the FNO and with different correction methods according to checkpoints.
+image::corr/orr_FNO/corr_boxplot.pn[width=360.0,height=288.0]
+
+*Observation :* #A faire !#
+
+== High degree interpolation
+
+As explained in <<_correction_of_the_fno_prediction>>, it would seem that considering stem:[\tilde{\phi}] only in stem:[\mathbb{P}^2], is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial stem:[\phi]-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a stem:[\mathbb{P}_k] space of higher degree (stem:[k>2]). To do this, we'll decompose our solution into a series of polynomials, choosing Legendre polynomials.
+
+*Explanation :*
+
+We want to decompose a function into a series of Legendre polynomials as follows:
+[stem]
+++++
+f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+\label{decomp}
+++++
+where the Legendre polynomials are defined for all stem:[n\in\mathbb{N}] and stem:[x\in\mathbb{R}] by
+[stem]
+++++
+P_n(x)=\frac{1}{2^n n!}\frac{d^n}{dx^n}[(x^2-1)^n]
+++++
+and stem:[P] and stem:[Q] are respectively the number of Legendre polynomials associated with stem:[x] and stem:[y].
+Note that the Legendre polynomials are orthogonal in the space stem:[L^2(]-1,1[)] and more precisely stem:[\forall n,m\in\mathbb{N}],
+[stem]
+++++
+\langle P_n,P_m\rangle_{L^2(]-1,1[)}=\int_{-1}^1 P_n(x)P_m(x)dx=\frac{2}{2n+1}\delta_{nm}.
+\label{ortho}
+++++
+
+Let us first show that for stem:[p\in\{0,\dots,P-1\}] and stem:[q\in\{0,\dots,Q-1\}], the polynomials
+[stem]
+++++
+Q_{p,q}(x,y)=P_p(x)P_q(y)
+++++
+are orthogonal in space stem:[L^2(]-1,1[^2)] :
+
+
+[NOTE]
+====
+Numerically, we'll use the trapezoid method to calculate the scalar product on stem:[L^2(]-1,1[^2)].
+====
+
+Let stem:[p,p'\in\{0,\dots,P-1\}] and stem:[q,q'\in\{0,\dots,Q-1\}], then
+
+[stem]
+++++
+\begin{aligned}
+\langle Q_{p,q},Q_{p',q'}\rangle_{L^2(]-1,1[^2)}\int_{-1}^1 \int_{-1}^1 Q_{p,q}(x,y)Q_{p',q'}(x,y)dxdy&=\int_{-1}^1 \int_{-1}^1 P_p(x)P_q(y)P_{p'}(x)P_{q'}(y)dxdy \\
+&=\int_{-1}^1 P_p(x)P_{p'}(x)dx\times \int_{-1}^1 P_q(y)P_{q'}(y)dy \\
+&=\frac{2}{2p+1}\delta_{pp'}\frac{2}{2q+1}\delta_{qq'} \\
+&=\frac{4}{(2p+1)(2q+1)}\delta_{(p,q)(p',q')}
+\end{aligned}
+++++
+
+Thus
+
+[stem]
+++++
+\begin{aligned}
+\int_{-1}^1 \int_{-1}^1 f(x,y)Q_{p,q}(x,y)dxdy &= \langle f,Q_{p,q}\rangle_{L^2(]-1,1[^2)} \\
+&=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q} \langle Q_{p,q},Q_{p',q'}\rangle_{L^2(]-1,1[^2)} \\
+&=\alpha_{p',q'} \langle Q_{p',q'},Q_{p',q'}\rangle_{L^2(]-1,1[^2)} \\
+\end{aligned}
+++++
+
+by orthogonality of polynomials stem:[Q_{p,q}] in  stem:[L^2(]-1,1[^2)]. 
+
+We deduce
+
+stem:[]\alpha_{p',q'} = \frac{\langle f,Q_{p',q'}\rangle_{L^2(]-1,1[^2)}}{\langle Q_{p',q'},Q_{p',q'}\rangle_{L^2(]-1,1[^2)}}=\frac{(2p'+1)(2q'+1)}{4}\langle f,Q_{p',q'}\rangle_{L^2(]-1,1[^2)}stem:[]
+
+
+[NOTE]
+====
+For stem:[x\in[a,b]], we make a change of variable to bring us back to the interval stem:[[-1,1]] by considering
+[stem]
+++++
+\tilde{x}=\frac{2}{b-a}x+\frac{a+b}{a-b}
+++++
+====
+
+So, assuming that the function stem:[f] is evaluated on a regular grid, of domain stem:[\mathcal{O}], of size stem:[N\times N] (which corresponds to the type of output we get from FNO), then we can calculate the coefficients stem:[\alpha_{p,q}] for stem:[p\in\{0,\dots,P-1\}] and stem:[q\in\{0,\dots,Q-1\}]. This gives us an analytical expression for the function corresponding to a series of Legendre polynomials, enabling us to interpolate our function in all stem:[x,y\in\Omega].
+
+*Decomposition of an analytical function into a Legendre polynomial series :*
+
+We want to test Legendre's polynomial series decomposition on the following analytical function
+[stem]
+++++
+f(x,y)=\exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)
+++++
+with stem:[x,y\in [0,1]], stem:[\mu=0] and stem:[\sigma=1].
+
+
+[NOTE]
+====
+In practice, with the FNO, it's stem:[u] that we want to interpolate (for which we don't have an analytical expression) and not stem:[f].
+====
+
+Let's take stem:[P=Q=5] and consider the evaluation of stem:[f] on a regular stem:[N\times N] grid of stem:[[0,1]^2] with stem:[N=100]. After calculating the coefficients stem:[\alpha_{p,q}] for stem:[p\in \{0,\dots,P-1\}] and stem:[q\in \{0,\dots,Q-1\}], we can evaluate the expression
+[stem]
+++++
+f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+++++
+at any point stem:[x,y\in[0,1]]. Considering, for example, a new regular grid of size stem:[N_2\times N_2] of stem:[[0,1]^2] with stem:[N_2=500], we obtain an error stem:[||\cdot||_0] between the analytical solution and the expression of the solution in a series of Legendre polynomials of stem:[8.1e-4] (<<legendre_ana>>).
+
+[[legendre_ana]]
+.Reconstruction of the solution by Legendre polynomials on a new grid of size stem:[500\times 500].
+image::corr/orr_FNO/legendre_ana.pn[width=360.0,height=288.0]
+
+*Decomposition of the FNO predictions into a Legendre polynomial series :*
+
+We will again consider the problem presented in <<_stem:[f]_gaussian>>, where we take as geometry the circle and stem:[f] as being a Gaussian. We again consider the sample stem:[X_test] (of size stem:[n_{test}=100]) but this time with stem:[n_{vert}=300] (and therefore stem:[n_{dofs}=599]) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output stem:[w_{\theta,i}], stem:[i=1,\dots,n_{test}] into a series of Legendre polynomials, defined by
+[stem]
+++++
+w_{\theta,i}(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
+++++
+and thus
+[stem]
+++++
+u_{\theta,i}=\phi(x,y)w_{\theta,i}(x,y).
+++++
+
+
+[NOTE]
+====
+Note that each data in the test sample has its own decomposition.
+====
+
+In the following, we'll consider stem:[P=Q] and test the decomposition for stem:[P=4], stem:[P=6] and stem:[P=8] on each data of the test sample and at each checkpoint considered. First, we'll look at the mean error made by the decomposition into a series of Legendre polynomials, which we'll call the mean reconstruction error (<<mean_error_reconstruction>>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom stem:[\mathbb{P}_2], denoted W_pred (of size stem:[(n_{test},n_{dofs},n_{dofs})]). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom stem:[\mathbb{P}_2], denoted W_pred_reconstruct (of size stem:[(n_{test},n_{dofs},n_{dofs})]), then we calculate the error
+\begin{center}
+ mean_error_reconstruction = stem:[||]W_pred-W_pred_reconstructstem:[||_{0,\mathcal{O}}]
+\end{center}
+
+[[mean_error_reconstruction]]
+.Mean reconstruction error for each data in test set (at each checkpoint).
+image::corr/orr_FNO/mean_error_reconstruction.pn[width=540.0,height=432.0]
+
+Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.
+
+We can now look at the maximum error made by the Legendre polynomial series decomposition, which we'll call the maximum reconstruction error (<<max_error_reconstruction>>), which is the error defined by
+\begin{center}
+max_error_reconstruction = stem:[\max|]W_pred-W_pred_reconstructstem:[|]
+\end{center}
+This will allow us to see if there are any error spikes at certain points.
+
+[[max_error_reconstruction]]
+.Maximal reconstruction error for each data in test set (at each checkpoint).
+image::corr/orr_FNO/max_error_reconstruction.pn[width=540.0,height=432.0]
+
+We can also display solutions in the case of an example (<<example_w>>). We'll take the first data item from the first checkpoint to compare W_pred and W_pred_reconstruct.
+
+[[example_w]]
+.Example of result on stem:[w] (first data from first checkpoint).
+image::corr/orr_FNO/example_w.pn[width=540.0,height=432.0]
+
+It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the stem:[u] solution, rather than stem:[w], and consider it on the circle only. To do this, we multiply the predicted solution by stem:[\phi] and apply a mask ( equal to 1 on the domain and 0 outside). We're then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (<<mean_error_solution>>), defined by
+\begin{center}
+mean_error_solution = stem:[||](W_pred-W_pred_reconstruct)stem:[\times\phi||_{0,\Omega}]
+\end{center}
+
+[[mean_error_solution]]
+.Mean solution error for each data in test set (at each checkpoint).
+image::corr/orr_FNO/mean_error_solution.pn[width=540.0,height=432.0]
+
+Then we also look at the maximum error on the solution (<<max_error_solution>>), defined by
+\begin{center}
+max_error_solution = stem:[\max_\Omega|]W_pred-W_pred_reconstructstem:[|\times\phi]
+\end{center}
+
+[[max_error_solution]]
+.Max solution error for each data in test set (at each checkpoint).
+image::corr/orr_FNO/max_error_solution.pn[width=540.0,height=432.0]
+
+We can then compare the solution with the one reconstructed by the series decomposition of Legendre polynomials on the same example (<<example_y_mask>>).
+[[example_y_mask]]
+.Example of result on stem:[y] (first data from first checkpoint).
+image::corr/orr_FNO/example_y_mask.pn[width=540.0,height=432.0]
+
+We can therefore see that it was more interesting to decompose into a series of Legendre polynomials stem:[w] and then multiply by stem:[\phi], rather than considering stem:[u] directly.
+
+*Correction with the evaluation of the legendre decomposition :*
+
+We have now recovered the stem:[\alpha_{p,q}] coefficients for each data item in the test sample and at each checkpoint. We'll try applying the multiplication correction by taking 
+[stem]
+++++
+\tilde{\phi}(x,y)=\left(\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q} P_p(x)P_q(y)\right)\times \phi(x,y)
+++++
+where stem:[x,y] are the degrees of freedom associated with stem:[\mathbb{P}^k] with stem:[k] large enough.
+
+For each data item at each checkpoint, we'll compare the following errors (<<FNO_corr_Pk>>): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with stem:[\tilde{\phi}] in stem:[\mathbb{P}_2] without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for stem:[k=3] and stem:[k=5]. To do this, we'll simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom stem:[\mathbb{P}_k] (for stem:[k=3] and stem:[k=5]). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).
+
+[[FNO_corr_Pk]]
+.Correction by multuiplication with stem:[tild
+image::corr/orr_FNO/FNO_corr_Pk.pn[width=540.0,height=432.0]
+
+At this stage, the error generated by the decomposition into Legendre polynomial series is probably affecting the correction too much. For this reason, we have not pursued this approach.
+

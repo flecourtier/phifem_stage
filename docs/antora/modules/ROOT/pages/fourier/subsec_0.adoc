@@ -5,7 +5,7 @@
 The following figure (<<FNO_schema>>) describes the FNO architecture in detail:
 
 [[FNO_schema]]
-.Architecture of the FNO.
+.figure
 image::fourier/fno_schema.png[width=600.0,height=480.0]
 
 The architecture of the FNO is as follows:

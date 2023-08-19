@@ -62,11 +62,13 @@ and
 G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\phi} v).
 ++++
 
-In the non-homogeneous case, it is important to impose the edge conditions either by the direct method or by the dual method presented in section #add section#. \modif{PAS SURE !}
+In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for stem:[m\ne 0]), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in <<_non-homogeneous_case>>.
+
+#rajouter les formulation#
 
 
 [NOTE]
 ====
-Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose a problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}]. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. #En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.# \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé stem:[\iff] correction par addition + ajouter document}
+Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose a problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}]. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. 
 ====
 

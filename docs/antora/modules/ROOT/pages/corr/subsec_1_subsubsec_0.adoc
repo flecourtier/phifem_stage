@@ -18,7 +18,7 @@ and we want to find stem:[\tilde{C}: \Omega \rightarrow \mathbb{R}^d] solution t
 
 [NOTE]
 ====
-Note that this problem is in fact equivalent to the initial #add ref# problem. We only hope that the approximate solution stem:[\tilde{u}] obtained is more accurate than the approximate solution stem:[u] obtained by solving the initial problem.
+Note that this problem is in fact equivalent to the initial problem. We only hope that the approximate solution stem:[\tilde{u}] obtained is more accurate than the approximate solution stem:[u] obtained by solving the initial problem.
 ====
 Rewriting the problem, we seek to find stem:[\tilde{C}: \Omega \rightarrow \mathbb{R}^d] solution to the problem
 [stem]
@@ -54,9 +54,22 @@ and
 G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \tilde{f} \Delta(\phi v).
 ++++
 
+In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous (stem:[tilde{C}=0] on stem:[\Gamma]).
+
 
 [NOTE]
 ====
-In practice, it may be useful to integrate by parts (IPP) the term containing stem:[\Delta \tilde{\phi}] (implicitly included in stem:[\tilde{f}]). #expliciter !#
+In practice, it may be useful to integrate by parts (IPP) the term containing stem:[\Delta \tilde{\phi}] (implicitly included in stem:[\tilde{f}]).
+
+So for FEM, as stem:[v\in H_0^1(\Omega)], we have
+[stem]
+++++
+\int_\Omega \tilde{f}v=\int_\Omega fv+\int_\Omega \Delta\tilde{\phi}v=\int_\Omega fv-\int_\Omega \nabla\tilde{\phi}\cdot\nabla v.
+++++
+For stem:[\phi]-FEM, we have
+[stem]
+++++
+\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.
+++++
 ====
 

@@ -39,10 +39,20 @@ Note that for stem:[\varphi=0], the Dirichlet conditions considered are then hom
 
 #ajouter image solution et f#
 
-#ajouter les autres cas tests : f gaussienne...#
-
 == stem:[f] Gaussian
+
+In the case considered here, no analytical solution is known. We consider the source term stem:[f] to be a Gaussian defined by
 [stem]
 ++++
+f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
 ++++
+with stem:[\sigma \sim \mathcal{U}([0.1,0.6])] and stem:[\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])] with the condition stem:[\phi(\mu_0, \mu_1) < -0.05].
+
+ince we don't have an exact solution, we'll consider a so-called reference solution, denoted stem:[u_{ref}]. This reference solution is defined as an over-refined stem:[\mathbb{P}^1] solution obtained by the standard FEM method (with stem:[h_{ref}\approx 0.006]). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
+
+
+[NOTE]
+====
+For this problem, we choose to consider only the homogeneous case, i.e. we take stem:[g=0] on stem:[\Gamma].
+====
 

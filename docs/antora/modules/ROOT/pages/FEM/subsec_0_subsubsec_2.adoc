@@ -160,7 +160,7 @@ Let stem:[(\hat{K},\hat{\Sigma},\hat{P})] and stem:[(K,\Sigma,P)] be two affine-
 In practice, working with an affine family of finite elements means that all integral calculations can be reduced to calculations on the reference element. 
 
 The reference elements in 1D, 2D triangular and 3D tetrahedral are :
-.Example of reference Elements.
+.figure
 image::FEM/FEM_reference_element.png[width=480.0,height=384.0]
 ====
 
@@ -171,7 +171,7 @@ In 1D, the construction of a mesh consists in creating a subdivision of the inte
 In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahedrons, parallelepipeds or prisms.
 
 [[triangle_mesh]]
-.Example of a triangular mesh on a circles.
+.figure
 image::FEM/FEM_triangle_mesh.png[width=180.0,height=144.0]
 
 == Construction of stem:[V_h] space
@@ -188,7 +188,7 @@ T_K : \hat{K}\rightarrow K
 
 
 [[trans_geo]]
-.Geometric transformation applied to a triangle.
+.figure
 image::FEM/FEM_geometric_trans.png[width=240.0,height=192.0]
 
 Let stem:[(\hat{K},\hat{\Sigma},\hat{P})] be the finite reference element with 

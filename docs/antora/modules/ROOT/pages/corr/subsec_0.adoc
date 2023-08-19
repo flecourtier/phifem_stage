@@ -2,17 +2,15 @@
 :xrefstyle: short
 = Presentation of different problems considered
 
-#A faire au fur et à mesure !#
-
-In this section, we present the different problems we'll be considering in xref:corr/subsec_2.adoc[Section "Different correction results"]. We will consider the geometry of a circle in xref:corr/subsec_0_subsubsec_0.adoc[Section "First domain : the Circle."] represented in <<geom_circle>> as well as the geometry of a square in xref:corr/subsec_0_subsubsec_1.adoc[Section "Second domain : the Square."] represented in <<geom_square>>. We'll also look at different solutions #à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)#.
+In this section, we present the different problems we'll be considering in xref:corr/subsec_3.adoc[Section "Numerical results"]. We will consider the geometry of a circle in xref:corr/subsec_0_subsubsec_0.adoc[Section "First domain : the Circle."] represented in <<geom_circle>> as well as the geometry of a square in xref:corr/subsec_0_subsubsec_1.adoc[Section "Second domain : the Square."] represented in <<geom_square>>. We'll also look at different solutions #à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)#.
 
 [cols="a,a"]
 |===
 |[[geom_circle]]
-.Representation of the first domain considered : the Circle.
+.figure
 image::corr/geom_circle.png[width=180.0,height=144.0]
 |[[geom_square]]
-.Representation of the second domain considered : the Square.
+.figure
 image::corr/geom_square.png[width=180.0,height=144.0]
 
 |===
@@ -20,7 +18,24 @@ image::corr/geom_square.png[width=180.0,height=144.0]
 
 [NOTE]
 ====
-Note that in the case where the problem is non-homogeneous, we can consider
+To generate meshes with FEM, we'll consider a mesh comparable to stem:[\phi]-FEM. To do this, we generate our stem:[\phi]-FEM grid, which is simply the regular mesh of the stem:[\mathcal{O}] domain of stem:[n_{vert}\times n_{vert}] nodes. From this mesh we generate a FEM mesh whose largest element diameter stem:[h_{FEM}] is very close to the largest diameter associated with stem:[\phi-FEM], stem:[h_{\phi-FEM}] (stem:[h_{FEM}\sim h_{\phi-FEM}]). Here's a representation of the meshes generated for FEM and stem:[\phi]-FEM on the circle and on the square with stem:[n_{vert}=10] :
+
+[cols="a,a"]
+|===
+|[[mesh_circle]]
+.figure
+image::corr/mesh_circle.png[width=300.0,height=240.0]
+|[[mesh_square]]
+.figure
+image::corr/mesh_square.png[width=300.0,height=240.0]
+
+|===
+====
+
+
+[NOTE]
+====
+Note that in the case where the problem is non-homogeneous, if we don't have a definition of the Dirichlet boundary condition, we can consider
 [stem]
 ++++
 g(x,y)=u_{ex}(x,y)\times(1+\phi(x,y))

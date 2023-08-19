@@ -27,7 +27,7 @@ where the domain stem:[\Omega] and its boundary stem:[\Gamma] are given by a lev
 The level-set function stem:[\phi] is supposed to be known on stem:[\mathbb{R}^d], sufficiently smooth, and to behave near stem:[\Gamma] as the signed distance to stem:[\Gamma] (<<space1>>). 
 
 [[space1]]
-.Definition of the level-set function.
+.figure
 image::FEM/PhiFEM_level_set.png[width=240.0,height=192.0]
 
 
@@ -69,10 +69,10 @@ We denote stem:[\Omega_h] the domain covered by the stem:[\mathcal{T}_h] mesh (s
 [cols="a,a"]
 |===
 |[[space2]]
-.Fictitious domain.
+.figure
 image::FEM/PhiFEM_domain.png[width=255.0,height=204.0]
 |[[space3]]
-.Domain considered.
+.figure
 image::FEM/PhiFEM_domain_considered.png[width=300.0,height=240.0]
 
 |===
@@ -97,10 +97,10 @@ We denote by stem:[\Omega_h^\Gamma] the domain covered by the stem:[\mathcal{T}_
 [cols="a,a"]
 |===
 |[[space4]]
-.Boundary cells.
+.figure
 image::FEM/PhiFEM_boundary_cells.png[width=270.0,height=216.0]
 |[[space5]]
-.Boundary edges.
+.figure
 image::FEM/PhiFEM_boundary_edges.png[width=270.0,height=216.0]
 
 |===

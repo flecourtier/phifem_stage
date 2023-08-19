@@ -13,10 +13,10 @@ Note that changing the stem:[\phi] function creates new sets of cells, all of th
 [cols="a,a"]
 |===
 |[[mesh_fem]]
-.Standard FEM mesh example.
+.figure
 image::FEM/mesh_fem.png[width=150.0,height=120.0]
 |[[mesh_phifem]]
-.stem:[\phi]-FEM mesh example.
+.figure
 image::FEM/mesh_phifem.png[width=210.0,height=168.0]
 
 |===

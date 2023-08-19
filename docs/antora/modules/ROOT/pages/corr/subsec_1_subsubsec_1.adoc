@@ -22,7 +22,7 @@ So we're looking for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the p
 
 [NOTE]
 ====
-In the same way as for correction by adding, we note that this problem is equivalent to the initial #add ref# problem.
+In the same way as for correction by adding, we note that this problem is equivalent to the initial problem.
 ====
 
 So for the standard FEM method, the weak formulation will be given by
@@ -48,5 +48,7 @@ and
 G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\tilde{\phi} v).
 ++++
 
-In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in section #add section#. \modif{PAS SURE !}
+In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in <<_non-homogeneous_case>>.
+
+#rajouter les formulation#
 

@@ -31,7 +31,7 @@ Note that we're working in a discrete way here, so for each stem:[i], the terms 
 Note also that the FNO has less difficulty learning solutions that don't have a wide range of values. This is why the collection of stem:[\{f_i\}] that we'll be using in the following will in fact be the normalization of the previous collection :
 [stem]
 ++++
-f_{i,norm} = \frac{f_i}{max_{i=1},\dots,n_{data} ||f_i||_{L^2(\mathcal{O})}}.
+f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}.
 ++++
 ====
 
@@ -92,7 +92,7 @@ Note that first and second derivatives according to x and y are calculated here 
 
 
 [[FNO_train_schema]]
-.Representation of the FNO training.
+.figure
 image::fourier/FNO_train_schema.png[width=480.0,height=384.0]
 
 We can now proceed to the correction stage (<<FNO_test_schema>>), where we consider a type of correction defined in xref:corr/subsec_1.adoc[Section "Presentation of the different correction methods considered"] (correction by adding, correction by multiplying or correction by multiplying on an enhanced problem). We can then consider a new test sample X_test constructed in the same way as the training sample and defined by
@@ -103,7 +103,7 @@ X_test = \{f^{test}_i,g^{test}_i,\phi^{test}_i\}_{i=1,\dots,n_{test}}.
 We will then provide this sample as input to the FNO in order to obtain its prediction stem:[w^{test}_{\theta,i}] for each problem stem:[i] of the test sample (where stem:[\theta] corresponds to the parameters learned during training). We then construct stem:[u^{test}_{\theta_i}=\phi_i w^{test}_{\theta,i}] which will be given as input to one of the correction solvers. We will then obtain what we call the corrected solution.
 
 [[FNO_test_schema]]
-.Representation of correction steps
+.figure
 image::fourier/FNO_test_schema.png[width=480.0,height=384.0]
 
 
