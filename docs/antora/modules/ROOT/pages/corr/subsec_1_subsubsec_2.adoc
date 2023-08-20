@@ -13,7 +13,7 @@ The initial modified problem, which we now consider, consists in finding stem:[u
 -\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
 \hat{u}=g+m, \; &&\text{on } \; \Gamma,
 \end{aligned}
-\right. \tag{stem:[\mathcal{P}^\mathcal{M}]}
+\right. %\tag{stem:[\mathcal{P}^\mathcal{M}]}
 ++++
 with stem:[\hat{u}=u+m] and stem:[m] a constant.
 
@@ -36,7 +36,7 @@ and so we look for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the pro
 \left\{\begin{aligned}
 &-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
 &C=1 \quad &&\Gamma
-\end{aligned}\right. \tag{stem:[\mathcal{C}_\times^\mathcal{M}]}
+\end{aligned}\right. %\tag{stem:[\mathcal{C}_\times^\mathcal{M}]}
 ++++
 
 So for the standard FEM method, the weak formulation will be given by

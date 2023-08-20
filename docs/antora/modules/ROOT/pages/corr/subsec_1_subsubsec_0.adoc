@@ -27,7 +27,7 @@ Rewriting the problem, we seek to find stem:[\tilde{C}: \Omega \rightarrow \math
 \left\{\begin{aligned}
 -\Delta \tilde{C}&=\tilde{f}, \; &&\text{on } \Omega, \\
 \tilde{C}&=0, \; &&\text{in } \Gamma.
-\end{aligned}\right. \tag{stem:[\mathcal{C}_{+}]}
+\end{aligned}\right. %\tag{stem:[\mathcal{C}_{+}]}
 ++++
 with stem:[\tilde{f}=f+\Delta\tilde{\phi}].
 

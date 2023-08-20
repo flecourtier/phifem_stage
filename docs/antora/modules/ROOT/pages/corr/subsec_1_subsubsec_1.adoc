@@ -16,7 +16,7 @@ So we're looking for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the p
 \left\{\begin{aligned}
 &-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
 &C=1 \quad &&\Gamma
-\end{aligned}\right. \tag{stem:[\mathcal{C}_\times]}
+\end{aligned}\right. %\tag{stem:[\mathcal{C}_\times]}
 ++++
 
 

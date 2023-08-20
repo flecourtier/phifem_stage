@@ -4,3 +4,13 @@
 
 #En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.# \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé stem:[\iff] correction par addition + ajouter document}
 
+#A TRADUIRE !#
+
+
+---
+The features include
+
+** xref:corr/subsec_2_subsubsec_0.adoc[Interest of elevating the problem]
+
+** xref:corr/subsec_2_subsubsec_1.adoc[Comparaison of correction methods]
+

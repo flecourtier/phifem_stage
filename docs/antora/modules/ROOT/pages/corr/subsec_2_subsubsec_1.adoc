@@ -1,0 +1,103 @@
+:stem: latexmath
+:xrefstyle: short
+= Comparaison of correction methods
+
+Here, we compare 2 methods, the addition correction method defined in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"] and the multiplication correction method on a elevated problem defined in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]. In fact, we'll show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
+
+*Correction by adding*
+
+Let's start by looking at the form of the solution in the case of correction by addition. The decomposition of stem:[u_h] on the stem:[(\varphi_1,\dots,\varphi_{N_h})] basis of stem:[V_h] is written as follows for this problem
+
+[stem]
+++++
+u_h=C_h+\tilde{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
+++++
+
+We have 
+[stem]
+++++
+C_i=u(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
+++++
+with
+[stem]
+++++
+u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i_2}
+++++
+With the 2 previous relations, we can develop \ref{decomp_pbc2} :
+[stem]
+++++
+\begin{aligned}
+u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
+&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{C_i_2}} \\
+&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)+\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{u_x_i_2}} \\
+u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
+\end{aligned}
+++++
+
+*Correction by multiplying on an elevated problem*
+
+We are now interested in the form of the solution in the case of multiplication correction on a elevated problem. The decomposition of stem:[\hat{u_h}] on the stem:[(\varphi_1,\dots,\varphi_{N_h})] basis of stem:[V_h] is written as follows for this problem
+
+[stem]
+++++
+\hat{u_h}=C_h\hat{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \label{decomp_pbc1}
+++++
+
+We have 
+[stem]
+++++
+C_i=\frac{u(x_i)+m}{\hat{\phi}(x_i)}=\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m} \label{C_i}
+++++
+with
+[stem]
+++++
+u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i}
+++++
+and
+[stem]
+++++
+\tilde{\phi}(x)=\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}
+++++
+Moreover, we have 
+[stem]
+++++
+\sum_{i=1}^{N_h}\varphi_i=1 \label{sum_base}
+++++
+With the 4 previous relations, we can develop \ref{decomp_pbc1} :
+[stem]
+++++
+\begin{aligned}
+\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \\
+&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{C_i}} \\
+&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m+\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{u_x_i}} \\
+&=\sum_{i=1}^{N_h}\left(1+\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
+&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
+&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{par \ref{phi_tilde_x} et \ref{sum_base}} \\
+&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+&=\tilde{\phi}(x)+m+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+\end{aligned}
+++++
+
+Thus
+[stem]
+++++
+u_h=\hat{u_h}-m=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
+++++
+and finally
+[stem]
+++++
+u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
+++++
+
+
+[NOTE]
+====
+Taking stem:[m=0], we return to the case of correction by multiplication defined in xref:corr/subsec_1_subsubsec_1.adoc[Section "Correction by multiplying"] and the solution is of the form
+[stem]
+++++
+u_h=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i
+++++
+====
+
+So by \ref{result1} and \ref{result2}, it would seem that the 2 proposed methods are equivalent (taking stem:[m] to be large).
+
