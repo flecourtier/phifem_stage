@@ -1,11 +1,11 @@
 \section{Correction} \label{Corr}
 \graphicspath{{images/corr}}
 
-In this section, we'll look at the different correction methods. We'll start by presenting the different problems considered (Section \ref{Corr.problems}), then we'll introduce the different correction methods (Section \ref{Corr.methods}), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (Section \ref{Corr.theo_results}), and finish by presenting the numerical results obtained (Section \ref{Corr.results}).
+In this section, we will look at the different correction methods. we will start by presenting the different problems considered (Section \ref{Corr.problems}), then we will introduce the different correction methods (Section \ref{Corr.methods}), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (Section \ref{Corr.theo_results}), and finish by presenting the numerical results obtained (Section \ref{Corr.results}).
 
 \subsection{Presentation of different problems considered} \label{Corr.problems}
 
-In this section, we present the different problems we'll be considering in Section \ref{Corr.results}. We will consider the geometry of a circle in Section \ref{Corr.pb.circle} represented in Figure \ref{geom_circle} as well as the geometry of a square in Section \ref{Corr.pb.square} represented in Figure \ref{geom_square}. We'll also look at different solutions \modif{à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)}.
+In this section, we present the different problems we will be considering in Section \ref{Corr.results}. We will consider the geometry of a circle in Section \ref{Corr.pb.circle} represented in Figure \ref{geom_circle} as well as the geometry of a square in Section \ref{Corr.pb.square} represented in Figure \ref{geom_square}. For the circle, we will consider a first analytic trigonometric solution, parameterized in such a way that the problem can be considered homogeneous. we will then consider a second problem for which no exact solution is known, and for which we will take an over-refined FEM solution as the reference solution. For the square, we will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
@@ -14,7 +14,7 @@ In this section, we present the different problems we'll be considering in Secti
 		\captionof{figure}{Representation of the first domain considered : the Circle.}
 		\label{geom_circle}
 	\end{figure} 
-\end{minipage}
+\end{minipage} $\qquad$
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
@@ -25,7 +25,7 @@ In this section, we present the different problems we'll be considering in Secti
 \end{minipage}
 
 \begin{Rem}
-	To generate meshes with FEM, we'll consider a mesh comparable to $\phi$-FEM. To do this, we generate our $\phi$-FEM grid, which is simply the regular mesh of the $\mathcal{O}$ domain of $n_{vert}\times n_{vert}$ nodes. From this mesh we generate a FEM mesh whose largest element diameter $h_{FEM}$ is very close to the largest diameter associated with $\phi-FEM$, $h_{\phi-FEM}$ ($h_{FEM}\sim h_{\phi-FEM}$). Here's a representation of the meshes generated for FEM and $\phi$-FEM on the circle and on the square with $n_{vert}=10$ :
+	To generate meshes with FEM, we will consider a mesh comparable to $\phi$-FEM. To do this, we generate our $\phi$-FEM grid, which is simply the regular mesh of the $\mathcal{O}$ domain of $n_{vert}\times n_{vert}$ nodes. From this mesh we generate a FEM mesh whose largest element diameter $h_{FEM}$ is very close to the largest diameter associated with $\phi-FEM$, $h_{\phi-FEM}$ ($h_{FEM}\sim h_{\phi-FEM}$). Here, we have a representation of the meshes generated for FEM and $\phi$-FEM on the circle (Figure \ref{mesh_circle}) and on the square (Figure \ref{mesh_square}) with $n_{vert}=10$ vertices in each direction.
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -34,7 +34,7 @@ In this section, we present the different problems we'll be considering in Secti
 			\captionof{figure}{Representation of meshes for FEM and $\phi$-FEM on the Circle.}
 			\label{mesh_circle}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -50,20 +50,20 @@ In this section, we present the different problems we'll be considering in Secti
 	\begin{equation*}
 	g(x,y)=u_{ex}(x,y)\times(1+\phi(x,y))
 	\end{equation*}
-	with $\phi$ the levelset function, null by definition on $\Gamma$.
+	with $\phi$ the level-set function, null by definition on $\Gamma$.
 \end{Rem}
 
 \subsubsection{First domain : the Circle.} \label{Corr.pb.circle}
 
-Here, we'll consider the $\Omega$ domain to be the circle of radius $\sqrt{2}/4$ and center $(0.5,0.5)$.This domain is entirely included in the fictitious domain $O=[0,1]^2$ (Figure \ref{geom_circle}).
+Here, we will consider the $\Omega$ domain to be the circle of radius $\sqrt{2}/4$ and center $(0.5,0.5)$.This domain is entirely included in the fictitious domain $O=[0,1]^2$ (Figure \ref{geom_circle}).
 
-We will consider the levelset function $\phi$ defined by
+We will consider the level-set function $\phi$ defined by
 \begin{equation*}
 	\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2,
 \end{equation*}
 negative function inside the domain, null at the boundary and positive outside it
 	
-We then consider different problems \modif{à compléter}.
+We will consider a first analytic trigonometric solution (Section \ref{Corr.pb.circle.1}), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (Section \ref{Corr.pb.circle.2}) for which no exact solution is known, and for which we'll take an over-refined FEM solution as the reference solution.
 
 \paragraph{First problem} \label{Corr.pb.circle.1}
 
@@ -71,19 +71,35 @@ Here, we are interested in the Poisson problem with an analytical solution
 \begin{equation*}
 	u_{ex}(x,y)=S\times\sin\left(8\pi f\left((x-0.5)^2+(y-0.5)^2\right)+\varphi\right)
 \end{equation*}
-where $S\in[0,1]$ is the amplitude of the signal, $f\in\mathbb{N}$ can be associated with the "frequency" of the signal and $\varphi\in[0,1]$ the phase at the origin
+where $S\in[0,1]$ is the amplitude of the signal, $f\in\mathbb{N}$ can be associated with the "frequency" of the signal and $\varphi\in[0,1]$ the phase at the origin, represented in Figure \ref{sol_circle}.
 
 Thus, the second associated member is defined by
 \begin{align*}
 	f(x,y)=256\pi^2 S f^2&\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right] \\
 	&- 32\pi S f\cos\left[8\pi f \left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right]
 \end{align*}
+and represented in Figure \ref{f_circle}.
 
 \begin{Rem}
 	Note that for $\varphi=0$, the Dirichlet conditions considered are then homogeneous on the circle (i.e. $g=0$ on $\Gamma$).
 \end{Rem}
 
-\modif{ajouter image solution et f}
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"sol_circle.png"}
+		\captionof{figure}{Representation of the solution $u_{ex}$ on the Circle with $S=0.5$ and $f=1$ (with $p=0$ and $p=1$).}
+		\label{sol_circle}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"f_circle.png"}
+		\captionof{figure}{Representation of the term $f$ on the Circle with $S=0.5$ and $f=1$ (with $p=0$ and $p=1$).}
+		\label{f_circle}
+	\end{figure} 
+\end{minipage}
 
 \paragraph{$f$ Gaussian} \label{Corr.pb.circle.2}
 
@@ -91,23 +107,30 @@ In the case considered here, no analytical solution is known. We consider the so
 \begin{equation*}
 	f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
 \end{equation*} 
-with $\sigma \sim \mathcal{U}([0.1,0.6])$ and $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ with the condition $\phi(\mu_0, \mu_1) < -0.05$.
+with $\sigma \sim \mathcal{U}([0.1,0.6])$ and $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ with the condition $\phi(\mu_0, \mu_1) < -0.05$ and represented in Figure \ref{f_circle_gaussian}
 
-ince we don't have an exact solution, we'll consider a so-called reference solution, denoted $u_{ref}$. This reference solution is defined as an over-refined $\mathbb{P}^1$ solution obtained by the standard FEM method (with $h_{ref}\approx 0.006$). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
+Since we don't have an exact solution, we will consider a so-called reference solution, denoted $u_{ref}$. This reference solution is defined as an over-refined $\mathbb{P}^1$ solution obtained by the standard FEM method (with $h_{ref}\approx 0.006$). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
 
 \begin{Rem}
 	For this problem, we choose to consider only the homogeneous case, i.e. we take $g=0$ on $\Gamma$.
 \end{Rem}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{"f_circle_gaussian.png"}
+	\captionof{figure}{Representation of the term $f$ on the Circle with $(\mu_0,\mu_1)=(0.5,0.5)$ and $\sigma=0.3$.}
+	\label{f_circle_gaussian}
+\end{figure} 
+
 \subsubsection{Second domain : the Square.} \label{Corr.pb.square}
 
-Here, we'll consider the $\Omega$ domain to be the unit square $\Omega=[0,1]^2$. This domain is entirely included in the fictitious domain $O=[-0.5,1.5]^2$ (Figure \ref{geom_square}).
+Here, we will consider the $\Omega$ domain to be the unit square $\Omega=[0,1]^2$. This domain is entirely included in the fictitious domain $O=[-0.5,1.5]^2$ (Figure \ref{geom_square}).
 
-In this case, we'll consider two levelset functions. The first function $\phi$, defined by
+In this case, we will consider two level-set functions. The first function $\phi$, defined by
 \begin{equation*}
 	\phi(x,y)=x(1-x)y(1-y),
 \end{equation*}
-will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, as it is only negative within the $\Omega$ domain (Figure \ref{levelset_square}).
+will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, because it is not only negative in the $\Omega$ domain (Figure \ref{levelset_square}).
 
 \begin{figure}[H]
 	\centering
@@ -122,9 +145,9 @@ To construct the sets of cells and faces needed to perform the $\phi$-FEM method
 \end{equation*}
 which is indeed negative inside the domain, zero at the boundary and positive outside, but which does not sufficiently satisfy the regularity conditions necessary for $\phi$-FEM.
 
-We the considered different problems \modif{à compléter}.
+We will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.
 
-\paragraph{First problem} \label{Corr.pb.square.1}
+\paragraph{Problem} \label{Corr.pb.square.1}
 
 Here, we are interested in the Poisson problem with as analytical solution
 \begin{equation*}
@@ -140,6 +163,23 @@ Thus, the associated second member is defined by
 \begin{Rem}
 	It should be noted that as for the circle for $\varphi=0$, the Dirichlet conditions considered are then homogeneous on the square (i.e. $g=0$ on $\Gamma$).
 \end{Rem}
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"sol_square.png"}
+		\captionof{figure}{Representation of the solution $u_{ex}$ on the Circle with $S=0.5$ and $f=1$ (with $p=0$ and $p=1$).}
+		\label{sol_square}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"f_square.png"}
+		\captionof{figure}{Representation of the term $f$ on the Circle with $S=0.5$ and $f=1$ (with $p=0$ and $p=1$).}
+		\label{f_square}
+	\end{figure} 
+\end{minipage}
 
 \subsection{Presentation of the different correction methods considered} \label{Corr.methods}
 
@@ -166,13 +206,12 @@ and we want to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the
 	Note that this problem is in fact equivalent to the initial problem. We only hope that the approximate solution $\tilde{u}$ obtained is more accurate than the approximate solution $u$ obtained by solving the initial problem.
 \end{Rem}
 Rewriting the problem, we seek to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
-\begin{equation}
-\label{eq.corr.pbc_add}
+\begin{equation*}
 \left\{\begin{aligned}
 	-\Delta \tilde{C}&=\tilde{f}, \; &&\text{on } \Omega, \\
 	\tilde{C}&=0, \; &&\text{in } \Gamma.
 \end{aligned}\right. %\tag{$\mathcal{C}_{+}$}
-\end{equation}
+\end{equation*}
 with $\tilde{f}=f+\Delta\tilde{\phi}$.
 
 Thus for the standard FEM method, the weak formulation will be given by
@@ -194,7 +233,7 @@ and
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \tilde{f} \Delta(\phi v).
 \end{equation*}
 
-In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous ($tilde{C}=0$ on $\Gamma$).
+In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous ($\tilde{C}=0$ on $\Gamma$).
 
 \begin{Rem}
 	In practice, it may be useful to integrate by parts (IPP) the term containing $\Delta \tilde{\phi}$ (implicitly included in $\tilde{f}$).
@@ -205,7 +244,7 @@ In the non-homogeneous case, the formulation is the same, as the correction prob
 	\end{equation*}
 	For $\phi$-FEM, we have
 	\begin{equation*}
-		\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.
+		\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.
 	\end{equation*}
 \end{Rem}
 
@@ -219,10 +258,9 @@ we try to bring $C=\frac{\tilde{u}}{\tilde{\phi}}$ closer to 1 (for $\tilde{\phi
 
 So we're looking for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 \begin{equation*}
-	\label{eq.corr.pbc_mult}
 	\left\{\begin{aligned}
-		&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
-		&C=1 \quad &&\Gamma
+		&-\Delta (\tilde{\phi}C)=f, \; &&\text{on } \Omega, \\
+		&C=1, \; &&\text{on } \; \Gamma.
 	\end{aligned}\right. %\tag{$\mathcal{C}_\times$}
 \end{equation*}
 
@@ -234,7 +272,7 @@ So for the standard FEM method, the weak formulation will be given by
 \begin{equation*}
 	\int_\Omega \nabla (\tilde{\phi}C)\cdot\nabla (\tilde{\phi}v)=\int_\Omega f\tilde{\phi}v
 \end{equation*}
-where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...)
+where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...).
 
 For the $\phi$-FEM method, the weak formulation for the homogeneous problem is given by
 \begin{equation*}
@@ -251,15 +289,12 @@ and
 
 In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
 
-\modif{rajouter les formulation}
-
 \subsubsection{Correction by multiplying on an elevated problem} \label{Corr.method.mult_reh}
 
-We now introduce a third correction method, which we'll call multiplication correction on an elevated problem. This method is in fact very similar to the previous one (correction by multiplication), except that we are no longer trying to correct the same problem.
+We now introduce a third correction method, which we will call correction by multiplying on an elevated problem. This method is in fact very similar to the previous one (correction by multiplying), except that we are no longer trying to correct the same problem.
 
 The initial modified problem, which we now consider, consists in finding $u : \Omega \rightarrow \mathbb{R}^d$ such that
 \begin{equation*}
-	\label{eq.corr.pb_reh}
 	\left\{
 	\begin{aligned}
 		-\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
@@ -269,24 +304,22 @@ The initial modified problem, which we now consider, consists in finding $u : \O
 \end{equation*}
 with $\hat{u}=u+m$ and $m$ a constant.
 
-\modif{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
-
 We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant $m$. We then consider
 \begin{equation*}
 	\tilde{u}=\hat{\phi}C
 \end{equation*}
-avec 
+with 
 \begin{equation*}
 	\hat{\phi}=\tilde{\phi}+m
 \end{equation*}
 and so we look for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
-\begin{equation}
+\begin{equation*}
 	\label{eq.corr.pbc_mult_reh}
 	\left\{\begin{aligned}
-		&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
-		&C=1 \quad &&\Gamma
+		&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+		&C=1, \; &&\text{on } \; \Gamma.
 	\end{aligned}\right. %\tag{$\mathcal{C}_\times^\mathcal{M}$}
-\end{equation}
+\end{equation*}
 
 So for the standard FEM method, the weak formulation will be given by
 \begin{equation*}
@@ -309,50 +342,21 @@ and
 
 In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for $m\ne 0$), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
 
-\modif{rajouter les formulation}
-
 \begin{Rem}
-	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose a problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. 
+	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose any problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$.
 \end{Rem}
 
 \subsection{Theorical results} \label{Corr.theo_results}
 
-\modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.} \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé $\iff$ correction par addition + ajouter document}
-
-\modif{A TRADUIRE !}
+The aim of this section is to present some interesting theoretical results. We begin by presenting the interest of elevating the problem in Section \ref{Corr.theo_results.reh}. We will then present an interesting result for standard FEM in Section \ref{Corr.theo_results.comp_add_reh}. In fact, we'll show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when $m$ tends to infinity. Finally, we will demonstrate the estimation error of the correction on the elevated problem in Section \ref{Corr.theo_results.error_reh}.
 
 \subsubsection{Interest of elevating the problem} \label{Corr.theo_results.reh}
 
-The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in Section \ref{Corr.method.mult_reh} with a $\mathbb{P}^1$ solution. Only the standard FEM method is considered here. For this purpose, we'll consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we'll apply a perturbation, denoted $P$. We then define
+The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in Section \ref{Corr.method.mult_reh} with a $\mathbb{P}^1$ solution. Only the standard FEM method is considered here. For this purpose, we will consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we will apply a perturbation, denoted $P$. We then define
 \begin{equation*}
 	\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
 \end{equation*}
 with $P$ the perturbation (such that $P=0$ on $\Gamma$) and $\epsilon$ small.
-
-%On commence par se placer dans le cadre de la correction par multiplication (sans rehaussement) définie en Section \ref{Corr.method.mult} par le problème 
-%\begin{equation*}
-%	\left\{\begin{aligned}
-%		&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
-%		&\tilde{u}=g \quad &&\Gamma,
-%	\end{aligned}\right.
-%\end{equation*}
-%avec $\tilde{u}=\tilde{\phi}C$.
-%
-%Comme expliqué en Section \ref{FEMs.FEM.principle} qui présente le principale générale de la méthode FEM Standard, on va chercher à résoudre un problème variationnel approché de la forme
-%\begin{equation*}
-%	\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V.
-%\end{equation*}
-%Dans notre cas $u_h$ peut s'écrire sous la forme
-%\begin{equation*}
-%	u_h=C_h\tilde{\phi}(x)
-%\end{equation*}
-%avec $C_h$ que l'on peut décomposer sur la base $(\varphi_1,\dots,\varphi_{N_h})$ de $V_h$ par
-%\begin{equation*}
-%	C_h=\sum_{i=1}^{N_h}C_i\varphi_i
-%\end{equation*}
-%
-%Ainsi on en déduit
-%$$C_i=\frac{u_{ex}(x_i)}{\tilde{\phi}(x_i)}$$
 
 We pose
 \begin{equation*}
@@ -361,13 +365,13 @@ We pose
 with $m$ a constant, and consider the multiplication correction on a elevated problem, defined in Section \ref{Corr.method.mult_reh} by the problem
 \begin{equation*}
 	\left\{\begin{aligned}
-		&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
-		&\hat{u}=g+m \quad &&\Gamma
+		&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+		&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
 	\end{aligned}\right.
 \end{equation*}
 with $\hat{u}=\hat{\phi}C$.
 
-In Section \modif{add section}, we'll show the following inequality in the context of this problem
+In Section \ref{Corr.theo_results.error_reh}, we will prove the following inequality in the context of this problem
 
 \begin{equation*}
 	\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}
@@ -387,7 +391,7 @@ with
 
 As 
 \begin{equation*}
-	\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{L^2(\Omega)}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}
+	\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{0,\Omega}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}
 \end{equation*}
 and 
 \begin{align*}
@@ -397,55 +401,51 @@ and
 \end{align*}
 then, for $m$ sufficiently large :
 \begin{equation*}
-	\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}\sim\left|\left|P''\right|\right|_{L^2(\Omega)}
+	\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\sim\left|\left|P''\right|\right|_{0,\Omega}
 \end{equation*}
 
-So for $m$ sufficiently large, we have $||\hat{\phi}||_\infty\sim m$ and thus
-\begin{equation}
-	\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{L^2(\Omega)} \label{ine3_bis}
-\end{equation}
+Finally, for $m$ sufficiently large, we have $||\hat{\phi}||_\infty\sim m$ and thus
+\begin{equation*}
+	\left|\left|\frac{u_{ex}+m}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
+\end{equation*}
 
 We deduce that when $m$ is big, the error no longer depends on the solution but only on the perturbation $P$. These results were obtained numerically and are presented in Section \ref{Corr.results.disturbed}.
 
-However, when $m$ is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution $tilde{\phi}$.
+However, when $m$ is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution $\tilde{\phi}$.
 
 \begin{Rem}
-	In addition, raising the problem can be extremely effective when the solution cancels out on the domain. 
-\end{Rem}
-
-\begin{Rem}
-	Note that in the case of the addition correction presented in Section \ref{Corr.method.add}, raising the problem is of no interest.
+	In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in Section \ref{Corr.method.add}, elevated the problem is of no interest.
 \end{Rem}
 
 \subsubsection{Comparaison of correction methods} \label{Corr.theo_results.comp_add_reh}
 
-Here, we compare 2 methods, the addition correction method defined in Section \ref{Corr.method.add} and the multiplication correction method on a elevated problem defined in Section \ref{Corr.method.mult_reh}. In fact, we'll show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
+Here, we compare 2 methods, the addition correction method defined in Section \ref{Corr.method.add} and the multiplication correction method on a elevated problem defined in Section \ref{Corr.method.mult_reh}. In fact, we will show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
 
-\textbf{Correction by adding}
+\textbf{Correction by adding :}
 
 Let's start by looking at the form of the solution in the case of correction by addition. The decomposition of $u_h$ on the $(\varphi_1,\dots,\varphi_{N_h})$ basis of $V_h$ is written as follows for this problem
 
 \begin{equation}
-	u_h=C_h+\tilde{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
+	u_h=C_h+\tilde{\phi}(x)=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
 \end{equation}
 
 We have 
 \begin{equation}
-	C_i=u(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
+	C_i=u_{ex}(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
 \end{equation}
 with
 \begin{equation}
-	u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i_2}
+	u_{ex}(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i_2}
 \end{equation}
 With the 2 previous relations, we can develop \ref{decomp_pbc2} :
 \begin{align*}
 	u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
-	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{C_i_2}} \\
-	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)+\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{u_x_i_2}} \\
-	u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
+	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{C_i_2}} \\
+	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)-\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{u_x_i_2}} \\
+	u_h&=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
 \end{align*}
 
-\textbf{Correction by multiplying on an elevated problem}
+\textbf{Correction by multiplying on an elevated problem :}
 
 We are now interested in the form of the solution in the case of multiplication correction on a elevated problem. The decomposition of $\hat{u_h}$ on the $(\varphi_1,\dots,\varphi_{N_h})$ basis of $V_h$ is written as follows for this problem
 
@@ -459,7 +459,7 @@ We have
 \end{equation}
 with
 \begin{equation}
-	u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i}
+	u(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i}
 \end{equation}
 and
 \begin{equation}
@@ -472,42 +472,167 @@ Moreover, we have
 With the 4 previous relations, we can develop \ref{decomp_pbc1} :
 \begin{align*}
 	\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \\
-	&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{C_i}} \\
-	&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m+\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{u_x_i}} \\
-	&=\sum_{i=1}^{N_h}\left(1+\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
-	&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
-	&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{par \ref{phi_tilde_x} et \ref{sum_base}} \\
-	&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
-	&=\tilde{\phi}(x)+m+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+	&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{C_i}} \\
+	&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m-\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{u_x_i}} \\
+	&=\sum_{i=1}^{N_h}\left(1-\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
+	&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
+	&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{by \ref{phi_tilde_x} et \ref{sum_base}} \\
+	&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+	&=\tilde{\phi}(x)+m-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
 \end{align*}
 
 Thus
 \begin{equation*}
-	u_h=\hat{u_h}-m=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
+	u_h=\hat{u_h}-m=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
 \end{equation*}
 and finally
 \begin{equation}
-	u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
+	u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
 \end{equation}
+
+So by \ref{result2} and \ref{result1}, it would seem that the 2 proposed methods are equivalent (taking $m$ to be large).
 
 \begin{Rem}
 	Taking $m=0$, we return to the case of correction by multiplication defined in Section \ref{Corr.method.mult} and the solution is of the form
 	\begin{equation*}
-		u_h=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i
+		u_h=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i
 	\end{equation*}
 \end{Rem}
 
-So by \ref{result1} and \ref{result2}, it would seem that the 2 proposed methods are equivalent (taking $m$ to be large).
+\subsubsection{Error estimation of the correction on the elevated problem} \label{Corr.theo_results.error_reh}
+
+As in the Section \ref{Corr.theo_results.reh}, we assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we will apply a perturbation, denoted $P$. We then define
+\begin{equation*}
+	\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
+\end{equation*}
+with $P$ the perturbation (such that $P=0$ on $\Gamma$) and $\epsilon$ small.
+
+We consider
+$$\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m=\hat{u_{ex}}+\epsilon P$$
+with $\hat{u_{ex}}=u_{ex}+m$ et $m$ a constant.
+
+We still want to solve the following problem:
+\begin{equation*}
+	\left\{\begin{aligned}
+		&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+		&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
+	\end{aligned}\right. \label{pb_reh} %\tag{$\mathcal{C}$}
+\end{equation*}
+with $\hat{u}=\hat{\phi}C$ whose approximate variational problem consists of
+\begin{equation*}
+	\text{Find } \hat{u_h}\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h
+\end{equation*}
+
+Here we seek to prove the following property:
+\begin{equation*}
+	\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
+\end{equation*}
+
+\begin{enumerate}[label=\textbullet]
+	\item  We're first interested in $\left|\left|\hat{u}-\hat{u_h}\right|\right|_1$.
+	
+	Since  $V_h$ is a vector subspace of  $V$, posing $v=v_h$, we obtain :
+	\begin{equation*}
+		a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.
+	\end{equation*}
+	We then have Galerkin orthogonality:
+	\begin{equation*}
+		a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h
+	\end{equation*}
+	and
+	\begin{align*}
+		||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{by coercivity} \\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) \\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
+		&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{by continuity} \\
+		&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
+	\end{align*}
+	Thus
+	\begin{equation*}
+		||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.
+	\end{equation*}
+	By posing $A=C-I_hC$, we have
+	\begin{equation*}
+		|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1
+	\end{equation*}
+	because
+	\begin{equation*}
+		||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1
+	\end{equation*}
+	and
+	\begin{equation*}
+		||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.
+	\end{equation*}
+	Therefore, we have
+	\begin{equation*}
+		|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1
+	\end{equation*}
+	
+	Finally, using the interpolation inequality, we obtain
+	\begin{equation}
+		||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
+		\label{norme_H1}
+	\end{equation} 
+
+	\item We can now turn our attention directly to $\left|\left|\hat{u}-\hat{u_h}\right|\right|_0$.
+
+	We'll start by applying the Aubin-Nitsche duality method by considering the dual problem:
+	
+	Let $\hat{z}\in H_0^1(\Omega)$ solution of the problem
+	$$\left\{\begin{aligned}
+		&-\Delta\hat{z}=\hat{e_h}, \; &&\text{in }\Omega \\
+		&\hat{z}=0, \; &&\text{on } \Gamma
+	\end{aligned}\right.$$
+	with $\hat{e_h}=\hat{u}-\hat{u_h}$.
+	Thus
+	$$a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla v$$
+	and as $\hat{e_h}\in H_0^1(\Omega)$
+	\begin{equation}
+		a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+		\label{norme_e_h}
+	\end{equation}
+	Moreover, by the regularity properties : 
+	\begin{equation}
+		\hat{z}\in H^2(\Omega)
+		\label{z_H_2}
+	\end{equation}
+	and
+	\begin{equation}
+		||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
+		\label{prop_reg}
+	\end{equation}
+	Thus
+	\begin{align*}
+		||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2 \\
+		&=a(\hat{z},\hat{e_h}) &&\text{by \ref{norme_e_h}} \\
+		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{by Galerkin orthogonality} \\
+		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{by continuity} \\
+		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{by \ref{z_H_2} et by interpolation inequality} \\
+		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{norme_H1}} \\
+		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{prop_reg}}
+	\end{align*}
+	Finally
+	\begin{equation*}
+		||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}
+	\end{equation*}
+	
+	\begin{Rem}
+		Note that 
+		\begin{equation*}
+			||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0
+		\end{equation*}
+	\end{Rem}
+\end{enumerate}
 
 \subsection{Numerical results} \label{Corr.results}
 
 As explained above, we wish to combine $\phi$-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (Section \ref{Corr.methods}). It is important to note that, for practical purposes, almost all the following results obtained with $\phi$-FEM will be compared with those obtained with the standard FEM method.
 
-We'll start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). We'll consider here the "initial" solution $\tilde{\phi}$, which we'll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
+we will start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). we will consider here the "initial" solution $\tilde{\phi}$, which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
 
 Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (Section \ref{Corr.results.disturbed}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
 
-Finally, we'll consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
+Finally, we will consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
 
 \subsubsection{Correction on exact solution} \label{Corr.results.ana}
 %\graphicspath{{images/corr/corr_ana}}
@@ -518,7 +643,7 @@ First, we will look at the correction of an exact solution. In other words, we c
 \end{equation*}
 This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error).
 
-In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
+In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
 
 \begin{Rem}
 	We will consider here only the case of correction by addition (with and without IPP on $\Delta\tilde{\phi}$) as well as the case of correction by multiplication.
@@ -540,7 +665,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
@@ -561,7 +686,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
@@ -586,7 +711,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
@@ -607,7 +732,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth} \qquad 
 		\begin{figure}[H]
 			\centering
@@ -618,7 +743,7 @@ In all the following cases, we'll consider $S=0.5$, as well as $\varphi=0$ in th
 	\end{minipage}
 \end{enumerate}
 
-It would therefore seem that the various correction methods work in the different cases considered.
+It would therefore seem that the various correction methods work in the different cases considered. \trad{Il semblerait tout de même que la correction par addition avec IPP soit plus efficace.}
 
 \subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
 %\graphicspath{{images/corr/corr_pert}}
@@ -666,7 +791,7 @@ Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle
 		\captionof{figure}{Table summarizing the errors obtained by standard FEM and $\phi$-FEM on the circle and the square (homogeneous case).}
 		\label{norms}
 	\end{figure} 
-\end{minipage}
+\end{minipage} $\qquad$
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
@@ -684,7 +809,7 @@ The aim of this section is to test correction by addition (without IPP) and corr
 
 We will try to separate the cases according to the frequencies considered. In other words, for $f,f_p\in\{1,2,3,4\}$, we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency ($f>f_p$), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal ($f=f_p$), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution ($f<f_p$). 
 
-In this section, we'll consider for the circle the solution defined in Section \ref{Corr.pb.circle.1} and for the square the solution defined in Section \ref{Corr.pb.square.1}.
+In this section, we will consider for the circle the solution defined in Section \ref{Corr.pb.circle.1} and for the square the solution defined in Section \ref{Corr.pb.square.1}.
 
 \textbf{Results with standard FEM :}
 
@@ -702,7 +827,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 			\captionof{figure}{Correction by adding on the Circle with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_circle_add}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -721,7 +846,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_circle_mult}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -751,7 +876,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 			\captionof{figure}{Correction by adding on the Circle with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_circle_add_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -770,7 +895,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_circle_mult_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -799,7 +924,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_circle_add}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -818,7 +943,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_circle_mult}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -850,7 +975,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 			\captionof{figure}{Results by changing FEM boundary conditions on the circle.}
 			\label{norms_circle_f_eq_fp}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -874,7 +999,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_circle_add_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -893,7 +1018,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_circle_mult_nh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -909,11 +1034,11 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 
 \paragraph{Results on the elevated problem} \label{Corr.results.disturbed.reh} 
 
-In this section, we aim to show numerically the interest of elevating the problem. To do this, we'll consider the case of the circle with the solution defined in Section \ref{Corr.pb.circle.1} and the case of the square with the solution defined in Section \ref{Corr.pb.square.1}. We'll choose the homogeneous case (i.e. with $\varphi=0$) with $S=0.5$ and set $\epsilon=10^{-3}$.
+In this section, we aim to show numerically the interest of elevating the problem. To do this, we will consider the case of the circle with the solution defined in Section \ref{Corr.pb.circle.1} and the case of the square with the solution defined in Section \ref{Corr.pb.square.1}. we will choose the homogeneous case (i.e. with $\varphi=0$) with $S=0.5$ and set $\epsilon=10^{-3}$.
 
 \textbf{Results with FEM :}
 
-	Here, we consider some of the cases considered above, in order to test that elevating the solution is useful, a method presented in Section \ref{Corr.method.mult_reh}. We'll test this method on the circle and on the square for selected frequencies and by varying $m$.
+	Here, we consider some of the cases considered above, in order to test that elevating the solution is useful, a method presented in Section \ref{Corr.method.mult_reh}. we will test this method on the circle and on the square for selected frequencies and by varying $m$.
 
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -922,7 +1047,7 @@ In this section, we aim to show numerically the interest of elevating the proble
 			\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
 			\label{corr_pert_fem_circle_reh}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -939,7 +1064,7 @@ In this section, we aim to show numerically the interest of elevating the proble
 			\captionof{figure}{Representation of the results on the Circle with FEM.}
 			\label{corr_pert_fem_circle_reh_fig}
 		\end{figure} 
-	\end{minipage}
+	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
@@ -954,15 +1079,15 @@ In this section, we aim to show numerically the interest of elevating the proble
 
 \subsubsection{Correction on $\phi$-FEM solution} \label{Corr.results.phifem}
 
-\modif{Then we'll look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
+\modif{Then we will look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
 
 \subsubsection{Correction with FNO} \label{Corr.results.FNO}
 
 \modif{A TRADUIRE !!!}
 
-In this section, we'll consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we'll take an over-refined solution (calculated with FEM) as our reference solution. 
+In this section, we will consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
 
-We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we'll follow the steps presented in Section \ref{FNO.application}. In the following, we'll choose an FNO with 4 Fourier layers.
+We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we will follow the steps presented in Section \ref{FNO.application}. In the following, we will choose an FNO with 4 Fourier layers.
 
 \paragraph{Training the FNO} \label{Corr.results.FNO.Training}
 
@@ -986,7 +1111,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	\begin{Rem}
 		As explained in Section \ref{FNO.application}, each Gaussian is in fact evaluated at the nodes of our grid, so they are 2D matrices of size $n_{vert}\times n_{vert}$.
 		
-		We can also consider the degrees of freedom $\mathbb{P}_2$, which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size $n_{dofs}\times n_{dofs}$ (with $n_{dofs}=2n_{vert}-1$). In the following, we'll choose $n_{vert}$=32 and thus $n_{dofs}=63$.
+		We can also consider the degrees of freedom $\mathbb{P}_2$, which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size $n_{dofs}\times n_{dofs}$ (with $n_{dofs}=2n_{vert}-1$). In the following, we will choose $n_{vert}$=32 and thus $n_{dofs}=63$.
 	\end{Rem}
 	
 	In our case, the geometry is fixed (the circle with center $(0.5,0.5)$ and radius $\sqrt{2}/4$), so we will not have a level-set collection in our training data. Similarly, we choose to consider the homogeneous problem and so, since $g=0$ on $\Gamma$, we won't have a collection of Dirichlet conditions in our training data either.
@@ -1007,7 +1132,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 		\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}
 	\end{equation*}
 	
-	\item From the previous collections, we can now create the X\_train and Y\_train samples that will enable us to train the FNO. We'll start by performing a kind of pre-processing on our data (explained in Section \ref{FNO.application}) by normalizing the source term collection. We thus consider
+	\item From the previous collections, we can now create the X\_train and Y\_train samples that will enable us to train the FNO. we will start by performing a kind of pre-processing on our data (explained in Section \ref{FNO.application}) by normalizing the source term collection. We thus consider
 	\begin{equation*}
 		f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in 1,\dots,n_{data}.
 	\end{equation*}
@@ -1029,7 +1154,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	\end{Rem}
 	
 	\begin{Rem}
-		In practice, the set defined above is separated into 2 sets: the training set (X\_train,Y\_train), which trains the FNO, and the validation set (X\_val,Y\_val), which validates the training. Together, these two sets contain the $n_{data}$ under consideration. In the following, we'll consider $n_{data}$ to be the size of our separate training set (for 1000 data at the beginning, after separation we have $n_{data}=875$). 
+		In practice, the set defined above is separated into 2 sets: the training set (X\_train,Y\_train), which trains the FNO, and the validation set (X\_val,Y\_val), which validates the training. Together, these two sets contain the $n_{data}$ under consideration. In the following, we will consider $n_{data}$ to be the size of our separate training set (for 1000 data at the beginning, after separation we have $n_{data}=875$). 
 	\end{Rem}
 	\item We can now train our FNO by minimizing the loss defined by
 	\begin{equation*}
@@ -1058,7 +1183,7 @@ By training our FNO over 4000 epochs with a batch size of 64, we obtain the foll
 
 \textbf{Results on the validation set :}
 
-We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we'll have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (Figure \ref{error_val_f_gaussian}):
+We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (Figure \ref{error_val_f_gaussian}):
 
 \begin{figure}[H]
 	\centering
@@ -1076,7 +1201,7 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 		\caption{Mean, standard deviation, minimum and maximum errors on the validation set according to checkpoints.}
 		\label{infos_val_f_gaussienne}
 	\end{figure} 
-\end{minipage}
+\end{minipage} $\qquad$
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
@@ -1106,7 +1231,7 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 		\caption{Mean, standard deviation, minimum and maximum errors on the test set according to checkpoints.}
 		\label{infos_test_f_gaussienne}
 	\end{figure} 
-\end{minipage}
+\end{minipage} $\qquad$
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
@@ -1154,7 +1279,7 @@ We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot
 
 \paragraph{High degree interpolation} \label{Corr.results.FNO.Legendre}
 
-As explained in Section \ref{Corr.results.FNO.Corr}, it would seem that considering $\tilde{\phi}$ only in $\mathbb{P}^2$, is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial $\phi$-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a $\mathbb{P}_k$ space of higher degree ($k>2$). To do this, we'll decompose our solution into a series of polynomials, choosing Legendre polynomials.
+As explained in Section \ref{Corr.results.FNO.Corr}, it would seem that considering $\tilde{\phi}$ only in $\mathbb{P}^2$, is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial $\phi$-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a $\mathbb{P}_k$ space of higher degree ($k>2$). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.
 
 \textbf{Explanation :}
 
@@ -1181,7 +1306,7 @@ Let us first show that for $p\in\{0,\dots,P-1\}$ and $q\in\{0,\dots,Q-1\}$, the 
 are orthogonal in space $L^2(]-1,1[^2)$ :
 
 \begin{Rem}
-	Numerically, we'll use the trapezoid method to calculate the scalar product on $L^2(]-1,1[^2)$.
+	Numerically, we will use the trapezoid method to calculate the scalar product on $L^2(]-1,1[^2)$.
 \end{Rem}
 
 Let $p,p'\in\{0,\dots,P-1\}$ and $q,q'\in\{0,\dots,Q-1\}$, then
@@ -1256,7 +1381,7 @@ and thus
 	Note that each data in the test sample has its own decomposition.
 \end{Rem}
 
-In the following, we'll consider $P=Q$ and test the decomposition for $P=4$, $P=6$ and $P=8$ on each data of the test sample and at each checkpoint considered. First, we'll look at the mean error made by the decomposition into a series of Legendre polynomials, which we'll call the mean reconstruction error (Figure \ref{mean_error_reconstruction}). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom $\mathbb{P}_2$, denoted W\_pred (of size $(n_{test},n_{dofs},n_{dofs})$). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom $\mathbb{P}_2$, denoted W\_pred\_reconstruct (of size $(n_{test},n_{dofs},n_{dofs})$), then we calculate the error
+In the following, we will consider $P=Q$ and test the decomposition for $P=4$, $P=6$ and $P=8$ on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (Figure \ref{mean_error_reconstruction}). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom $\mathbb{P}_2$, denoted W\_pred (of size $(n_{test},n_{dofs},n_{dofs})$). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom $\mathbb{P}_2$, denoted W\_pred\_reconstruct (of size $(n_{test},n_{dofs},n_{dofs})$), then we calculate the error
 \begin{center}
 	 mean\_error\_reconstruction = $||$W\_pred-W\_pred\_reconstruct$||_{0,\mathcal{O}}$
 \end{center}
@@ -1270,7 +1395,7 @@ In the following, we'll consider $P=Q$ and test the decomposition for $P=4$, $P=
 
 Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.
 
-We can now look at the maximum error made by the Legendre polynomial series decomposition, which we'll call the maximum reconstruction error (Figure \ref{max_error_reconstruction}), which is the error defined by
+We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (Figure \ref{max_error_reconstruction}), which is the error defined by
 \begin{center}
 	max\_error\_reconstruction = $\max|$W\_pred-W\_pred\_reconstruct$|$
 \end{center}
@@ -1283,7 +1408,7 @@ This will allow us to see if there are any error spikes at certain points.
 	\label{max_error_reconstruction}
 \end{figure} 
 
-We can also display solutions in the case of an example (Figure \ref{example_w}). We'll take the first data item from the first checkpoint to compare W\_pred and W\_pred\_reconstruct.
+We can also display solutions in the case of an example (Figure \ref{example_w}). we will take the first data item from the first checkpoint to compare W\_pred and W\_pred\_reconstruct.
 
 \begin{figure}[H]
 	\centering
@@ -1328,13 +1453,13 @@ We can therefore see that it was more interesting to decompose into a series of 
 
 \textbf{Correction with the evaluation of the legendre decomposition :}
 
-We have now recovered the $\alpha_{p,q}$ coefficients for each data item in the test sample and at each checkpoint. We'll try applying the multiplication correction by taking 
+We have now recovered the $\alpha_{p,q}$ coefficients for each data item in the test sample and at each checkpoint. we will try applying the multiplication correction by taking 
 \begin{equation*}
 	\tilde{\phi}(x,y)=\left(\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q} P_p(x)P_q(y)\right)\times \phi(x,y)
 \end{equation*}
 where $x,y$ are the degrees of freedom associated with $\mathbb{P}^k$ with $k$ large enough.
 
-For each data item at each checkpoint, we'll compare the following errors (Figure \ref{FNO_corr_Pk}): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with $\tilde{\phi}$ in $\mathbb{P}_2$ without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for $k=3$ and $k=5$. To do this, we'll simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom $\mathbb{P}_k$ (for $k=3$ and $k=5$). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).
+For each data item at each checkpoint, we will compare the following errors (Figure \ref{FNO_corr_Pk}): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with $\tilde{\phi}$ in $\mathbb{P}_2$ without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for $k=3$ and $k=5$. To do this, we will simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom $\mathbb{P}_k$ (for $k=3$ and $k=5$). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).
 
 \begin{figure}[H]
 	\centering
