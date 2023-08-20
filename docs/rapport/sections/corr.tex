@@ -183,7 +183,7 @@ Thus, the associated second member is defined by
 
 \subsection{Presentation of the different correction methods considered} \label{Corr.methods}
 
-Here we are given $\tilde{\phi}$ an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a $\phi$-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to reinject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (Section \ref{Corr.method.add}), correction by multiplication (Section \ref{Corr.method.mult}) and correction by multiplication on an elevated problem (Section \ref{Corr.method.mult_reh}).
+Here we are given $\tilde{\phi}$ an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a $\phi$-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to inject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (Section \ref{Corr.method.add}), correction by multiplication (Section \ref{Corr.method.mult}) and correction by multiplication on an elevated problem (Section \ref{Corr.method.mult_reh}).
 
 \begin{Rem}
 	In what follows, we assume that $\tilde{\phi}$ already has the right conditions at the boundary, i.e. $\tilde{\phi}=g$ on $\Gamma$.
@@ -346,7 +346,7 @@ In the case of this correction, whether the problem is homogeneous or non-homoge
 	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose any problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$.
 \end{Rem}
 
-\subsection{Theorical results} \label{Corr.theo_results}
+\subsection{Theoretical results} \label{Corr.theo_results}
 
 The aim of this section is to present some interesting theoretical results. We begin by presenting the interest of elevating the problem in Section \ref{Corr.theo_results.reh}. We will then present an interesting result for standard FEM in Section \ref{Corr.theo_results.comp_add_reh}. In fact, we'll show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when $m$ tends to infinity. Finally, we will demonstrate the estimation error of the correction on the elevated problem in Section \ref{Corr.theo_results.error_reh}.
 
@@ -417,7 +417,7 @@ However, when $m$ is small, we can see that the error is dominated by the first 
 	In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in Section \ref{Corr.method.add}, elevated the problem is of no interest.
 \end{Rem}
 
-\subsubsection{Comparaison of correction methods} \label{Corr.theo_results.comp_add_reh}
+\subsubsection{Comparison of correction methods} \label{Corr.theo_results.comp_add_reh}
 
 Here, we compare 2 methods, the addition correction method defined in Section \ref{Corr.method.add} and the multiplication correction method on a elevated problem defined in Section \ref{Corr.method.mult_reh}. In fact, we will show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
 
@@ -630,12 +630,23 @@ As explained above, we wish to combine $\phi$-FEM and FNO in order to predict th
 
 we will start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). we will consider here the "initial" solution $\tilde{\phi}$, which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
 
-Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (Section \ref{Corr.results.disturbed}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
+Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed", firstly by applying an analytical perturbation (Section \ref{Corr.results.disturbed}) and then by considering a $\phi$-FEM solution as being the disturbed solution for which we don't know the perturbation (Section \ref{Corr.results.phifem}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
 
-Finally, we will consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with a multi-perceptron network and PINNs in Section \ref{Corr.results.neural_net}. The reasons for considering other neural networks will be explained in detail in these sections.
+Finally, we will consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with other networks in Section \ref{Corr.results.neural_net} (a multi-perceptron network and a PINNs). The reasons for considering other neural networks will be explained in more details in these sections.
+
+In this section, we defined by
+\begin{equation*}
+	||u_{ex}-u_{method}||_{0,\Omega_h}^{(rel)}=\frac{\int_{\Omega_h} (u_{ex}-u_{method})^2}{\int_{\Omega_h} u_{ex}^2}
+\end{equation*}
+the relative error between the exact solution $u_{ex}$ and $u_{method}$ a solution obtained by FEM or $\phi$-FEM, a correction solver or the prediction of an neural network.
+
+We can defined too
+\begin{equation*}
+	||u_{ex}-u_{method}||_{0,\Omega_h}^{(abs)}=\int_{\Omega_h} (u_{ex}-u_{method})^2
+\end{equation*}
+the absolute error.
 
 \subsubsection{Correction on exact solution} \label{Corr.results.ana}
-%\graphicspath{{images/corr/corr_ana}}
 
 First, we will look at the correction of an exact solution. In other words, we consider
 \begin{equation*}
@@ -654,6 +665,8 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 	
 	We consider here the Circle problem with the solution defined in Section \ref{Corr.pb.circle.1}.
 	
+	\newpage
+	
 	\textbf{Homogeneous case :}
 	
 	We consider here the homogeneous problem (i.e. with $\varphi=0$) and seek to test the various correction methods with standard FEM and $\phi$-FEM methods.
@@ -662,7 +675,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_circle.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle}
 		\end{figure} 
 	\end{minipage} $\qquad$
@@ -670,7 +683,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_circle.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with $\phi$-FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Circle with $\phi$-FEM.}
 			\label{tab_errors_phifem_circle}
 		\end{figure} 
 	\end{minipage}
@@ -683,7 +696,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_circle_nh.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with standard FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Circle with standard FEM.}
 			\label{tab_errors_fem_circle_nh}
 		\end{figure} 
 	\end{minipage} $\qquad$
@@ -691,7 +704,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_circle_nh.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Circle with $\phi$-FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Circle with $\phi$-FEM.}
 			\label{tab_errors_phifem_circle_nh}
 		\end{figure} 
 	\end{minipage}
@@ -708,7 +721,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_square.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square}
 		\end{figure} 
 	\end{minipage} $\qquad$
@@ -716,10 +729,12 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_square.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with $\phi$-FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Square with $\phi$-FEM.}
 			\label{tab_errors_phifem_square}
 		\end{figure} 
 	\end{minipage}
+	
+	\newpage 
 	
 	\textbf{Non-homogeneous case :}
 	
@@ -729,7 +744,7 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_fem_square_nh.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with standard FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Square with standard FEM.}
 			\label{tab_errors_fem_square_nh}
 		\end{figure} 
 	\end{minipage} $\qquad$
@@ -737,16 +752,15 @@ In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.8\linewidth]{"corr_ana/tab_errors_phifem_square_nh.png"}
-			\captionof{figure}{Errors $||\cdot||_{L^2,rel}$ obtained with different methods on the Square with $\phi$-FEM.}
+			\captionof{figure}{Relative errors obtained with different methods on the Square with $\phi$-FEM.}
 			\label{tab_errors_phifem_square_nh}
 		\end{figure} 
 	\end{minipage}
 \end{enumerate}
 
-It would therefore seem that the various correction methods work in the different cases considered. \trad{Il semblerait tout de même que la correction par addition avec IPP soit plus efficace.}
+It would therefore seem that the various correction methods work in the different cases considered.
 
 \subsubsection{Correction on disturbed solution} \label{Corr.results.disturbed}
-%\graphicspath{{images/corr/corr_pert}}
 
 Now, let's consider a deliberately disturbed solution. The purpose of this step is to check that the correction solvers also work with a solution that is very close to the real solution, but not exact. In this section, we will consider a manually disturbed solution, i.e. the exact solution to which we've added a small, analytically known perturbation.
 
@@ -763,7 +777,7 @@ where $u_{ex}$ defines the exact solution to the problem, $P$ the perturbation a
 In our case, we will choose to consider $P$ as being of the same form as our exact solution (defined with different parameters), but we could very well consider a completely different perturbation. 
 
 \begin{Rem}
-	Note that the shape of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of $\phi$-FEM in Section \ref{Corr.results.phifem} or FNO in Section \ref{Corr.results.FNO}).
+	Note that the form of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of $\phi$-FEM in Section \ref{Corr.results.phifem} or FNO in Section \ref{Corr.results.FNO}).
 \end{Rem}
 
 In the case of Circle geometry where we consider the problem \ref{Corr.pb.circle.1}, the perturbation will be defined by
@@ -801,7 +815,9 @@ Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle
 	\end{figure} 
 \end{minipage}
 
-\modif{pas forcémenent ici, méthode direct pr pb non homogène + dire on prend $g=u_{ex}*(1+\phi)$}
+\begin{Rem}
+	In the previous results, we use the direct method to impose the edge conditions with $\phi$-FEM.
+\end{Rem}
 
 \paragraph{Results with differents $\epsilon$} \label{Corr.results.disturbed.eps} 
 
@@ -823,7 +839,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_circle_add.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_circle_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_circle_add}
 		\end{figure} 
@@ -831,7 +847,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_square_add.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_square_add.png"}
 			\captionof{figure}{Correction by adding on the Square with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_square_add}
 		\end{figure} 
@@ -842,7 +858,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_circle_mult.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_circle_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_circle_mult}
 		\end{figure} 
@@ -850,19 +866,19 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_square_mult.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_square_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with standard FEM in the homogeneous case.}
 			\label{corr_pert_fem_square_mult}
 		\end{figure} 
 	\end{minipage}
 	
-	\textbf{\textit{Observation :}} However, we would like to make a few comments on the results obtained:
+	\textbf{\textit{Observation :}} We can make a few comments on the results obtained:
 	\begin{itemize}
-		\item  First of all,, it would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the $\epsilon$), the more efficient the addition and multiplication correction solvers are in terms of accuracy.
+		\item  First of all, it would therefore seem that, overall, the smaller the perturbation applied (i.e. the smaller the $\epsilon$), the more efficient the addition and multiplication correction solvers are in terms of accuracy.
 		\item Then, it would appear that, as with the standard FEM and $\phi$-FEM solvers without correction, the more the solution varies (i.e. the larger $f$), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
-		\item It would also seem that for $\epsilon=1$ (i.e. a large perturbation), this parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the Section \ref{Corr.results.disturbed.reh}.
+		\item It would also seem that for $\epsilon=1$ (i.e. a large perturbation), the $\epsilon$ parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the Section \ref{Corr.results.disturbed.reh}.
 		\item In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.
-		\item There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed $\epsilon$). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem \modif{add ref} (for $m$ large, similar to correction by addition as explained above).
+		\item There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed $\epsilon$). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the Section \ref{Corr.theo_results.reh} (for $m$ large, similar to correction by addition as explained above). Thus, as we have shown (in Section \ref{Corr.theo_results.comp_add_reh}) that for $m$ large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.
 	\end{itemize}
 	
 	\item \textbf{Results on the non-homogeneous case :}
@@ -872,7 +888,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_circle_add_nh.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/fem_circle_add_nh.png"}
 			\captionof{figure}{Correction by adding on the Circle with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_circle_add_nh}
 		\end{figure} 
@@ -880,7 +896,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_square_add_nh.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/fem_square_add_nh.png"}
 			\captionof{figure}{Correction by adding on the Square with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_square_add_nh}
 		\end{figure} 
@@ -891,7 +907,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_circle_mult_nh.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_circle_mult_nh.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_circle_mult_nh}
 		\end{figure} 
@@ -899,7 +915,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/fem_square_mult_nh.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_square_mult_nh.png"}
 			\captionof{figure}{Correction by multiplying on the Square with standard FEM in the non-homogeneous case.}
 			\label{corr_pert_fem_square_mult_nh}
 		\end{figure} 
@@ -920,7 +936,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_circle_add.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/phifem_circle_add.png"}
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_circle_add}
 		\end{figure} 
@@ -928,7 +944,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_square_add.png"}
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/phifem_square_add.png"}
 			\captionof{figure}{Correction by adding on the Square with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_square_add}
 		\end{figure} 
@@ -939,7 +955,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_circle_mult.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/phifem_circle_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_circle_mult}
 		\end{figure} 
@@ -947,7 +963,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_square_mult.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/phifem_square_mult.png"}
 			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM in the homogeneous case.}
 			\label{corr_pert_phifem_square_mult}
 		\end{figure} 
@@ -971,7 +987,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/norms_circle_f_eq_fp.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/norms_circle_f_eq_fp.png"}
 			\captionof{figure}{Results by changing FEM boundary conditions on the circle.}
 			\label{norms_circle_f_eq_fp}
 		\end{figure} 
@@ -979,11 +995,12 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/norms_square_f_eq_fp.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/norms_square_f_eq_fp.png"}
 			\captionof{figure}{Results by changing FEM boundary conditions on the square.}
 			\label{norms_square_f_eq_fp}
 		\end{figure} 
 	\end{minipage}
+	
 	\begin{Rem}
 		It should be noted, however, that in practice, for example in the case where $\tilde{\phi}$ is a $\phi$-FEM solution or an FNO output, this case is not very realistic. There's no reason to expect the form of the perturbation created by the $\phi$-FEM solver or by the FNO to be exactly identical to the solution under consideration.
 	\end{Rem}
@@ -995,7 +1012,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_circle_add_nh.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/phifem_circle_add_nh.png"}
 			\captionof{figure}{Correction by adding on the Circle with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_circle_add_nh}
 		\end{figure} 
@@ -1003,18 +1020,18 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_square_add_nh.png"}
+			\includegraphics[width=0.9\linewidth]{"corr_pert/diff_eps/phifem_square_add_nh.png"}
 			\captionof{figure}{Correction by adding on the Square with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_square_add_nh}
 		\end{figure} 
 	\end{minipage}
 	
-	Then, we consider the correction by multiplying on the Circle problem (Figure \ref{corr_pert_phifem_circle_mult_nh}) and on the Square problem (Figure \ref{corr_pert_phifem_square_mult_nh}).
+	Then, we consider the correction by multiplying on the Circle problem (Figure \ref{corr_pert_phifem_circle_mult_nh}) and on the Square problem (Figure \ref{corr_pert_phifem_square_mult_nh}). We start by considering the same $\phi$-FEM scheme as in the homogeneous case, i.e. here we don't impose any edge conditions.
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_circle_mult_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_circle_mult_nh.png"}
 			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_circle_mult_nh}
 		\end{figure} 
@@ -1022,68 +1039,189 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/diff_eps/phifem_square_mult_nh.png"}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_square_mult_nh.png"}
 			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM in the non-homogeneous case.}
 			\label{corr_pert_phifem_square_mult_nh}
 		\end{figure} 
 	\end{minipage}
 	
-	\textbf{\textit{Observation :}} In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case. Except for the case where $f=f_p$, because in the case where the solution is non-homogeneous (i.e. $u_{ex}=g$ on $\Gamma$), the perturbation $P$ is no longer equal to the solution $u_{ex}$ because $P=0$ on $\Gamma$.
-\end{enumerate}
-
-
-\paragraph{Results on the elevated problem} \label{Corr.results.disturbed.reh} 
-
-In this section, we aim to show numerically the interest of elevating the problem. To do this, we will consider the case of the circle with the solution defined in Section \ref{Corr.pb.circle.1} and the case of the square with the solution defined in Section \ref{Corr.pb.square.1}. we will choose the homogeneous case (i.e. with $\varphi=0$) with $S=0.5$ and set $\epsilon=10^{-3}$.
-
-\textbf{Results with FEM :}
-
-	Here, we consider some of the cases considered above, in order to test that elevating the solution is useful, a method presented in Section \ref{Corr.method.mult_reh}. we will test this method on the circle and on the square for selected frequencies and by varying $m$.
-
-	\begin{minipage}{0.48\linewidth}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_circle.png"}
-			\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
-			\label{corr_pert_fem_circle_reh}
-		\end{figure} 
-	\end{minipage} $\qquad$
-	\begin{minipage}{0.48\linewidth}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_square.png"}
-			\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
-			\label{corr_pert_fem_square_reh}
-		\end{figure} 
-	\end{minipage}
+	\textbf{\textit{Observation :}} We note that the multiplicative corrector using $\phi$-FEM seems to succeed, in a similar way to the homogeneous case, to correct the non-homogeneous problem without imposing the boundary conditions. In fact, there's a subtlety to the scheme we're considering here. Unlike $\phi$-FEM (without correction), the scheme is written on $\tilde{\phi}$, which is non-zero at the boundary, and not on $\phi$, which is zero at the boundary. This could explain this result, whereas in the case of $\phi$-FEM (without correction), we can't avoid imposing boundary conditions.
+	
+	We will now use the direct method to impose the boundary condition. For this method, we're tempted to consider the solution $\tilde{u}=\tilde{\phi}C+g$ as the solution to the multiplication correction problem. In fact, unlike the classic $\phi$-FEM method, the $\tilde{\phi}$ function that replaces our level-set in the formulation is non-zero at the boundary and so, by imposing $C=1$ at the boundary, we'd have $\tilde{u}=2g$. To avoid this problem, we will raise the problem by $-g$ and consider $\tilde{u}=(\tilde{\phi}-g)C+g$. We will test this method on the circle (Figure \ref{corr_pert_phifem_circle_mult_direct_nh}) and on the square (Figure \ref{corr_pert_phifem_square_mult_direct_nh}).
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_circle.png"}
-			\captionof{figure}{Representation of the results on the Circle with FEM.}
-			\label{corr_pert_fem_circle_reh_fig}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_circle_mult_direct_nh.png"}
+			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the non-homogeneous case (direct method).}
+			\label{corr_pert_phifem_circle_mult_direct_nh}
 		\end{figure} 
 	\end{minipage} $\qquad$
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_square.png"}
-			\captionof{figure}{Representation of the results on the Square with FEM.}
-			\label{corr_pert_fem_square_reh_fig}
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_square_mult_direct_nh.png"}
+			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM in the non-homogeneous case (direct method).}
+			\label{corr_pert_phifem_square_mult_direct_nh}
 		\end{figure} 
 	\end{minipage}
-	 
-	\textbf{Observation :} The numerical results obtained on the circle in Figure \ref{corr_pert_fem_circle_reh} and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in \modif{add section}, we can see that by increasing $m$, the error converges to the error obtained with the correction by adding and therefore the solution itself converges to the solution obtained with the correction by adding. 
+	
+	We're now going to test imposing boundary conditions with the dual method on the circle (Figure \ref{corr_pert_phifem_circle_mult_dual_nh}) and on the square (Figure \ref{corr_pert_phifem_square_mult_dual_nh}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_circle_mult_dual_nh.png"}
+			\captionof{figure}{Correction by multiplying on the Circle with $\phi$-FEM in the non-homogeneous case (dual method).}
+			\label{corr_pert_phifem_circle_mult_dual_nh}
+		\end{figure} 
+	\end{minipage} $\qquad$
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{"corr_pert/diff_eps/phifem_square_mult_dual_nh.png"}
+			\captionof{figure}{Correction by multiplying on the Square with $\phi$-FEM in the non-homogeneous case (dual method).}
+			\label{corr_pert_phifem_square_mult_dual_nh}
+		\end{figure} 
+	\end{minipage}
+	
+	\textbf{\textit{Observation :}} It seems that by imposing the boundary conditions with the direct method, the errors are better when $\epsilon$ is a bit large, especially for $\epsilon=1$. For the dual method, it seems also works for imposing boundary conditions. However, we can see that it can become slightly stagnant when $\epsilon$ is decreased. It's possible that changing the stabilization parameters could have an impact here.
+	
+\end{enumerate}
 
+\paragraph{Results on the elevated problem} \label{Corr.results.disturbed.reh} 
+
+In this section, we aim to show numerically the interest of elevating the problem. To do this, we will consider the case of the circle with the solution defined in Section \ref{Corr.pb.circle.1} and the case of the square with the solution defined in Section \ref{Corr.pb.square.1}. We will choose the homogeneous case (i.e. with $\varphi=0$) with $S=0.5$ and set $\epsilon=10^{-3}$.
+
+\textbf{Results with FEM :}
+
+Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in Section \ref{Corr.method.mult_reh}). We will test this method on the circle (Figure \ref{corr_pert_fem_circle_reh} and Figure \ref{corr_pert_fem_circle_reh_fig}) and on the square (Figure \ref{corr_pert_fem_square_reh} and Figure \ref{corr_pert_fem_square_reh_fig}) for selected frequencies and by varying $m$.
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_circle.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
+		\label{corr_pert_fem_circle_reh}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_square.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
+		\label{corr_pert_fem_square_reh}
+	\end{figure} 
+\end{minipage}
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_circle.png"}
+		\captionof{figure}{Representation of the results on the Circle with FEM.}
+		\label{corr_pert_fem_circle_reh_fig}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_square.png"}
+		\captionof{figure}{Representation of the results on the Square with FEM.}
+		\label{corr_pert_fem_square_reh_fig}
+	\end{figure} 
+\end{minipage}
+
+\textbf{Observation :} The numerical results obtained on the circle in Figure \ref{corr_pert_fem_circle_reh} and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in Section \ref{Corr.theo_results.comp_add_reh}, we can see that by increasing $m$, the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding). 
+
+\textbf{Results with $\phi$-FEM :}
+
+Now we to test the correction by multiplying on an elevating problem with $\phi$-FEM. We will test this method on the circle (Figure \ref{corr_pert_phifem_circle_reh} and Figure \ref{corr_pert_phifem_circle_reh_fig}) and on the square (Figure \ref{corr_pert_phifem_square_reh} and Figure \ref{corr_pert_phifem_square_reh_fig}) for selected frequencies and by varying $m$. Here, we're using the same scheme as in the homogeneous case, i.e. we're not going to impose the boundary conditions using the direct or dual method. 
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_circle.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with $\phi$-FEM.}
+		\label{corr_pert_phifem_circle_reh}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_square.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with $\phi$-FEM.}
+		\label{corr_pert_phifem_square_reh}
+	\end{figure} 
+\end{minipage}
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_phifem_circle.png"}
+		\captionof{figure}{Representation of the results on the Circle with FEM.}
+		\label{corr_pert_phifem_circle_reh_fig}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_phifem_square.png"}
+		\captionof{figure}{Representation of the results on the Square with FEM.}
+		\label{corr_pert_phifem_square_reh_fig}
+	\end{figure} 
+\end{minipage}
+
+Now, we impose the boundary conditions using the dual method, always considering the circle (Figure \ref{corr_pert_phifem_circle_dual_reh} and Figure \ref{corr_pert_phifem_circle_dual_reh_fig}) and on the square (Figure \ref{corr_pert_phifem_square_dual_reh} and Figure \ref{corr_pert_phifem_square_dual_reh_fig}) for selected frequencies and by varying $m$.
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_circle_dual.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
+		\label{corr_pert_phifem_circle_dual_reh}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_square_dual.png"}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
+		\label{corr_pert_phifem_square_dual_reh}
+	\end{figure} 
+\end{minipage}
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/fig_phifem_circle_dual.png"}
+		\captionof{figure}{Representation of the results on the Circle with FEM.}
+		\label{corr_pert_phifem_circle_dual_reh_fig}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/fig_phifem_square_dual.png"}
+		\captionof{figure}{Representation of the results on the Square with FEM.}
+		\label{corr_pert_phifem_square_dual_reh_fig}
+	\end{figure} 
+\end{minipage}
+
+\textbf{\textit{Observation :}} It would appear that, in the case of multiplication correction on an elevated problem, we are forced to impose the boundary conditions using one of the two methods, unlike multiplication correction without elevation. By imposing boundary conditions using the dual method, it seems that in the case where the frequency of the solution is greater than the frequency of the perturbation (for $f>f_p$), we do reduce the error by increasing $m$, but it doesn't seem as efficient as in the case with FEM. Indeed, in all the cases considered here, correction by addition gives much better results. Moreover, for $f< f_p$, it would appear that the enhancement is the opposite of the expected effect.
+
+\begin{Rem}
+	Note that the direct method is not applicable in the case of this problem because, as explained in the case of correction without elevation on a non-homogeneous problem, we are in some ways returning to the homogeneous problem. In fact, if we consider 
+	\begin{equation*}
+		\hat{u}=(\hat{\phi}-g-m)C+(g+m)=(\tilde{\phi}-g)C+(g+m)
+	\end{equation*}
+	with $g=0$ because we've placed ourselves in the homogeneous case, which amounts to solving the problem without elevation.
+\end{Rem}
 
 \subsubsection{Correction on $\phi$-FEM solution} \label{Corr.results.phifem}
 
 \modif{Then we will look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
 
 \subsubsection{Correction with FNO} \label{Corr.results.FNO}
-
-\modif{A TRADUIRE !!!}
 
 In this section, we will consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
 
