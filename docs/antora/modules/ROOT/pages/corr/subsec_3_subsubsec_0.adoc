@@ -10,7 +10,7 @@ First, we will look at the correction of an exact solution. In other words, we c
 ++++
 This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error).
 
-In all the following cases, we'll consider stem:[S=0.5], as well as stem:[\varphi=0] in the case of the homogeneous problem and stem:[\varphi=1] in the non-homogeneous case. We will vary stem:[f] between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction stem:[n_{vert}=100].
+In all the following cases, we will consider stem:[S=0.5], as well as stem:[\varphi=0] in the case of the homogeneous problem and stem:[\varphi=1] in the non-homogeneous case. We will vary stem:[f] between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction stem:[n_{vert}=100].
 
 
 [NOTE]
@@ -59,7 +59,7 @@ image::corr/corr_ana/tab_errors_phifem_circle_nh.png[width=240.0,height=192.0]
 
 *  *Results on the Square :*
 
-We consider here the Square problem with the solution defined in <<_first_problem>>.
+We consider here the Square problem with the solution defined in <<_problem>>.
 
 *Homogeneous case :*
 
@@ -96,5 +96,5 @@ image::corr/corr_ana/tab_errors_phifem_square_nh.png[width=240.0,height=192.0]
 |===
 
 
-It would therefore seem that the various correction methods work in the different cases considered.
+It would therefore seem that the various correction methods work in the different cases considered. \trad{Il semblerait tout de même que la correction par addition avec IPP soit plus efficace.}
 

@@ -12,10 +12,9 @@ we try to bring stem:[C=\frac{\tilde{u}}{\tilde{\phi}}] closer to 1 (for stem:[\
 So we're looking for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the problem
 [stem]
 ++++
-\label{eq.corr.pbc_mult}
 \left\{\begin{aligned}
-&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
-&C=1 \quad &&\Gamma
+&-\Delta (\tilde{\phi}C)=f, \; &&\text{on } \Omega, \\
+&C=1, \; &&\text{on } \; \Gamma.
 \end{aligned}\right. %\tag{stem:[\mathcal{C}_\times]}
 ++++
 
@@ -30,7 +29,7 @@ So for the standard FEM method, the weak formulation will be given by
 ++++
 \int_\Omega \nabla (\tilde{\phi}C)\cdot\nabla (\tilde{\phi}v)=\int_\Omega f\tilde{\phi}v
 ++++
-where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...)
+where homogeneous or non-homogeneous Dirichlet conditions can be strongly imposed by classical methods (penalization, elimination...).
 
 For the stem:[\phi]-FEM method, the weak formulation for the homogeneous problem is given by
 [stem]
@@ -49,6 +48,4 @@ G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\tilde
 ++++
 
 In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in <<_non-homogeneous_case>>.
-
-#rajouter les formulation#
 

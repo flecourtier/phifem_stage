@@ -2,14 +2,14 @@
 :xrefstyle: short
 = Second domain : the Square.
 
-Here, we'll consider the stem:[\Omega] domain to be the unit square stem:[\Omega=[0,1]^2]. This domain is entirely included in the fictitious domain stem:[O=[-0.5,1.5]^2] (<<geom_square>>).
+Here, we will consider the stem:[\Omega] domain to be the unit square stem:[\Omega=[0,1]^2]. This domain is entirely included in the fictitious domain stem:[O=[-0.5,1.5]^2] (<<geom_square>>).
 
-In this case, we'll consider two levelset functions. The first function stem:[\phi], defined by
+In this case, we will consider two level-set functions. The first function stem:[\phi], defined by
 [stem]
 ++++
 \phi(x,y)=x(1-x)y(1-y),
 ++++
-will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, as it is only negative within the stem:[\Omega] domain (<<levelset_square>>).
+will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, because it is not only negative in the stem:[\Omega] domain (<<levelset_square>>).
 
 [[levelset_square]]
 .figure
@@ -22,9 +22,9 @@ To construct the sets of cells and faces needed to perform the stem:[\phi]-FEM m
 ++++
 which is indeed negative inside the domain, zero at the boundary and positive outside, but which does not sufficiently satisfy the regularity conditions necessary for stem:[\phi]-FEM.
 
-We the considered different problems #à compléter#.
+We will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.
 
-== First problem
+== Problem
 
 Here, we are interested in the Poisson problem with as analytical solution
 [stem]
@@ -44,4 +44,16 @@ f(x,y)=8\pi^2 Sf^2\sin\left(2\pi fx + \varphi\right)\sin\left(2\pi fy + \varphi\
 ====
 It should be noted that as for the circle for stem:[\varphi=0], the Dirichlet conditions considered are then homogeneous on the square (i.e. stem:[g=0] on stem:[\Gamma]).
 ====
+
+[cols="a,a"]
+|===
+|[[sol_square]]
+.Representation of the solution stem:[u_{ex}] on the Circle with stem:[S=0.5] and stem:[f=1] (with stem:[p=0] and stem:[p=1]).
+
+image::corr/sol_square.png[width=300.0,height=240.0]
+|[[f_square]]
+.figure
+image::corr/f_square.png[width=300.0,height=240.0]
+
+|===
 

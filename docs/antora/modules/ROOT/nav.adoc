@@ -31,6 +31,7 @@
 *** xref:corr/subsec_2.adoc[Theorical results]
 **** xref:corr/subsec_2_subsubsec_0.adoc[Interest of elevating the problem]
 **** xref:corr/subsec_2_subsubsec_1.adoc[Comparaison of correction methods]
+**** xref:corr/subsec_2_subsubsec_2.adoc[Error estimation of the correction on the elevated problem]
 *** xref:corr/subsec_3.adoc[Numerical results]
 **** xref:corr/subsec_3_subsubsec_0.adoc[Correction on exact solution]
 **** xref:corr/subsec_3_subsubsec_1.adoc[Correction on disturbed solution]

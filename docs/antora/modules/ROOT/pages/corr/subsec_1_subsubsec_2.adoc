@@ -2,12 +2,11 @@
 :xrefstyle: short
 = Correction by multiplying on an elevated problem
 
-We now introduce a third correction method, which we'll call multiplication correction on an elevated problem. This method is in fact very similar to the previous one (correction by multiplication), except that we are no longer trying to correct the same problem.
+We now introduce a third correction method, which we will call correction by multiplying on an elevated problem. This method is in fact very similar to the previous one (correction by multiplying), except that we are no longer trying to correct the same problem.
 
 The initial modified problem, which we now consider, consists in finding stem:[u : \Omega \rightarrow \mathbb{R}^d] such that
 [stem]
 ++++
-\label{eq.corr.pb_reh}
 \left\{
 \begin{aligned}
 -\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
@@ -17,14 +16,12 @@ The initial modified problem, which we now consider, consists in finding stem:[u
 ++++
 with stem:[\hat{u}=u+m] and stem:[m] a constant.
 
-#ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)#
-
 We then apply the same multiplication correction method, but this time on the modified problem, which has been elevated by a constant stem:[m]. We then consider
 [stem]
 ++++
 \tilde{u}=\hat{\phi}C
 ++++
-avec 
+with 
 [stem]
 ++++
 \hat{\phi}=\tilde{\phi}+m
@@ -34,8 +31,8 @@ and so we look for stem:[C: \Omega \rightarrow \mathbb{R}^d] solution to the pro
 ++++
 \label{eq.corr.pbc_mult_reh}
 \left\{\begin{aligned}
-&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
-&C=1 \quad &&\Gamma
+&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+&C=1, \; &&\text{on } \; \Gamma.
 \end{aligned}\right. %\tag{stem:[\mathcal{C}_\times^\mathcal{M}]}
 ++++
 
@@ -64,11 +61,9 @@ G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\
 
 In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for stem:[m\ne 0]), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in <<_non-homogeneous_case>>.
 
-#rajouter les formulation#
-
 
 [NOTE]
 ====
-Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose a problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}]. In this way, by correcting the elevated problem by multiplication, we can easily return to correcting the initial problem by multiplication. 
+Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing stem:[C=\frac{\tilde{u}}{\hat{\phi}}] closer to 1 doesn't pose any problem (since in this case stem:[\hat{\phi}\ne 0]). Moreover, we can easily return to the original problem by subtracting stem:[m] from stem:[\tilde{u}].
 ====
 

@@ -4,11 +4,11 @@
 
 As explained above, we wish to combine stem:[\phi]-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (xref:corr/subsec_1.adoc[Section "Presentation of the different correction methods considered"]). It is important to note that, for practical purposes, almost all the following results obtained with stem:[\phi]-FEM will be compared with those obtained with the standard FEM method.
 
-We'll start by presenting the results obtained on an analytical solution (xref:corr/subsec_3_subsubsec_0.adoc[Section "Correction on exact solution"]). We'll consider here the "initial" solution stem:[\tilde{\phi}], which we'll inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
+we will start by presenting the results obtained on an analytical solution (xref:corr/subsec_3_subsubsec_0.adoc[Section "Correction on exact solution"]). we will consider here the "initial" solution stem:[\tilde{\phi}], which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
 
 Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (xref:corr/subsec_3_subsubsec_1.adoc[Section "Correction on disturbed solution"]). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
 
-Finally, we'll consider the case of neural networks with an FNO in xref:corr/subsec_3_subsubsec_3.adoc[Section "Correction with FNO"] and then with a multi-perceptron network and PINNs in xref:corr/subsec_3_subsubsec_4.adoc[Section "Correction with other networks"]. The reasons for considering other neural networks will be explained in detail in these sections.
+Finally, we will consider the case of neural networks with an FNO in xref:corr/subsec_3_subsubsec_3.adoc[Section "Correction with FNO"] and then with a multi-perceptron network and PINNs in xref:corr/subsec_3_subsubsec_4.adoc[Section "Correction with other networks"]. The reasons for considering other neural networks will be explained in detail in these sections.
 
 
 ---

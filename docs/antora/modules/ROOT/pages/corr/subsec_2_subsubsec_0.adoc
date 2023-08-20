@@ -2,25 +2,12 @@
 :xrefstyle: short
 = Interest of elevating the problem
 
-The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] with a stem:[\mathbb{P}^1] solution. Only the standard FEM method is considered here. For this purpose, we'll consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we'll apply a perturbation, denoted stem:[P]. We then define
+The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] with a stem:[\mathbb{P}^1] solution. Only the standard FEM method is considered here. For this purpose, we will consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we will apply a perturbation, denoted stem:[P]. We then define
 [stem]
 ++++
 \tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
 ++++
 with stem:[P] the perturbation (such that stem:[P=0] on stem:[\Gamma]) and stem:[\epsilon] small.
-
-[stem]
-++++
-++++
-[stem]
-++++
-++++
-[stem]
-++++
-++++
-[stem]
-++++
-++++
 
 We pose
 [stem]
@@ -31,13 +18,13 @@ with stem:[m] a constant, and consider the multiplication correction on a elevat
 [stem]
 ++++
 \left\{\begin{aligned}
-&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
-&\hat{u}=g+m \quad &&\Gamma
+&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
 \end{aligned}\right.
 ++++
 with stem:[\hat{u}=\hat{\phi}C].
 
-In Section #add section#, we'll show the following inequality in the context of this problem
+In xref:corr/subsec_2_subsubsec_2.adoc[Section "Error estimation of the correction on the elevated problem"], we will prove the following inequality in the context of this problem
 
 [stem]
 ++++
@@ -63,7 +50,7 @@ with
 As 
 [stem]
 ++++
-\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{L^2(\Omega)}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}
+\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{0,\Omega}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}
 ++++
 and 
 [stem]
@@ -77,28 +64,22 @@ and
 then, for stem:[m] sufficiently large :
 [stem]
 ++++
-\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}\sim\left|\left|P''\right|\right|_{L^2(\Omega)}
+\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\sim\left|\left|P''\right|\right|_{0,\Omega}
 ++++
 
-So for stem:[m] sufficiently large, we have stem:[||\hat{\phi}||_\infty\sim m] and thus
+Finally, for stem:[m] sufficiently large, we have stem:[||\hat{\phi}||_\infty\sim m] and thus
 [stem]
 ++++
-\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{L^2(\Omega)} \label{ine3_bis}
+\left|\left|\frac{u_{ex}+m}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
 ++++
 
 We deduce that when stem:[m] is big, the error no longer depends on the solution but only on the perturbation stem:[P]. These results were obtained numerically and are presented in xref:corr/subsec_3_subsubsec_1.adoc[Section "Correction on disturbed solution"].
 
-However, when stem:[m] is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution stem:[tilde{\phi}].
+However, when stem:[m] is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution stem:[\tilde{\phi}].
 
 
 [NOTE]
 ====
-In addition, raising the problem can be extremely effective when the solution cancels out on the domain. 
-====
-
-
-[NOTE]
-====
-Note that in the case of the addition correction presented in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"], raising the problem is of no interest.
+In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"], elevated the problem is of no interest.
 ====
 

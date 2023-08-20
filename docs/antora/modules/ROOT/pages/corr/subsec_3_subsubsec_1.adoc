@@ -67,7 +67,7 @@ The aim of this section is to test correction by addition (without IPP) and corr
 
 We will try to separate the cases according to the frequencies considered. In other words, for stem:[f,f_p\in\{1,2,3,4\}], we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency (stem:[f>f_p]), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal (stem:[f=f_p]), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution (stem:[f<f_p]). 
 
-In this section, we'll consider for the circle the solution defined in <<_first_problem>> and for the square the solution defined in <<_first_problem>>.
+In this section, we will consider for the circle the solution defined in <<_first_problem>> and for the square the solution defined in <<_problem>>.
 
 *Results with standard FEM :*
 
@@ -243,11 +243,11 @@ image::corr/corr_pert/diff_eps/phifem_square_mult_nh.png[width=300.0,height=240.
 
 == Results on the elevated problem
 
-In this section, we aim to show numerically the interest of elevating the problem. To do this, we'll consider the case of the circle with the solution defined in <<_first_problem>> and the case of the square with the solution defined in <<_first_problem>>. We'll choose the homogeneous case (i.e. with stem:[\varphi=0]) with stem:[S=0.5] and set stem:[\epsilon=10^{-3}].
+In this section, we aim to show numerically the interest of elevating the problem. To do this, we will consider the case of the circle with the solution defined in <<_first_problem>> and the case of the square with the solution defined in <<_problem>>. we will choose the homogeneous case (i.e. with stem:[\varphi=0]) with stem:[S=0.5] and set stem:[\epsilon=10^{-3}].
 
 *Results with FEM :*
 
-Here, we consider some of the cases considered above, in order to test that elevating the solution is useful, a method presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]. We'll test this method on the circle and on the square for selected frequencies and by varying stem:[m].
+Here, we consider some of the cases considered above, in order to test that elevating the solution is useful, a method presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]. we will test this method on the circle and on the square for selected frequencies and by varying stem:[m].
 
 [cols="a,a"]
 |===

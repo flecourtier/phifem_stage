@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Presentation of different problems considered
 
-In this section, we present the different problems we'll be considering in xref:corr/subsec_3.adoc[Section "Numerical results"]. We will consider the geometry of a circle in xref:corr/subsec_0_subsubsec_0.adoc[Section "First domain : the Circle."] represented in <<geom_circle>> as well as the geometry of a square in xref:corr/subsec_0_subsubsec_1.adoc[Section "Second domain : the Square."] represented in <<geom_square>>. We'll also look at different solutions #à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)#.
+In this section, we present the different problems we will be considering in xref:corr/subsec_3.adoc[Section "Numerical results"]. We will consider the geometry of a circle in xref:corr/subsec_0_subsubsec_0.adoc[Section "First domain : the Circle."] represented in <<geom_circle>> as well as the geometry of a square in xref:corr/subsec_0_subsubsec_1.adoc[Section "Second domain : the Square."] represented in <<geom_square>>. For the circle, we will consider a first analytic trigonometric solution, parameterized in such a way that the problem can be considered homogeneous. we will then consider a second problem for which no exact solution is known, and for which we will take an over-refined FEM solution as the reference solution. For the square, we will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.
 
 [cols="a,a"]
 |===
@@ -18,7 +18,7 @@ image::corr/geom_square.png[width=180.0,height=144.0]
 
 [NOTE]
 ====
-To generate meshes with FEM, we'll consider a mesh comparable to stem:[\phi]-FEM. To do this, we generate our stem:[\phi]-FEM grid, which is simply the regular mesh of the stem:[\mathcal{O}] domain of stem:[n_{vert}\times n_{vert}] nodes. From this mesh we generate a FEM mesh whose largest element diameter stem:[h_{FEM}] is very close to the largest diameter associated with stem:[\phi-FEM], stem:[h_{\phi-FEM}] (stem:[h_{FEM}\sim h_{\phi-FEM}]). Here's a representation of the meshes generated for FEM and stem:[\phi]-FEM on the circle and on the square with stem:[n_{vert}=10] :
+To generate meshes with FEM, we will consider a mesh comparable to stem:[\phi]-FEM. To do this, we generate our stem:[\phi]-FEM grid, which is simply the regular mesh of the stem:[\mathcal{O}] domain of stem:[n_{vert}\times n_{vert}] nodes. From this mesh we generate a FEM mesh whose largest element diameter stem:[h_{FEM}] is very close to the largest diameter associated with stem:[\phi-FEM], stem:[h_{\phi-FEM}] (stem:[h_{FEM}\sim h_{\phi-FEM}]). Here, we have a representation of the meshes generated for FEM and stem:[\phi]-FEM on the circle (<<mesh_circle>>) and on the square (<<mesh_square>>) with stem:[n_{vert}=10] vertices in each direction.
 
 [cols="a,a"]
 |===
@@ -40,7 +40,7 @@ Note that in the case where the problem is non-homogeneous, if we don't have a d
 ++++
 g(x,y)=u_{ex}(x,y)\times(1+\phi(x,y))
 ++++
-with stem:[\phi] the levelset function, null by definition on stem:[\Gamma].
+with stem:[\phi] the level-set function, null by definition on stem:[\Gamma].
 ====
 
 

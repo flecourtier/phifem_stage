@@ -1,0 +1,152 @@
+:stem: latexmath
+:xrefstyle: short
+= Error estimation of the correction on the elevated problem
+
+As in the xref:corr/subsec_2_subsubsec_0.adoc[Section "Interest of elevating the problem"], we assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we will apply a perturbation, denoted stem:[P]. We then define
+[stem]
+++++
+\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
+++++
+with stem:[P] the perturbation (such that stem:[P=0] on stem:[\Gamma]) and stem:[\epsilon] small.
+
+We consider
+stem:[]\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m=\hat{u_{ex}}+\epsilon Pstem:[]
+with stem:[\hat{u_{ex}}=u_{ex}+m] et stem:[m] a constant.
+
+We still want to solve the following problem:
+[stem]
+++++
+\left\{\begin{aligned}
+&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
+\end{aligned}\right. \label{pb_reh} %\tag{stem:[\mathcal{C}]}
+++++
+with stem:[\hat{u}=\hat{\phi}C] whose approximate variational problem consists of
+[stem]
+++++
+\text{Find } \hat{u_h}\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h
+++++
+
+Here we seek to prove the following property:
+[stem]
+++++
+\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
+++++
+
+
+*   We're first interested in stem:[\left|\left|\hat{u}-\hat{u_h}\right|\right|_1].
+
+Since  stem:[V_h] is a vector subspace of  stem:[V], posing stem:[v=v_h], we obtain :
+[stem]
+++++
+a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.
+++++
+We then have Galerkin orthogonality:
+[stem]
+++++
+a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h
+++++
+and
+[stem]
+++++
+\begin{aligned}
+||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{by coercivity} \\
+&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) \\
+&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
+&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{by continuity} \\
+&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
+\end{aligned}
+++++
+Thus
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.
+++++
+By posing stem:[A=C-I_hC], we have
+[stem]
+++++
+|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1
+++++
+because
+[stem]
+++++
+||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1
+++++
+and
+[stem]
+++++
+||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.
+++++
+Therefore, we have
+[stem]
+++++
+|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1
+++++
+
+Finally, using the interpolation inequality, we obtain
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
+\label{norme_H1}
+++++
+
+*  We can now turn our attention directly to stem:[\left|\left|\hat{u}-\hat{u_h}\right|\right|_0].
+
+We'll start by applying the Aubin-Nitsche duality method by considering the dual problem:
+
+Let stem:[\hat{z}\in H_0^1(\Omega)] solution of the problem
+stem:[]\left\{\begin{aligned}
+&-\Delta\hat{z}=\hat{e_h}, \; &&\text{in }\Omega \\
+&\hat{z}=0, \; &&\text{on } \Gamma
+\end{aligned}\right.stem:[]
+with stem:[\hat{e_h}=\hat{u}-\hat{u_h}].
+Thus
+stem:[]a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla vstem:[]
+and as stem:[\hat{e_h}\in H_0^1(\Omega)]
+[stem]
+++++
+a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+\label{norme_e_h}
+++++
+Moreover, by the regularity properties : 
+[stem]
+++++
+\hat{z}\in H^2(\Omega)
+\label{z_H_2}
+++++
+and
+[stem]
+++++
+||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
+\label{prop_reg}
+++++
+Thus
+[stem]
+++++
+\begin{aligned}
+||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2 \\
+&=a(\hat{z},\hat{e_h}) &&\text{by \ref{norme_e_h}} \\
+&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{by Galerkin orthogonality} \\
+&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{by continuity} \\
+&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{by \ref{z_H_2} et by interpolation inequality} \\
+&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{norme_H1}} \\
+&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{prop_reg}}
+\end{aligned}
+++++
+Finally
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}
+++++
+
+
+[NOTE]
+====
+Note that 
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0
+++++
+====
+
+

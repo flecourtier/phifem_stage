@@ -2,16 +2,16 @@
 :xrefstyle: short
 = First domain : the Circle.
 
-Here, we'll consider the stem:[\Omega] domain to be the circle of radius stem:[\sqrt{2}/4] and center stem:[(0.5,0.5)].This domain is entirely included in the fictitious domain stem:[O=[0,1]^2] (<<geom_circle>>).
+Here, we will consider the stem:[\Omega] domain to be the circle of radius stem:[\sqrt{2}/4] and center stem:[(0.5,0.5)].This domain is entirely included in the fictitious domain stem:[O=[0,1]^2] (<<geom_circle>>).
 
-We will consider the levelset function stem:[\phi] defined by
+We will consider the level-set function stem:[\phi] defined by
 [stem]
 ++++
 \phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2,
 ++++
 negative function inside the domain, null at the boundary and positive outside it
 
-We then consider different problems #à compléter#.
+We will consider a first analytic trigonometric solution (<<_first_problem>>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<<_stem:[f]_gaussian>>) for which no exact solution is known, and for which we'll take an over-refined FEM solution as the reference solution.
 
 == First problem
 
@@ -20,7 +20,7 @@ Here, we are interested in the Poisson problem with an analytical solution
 ++++
 u_{ex}(x,y)=S\times\sin\left(8\pi f\left((x-0.5)^2+(y-0.5)^2\right)+\varphi\right)
 ++++
-where stem:[S\in[0,1]] is the amplitude of the signal, stem:[f\in\mathbb{N}] can be associated with the "frequency" of the signal and stem:[\varphi\in[0,1]] the phase at the origin
+where stem:[S\in[0,1]] is the amplitude of the signal, stem:[f\in\mathbb{N}] can be associated with the "frequency" of the signal and stem:[\varphi\in[0,1]] the phase at the origin, represented in <<sol_circle>>.
 
 Thus, the second associated member is defined by
 [stem]
@@ -30,6 +30,7 @@ f(x,y)=256\pi^2 S f^2&\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left((x-0
 &- 32\pi S f\cos\left[8\pi f \left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right]
 \end{aligned}
 ++++
+and represented in <<f_circle>>.
 
 
 [NOTE]
@@ -37,7 +38,17 @@ f(x,y)=256\pi^2 S f^2&\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left((x-0
 Note that for stem:[\varphi=0], the Dirichlet conditions considered are then homogeneous on the circle (i.e. stem:[g=0] on stem:[\Gamma]).
 ====
 
-#ajouter image solution et f#
+[cols="a,a"]
+|===
+|[[sol_circle]]
+.Representation of the solution stem:[u_{ex}] on the Circle with stem:[S=0.5] and stem:[f=1] (with stem:[p=0] and stem:[p=1]).
+
+image::corr/sol_circle.png[width=300.0,height=240.0]
+|[[f_circle]]
+.figure
+image::corr/f_circle.png[width=300.0,height=240.0]
+
+|===
 
 == stem:[f] Gaussian
 
@@ -46,13 +57,17 @@ In the case considered here, no analytical solution is known. We consider the so
 ++++
 f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)\,,
 ++++
-with stem:[\sigma \sim \mathcal{U}([0.1,0.6])] and stem:[\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])] with the condition stem:[\phi(\mu_0, \mu_1) < -0.05].
+with stem:[\sigma \sim \mathcal{U}([0.1,0.6])] and stem:[\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])] with the condition stem:[\phi(\mu_0, \mu_1) < -0.05] and represented in <<f_circle_gaussian>>
 
-ince we don't have an exact solution, we'll consider a so-called reference solution, denoted stem:[u_{ref}]. This reference solution is defined as an over-refined stem:[\mathbb{P}^1] solution obtained by the standard FEM method (with stem:[h_{ref}\approx 0.006]). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
+Since we don't have an exact solution, we will consider a so-called reference solution, denoted stem:[u_{ref}]. This reference solution is defined as an over-refined stem:[\mathbb{P}^1] solution obtained by the standard FEM method (with stem:[h_{ref}\approx 0.006]). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.
 
 
 [NOTE]
 ====
 For this problem, we choose to consider only the homogeneous case, i.e. we take stem:[g=0] on stem:[\Gamma].
 ====
+
+[[f_circle_gaussian]]
+.figure
+image::corr/f_circle_gaussian.png[width=180.0,height=144.0]
 
