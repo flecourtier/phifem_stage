@@ -187,13 +187,13 @@
   </li>
   <li class="nav-item" data-depth="3">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="subsec_2.html">Theorical results</a>
+    <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
@@ -329,10 +329,32 @@ title="Fullscreen mode"
 <p>we will start by presenting the results obtained on an analytical solution (<a href="subsec_3_subsubsec_0.html" class="xref page">Section "Correction on exact solution"</a>). we will consider here the "initial" solution \(\tilde{\phi}\), which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.</p>
 </div>
 <div class="paragraph">
-<p>Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed" solutions (<a href="subsec_3_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.</p>
+<p>Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed", firstly by applying an analytical perturbation (<a href="subsec_3_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>) and then by considering a \(\phi\)-FEM solution as being the disturbed solution for which we don&#8217;t know the perturbation (<a href="subsec_3_subsubsec_2.html" class="xref page">Section "Correction on \(\phi\)-FEM solution"</a>). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.</p>
 </div>
 <div class="paragraph">
-<p>Finally, we will consider the case of neural networks with an FNO in <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a> and then with a multi-perceptron network and PINNs in <a href="subsec_3_subsubsec_4.html" class="xref page">Section "Correction with other networks"</a>. The reasons for considering other neural networks will be explained in detail in these sections.</p>
+<p>Finally, we will consider the case of neural networks with an FNO in <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a> and then with other networks in <a href="subsec_3_subsubsec_4.html" class="xref page">Section "Correction with other networks"</a> (a multi-perceptron network and a PINNs). The reasons for considering other neural networks will be explained in more details in these sections.</p>
+</div>
+<div class="paragraph">
+<p>In this section, we defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-u_{method}||_{0,\Omega_h}^{(rel)}=\frac{\int_{\Omega_h} (u_{ex}-u_{method})^2}{\int_{\Omega_h} u_{ex}^2}\]
+</div>
+</div>
+<div class="paragraph">
+<p>the relative error between the exact solution \(u_{ex}\) and \(u_{method}\) a solution obtained by FEM or \(\phi\)-FEM, a correction solver or the prediction of an neural network.</p>
+</div>
+<div class="paragraph">
+<p>We can defined too</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-u_{method}||_{0,\Omega_h}^{(abs)}=\int_{\Omega_h} (u_{ex}-u_{method})^2\]
+</div>
+</div>
+<div class="paragraph">
+<p>the absolute error.</p>
 </div>
 <hr>
 <div class="paragraph">
