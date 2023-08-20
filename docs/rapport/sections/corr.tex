@@ -171,7 +171,7 @@ Rewriting the problem, we seek to find $\tilde{C}: \Omega \rightarrow \mathbb{R}
 \left\{\begin{aligned}
 	-\Delta \tilde{C}&=\tilde{f}, \; &&\text{on } \Omega, \\
 	\tilde{C}&=0, \; &&\text{in } \Gamma.
-\end{aligned}\right. \tag{$\mathcal{C}_{+}$}
+\end{aligned}\right. %\tag{$\mathcal{C}_{+}$}
 \end{equation}
 with $\tilde{f}=f+\Delta\tilde{\phi}$.
 
@@ -218,13 +218,13 @@ In this second method, we try to approach the exact solution in a different way.
 we try to bring $C=\frac{\tilde{u}}{\tilde{\phi}}$ closer to 1 (for $\tilde{\phi}\ne 0$). This type of correction is called correction by multiplying.
 
 So we're looking for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
-\begin{equation}
+\begin{equation*}
 	\label{eq.corr.pbc_mult}
 	\left\{\begin{aligned}
 		&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
 		&C=1 \quad &&\Gamma
-	\end{aligned}\right. \tag{$\mathcal{C}_\times$}
-\end{equation}
+	\end{aligned}\right. %\tag{$\mathcal{C}_\times$}
+\end{equation*}
 
 \begin{Rem}
 	In the same way as for correction by adding, we note that this problem is equivalent to the initial problem.
@@ -258,15 +258,15 @@ In the non-homogeneous case, it is important to impose the boundary conditions e
 We now introduce a third correction method, which we'll call multiplication correction on an elevated problem. This method is in fact very similar to the previous one (correction by multiplication), except that we are no longer trying to correct the same problem.
 
 The initial modified problem, which we now consider, consists in finding $u : \Omega \rightarrow \mathbb{R}^d$ such that
-\begin{equation}
+\begin{equation*}
 	\label{eq.corr.pb_reh}
 	\left\{
 	\begin{aligned}
 		-\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
 		\hat{u}=g+m, \; &&\text{on } \; \Gamma,
 	\end{aligned}
-	\right. \tag{$\mathcal{P}^\mathcal{M}$}
-\end{equation}
+	\right. %\tag{$\mathcal{P}^\mathcal{M}$}
+\end{equation*}
 with $\hat{u}=u+m$ and $m$ a constant.
 
 \modif{ajouter schéma (à gauche une solution initiale simple et à droite la solution rehaussée.)}
@@ -285,7 +285,7 @@ and so we look for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 	\left\{\begin{aligned}
 		&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
 		&C=1 \quad &&\Gamma
-	\end{aligned}\right. \tag{$\mathcal{C}_\times^\mathcal{M}$}
+	\end{aligned}\right. %\tag{$\mathcal{C}_\times^\mathcal{M}$}
 \end{equation}
 
 So for the standard FEM method, the weak formulation will be given by
@@ -318,6 +318,186 @@ In the case of this correction, whether the problem is homogeneous or non-homoge
 \subsection{Theorical results} \label{Corr.theo_results}
 
 \modif{En annexe, on a un document expliquant l'intérêt de rehausser le problème +add ref.} \modif{rajouter également document qui explique qu'au final on s'est rendu compte que correction par multiplication sur problème rehaussé $\iff$ correction par addition + ajouter document}
+
+\modif{A TRADUIRE !}
+
+\subsubsection{Interest of elevating the problem} \label{Corr.theo_results.reh}
+
+The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in Section \ref{Corr.method.mult_reh} with a $\mathbb{P}^1$ solution. Only the standard FEM method is considered here. For this purpose, we'll consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we'll apply a perturbation, denoted $P$. We then define
+\begin{equation*}
+	\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
+\end{equation*}
+with $P$ the perturbation (such that $P=0$ on $\Gamma$) and $\epsilon$ small.
+
+%On commence par se placer dans le cadre de la correction par multiplication (sans rehaussement) définie en Section \ref{Corr.method.mult} par le problème 
+%\begin{equation*}
+%	\left\{\begin{aligned}
+%		&-\Delta (\tilde{\phi}C)=f \quad &&\Omega \\
+%		&\tilde{u}=g \quad &&\Gamma,
+%	\end{aligned}\right.
+%\end{equation*}
+%avec $\tilde{u}=\tilde{\phi}C$.
+%
+%Comme expliqué en Section \ref{FEMs.FEM.principle} qui présente le principale générale de la méthode FEM Standard, on va chercher à résoudre un problème variationnel approché de la forme
+%\begin{equation*}
+%	\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V.
+%\end{equation*}
+%Dans notre cas $u_h$ peut s'écrire sous la forme
+%\begin{equation*}
+%	u_h=C_h\tilde{\phi}(x)
+%\end{equation*}
+%avec $C_h$ que l'on peut décomposer sur la base $(\varphi_1,\dots,\varphi_{N_h})$ de $V_h$ par
+%\begin{equation*}
+%	C_h=\sum_{i=1}^{N_h}C_i\varphi_i
+%\end{equation*}
+%
+%Ainsi on en déduit
+%$$C_i=\frac{u_{ex}(x_i)}{\tilde{\phi}(x_i)}$$
+
+We pose
+\begin{equation*}
+	\hat{\phi}=\tilde{\phi}+m
+\end{equation*}
+with $m$ a constant, and consider the multiplication correction on a elevated problem, defined in Section \ref{Corr.method.mult_reh} by the problem
+\begin{equation*}
+	\left\{\begin{aligned}
+		&-\Delta (\hat{\phi}C)=f \quad &&\Omega \\
+		&\hat{u}=g+m \quad &&\Gamma
+	\end{aligned}\right.
+\end{equation*}
+with $\hat{u}=\hat{\phi}C$.
+
+In Section \modif{add section}, we'll show the following inequality in the context of this problem
+
+\begin{equation*}
+	\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}
+\end{equation*}
+
+with $c$ a constant, $\hat{u_{ex}}=u_{ex}+m$ and $C=\frac{u_{ex}+m}{\hat{\phi}}$.
+
+For $k=1$, we then have
+\begin{equation*}
+	|C|_{2,\Omega}=\left|\frac{u_{ex}+m}{\hat{\phi}}\right|_{2,\Omega}=\left|\left|\left(\frac{u_{ex}+m}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}
+\end{equation*}
+with
+\begin{align*}
+	\left(\frac{P}{\tilde{\phi}+m}\right)''&=\frac{P''(\tilde{\phi}+m)-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'(\tilde{\phi}+m))\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
+	&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{mP''}{(\tilde{\phi}+m)^2}-\frac{2mP'\tilde{\phi}'}{(\tilde{\phi}+m)^3}
+\end{align*}
+
+As 
+\begin{equation*}
+	\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{L^2(\Omega)}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{L^2(\Omega)}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}
+\end{equation*}
+and 
+\begin{align*}
+	\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''=m\left(\frac{P}{\hat{\phi}}\right)''&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{(\tilde{\phi}+m)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{m^2P''}{(\tilde{\phi}+m)^2}-\frac{2m^2P'\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
+	&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{m^2P''}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2m^2P'\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+	&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{m\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{P''}{\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2P'\tilde{\phi}'}{m\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+\end{align*}
+then, for $m$ sufficiently large :
+\begin{equation*}
+	\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{L^2(\Omega)}\sim\left|\left|P''\right|\right|_{L^2(\Omega)}
+\end{equation*}
+
+So for $m$ sufficiently large, we have $||\hat{\phi}||_\infty\sim m$ and thus
+\begin{equation}
+	\left|\left|\frac{u+m}{\hat{\phi}}-C_h\right|\right|_{L^2(\Omega)}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{L^2(\Omega)} \label{ine3_bis}
+\end{equation}
+
+We deduce that when $m$ is big, the error no longer depends on the solution but only on the perturbation $P$. These results were obtained numerically and are presented in Section \ref{Corr.results.disturbed}.
+
+However, when $m$ is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution $tilde{\phi}$.
+
+\begin{Rem}
+	In addition, raising the problem can be extremely effective when the solution cancels out on the domain. 
+\end{Rem}
+
+\begin{Rem}
+	Note that in the case of the addition correction presented in Section \ref{Corr.method.add}, raising the problem is of no interest.
+\end{Rem}
+
+\subsubsection{Comparaison of correction methods} \label{Corr.theo_results.comp_add_reh}
+
+Here, we compare 2 methods, the addition correction method defined in Section \ref{Corr.method.add} and the multiplication correction method on a elevated problem defined in Section \ref{Corr.method.mult_reh}. In fact, we'll show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
+
+\textbf{Correction by adding}
+
+Let's start by looking at the form of the solution in the case of correction by addition. The decomposition of $u_h$ on the $(\varphi_1,\dots,\varphi_{N_h})$ basis of $V_h$ is written as follows for this problem
+
+\begin{equation}
+	u_h=C_h+\tilde{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
+\end{equation}
+
+We have 
+\begin{equation}
+	C_i=u(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
+\end{equation}
+with
+\begin{equation}
+	u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i_2}
+\end{equation}
+With the 2 previous relations, we can develop \ref{decomp_pbc2} :
+\begin{align*}
+	u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
+	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{C_i_2}} \\
+	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)+\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{par \ref{u_x_i_2}} \\
+	u_h&=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
+\end{align*}
+
+\textbf{Correction by multiplying on an elevated problem}
+
+We are now interested in the form of the solution in the case of multiplication correction on a elevated problem. The decomposition of $\hat{u_h}$ on the $(\varphi_1,\dots,\varphi_{N_h})$ basis of $V_h$ is written as follows for this problem
+
+\begin{equation}
+	\hat{u_h}=C_h\hat{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \label{decomp_pbc1}
+\end{equation}
+
+We have 
+\begin{equation}
+	C_i=\frac{u(x_i)+m}{\hat{\phi}(x_i)}=\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m} \label{C_i}
+\end{equation}
+with
+\begin{equation}
+	u(x_i)=\tilde{\phi}(x_i)+\epsilon P(x_i) \label{u_x_i}
+\end{equation}
+and
+\begin{equation}
+	\tilde{\phi}(x)=\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}
+\end{equation}
+Moreover, we have 
+\begin{equation}
+	\sum_{i=1}^{N_h}\varphi_i=1 \label{sum_base}
+\end{equation}
+With the 4 previous relations, we can develop \ref{decomp_pbc1} :
+\begin{align*}
+	\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \\
+	&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{C_i}} \\
+	&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m+\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{par \ref{u_x_i}} \\
+	&=\sum_{i=1}^{N_h}\left(1+\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
+	&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
+	&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{par \ref{phi_tilde_x} et \ref{sum_base}} \\
+	&=\hat{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+	&=\tilde{\phi}(x)+m+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+\end{align*}
+
+Thus
+\begin{equation*}
+	u_h=\hat{u_h}-m=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
+\end{equation*}
+and finally
+\begin{equation}
+	u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
+\end{equation}
+
+\begin{Rem}
+	Taking $m=0$, we return to the case of correction by multiplication defined in Section \ref{Corr.method.mult} and the solution is of the form
+	\begin{equation*}
+		u_h=\tilde{\phi}(x)+\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i
+	\end{equation*}
+\end{Rem}
+
+So by \ref{result1} and \ref{result2}, it would seem that the 2 proposed methods are equivalent (taking $m$ to be large).
 
 \subsection{Numerical results} \label{Corr.results}
 
