@@ -2,8 +2,6 @@
 :xrefstyle: short
 = Correction with FNO
 
-#A TRADUIRE !!!#
-
 In this section, we will consider the problem presented in <<_stem:[f]_gaussian>>, where we take as geometry the circle and stem:[f] Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
 
 We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we will follow the steps presented in xref:fourier/subsec_3.adoc[Section "Application"]. In the following, we will choose an FNO with 4 Fourier layers.

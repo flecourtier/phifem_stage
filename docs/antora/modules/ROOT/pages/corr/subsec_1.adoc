@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Presentation of the different correction methods considered
 
-Here we are given stem:[\tilde{\phi}] an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a stem:[\phi]-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to reinject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"]), correction by multiplication (xref:corr/subsec_1_subsubsec_1.adoc[Section "Correction by multiplying"]) and correction by multiplication on an elevated problem (xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]).
+Here we are given stem:[\tilde{\phi}] an "initial" solution to the problem under consideration, i.e. a solution that has not yet been corrected. This may be a perturbed analytic solution, a stem:[\phi]-FEM solution, or a solution predicted by a neural network (such as an FNO, a Multi-perceptron network or PINNs, for example). The aim is to inject this solution into a new problem in order to improve the accuracy of the solution. To achieve this, we consider 3 types of correction: correction by addition (xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"]), correction by multiplication (xref:corr/subsec_1_subsubsec_1.adoc[Section "Correction by multiplying"]) and correction by multiplication on an elevated problem (xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]).
 
 
 [NOTE]

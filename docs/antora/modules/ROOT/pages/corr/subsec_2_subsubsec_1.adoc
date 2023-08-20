@@ -1,6 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
-= Comparaison of correction methods
+= Comparison of correction methods
 
 Here, we compare 2 methods, the addition correction method defined in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"] and the multiplication correction method on a elevated problem defined in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]. In fact, we will show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
 

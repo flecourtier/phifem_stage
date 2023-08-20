@@ -1,7 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
 = Correction on exact solution
-:imagesdir: \{moduledir\}/assets/images/corr/corr_ana
 
 First, we will look at the correction of an exact solution. In other words, we consider
 [stem]
@@ -23,6 +22,7 @@ We will consider here only the case of correction by addition (with and without 
 
 We consider here the Circle problem with the solution defined in <<_first_problem>>.
 
+
 *Homogeneous case :*
 
 We consider here the homogeneous problem (i.e. with stem:[\varphi=0]) and seek to test the various correction methods with standard FEM and stem:[\phi]-FEM methods.
@@ -30,12 +30,10 @@ We consider here the homogeneous problem (i.e. with stem:[\varphi=0]) and seek t
 [cols="a,a"]
 |===
 |[[tab_errors_fem_circle]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with standard FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_fem_circle.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_circle]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with stem:[\phi]-FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_phifem_circle.png[width=240.0,height=192.0]
 
 |===
@@ -47,12 +45,10 @@ We consider here the non-homogeneous problem (i.e. with stem:[\varphi=1]) and se
 [cols="a,a"]
 |===
 |[[tab_errors_fem_circle_nh]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with standard FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_fem_circle_nh.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_circle_nh]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Circle with stem:[\phi]-FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_phifem_circle_nh.png[width=240.0,height=192.0]
 
 |===
@@ -68,15 +64,14 @@ We consider here the homogeneous problem (i.e. with stem:[\varphi=0]) and seek t
 [cols="a,a"]
 |===
 |[[tab_errors_fem_square]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with standard FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_fem_square.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_square]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with stem:[\phi]-FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_phifem_square.png[width=240.0,height=192.0]
 
 |===
+
 
 *Non-homogeneous case :*
 
@@ -85,16 +80,14 @@ We consider here the non-homogeneous problem (i.e. with stem:[\varphi=1]) and se
 [cols="a,a"]
 |===
 |[[tab_errors_fem_square_nh]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with standard FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_fem_square_nh.png[width=240.0,height=192.0]
 |[[tab_errors_phifem_square_nh]]
-.Errors stem:[||\cdot||_{L^2,rel}] obtained with different methods on the Square with stem:[\phi]-FEM.
-
+.figure
 image::corr/corr_ana/tab_errors_phifem_square_nh.png[width=240.0,height=192.0]
 
 |===
 
 
-It would therefore seem that the various correction methods work in the different cases considered. \trad{Il semblerait tout de même que la correction par addition avec IPP soit plus efficace.}
+It would therefore seem that the various correction methods work in the different cases considered.
 
