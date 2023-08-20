@@ -195,6 +195,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -323,10 +326,10 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here, we&#8217;ll consider the \(\Omega\) domain to be the unit square \(\Omega=[0,1\)^2]. This domain is entirely included in the fictitious domain \(O=[-0.5,1.5\)^2] (<a href="#geom_square">[geom_square]</a>).</p>
+<p>Here, we will consider the \(\Omega\) domain to be the unit square \(\Omega=[0,1\)^2]. This domain is entirely included in the fictitious domain \(O=[-0.5,1.5\)^2] (<a href="#geom_square">[geom_square]</a>).</p>
 </div>
 <div class="paragraph">
-<p>In this case, we&#8217;ll consider two levelset functions. The first function \(\phi\), defined by</p>
+<p>In this case, we will consider two level-set functions. The first function \(\phi\), defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -334,7 +337,7 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, as it is only negative within the \(\Omega\) domain (<a href="#levelset_square">Figure 1</a>).</p>
+<p>will be used when solving the weak problem. However, it cannot be used to construct our cell and face sets, because it is not only negative in the \(\Omega\) domain (<a href="#levelset_square">Figure 1</a>).</p>
 </div>
 <div id="levelset_square" class="imageblock">
 <div class="content">
@@ -354,12 +357,12 @@ title="Fullscreen mode"
 <p>which is indeed negative inside the domain, zero at the boundary and positive outside, but which does not sufficiently satisfy the regularity conditions necessary for \(\phi\)-FEM.</p>
 </div>
 <div class="paragraph">
-<p>We the considered different problems <mark>à compléter</mark>.</p>
+<p>We will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_first_problem"><a class="anchor" href="#_first_problem"></a>1. First problem</h2>
+<h2 id="_problem"><a class="anchor" href="#_problem"></a>1. Problem</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Here, we are interested in the Poisson problem with as analytical solution</p>
@@ -394,6 +397,28 @@ title="Fullscreen mode"
 </tr>
 </table>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="sol_square" class="imageblock">
+<div class="content">
+<img src="../_images/corr/sol_square.png" alt="sol square" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 2. Representation of the solution \(u_{ex}\) on the Circle with \(S=0.5\) and \(f=1\) (with \(p=0\) and \(p=1\)).</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="f_square" class="imageblock">
+<div class="content">
+<img src="../_images/corr/f_square.png" alt="f square" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 3. figure</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </article>

@@ -195,6 +195,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -323,10 +326,10 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here, we&#8217;ll consider the \(\Omega\) domain to be the circle of radius \(\sqrt{2}/4\) and center \((0.5,0.5)\).This domain is entirely included in the fictitious domain \(O=[0,1\)^2] (<a href="#geom_circle">[geom_circle]</a>).</p>
+<p>Here, we will consider the \(\Omega\) domain to be the circle of radius \(\sqrt{2}/4\) and center \((0.5,0.5)\).This domain is entirely included in the fictitious domain \(O=[0,1\)^2] (<a href="#geom_circle">[geom_circle]</a>).</p>
 </div>
 <div class="paragraph">
-<p>We will consider the levelset function \(\phi\) defined by</p>
+<p>We will consider the level-set function \(\phi\) defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -337,7 +340,7 @@ title="Fullscreen mode"
 <p>negative function inside the domain, null at the boundary and positive outside it</p>
 </div>
 <div class="paragraph">
-<p>We then consider different problems <mark>à compléter</mark>.</p>
+<p>We will consider a first analytic trigonometric solution (<a href="#_first_problem">Section 1</a>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>) for which no exact solution is known, and for which we&#8217;ll take an over-refined FEM solution as the reference solution.</p>
 </div>
 </div>
 </div>
@@ -353,7 +356,7 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>where \(S\in[0,1\)] is the amplitude of the signal, \(f\in\mathbb{N}\) can be associated with the "frequency" of the signal and \(\varphi\in[0,1\)] the phase at the origin</p>
+<p>where \(S\in[0,1\)] is the amplitude of the signal, \(f\in\mathbb{N}\) can be associated with the "frequency" of the signal and \(\varphi\in[0,1\)] the phase at the origin, represented in <a href="#sol_circle">Figure 1</a>.</p>
 </div>
 <div class="paragraph">
 <p>Thus, the second associated member is defined by</p>
@@ -365,6 +368,9 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 &amp;- 32\pi S f\cos\left[8\pi f \left((x-0.5)^2+(y-0.5)^2\right) + \varphi\right]
 \end{aligned}\]
 </div>
+</div>
+<div class="paragraph">
+<p>and represented in <a href="#f_circle">Figure 2</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -380,9 +386,28 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p><mark>ajouter image solution et f</mark></p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="sol_circle" class="imageblock">
+<div class="content">
+<img src="../_images/corr/sol_circle.png" alt="sol circle" width="300.0" height="240.0">
 </div>
+<div class="title">Figure 1. Representation of the solution \(u_{ex}\) on the Circle with \(S=0.5\) and \(f=1\) (with \(p=0\) and \(p=1\)).</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="f_circle" class="imageblock">
+<div class="content">
+<img src="../_images/corr/f_circle.png" alt="f circle" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 2. figure</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -397,10 +422,10 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 </div>
 </div>
 <div class="paragraph">
-<p>with \(\sigma \sim \mathcal{U}([0.1,0.6\))] and \(\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4\))] with the condition \(\phi(\mu_0, \mu_1) &lt; -0.05\).</p>
+<p>with \(\sigma \sim \mathcal{U}([0.1,0.6\))] and \(\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4\))] with the condition \(\phi(\mu_0, \mu_1) &lt; -0.05\) and represented in <a href="#f_circle_gaussian">Figure 3</a></p>
 </div>
 <div class="paragraph">
-<p>ince we don&#8217;t have an exact solution, we&#8217;ll consider a so-called reference solution, denoted \(u_{ref}\). This reference solution is defined as an over-refined \(\mathbb{P}^1\) solution obtained by the standard FEM method (with \(h_{ref}\approx 0.006\)). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.</p>
+<p>Since we don&#8217;t have an exact solution, we will consider a so-called reference solution, denoted \(u_{ref}\). This reference solution is defined as an over-refined \(\mathbb{P}^1\) solution obtained by the standard FEM method (with \(h_{ref}\approx 0.006\)). It is to this reference solution that we can compare the solutions obtained by the correction methods or by the FNO.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -415,6 +440,12 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 </td>
 </tr>
 </table>
+</div>
+<div id="f_circle_gaussian" class="imageblock">
+<div class="content">
+<img src="../_images/corr/f_circle_gaussian.png" alt="f circle gaussian" width="180.0" height="144.0">
+</div>
+<div class="title">Figure 3. figure</div>
 </div>
 </div>
 </div>

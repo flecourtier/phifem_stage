@@ -195,6 +195,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -320,7 +323,7 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Presentation of different problems considered</h1>
 <div class="paragraph">
-<p>In this section, we present the different problems we&#8217;ll be considering in <a href="subsec_3.html" class="xref page">Section "Numerical results"</a>. We will consider the geometry of a circle in <a href="subsec_0_subsubsec_0.html" class="xref page">Section "First domain : the Circle."</a> represented in <a href="#geom_circle">Figure 1</a> as well as the geometry of a square in <a href="subsec_0_subsubsec_1.html" class="xref page">Section "Second domain : the Square."</a> represented in <a href="#geom_square">Figure 2</a>. We&#8217;ll also look at different solutions <mark>à compléter (sol analytique-exacte vs sol de référence calculés avec FEM sur-raffinée)</mark>.</p>
+<p>In this section, we present the different problems we will be considering in <a href="subsec_3.html" class="xref page">Section "Numerical results"</a>. We will consider the geometry of a circle in <a href="subsec_0_subsubsec_0.html" class="xref page">Section "First domain : the Circle."</a> represented in <a href="#geom_circle">Figure 1</a> as well as the geometry of a square in <a href="subsec_0_subsubsec_1.html" class="xref page">Section "Second domain : the Square."</a> represented in <a href="#geom_square">Figure 2</a>. For the circle, we will consider a first analytic trigonometric solution, parameterized in such a way that the problem can be considered homogeneous. we will then consider a second problem for which no exact solution is known, and for which we will take an over-refined FEM solution as the reference solution. For the square, we will consider only an analytic trigonometric solution parameterized in such a way that the problem can be considered homogeneous.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -352,7 +355,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>To generate meshes with FEM, we&#8217;ll consider a mesh comparable to \(\phi\)-FEM. To do this, we generate our \(\phi\)-FEM grid, which is simply the regular mesh of the \(\mathcal{O}\) domain of \(n_{vert}\times n_{vert}\) nodes. From this mesh we generate a FEM mesh whose largest element diameter \(h_{FEM}\) is very close to the largest diameter associated with \(\phi-FEM\), \(h_{\phi-FEM}\) (\(h_{FEM}\sim h_{\phi-FEM}\)). Here&#8217;s a representation of the meshes generated for FEM and \(\phi\)-FEM on the circle and on the square with \(n_{vert}=10\) :</p>
+<p>To generate meshes with FEM, we will consider a mesh comparable to \(\phi\)-FEM. To do this, we generate our \(\phi\)-FEM grid, which is simply the regular mesh of the \(\mathcal{O}\) domain of \(n_{vert}\times n_{vert}\) nodes. From this mesh we generate a FEM mesh whose largest element diameter \(h_{FEM}\) is very close to the largest diameter associated with \(\phi-FEM\), \(h_{\phi-FEM}\) (\(h_{FEM}\sim h_{\phi-FEM}\)). Here, we have a representation of the meshes generated for FEM and \(\phi\)-FEM on the circle (<a href="#mesh_circle">Figure 3</a>) and on the square (<a href="#mesh_square">Figure 4</a>) with \(n_{vert}=10\) vertices in each direction.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -396,7 +399,7 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>with \(\phi\) the levelset function, null by definition on \(\Gamma\).</p>
+<p>with \(\phi\) the level-set function, null by definition on \(\Gamma\).</p>
 </div>
 </td>
 </tr>

@@ -195,6 +195,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -358,8 +361,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\label{eq.corr.pbc_add}
-\left\{\begin{aligned}
+\[\left\{\begin{aligned}
 -\Delta \tilde{C}&amp;=\tilde{f}, \; &amp;&amp;\text{on } \Omega, \\
 \tilde{C}&amp;=0, \; &amp;&amp;\text{in } \Gamma.
 \end{aligned}\right. %\tag{stem:[\mathcal{C}_{+}]}\]
@@ -404,7 +406,7 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous (\(tilde{C}=0\) on \(\Gamma\)).</p>
+<p>In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous (\(\tilde{C}=0\) on \(\Gamma\)).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -429,7 +431,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.\]
+\[\int_{\Omega_h} \tilde{f} \phi v=\int_{\Omega_h} f \phi v+\int_{\Omega_h} \Delta\tilde{\phi} \phi v=\int_{\Omega_h} f \phi v-\int_{\Omega_h} \nabla\tilde{\phi}\cdot\nabla(\phi v)+\int_{\partial\Omega_h} \frac{\partial\tilde{\phi}}{\partial n}\phi v.\]
 </div>
 </div>
 </td>

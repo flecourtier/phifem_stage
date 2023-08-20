@@ -195,6 +195,9 @@
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparaison of correction methods</a>
   </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="3">
@@ -326,10 +329,10 @@ title="Fullscreen mode"
 <p><mark>A TRADUIRE !!!</mark></p>
 </div>
 <div class="paragraph">
-<p>In this section, we&#8217;ll consider the problem presented in <a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>, where we take as geometry the circle and \(f\) Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we&#8217;ll take an over-refined solution (calculated with FEM) as our reference solution.</p>
+<p>In this section, we will consider the problem presented in <a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>, where we take as geometry the circle and \(f\) Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution.</p>
 </div>
 <div class="paragraph">
-<p>We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we&#8217;ll follow the steps presented in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>. In the following, we&#8217;ll choose an FNO with 4 Fourier layers.</p>
+<p>We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we will follow the steps presented in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>. In the following, we will choose an FNO with 4 Fourier layers.</p>
 </div>
 </div>
 </div>
@@ -383,7 +386,7 @@ title="Fullscreen mode"
 <p>As explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>, each Gaussian is in fact evaluated at the nodes of our grid, so they are 2D matrices of size \(n_{vert}\times n_{vert}\).</p>
 </div>
 <div class="paragraph">
-<p>We can also consider the degrees of freedom \(\mathbb{P}_2\), which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size \(n_{dofs}\times n_{dofs}\) (with \(n_{dofs}=2n_{vert}-1\)). In the following, we&#8217;ll choose \(n_{vert}\)=32 and thus \(n_{dofs}=63\).</p>
+<p>We can also consider the degrees of freedom \(\mathbb{P}_2\), which also form a regular grid, as they are composed of the nodes as well as the midpoints of each segment. So our matrices will be of size \(n_{dofs}\times n_{dofs}\) (with \(n_{dofs}=2n_{vert}-1\)). In the following, we will choose \(n_{vert}\)=32 and thus \(n_{dofs}=63\).</p>
 </div>
 </td>
 </tr>
@@ -419,7 +422,7 @@ u_i&=0, \; &&\text{on } \; \partial\Omega,
 <div class="ulist">
 <ul>
 <li>
-<p>From the previous collections, we can now create the X_train and Y_train samples that will enable us to train the FNO. We&#8217;ll start by performing a kind of pre-processing on our data (explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>) by normalizing the source term collection. We thus consider</p>
+<p>From the previous collections, we can now create the X_train and Y_train samples that will enable us to train the FNO. we will start by performing a kind of pre-processing on our data (explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>) by normalizing the source term collection. We thus consider</p>
 </li>
 </ul>
 </div>
@@ -469,7 +472,7 @@ Y_train can also be constructed as follows</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In practice, the set defined above is separated into 2 sets: the training set (X_train,Y_train), which trains the FNO, and the validation set (X_val,Y_val), which validates the training. Together, these two sets contain the \(n_{data}\) under consideration. In the following, we&#8217;ll consider \(n_{data}\) to be the size of our separate training set (for 1000 data at the beginning, after separation we have \(n_{data}=875\)).</p>
+<p>In practice, the set defined above is separated into 2 sets: the training set (X_train,Y_train), which trains the FNO, and the validation set (X_val,Y_val), which validates the training. Together, these two sets contain the \(n_{data}\) under consideration. In the following, we will consider \(n_{data}\) to be the size of our separate training set (for 1000 data at the beginning, after separation we have \(n_{data}=875\)).</p>
 </div>
 </td>
 </tr>
@@ -525,7 +528,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <p><strong>Results on the validation set :</strong></p>
 </div>
 <div class="paragraph">
-<p>We&#8217;re interested here in the \(||\cdot||_{0,abs}\) errors obtained at the end of training on the validation set. In fact, we&#8217;re going to consider different checkpoints in the training, or to be more precise, we&#8217;re interested in different moments in the training (i.e. we&#8217;ll have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000&#8230;&#8203; up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (<a href="#error_val_f_gaussian">[error_val_f_gaussian]</a>):</p>
+<p>We&#8217;re interested here in the \(||\cdot||_{0,abs}\) errors obtained at the end of training on the validation set. In fact, we&#8217;re going to consider different checkpoints in the training, or to be more precise, we&#8217;re interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000&#8230;&#8203; up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (<a href="#error_val_f_gaussian">[error_val_f_gaussian]</a>):</p>
 </div>
 <div id="erreur_val_f_gaussienne" class="imageblock unresolved">
 <div class="content">
@@ -658,7 +661,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <h2 id="_high_degree_interpolation"><a class="anchor" href="#_high_degree_interpolation"></a>3. High degree interpolation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As explained in <a href="#_correction_of_the_fno_prediction">Section 2</a>, it would seem that considering \(\tilde{\phi}\) only in \(\mathbb{P}^2\), is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial \(\phi\)-FEM method. For this reason, we&#8217;re going to attempt to interpolate the solution in order to evaluate this interpolation in a \(\mathbb{P}_k\) space of higher degree (\(k&gt;2\)). To do this, we&#8217;ll decompose our solution into a series of polynomials, choosing Legendre polynomials.</p>
+<p>As explained in <a href="#_correction_of_the_fno_prediction">Section 2</a>, it would seem that considering \(\tilde{\phi}\) only in \(\mathbb{P}^2\), is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial \(\phi\)-FEM method. For this reason, we&#8217;re going to attempt to interpolate the solution in order to evaluate this interpolation in a \(\mathbb{P}_k\) space of higher degree (\(k&gt;2\)). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.</p>
 </div>
 <div class="paragraph">
 <p><strong>Explanation :</strong></p>
@@ -709,7 +712,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Numerically, we&#8217;ll use the trapezoid method to calculate the scalar product on \(L^2(\)-1,1[^2)].</p>
+<p>Numerically, we will use the trapezoid method to calculate the scalar product on \(L^2(\)-1,1[^2)].</p>
 </div>
 </td>
 </tr>
@@ -850,7 +853,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </table>
 </div>
 <div class="paragraph">
-<p>In the following, we&#8217;ll consider \(P=Q\) and test the decomposition for \(P=4\), \(P=6\) and \(P=8\) on each data of the test sample and at each checkpoint considered. First, we&#8217;ll look at the mean error made by the decomposition into a series of Legendre polynomials, which we&#8217;ll call the mean reconstruction error (<a href="#mean_error_reconstruction">Figure 11</a>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom \(\mathbb{P}_2\), denoted W_pred (of size \((n_{test},n_{dofs},n_{dofs})\)). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom \(\mathbb{P}_2\), denoted W_pred_reconstruct (of size \((n_{test},n_{dofs},n_{dofs})\)), then we calculate the error
+<p>In the following, we will consider \(P=Q\) and test the decomposition for \(P=4\), \(P=6\) and \(P=8\) on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (<a href="#mean_error_reconstruction">Figure 11</a>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom \(\mathbb{P}_2\), denoted W_pred (of size \((n_{test},n_{dofs},n_{dofs})\)). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom \(\mathbb{P}_2\), denoted W_pred_reconstruct (of size \((n_{test},n_{dofs},n_{dofs})\)), then we calculate the error
 \begin{center}
  mean_error_reconstruction = \(||\)W_pred-W_pred_reconstruct\(||_{0,\mathcal{O}}\)
 \end{center}</p>
@@ -865,7 +868,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 <p>Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.</p>
 </div>
 <div class="paragraph">
-<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we&#8217;ll call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 12</a>), which is the error defined by
+<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 12</a>), which is the error defined by
 \begin{center}
 max_error_reconstruction = \(\max|\)W_pred-W_pred_reconstruct\(|\)
 \end{center}
@@ -878,7 +881,7 @@ This will allow us to see if there are any error spikes at certain points.</p>
 <div class="title">Figure 12. Maximal reconstruction error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>We can also display solutions in the case of an example (<a href="#example_w">Figure 13</a>). We&#8217;ll take the first data item from the first checkpoint to compare W_pred and W_pred_reconstruct.</p>
+<p>We can also display solutions in the case of an example (<a href="#example_w">Figure 13</a>). we will take the first data item from the first checkpoint to compare W_pred and W_pred_reconstruct.</p>
 </div>
 <div id="example_w" class="imageblock unresolved">
 <div class="content">
@@ -926,7 +929,7 @@ max_error_solution = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\times\phi\)
 <p><strong>Correction with the evaluation of the legendre decomposition :</strong></p>
 </div>
 <div class="paragraph">
-<p>We have now recovered the \(\alpha_{p,q}\) coefficients for each data item in the test sample and at each checkpoint. We&#8217;ll try applying the multiplication correction by taking</p>
+<p>We have now recovered the \(\alpha_{p,q}\) coefficients for each data item in the test sample and at each checkpoint. we will try applying the multiplication correction by taking</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -937,7 +940,7 @@ max_error_solution = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\times\phi\)
 <p>where \(x,y\) are the degrees of freedom associated with \(\mathbb{P}^k\) with \(k\) large enough.</p>
 </div>
 <div class="paragraph">
-<p>For each data item at each checkpoint, we&#8217;ll compare the following errors (<a href="#FNO_corr_Pk">Figure 17</a>): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with \(\tilde{\phi}\) in \(\mathbb{P}_2\) without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for \(k=3\) and \(k=5\). To do this, we&#8217;ll simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom \(\mathbb{P}_k\) (for \(k=3\) and \(k=5\)). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).</p>
+<p>For each data item at each checkpoint, we will compare the following errors (<a href="#FNO_corr_Pk">Figure 17</a>): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with \(\tilde{\phi}\) in \(\mathbb{P}_2\) without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for \(k=3\) and \(k=5\). To do this, we will simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom \(\mathbb{P}_k\) (for \(k=3\) and \(k=5\)). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).</p>
 </div>
 <div id="FNO_corr_Pk" class="imageblock unresolved">
 <div class="content">
