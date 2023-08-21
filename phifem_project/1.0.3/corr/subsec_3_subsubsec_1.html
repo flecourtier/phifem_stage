@@ -339,6 +339,9 @@ title="Fullscreen mode"
 <div class="paragraph">
 <p>where \(u_{ex}\) defines the exact solution to the problem, \(P\) the perturbation applied to it and \(\epsilon\) is a real number that allows the amplitude of the perturbation to be easily increased or decreased.</p>
 </div>
+<div class="paragraph">
+<p>In this section, we&#8217;ll assume that \(\tilde{\phi}\) is in \(\mathbb{P}_k\) with \(k=10\).</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -439,7 +442,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In the previous results, we use the direct method to impose the edge conditions with \(\phi\)-FEM.</p>
+<p>In the previous results, we use the direct method to impose the boundary conditions with \(\phi\)-FEM.</p>
 </div>
 </td>
 </tr>
@@ -600,6 +603,70 @@ title="Fullscreen mode"
 <div class="paragraph">
 <p><strong><em>Observation :</em></strong> In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>En considérant \(\tilde{\phi}\) dans \(\mathbb{P}_2\) et le problème homogène, on va appliquer la correction by adding on the Circle problem (<a href="#corr_pert_fem_circle_add_P2">Figure 11</a>) and on the Square problem (<a href="#corr_pert_fem_square_add_P2">Figure 12</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_circle_add_P2" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/diff_eps/fem_circle_add_P2.png" alt="fem circle add P2" width="285.0" height="228.0">
+</div>
+<div class="title">Figure 11. Correction by adding on the Circle with standard FEM in the homogeneous case (\(\tilde{\phi}\) in \(\mathbb{P}_2\)).</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_square_add_P2" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/diff_eps/fem_square_add_P2.png" alt="fem square add P2" width="285.0" height="228.0">
+</div>
+<div class="title">Figure 12. Correction by adding on the Square with standard FEM in the homogeneous case (\(\tilde{\phi}\) in \(\mathbb{P}_2\)).</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>And by considering the correction by multiplying on the Circle problem (<a href="#corr_pert_fem_circle_mult_P2">Figure 13</a>) and on the Square problem (<a href="#corr_pert_fem_square_mult_P2">Figure 14</a>).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_circle_mult_P2" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/diff_eps/fem_circle_mult_P2.png" alt="fem circle mult P2" width="285.0" height="228.0">
+</div>
+<div class="title">Figure 13. Correction by multiplying on the Circle with standard FEM in the homogeneous case (\(\tilde{\phi}\) in \(\mathbb{P}_2\)).</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_square_mult_P2" class="imageblock">
+<div class="content">
+<img src="../_images/corr/corr_pert/diff_eps/fem_square_mult_P2.png" alt="fem square mult P2" width="285.0" height="228.0">
+</div>
+<div class="title">Figure 14. Correction by multiplying on the Square with standard FEM in the homogeneous case (\(\tilde{\phi}\) in \(\mathbb{P}_2\)).</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong><em>Observation :</em></strong> In view of the results obtained here, it seems that considering \(\phi\) only in a space of degree 2 is not sufficient to considerably improve the errors obtained by standard methods, even when considering an exact solution.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p><strong>Results with \(\phi\)-FEM :</strong></p>
 </div>
@@ -614,7 +681,7 @@ title="Fullscreen mode"
 </ul>
 </div>
 <div class="paragraph">
-<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_phifem_circle_add">Figure 11</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add">Figure 12</a>).</p>
+<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_phifem_circle_add">Figure 15</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add">Figure 16</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -627,19 +694,19 @@ title="Fullscreen mode"
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_add.png" alt="phifem circle add" width="285.0" height="228.0">
 </div>
-<div class="title">Figure 11. figure</div>
+<div class="title">Figure 15. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_add" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_add.png" alt="phifem square add" width="285.0" height="228.0">
 </div>
-<div class="title">Figure 12. figure</div>
+<div class="title">Figure 16. figure</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Then, we consider the correction by multiplying on the Circle problem (<a href="#corr_pert_phifem_circle_mult">Figure 13</a>) and on the Square problem (<a href="#corr_pert_phifem_square_mult">Figure 14</a>).</p>
+<p>Then, we consider the correction by multiplying on the Circle problem (<a href="#corr_pert_phifem_circle_mult">Figure 17</a>) and on the Square problem (<a href="#corr_pert_phifem_square_mult">Figure 18</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -652,13 +719,13 @@ title="Fullscreen mode"
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_mult.png" alt="phifem circle mult" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 13. figure</div>
+<div class="title">Figure 17. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_mult" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_mult.png" alt="phifem square mult" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 14. figure</div>
+<div class="title">Figure 18. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -689,7 +756,7 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 </div>
 </div>
 <div class="paragraph">
-<p>By imposing \(C=\frac{1}{1+\epsilon}\) on \(\Gamma\) for FEM instead of \(C=1\), we should get closer to the \(\phi\)-FEM results obtained. We can see in <a href="#norms_circle_f_eq_fp">Figure 15</a> and <a href="#norms_square_f_eq_fp">Figure 16</a> that we obtain the expected results for FEM by changing the boundary condition \(C=1\) to \(C=\frac{1}{1+\epsilon}\).</p>
+<p>By imposing \(C=\frac{1}{1+\epsilon}\) on \(\Gamma\) for FEM instead of \(C=1\), we should get closer to the \(\phi\)-FEM results obtained. We can see in <a href="#norms_circle_f_eq_fp">Figure 19</a> and <a href="#norms_square_f_eq_fp">Figure 20</a> that we obtain the expected results for FEM by changing the boundary condition \(C=1\) to \(C=\frac{1}{1+\epsilon}\).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -702,13 +769,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/norms_circle_f_eq_fp.png" alt="norms circle f eq fp" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 15. figure</div>
+<div class="title">Figure 19. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="norms_square_f_eq_fp" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/norms_square_f_eq_fp.png" alt="norms square f eq fp" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 16. figure</div>
+<div class="title">Figure 20. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -735,7 +802,7 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 </ul>
 </div>
 <div class="paragraph">
-<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_phifem_circle_add_nh">Figure 17</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add_nh">Figure 18</a>).</p>
+<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_phifem_circle_add_nh">Figure 21</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add_nh">Figure 22</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -748,19 +815,19 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_add_nh.png" alt="phifem circle add nh" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 17. figure</div>
+<div class="title">Figure 21. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_add_nh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_add_nh.png" alt="phifem square add nh" width="270.0" height="216.0">
 </div>
-<div class="title">Figure 18. figure</div>
+<div class="title">Figure 22. figure</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Then, we consider the correction by multiplying on the Circle problem (<a href="#corr_pert_phifem_circle_mult_nh">Figure 19</a>) and on the Square problem (<a href="#corr_pert_phifem_square_mult_nh">Figure 20</a>). We start by considering the same \(\phi\)-FEM scheme as in the homogeneous case, i.e. here we don&#8217;t impose any edge conditions.</p>
+<p>Then, we consider the correction by multiplying on the Circle problem (<a href="#corr_pert_phifem_circle_mult_nh">Figure 23</a>) and on the Square problem (<a href="#corr_pert_phifem_square_mult_nh">Figure 24</a>). We start by considering the same \(\phi\)-FEM scheme as in the homogeneous case, i.e. here we don&#8217;t impose any boundary conditions.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -773,13 +840,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_mult_nh.png" alt="phifem circle mult nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 19. figure</div>
+<div class="title">Figure 23. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_mult_nh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_mult_nh.png" alt="phifem square mult nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 20. figure</div>
+<div class="title">Figure 24. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -788,7 +855,7 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <p><strong><em>Observation :</em></strong> We note that the multiplicative corrector using \(\phi\)-FEM seems to succeed, in a similar way to the homogeneous case, to correct the non-homogeneous problem without imposing the boundary conditions. In fact, there&#8217;s a subtlety to the scheme we&#8217;re considering here. Unlike \(\phi\)-FEM (without correction), the scheme is written on \(\tilde{\phi}\), which is non-zero at the boundary, and not on \(\phi\), which is zero at the boundary. This could explain this result, whereas in the case of \(\phi\)-FEM (without correction), we can&#8217;t avoid imposing boundary conditions.</p>
 </div>
 <div class="paragraph">
-<p>We will now use the direct method to impose the boundary condition. For this method, we&#8217;re tempted to consider the solution \(\tilde{u}=\tilde{\phi}C+g\) as the solution to the multiplication correction problem. In fact, unlike the classic \(\phi\)-FEM method, the \(\tilde{\phi}\) function that replaces our level-set in the formulation is non-zero at the boundary and so, by imposing \(C=1\) at the boundary, we&#8217;d have \(\tilde{u}=2g\). To avoid this problem, we will raise the problem by \(-g\) and consider \(\tilde{u}=(\tilde{\phi}-g)C+g\). We will test this method on the circle (<a href="#corr_pert_phifem_circle_mult_direct_nh">Figure 21</a>) and on the square (<a href="#corr_pert_phifem_square_mult_direct_nh">Figure 22</a>).</p>
+<p>We will now use the direct method to impose the boundary condition. For this method, we&#8217;re tempted to consider the solution \(\tilde{u}=\tilde{\phi}C+g\) as the solution to the multiplication correction problem. In fact, unlike the classic \(\phi\)-FEM method, the \(\tilde{\phi}\) function that replaces our level-set in the formulation is non-zero at the boundary and so, by imposing \(C=1\) at the boundary, we&#8217;d have \(\tilde{u}=2g\). To avoid this problem, we will raise the problem by \(-g\) and consider \(\tilde{u}=(\tilde{\phi}-g)C+g\). We will test this method on the circle (<a href="#corr_pert_phifem_circle_mult_direct_nh">Figure 25</a>) and on the square (<a href="#corr_pert_phifem_square_mult_direct_nh">Figure 26</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -801,19 +868,19 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_mult_direct_nh.png" alt="phifem circle mult direct nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 21. figure</div>
+<div class="title">Figure 25. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_mult_direct_nh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_mult_direct_nh.png" alt="phifem square mult direct nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 22. figure</div>
+<div class="title">Figure 26. figure</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>We&#8217;re now going to test imposing boundary conditions with the dual method on the circle (<a href="#corr_pert_phifem_circle_mult_dual_nh">Figure 23</a>) and on the square (<a href="#corr_pert_phifem_square_mult_dual_nh">Figure 24</a>).</p>
+<p>We&#8217;re now going to test imposing boundary conditions with the dual method on the circle (<a href="#corr_pert_phifem_circle_mult_dual_nh">Figure 27</a>) and on the square (<a href="#corr_pert_phifem_square_mult_dual_nh">Figure 28</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -826,13 +893,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_circle_mult_dual_nh.png" alt="phifem circle mult dual nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 23. figure</div>
+<div class="title">Figure 27. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_mult_dual_nh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/diff_eps/phifem_square_mult_dual_nh.png" alt="phifem square mult dual nh" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 24. figure</div>
+<div class="title">Figure 28. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -852,7 +919,7 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <p><strong>Results with FEM :</strong></p>
 </div>
 <div class="paragraph">
-<p>Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a>). We will test this method on the circle (<a href="#corr_pert_fem_circle_reh">Figure 25</a> and <a href="#corr_pert_fem_circle_reh_fig">Figure 27</a>) and on the square (<a href="#corr_pert_fem_square_reh">Figure 26</a> and <a href="#corr_pert_fem_square_reh_fig">Figure 28</a>) for selected frequencies and by varying \(m\).</p>
+<p>Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a>). We will test this method on the circle (<a href="#corr_pert_fem_circle_reh">Figure 29</a> and <a href="#corr_pert_fem_circle_reh_fig">Figure 31</a>) and on the square (<a href="#corr_pert_fem_square_reh">Figure 30</a> and <a href="#corr_pert_fem_square_reh_fig">Figure 32</a>) for selected frequencies and by varying \(m\).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -865,13 +932,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_fem_circle.png" alt="tab errors fem circle" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 25. figure</div>
+<div class="title">Figure 29. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_square_reh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_fem_square.png" alt="tab errors fem square" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 26. figure</div>
+<div class="title">Figure 30. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -887,25 +954,25 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_fem_circle.png" alt="fig fem circle" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 27. figure</div>
+<div class="title">Figure 31. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_fem_square_reh_fig" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_fem_square.png" alt="fig fem square" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 28. figure</div>
+<div class="title">Figure 32. figure</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Observation :</strong> The numerical results obtained on the circle in <a href="#corr_pert_fem_circle_reh">Figure 25</a> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Comparison of correction methods"</a>, we can see that by increasing \(m\), the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding).</p>
+<p><strong>Observation :</strong> The numerical results obtained on the circle in <a href="#corr_pert_fem_circle_reh">Figure 29</a> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Comparison of correction methods"</a>, we can see that by increasing \(m\), the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding).</p>
 </div>
 <div class="paragraph">
 <p><strong>Results with \(\phi\)-FEM :</strong></p>
 </div>
 <div class="paragraph">
-<p>Now we to test the correction by multiplying on an elevating problem with \(\phi\)-FEM. We will test this method on the circle (<a href="#corr_pert_phifem_circle_reh">Figure 29</a> and <a href="#corr_pert_phifem_circle_reh_fig">Figure 31</a>) and on the square (<a href="#corr_pert_phifem_square_reh">Figure 30</a> and <a href="#corr_pert_phifem_square_reh_fig">Figure 32</a>) for selected frequencies and by varying \(m\). Here, we&#8217;re using the same scheme as in the homogeneous case, i.e. we&#8217;re not going to impose the boundary conditions using the direct or dual method.</p>
+<p>Now we to test the correction by multiplying on an elevating problem with \(\phi\)-FEM. We will test this method on the circle (<a href="#corr_pert_phifem_circle_reh">Figure 33</a> and <a href="#corr_pert_phifem_circle_reh_fig">Figure 35</a>) and on the square (<a href="#corr_pert_phifem_square_reh">Figure 34</a> and <a href="#corr_pert_phifem_square_reh_fig">Figure 36</a>) for selected frequencies and by varying \(m\). Here, we&#8217;re using the same scheme as in the homogeneous case, i.e. we&#8217;re not going to impose the boundary conditions using the direct or dual method.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -918,13 +985,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_phifem_circle.png" alt="tab errors phifem circle" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 29. figure</div>
+<div class="title">Figure 33. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_reh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_phifem_square.png" alt="tab errors phifem square" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 30. figure</div>
+<div class="title">Figure 34. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -940,19 +1007,19 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_phifem_circle.png" alt="fig phifem circle" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 31. figure</div>
+<div class="title">Figure 35. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_reh_fig" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_phifem_square.png" alt="fig phifem square" width="240.0" height="192.0">
 </div>
-<div class="title">Figure 32. figure</div>
+<div class="title">Figure 36. figure</div>
 </div></div></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Now, we impose the boundary conditions using the dual method, always considering the circle (<a href="#corr_pert_phifem_circle_dual_reh">Figure 33</a> and <a href="#corr_pert_phifem_circle_dual_reh_fig">Figure 35</a>) and on the square (<a href="#corr_pert_phifem_square_dual_reh">Figure 34</a> and <a href="#corr_pert_phifem_square_dual_reh_fig">Figure 36</a>) for selected frequencies and by varying \(m\).</p>
+<p>Now, we impose the boundary conditions using the dual method, always considering the circle (<a href="#corr_pert_phifem_circle_dual_reh">Figure 37</a> and <a href="#corr_pert_phifem_circle_dual_reh_fig">Figure 39</a>) and on the square (<a href="#corr_pert_phifem_square_dual_reh">Figure 38</a> and <a href="#corr_pert_phifem_square_dual_reh_fig">Figure 40</a>) for selected frequencies and by varying \(m\).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -965,13 +1032,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_phifem_circle_dual.png" alt="tab errors phifem circle dual" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 33. figure</div>
+<div class="title">Figure 37. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_dual_reh" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/tab_errors_phifem_square_dual.png" alt="tab errors phifem square dual" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 34. figure</div>
+<div class="title">Figure 38. figure</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -987,13 +1054,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_phifem_circle_dual.png" alt="fig phifem circle dual" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 35. figure</div>
+<div class="title">Figure 39. figure</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_pert_phifem_square_dual_reh_fig" class="imageblock">
 <div class="content">
 <img src="../_images/corr/corr_pert/rehaussement/fig_phifem_square_dual.png" alt="fig phifem square dual" width="300.0" height="240.0">
 </div>
-<div class="title">Figure 36. figure</div>
+<div class="title">Figure 40. figure</div>
 </div></div></td>
 </tr>
 </tbody>

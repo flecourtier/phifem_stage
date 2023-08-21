@@ -348,7 +348,7 @@ title="Fullscreen mode"
 <p>is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.</p>
 </div>
 <div class="paragraph">
-<p>By substracting \(G_h^{rhs}(v)\) from the second term of \(G_h(w,v)\), i.e.</p>
+<p>By subtracting \(G_h^{rhs}(v)\) from the second term of \(G_h(w,v)\), i.e.</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -453,6 +453,20 @@ u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
 <td class="content">
 <div class="paragraph">
 <p>The factors \(\frac{1}{h}\) and \(\frac{1}{h^2}\) control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the context of this internship, we won&#8217;t be concerned with the choice of stabilization parameters \(\sigma\) and \(\gamma\). We&#8217;ll always take \(\sigma=20\) and \(\gamma=1\), but it&#8217;s important to note that they can have a significant influence on the results.</p>
 </div>
 </td>
 </tr>

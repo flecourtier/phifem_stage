@@ -346,7 +346,7 @@ title="Fullscreen mode"
 </li>
 </ul>
 </div>
-\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\}_{i=1,\dots,n_{data}}
+\left\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\right\}_{i=1,\dots,n_{data}}
 <div class="paragraph">
 <p>with \(\sigma \sim \mathcal{U}([0.1,0.6\))] and \(\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4\))] with the condition \(\phi(\mu_0, \mu_1) &lt; -0.05\).</p>
 </div>
@@ -413,7 +413,7 @@ u_i&=0, \; &&\text{on } \; \partial\Omega,
 </div>
 <div class="stemblock">
 <div class="content">
-\[\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}\]
+\[\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}.\]
 </div>
 </div>
 <div class="ulist">
@@ -423,7 +423,7 @@ u_i&=0, \; &&\text{on } \; \partial\Omega,
 </li>
 </ul>
 </div>
-f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in 1,\dots,n_{data}.
+f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in \{1,\dots,n_{data}\}.
 <div class="paragraph">
 <p>We can now define X_train as follows</p>
 </div>
@@ -433,7 +433,7 @@ f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \q
 </div>
 </div>
 <div class="paragraph">
-<p>of size \((n_{data},n_{vert},n_{vert},5)\) where \(F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}\) and \(F_{i,norm}^{(yy)}\) are respectively the first primitives of \(f_{i,norm}\) according to x and y and the second primitives of \(f_{i,norm}\) according to x and y.
+<p>of size \((n_{data},n_{dofs},n_{dofs},5)\) where \(F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}\) and \(F_{i,norm}^{(yy)}\) are respectively the first primitives of \(f_{i,norm}\) according to x and y and the second primitives of \(f_{i,norm}\) according to x and y.
 Y_train can also be constructed as follows</p>
 </div>
 <div class="stemblock">
@@ -442,7 +442,7 @@ Y_train can also be constructed as follows</p>
 </div>
 </div>
 <div class="paragraph">
-<p>of size \((n_{data},n_{vert},n_{vert},1)\).</p>
+<p>of size \((n_{data},n_{dofs},n_{dofs},1)\).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -452,7 +452,7 @@ Y_train can also be constructed as follows</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Considering the term \(w\) as training data rather than \(u\) ensures that the conditions at the edge will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by \(\phi\) guarantees \(u=0\) on \(\Gamma\).</p>
+<p>Considering the term \(w\) as training data rather than \(u\) ensures that the conditions at the boundary will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by \(\phi\) guarantees \(u=0\) on \(\Gamma\).</p>
 </div>
 <div class="paragraph">
 <p>Similarly, in the non-homogeneous case, we simply multiply the FNO prediction by \(\phi\) and then add the Dirichlet condition \(g\).</p>
@@ -469,7 +469,7 @@ Y_train can also be constructed as follows</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In practice, the set defined above is separated into 2 sets: the training set (X_train,Y_train), which trains the FNO, and the validation set (X_val,Y_val), which validates the training. Together, these two sets contain the \(n_{data}\) under consideration. In the following, we will consider \(n_{data}\) to be the size of our separate training set (for 1000 data at the beginning, after separation we have \(n_{data}=875\)).</p>
+<p>In practice, the set defined above is separated into 2 sets: the training set (X_train,Y_train), which trains the FNO, and the validation set (X_val,Y_val), which validates the training. Together, these two sets contain the \(n_{data}\) under consideration. In the following, we will consider \(n_{data}\) to be the size of our separate training set (after separation : for the generation of 1000 data we have \(n_{data}=875\)).</p>
 </div>
 </td>
 </tr>
@@ -513,7 +513,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </table>
 </div>
 <div class="paragraph">
-<p>By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (<a href="#misfits_f_gaussian">[misfits_f_gaussian]</a>):</p>
+<p>By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (<a href="#misfits_f_gaussienne">Figure 1</a>):</p>
 </div>
 <div id="misfits_f_gaussienne" class="imageblock unresolved">
 <div class="content">
@@ -525,7 +525,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <p><strong>Results on the validation set :</strong></p>
 </div>
 <div class="paragraph">
-<p>We&#8217;re interested here in the \(||\cdot||_{0,abs}\) errors obtained at the end of training on the validation set. In fact, we&#8217;re going to consider different checkpoints in the training, or to be more precise, we&#8217;re interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000&#8230;&#8203; up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (<a href="#error_val_f_gaussian">[error_val_f_gaussian]</a>):</p>
+<p>We&#8217;re interested here in the \(||\cdot||_{0,abs}\) errors obtained at the end of training on the validation set. In fact, we&#8217;re going to consider different checkpoints in the training, or to be more precise, we&#8217;re interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000&#8230;&#8203; up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (<a href="#erreur_val_f_gaussienne">Figure 2</a>):</p>
 </div>
 <div id="erreur_val_f_gaussienne" class="imageblock unresolved">
 <div class="content">
@@ -534,7 +534,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <div class="title">Figure 2. Errors obtained on the validation set at different training checkpoints (every 500 epochs).</div>
 </div>
 <div class="paragraph">
-<p>Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (<a href="#infos_val_f_gaussian">[infos_val_f_gaussian]</a>), as well as the boxplots of the errors at each checkpoint (<a href="#boxplot_val_f_gaussian">[boxplot_val_f_gaussian]</a>):</p>
+<p>Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (<a href="#infos_val_f_gaussienne">Figure 3</a>), as well as the boxplots of the errors at each checkpoint (<a href="#boxplot_val_f_gaussienne">Figure 4</a>):</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -545,7 +545,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="infos_val_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/infos_val_f_gaussienne.pn" alt="infos val f gaussienne" width="270.0" height="216.0">
+<img src="corr/orr_FNO/infos_val_f_gaussienne.pn" alt="infos val f gaussienne" width="210.0" height="168.0">
 </div>
 <div class="title">Figure 3. Mean, standard deviation, minimum and maximum errors on the validation set according to checkpoints.</div>
 </div></div></td>
@@ -559,19 +559,22 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </tbody>
 </table>
 <div class="paragraph">
+<p><strong><em>Observation :</em></strong> It would seem, therefore, that as epochs progress, the errors in the validation sample decrease. In fact, we can see that the mean and standard deviation of the errors decrease according to the epoch. It would therefore seem that training works.</p>
+</div>
+<div class="paragraph">
 <p><strong>Results on a test set :</strong></p>
 </div>
 <div class="paragraph">
-<p>This time we&#8217;re interested in a new test sample of size \(n_{test}=100\), denoted X_test, created in exactly the same way as the training sample (with parameters again created randomly) and we&#8217;re looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (<a href="#error_test_f_gaussian">[error_test_f_gaussian]</a>):</p>
+<p>This time we&#8217;re interested in a new test sample of size \(n_{test}=100\), denoted X_test, created in exactly the same way as the training sample (with parameters again created randomly) and we&#8217;re looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (<a href="#erreur_test_f_gaussienne">Figure 5</a>):</p>
 </div>
 <div id="erreur_test_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/erreur_test_f_gaussienne.pn" alt="erreur test f gaussienne" width="540.0" height="432.0">
+<img src="corr/orr_FNO/erreur_test_f_gaussienne.pn" alt="erreur test f gaussienne" width="480.0" height="384.0">
 </div>
 <div class="title">Figure 5. Errors obtained on the test set at different training checkpoints (every 500 epochs).</div>
 </div>
 <div class="paragraph">
-<p>Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (<a href="#infos_test_f_gaussian">[infos_test_f_gaussian]</a>), as well as the boxplots of the errors at each checkpoint (<a href="#boxplot_test_f_gaussian">[boxplot_test_f_gaussian]</a>):</p>
+<p>Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (<a href="#infos_test_f_gaussienne">Figure 6</a>), as well as the boxplots of the errors at each checkpoint (<a href="#boxplot_test_f_gaussienne">Figure 7</a>):</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -582,13 +585,13 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="infos_test_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/infos_test_f_gaussienne.pn" alt="infos test f gaussienne" width="270.0" height="216.0">
+<img src="corr/orr_FNO/infos_test_f_gaussienne.pn" alt="infos test f gaussienne" width="240.0" height="192.0">
 </div>
 <div class="title">Figure 6. Mean, standard deviation, minimum and maximum errors on the test set according to checkpoints.</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="boxplot_test_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/boxplot_test_f_gaussienne.pn" alt="boxplot test f gaussienne" width="270.0" height="216.0">
+<img src="corr/orr_FNO/boxplot_test_f_gaussienne.pn" alt="boxplot test f gaussienne" width="240.0" height="192.0">
 </div>
 <div class="title">Figure 7. Boxplots of the errors on the test set according to checkpoints.</div>
 </div></div></td>
@@ -596,7 +599,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Observation :</strong> <mark>A FAIRE !</mark></p>
+<p><strong>Observation :</strong> The same observations can be made as for the validation set.</p>
 </div>
 </div>
 </div>
@@ -604,7 +607,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <h2 id="_correction_of_the_fno_prediction"><a class="anchor" href="#_correction_of_the_fno_prediction"></a>2. Correction of the FNO prediction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As with the analytical solution and the perturbed solution, the \(\phi\)-FEM method is used to test the various correction methods presented in <a href="subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a> on the test sample (of size \(n_{test}=100\)) created in <a href="#_training_the_fno">Section 1</a>, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider</p>
+<p>As with the analytical solution and the disturbed solution, the \(\phi\)-FEM method is used to test the various correction methods presented in <a href="subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a> on the test sample (of size \(n_{test}=100\)) created in <a href="#_training_the_fno">Section 1</a>, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -612,7 +615,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div>
 </div>
 <div class="paragraph">
-<p>with \(w_{FNO}\) the prediction made by the FNO on the current data.</p>
+<p>with \(w_{FNO}\) the prediction made by the FNO on the current test data.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -636,7 +639,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div>
 <div id="corr_errors" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/corr_errors.pn" alt="corr errors" width="540.0" height="432.0">
+<img src="corr/orr_FNO/corr_errors.pn" alt="corr errors" width="600.0" height="480.0">
 </div>
 <div class="title">Figure 8. Errors obtained with the FNO and with different correction methods according to checkpoints.</div>
 </div>
@@ -650,7 +653,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <div class="title">Figure 9. Errors obtained with the FNO and with different correction methods according to checkpoints.</div>
 </div>
 <div class="paragraph">
-<p><strong>Observation :</strong> <mark>A faire !</mark></p>
+<p><strong>Observation :</strong> The results here are not really conclusive. Indeed, the 3 correction methods considered did reduce the error made by the FNO, but none seems to be more efficient than \(\phi\)-FEM. In fact, the method that seems to give the best results is correction by multiplication, in contrast to the analytical test cases where the addition method seemed more effective.</p>
 </div>
 </div>
 </div>
@@ -658,13 +661,13 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <h2 id="_high_degree_interpolation"><a class="anchor" href="#_high_degree_interpolation"></a>3. High degree interpolation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As explained in <a href="#_correction_of_the_fno_prediction">Section 2</a>, it would seem that considering \(\tilde{\phi}\) only in \(\mathbb{P}^2\), is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial \(\phi\)-FEM method. For this reason, we&#8217;re going to attempt to interpolate the solution in order to evaluate this interpolation in a \(\mathbb{P}_k\) space of higher degree (\(k&gt;2\)). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.</p>
+<p>As shown in <a href="#_correction_of_the_fno_prediction">Section 2</a>, it would seem that considering \(\tilde{\phi}\) only in \(\mathbb{P}^2\), is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial \(\phi\)-FEM method. For this reason, we&#8217;re going to attempt to interpolate the solution in order to evaluate this interpolation in a \(\mathbb{P}_k\) space of higher degree (\(k&gt;2\)). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.</p>
 </div>
 <div class="paragraph">
 <p><strong>Explanation :</strong></p>
 </div>
 <div class="paragraph">
-<p>We want to decompose a function into a series of Legendre polynomials as follows:</p>
+<p>We want to decompose a function \(f\) into a series of Legendre polynomials as follows:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -716,7 +719,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </table>
 </div>
 <div class="paragraph">
-<p>Let \(p,p'\in\{0,\dots,P-1\}\) and \(q,q'\in\{0,\dots,Q-1\}\), then</p>
+<p>Let \(p,p'\in\{0,\dots,P-1\}\) and \(q,q'\in\{0,\dots,Q-1\}\), then by the Legendre polynomials orthogonality , we have</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -808,7 +811,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </div>
 </div>
 <div class="paragraph">
-<p>at any point \(x,y\in[0,1\)]. Considering, for example, a new regular grid of size \(N_2\times N_2\) of \([0,1\)^2] with \(N_2=500\), we obtain an error \(||\cdot||_0\) between the analytical solution and the expression of the solution in a series of Legendre polynomials of \(8.1e-4\) (<a href="#legendre_ana">Figure 10</a>).</p>
+<p>at any point \(x,y\in[0,1\)]. Considering, for example, a new regular grid of size \(N_2\times N_2\) of \([0,1\)^2] with \(N_2=500\), we obtain an absolute error \(||\cdot||_{0,\Omega}^{(abs)}\) on Omega between the analytical solution and the expression of the solution in a series of Legendre polynomials of \(8.1e-4\) (<a href="#legendre_ana">Figure 10</a>).</p>
 </div>
 <div id="legendre_ana" class="imageblock unresolved">
 <div class="content">
@@ -832,7 +835,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </div>
 <div class="stemblock">
 <div class="content">
-\[u_{\theta,i}=\phi(x,y)w_{\theta,i}(x,y).\]
+\[u_{\theta,i}(x,y)=\phi(x,y)w_{\theta,i}(x,y).\]
 </div>
 </div>
 <div class="admonitionblock note">
@@ -852,7 +855,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 <div class="paragraph">
 <p>In the following, we will consider \(P=Q\) and test the decomposition for \(P=4\), \(P=6\) and \(P=8\) on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (<a href="#mean_error_reconstruction">Figure 11</a>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom \(\mathbb{P}_2\), denoted W_pred (of size \((n_{test},n_{dofs},n_{dofs})\)). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom \(\mathbb{P}_2\), denoted W_pred_reconstruct (of size \((n_{test},n_{dofs},n_{dofs})\)), then we calculate the error
 \begin{center}
- mean_error_reconstruction = \(||\)W_pred-W_pred_reconstruct\(||_{0,\mathcal{O}}\)
+ mean_error_reconstruction = \(||\)W_pred-W_pred_reconstruct\(||_{0,\mathcal{O}}^{(abs)}\)
 \end{center}</p>
 </div>
 <div id="mean_error_reconstruction" class="imageblock unresolved">
@@ -862,12 +865,12 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 <div class="title">Figure 11. Mean reconstruction error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.</p>
+<p>Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered with a disturbed solution (<a href="subsec_3_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>).</p>
 </div>
 <div class="paragraph">
-<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 12</a>), which is the error defined by
+<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 12</a>),  ans which is defined by
 \begin{center}
-max_error_reconstruction = \(\max|\)W_pred-W_pred_reconstruct\(|\)
+max_error_reconstruction = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\)
 \end{center}
 This will allow us to see if there are any error spikes at certain points.</p>
 </div>
@@ -887,9 +890,9 @@ This will allow us to see if there are any error spikes at certain points.</p>
 <div class="title">Figure 13. Example of result on \(w\) (first data from first checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the \(u\) solution, rather than \(w\), and consider it on the circle only. To do this, we multiply the predicted solution by \(\phi\) and apply a mask ( equal to 1 on the domain and 0 outside). We&#8217;re then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (<a href="#mean_error_solution">Figure 14</a>), defined by
+<p>It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the \(u\) solution, rather than \(w\), and consider it on the circle only. To do this, we multiply the predicted solution by \(\phi\) and apply a mask (equal to 1 on the domain and 0 outside). We&#8217;re then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (<a href="#mean_error_solution">Figure 14</a>), defined by
 \begin{center}
-mean_error_solution = \(||\)(W_pred-W_pred_reconstruct)\(\times\phi||_{0,\Omega}\)
+mean_error_solution = \(||\)(W_pred-W_pred_reconstruct)\(\times\phi||_{0,\Omega}^{(abs)}\)
 \end{center}</p>
 </div>
 <div id="mean_error_solution" class="imageblock unresolved">
@@ -901,7 +904,7 @@ mean_error_solution = \(||\)(W_pred-W_pred_reconstruct)\(\times\phi||_{0,\Omega}
 <div class="paragraph">
 <p>Then we also look at the maximum error on the solution (<a href="#max_error_solution">Figure 15</a>), defined by
 \begin{center}
-max_error_solution = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\times\phi\)
+max_error_solution = \(\max_\Omega|\)(W_pred-W_pred_reconstruct)\(\times\phi|\)
 \end{center}</p>
 </div>
 <div id="max_error_solution" class="imageblock unresolved">
@@ -915,7 +918,7 @@ max_error_solution = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\times\phi\)
 </div>
 <div id="example_y_mask" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/example_y_mask.pn" alt="example y mask" width="540.0" height="432.0">
+<img src="corr/orr_FNO/example_y_mask.pn" alt="example y mask" width="420.0" height="336.0">
 </div>
 <div class="title">Figure 16. Example of result on \(y\) (first data from first checkpoint).</div>
 </div>
@@ -941,9 +944,9 @@ max_error_solution = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\times\phi\)
 </div>
 <div id="FNO_corr_Pk" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/FNO_corr_Pk.pn" alt="FNO corr Pk" width="540.0" height="432.0">
+<img src="corr/orr_FNO/FNO_corr_Pk.pn" alt="FNO corr Pk" width="480.0" height="384.0">
 </div>
-<div class="title">Figure 17. Correction by multuiplication with stem:[tild</div>
+<div class="title">Figure 17. Correction by multuiplication with stem:[\tilde</div>
 </div>
 <div class="paragraph">
 <p>At this stage, the error generated by the decomposition into Legendre polynomial series is probably affecting the correction too much. For this reason, we have not pursued this approach.</p>

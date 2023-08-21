@@ -323,16 +323,349 @@ title="Fullscreen mode"
 
 <article class="doc">
 <h1 class="page">Correction with other networks</h1>
-<div class="sect1">
-<h2 id="_multiperceptron"><a class="anchor" href="#_multiperceptron"></a>1. Multiperceptron</h2>
+<div id="preamble">
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>As explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a> and <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a>, the general idea of FNO in our application framework is to consider a collection of \(n_{data}\) data defined by \(\{f_i\}_{i=1,\dots, n_{data}}\) where each \(f_i\) is the evaluation of our source term \(f\) associated with parameters \(i\) on a regular grid of our domain \(\mathcal{O}\) of size \(n_{dofs}\times n_{dofs}\) (with \(n_{dofs}\) the number of degrees of freedom \(\mathbb{P}_1\) or \(\mathbb{P}_2\)).
+We then use the FNO to predict the solution to the problem under consideration (in our case, the Poisson problem with Dirichlet condition) on the points of a regular grid (whose resolution may differ from that of the input data).</p>
+</div>
+<div class="paragraph">
+<p>As we wish to consider a high-degree \(\tilde{\phi}\) for the correction solvers, we tried to interpolate the FNO prediction by decomposing it in the form of a series of Legendre polynomials (<a href="#_high_degree_interpolation">[_high_degree_interpolation]</a>) in order to have an analytical expression of the solution at every point of the domain, which was not successful.</p>
+</div>
+<div class="paragraph">
+<p>We will now consider a new idea, which consists in using a neural network to predict not a collection of solutions, but a single solution at any point in the domain. More precisely, this time we consider our input data to be a collection of 2D points of size \(n_{pts}\), \(\{(x_i,y_i)\}_{i=1,\dots, n_{pts}}\) and we seek to predict the solution \(\{u_i\}_{i=1,\dots,n_{dots}}\) at each of these points with \(u_i=\phi(x_i,y_i)w_i\) and \(w_i=w_\theta(x_i,y_i)\).</p>
+</div>
+<div class="paragraph">
+<p>We then test the correction of the solution predicted by this neural network in order to check whether the problem is due to the FNO. If this network produces the expected results, we can add it to the FNO output as a new layer for considering higher-degree solutions.</p>
+</div>
+<div class="paragraph">
+<p>Two neural networks will be tested here: the first is a Fully-Connected Multi-Layer Perceptron (Fully-Connected MLP) presented in <a href="#_mlp">Section 1</a> and the second is a Physics-Informed Neural Networks
+(PINNs) presented in <a href="#_pinns">Section 2</a>.</p>
+</div>
+<div class="paragraph">
+<p>In the following, we&#8217;ll consider the case of the trigonometric solution on the square defined in <a href="#_problem">[_problem]</a> with \(S=0.5\), \(f=1\) and \(\varphi=0\) (so the problem is homogeneous).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For MLP and PINNs, we&#8217;ll be using pytorch codes supplied and implemented by Emmanuel Franck\footnote{Emmanuel Franck : \url{https://irma.math.unistra.fr/~franck/}} and Victor Michel-Dansac\footnote{https://irma.math.unistra.fr/~franck/ : \url{https://irma.math.unistra.fr/~micheldansac/}}.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mlp"><a class="anchor" href="#_mlp"></a>1. MLP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fully-connected Multi Layer Perceptrons are simple dense (i.e. fully-connected) neural networks that can be represented by <a href="#corr_networks_MLP_schema">Figure 1</a>.</p>
+</div>
+<div id="corr_networks_MLP_schema" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_schema.pn" alt="MLP schema" width="180.0" height="144.0">
+</div>
+<div class="title">Figure 1. Representation of a fully-connected MLP.</div>
+</div>
+<div class="paragraph">
+<p>Consider a regular \(\mathbb{P}_2\) grid with \(n_{vert}=64\) nodes in each direction (and therefore \(n_{dofs}=123\) degrees of freedom). Consider the following training sample:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+X_train&amp;=\{(x_i,y_i)\}_{i=1,\dots,n_{dofs}^2} \\
+Y_train&amp;=\{u_i\}_{i=1,\dots,n_{dofs}^2}
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \((x_i,y_i)\) the coordinates of the degrees of freedom and \(u_i=u_{ex}(x_i,y_i)\) the exact solution at each degree of freedom.</p>
+</div>
+<div class="paragraph">
+<p>The MLP training loss is defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[loss_\theta^{(0)} = \frac{1}{n_{dofs}^2}\sum_{i=1}^{n_{dofs}^2} mse(u_i-\phi(x_i,y_i)w_{\theta,i})\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(w_{\theta,i}\) the MLP prediction at points \((x_i,y_i)\).</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll consider a 6-layer network of respective size \(\{10,20,60,60,20,10\}\) that we&#8217;ll train over 4000 epochs (<a href="#corr_networks_MLP_loss">Figure 2</a>) with a batch size of 16, a learning rate of \(0.01\) and a hyperbolic tangent activation function.</p>
+</div>
+<div id="corr_networks_MLP_loss" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_loss.pn" alt="MLP loss" width="270.0" height="216.0">
+</div>
+<div class="title">Figure 2. Loss obtained during the MLP training.</div>
+</div>
+<div class="paragraph">
+<p>Taking the training sample to evaluate the model, we obtain an error \(||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=8.09e-3\) and the model seems to learn the solution well (<a href="#corr_networks_MLP_solution">Figure 3</a>).</p>
+</div>
+<div id="corr_networks_MLP_solution" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_solution.pn" alt="MLP solution" width="420.0" height="336.0">
+</div>
+<div class="title">Figure 3. Comparaison of the exact solution and the MLP prediciton.</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s now test the correction by addition without integration by parts (<a href="#corr_networks_MLP_corr_add_FEM">Figure 4</a>) with FEM by taking</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\tilde{\phi}=u_{MLP}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(u_{MLP}\) the MLP prediction.</p>
+</div>
+<div class="paragraph">
+<p>To do this, we consider \(\tilde{\phi}\) in \(\mathbb{P}_10\) for \(n_{vert}=32\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Correction with FEM :</strong></p>
+</div>
+<div id="corr_networks_MLP_corr_add_FEM" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_corr_add_FEM.pn" alt="MLP corr add FEM" width="300.0" height="240.0">
+</div>
+<div class="title">Figure 4. Solution obtained with the correction by adding with FEM on the MLP prediction.</div>
+</div>
+<div class="paragraph">
+<p>We obtain an error \(||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3\). Thus, it would seem that the results are not very promising: for this problem, the FEM error is \(2.80e-2\), so we only obtain an error reduction of \(4.91\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Derivative of the prediction :</strong></p>
+</div>
+<div class="paragraph">
+<p>Consequently, we&#8217;re going to look at the first (<a href="#corr_networks_MLP_derivees_premieres">Figure 5</a>) and second (<a href="#corr_networks_MLP_derivees_secondes">Figure 6</a>) derivatives of the MLP prediction, which will be calculated with FEniCS and compared with the exact derivatives. We obtain the errors \(||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=1.77e-1\) and \(||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=5.136\).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_MLP_derivees_premieres" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_derivees_premieres.pn" alt="MLP derivees premieres" width="210.0" height="168.0">
+</div>
+<div class="title">Figure 5. First derivatives computed with FEniCS on the MLP prediction.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_MLP_derivees_secondes" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/MLP_derivees_secondes.pn" alt="MLP derivees secondes" width="210.0" height="168.0">
+</div>
+<div class="title">Figure 6. Second derivatives computed with FEniCS on the MLP prediction.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The derivatives displayed on the left in <a href="#corr_networks_MLP_derivees_premieres">Figure 5</a> and <a href="#corr_networks_MLP_derivees_secondes">Figure 6</a> are on the \(\mathcal{O}\) domain, so a mask must be applied and the derivatives on the right which are displayed on the \(\Omega\) domain.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>It seems that the second derivatives are completely wrong, which is not surprising since the model is not trained on the derivatives. To solve this problem, we could very well decide to add the model&#8217;s derivatives to the loss as in the FNO loss, but we&#8217;ll choose here to consider a PINNs whose results are presented in <a href="#_pinns">Section 2</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Please note that the derivatives of this model cannot be calculated in the same way as for the FNO, i.e. by finite differences but by calculating the derivative of the \(w_\theta\) model directly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_pinns"><a class="anchor" href="#_pinns"></a>2. PINNs</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Physics-Informed Neural Networks are neural networks whose structure is variable, but whose loss is the residual of the problem under consideration. We choose to consider an MLP as the model with 6-layer network of respective size \(\{10,20,60,60,20,10\}\) that we will train over 20000 epochs, a variable learning rate parameter and a hyperbolic sinus activation function. Half of the training is performed with a learning rate of 0.01 and the other half with a learning rate of 0.001.</p>
+</div>
+<div class="paragraph">
+<p>Here we choose to train the network with \(n_{pts}\) points randomly selected in the domain \(\mathcal{O}\), and consider for each epoch a new training sample defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+X_train&amp;=\{(x_i,y_i)\}_{i=1,\dots,n_{pts}} \\
+Y_train&amp;=\{f_i\}_{i=1,\dots,n_{pts}}
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \((x_i,y_i)\) the coordinates of the points and \(f_i=f(x_i,y_i)\) the second member of the problem evaluated at each points. We will choose \(n_{pts}=20000\).</p>
+</div>
+<div class="paragraph">
+<p>Considering the Poisson problem, the PINNs loss is defined as the residual of the problem by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[loss_\theta = \Delta(\phi(x_i,y_i)w_{\theta,i})+f_i\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(w_{\theta,i}\) the PINNs prediction at points \((x_i,y_i)\).</p>
+</div>
+<div class="paragraph">
+<p>At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (<a href="#corr_networks_PINNs_loss">Figure 7</a>).</p>
+</div>
+<div id="corr_networks_PINNs_loss" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/PINNs_loss.pn" alt="PINNs loss" width="420.0" height="336.0">
+</div>
+<div class="title">Figure 7. PINNs prediction, Exact solution and Loss obtained.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It would seem that the prediction is not very good at the border of the \(\mathcal{O}\) domain, but as this is a sufficiently large surrounding domain, we won&#8217;t need the prediction in these areas, far from \(\Omega\).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Correction with FEM :</strong></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s now test the correction by addition without integration by parts (<a href="#corr_networks_MLP_corr_add_FEM">Figure 4</a>) with FEM by taking</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\tilde{\phi}=u_{PINNS}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(u_{PINNS}\) the PINNS predicition and thus we consider \(\tilde{\phi}\) in \(\mathbb{P}_{10}\) for \(n_{vert}=32\).</p>
+</div>
+<div class="paragraph">
+<p>Before the correction, we have the following error.</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-\tilde{\phi}||_{0,\Omega}^{(rel)}=1.93e-3.\]
+</div>
+</div>
+<div id="corr_networks_PINNS_corr_add_FEM" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/PINNs_FEM_add.pn" alt="PINNs FEM add" width="270.0" height="216.0">
+</div>
+<div class="title">Figure 8. Solution obtained with the correction by adding with FEM on the PINNs prediction.</div>
+</div>
+<div class="paragraph">
+<p>After the correction, we obtain the following error</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.13e-4.\]
+</div>
+</div>
+<div class="paragraph">
+<p>Thus, it would seem that the results are very promising: for this problem, the FEM error is</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=2.80e-2\]
+</div>
+</div>
+<div class="paragraph">
+<p>so we obtain an error reduction of \(246.60\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Correction with \(\phi\)-FEM :</strong></p>
+</div>
+<div class="paragraph">
+<p>As the correction on FEM seems to be working, we&#8217;re going to test the correction by addition without integration by parts (<a href="#corr_networks_PINNs_corr_add_PhiFEM">Figure 9</a>) with \(\phi\)-FEM.</p>
+</div>
+<div id="corr_networks_PINNs_corr_add_PhiFEM" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/PINNs_PhiFEM_add.pn" alt="PINNs PhiFEM add" width="270.0" height="216.0">
+</div>
+<div class="title">Figure 9. Solution obtained with the correction by adding with \(\phi\)-FEM on the PINNs prediction.</div>
+</div>
+<div class="paragraph">
+<p>After the correction, we obtain the following error</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.27e-4.\]
+</div>
+</div>
+<div class="paragraph">
+<p>Thus, it would seem that the results are very promising: for this problem, the FEM error is</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=1.92e-2\]
+</div>
+</div>
+<div class="paragraph">
+<p>so we obtain an error reduction of \(151.34\).</p>
+</div>
+<div class="paragraph">
+<p><strong>Derivatives of the prediction :</strong></p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re going to look too at the first (<a href="#corr_networks_PINNs_derivees_premieres">Figure 10</a>) and second (<a href="#corr_networks_PINNs_derivees_secondes">Figure 11</a>) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. We obtain the errors \(||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=6.44e-3\) and \(||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=1.02e-1\).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_PINNs_derivees_premieres" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/PINNs_derivees_premieres.pn" alt="PINNs derivees premieres" width="240.0" height="192.0">
+</div>
+<div class="title">Figure 10. First derivatives computed with Pytorch and FEniCS on the PINNs prediction.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_PINNs_derivees_secondes" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_networks/PINNs_derivees_secondes.pn" alt="PINNs derivees secondes" width="240.0" height="192.0">
+</div>
+<div class="title">Figure 11. Second derivatives computed with Pytorch and FEniCS on the PINNs prediction.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>It would therefore seem that the use of PINNs provides results similar to those obtained on perturbed analytic solutions for \(\tilde{\phi}\) in \(\mathbb{P}_k\) with \(k\) large enough (\(k=10\)).</p>
+</div>
 </div>
 </div>
 </article>

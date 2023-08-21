@@ -327,7 +327,7 @@ title="Fullscreen mode"
 </div>
 <div id="FNO_schema" class="imageblock">
 <div class="content">
-<img src="../_images/fourier/fno_schema.png" alt="fno schema" width="600.0" height="480.0">
+<img src="../_images/fourier/fno_schema.png" alt="fno schema" width="540.0" height="432.0">
 </div>
 <div class="title">Figure 1. figure</div>
 </div>
@@ -360,6 +360,26 @@ title="Fullscreen mode"
 <p>We then obtain the output of the \(Y\) model of shape (bs,ni,nj,1).</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that the \(P\) and \(Q\) layers are in fact fully-connected multi-layer perceptrons, which means that they perform local transformations at each point, and therefore do not depend on the mesh resolution considered.</p>
+</div>
+<div class="paragraph">
+<p>Fourier layers are also independent of mesh resolution. Indeed, as we learn in Fourier space, the value of the Fourier modes does not depend on the mesh resolution.</p>
+</div>
+<div class="paragraph">
+<p>We deduce that the entire FNO does not depend on the mesh resolution.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </article>
   </div>
