@@ -816,7 +816,7 @@ Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle
 \end{minipage}
 
 \begin{Rem}
-	In the previous results, we use the direct method to impose the edge conditions with $\phi$-FEM.
+	In the previous results, we use the direct method to impose the boundary conditions with $\phi$-FEM.
 \end{Rem}
 
 \paragraph{Results with differents $\epsilon$} \label{Corr.results.disturbed.eps} 
@@ -1026,7 +1026,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 		\end{figure} 
 	\end{minipage}
 	
-	Then, we consider the correction by multiplying on the Circle problem (Figure \ref{corr_pert_phifem_circle_mult_nh}) and on the Square problem (Figure \ref{corr_pert_phifem_square_mult_nh}). We start by considering the same $\phi$-FEM scheme as in the homogeneous case, i.e. here we don't impose any edge conditions.
+	Then, we consider the correction by multiplying on the Circle problem (Figure \ref{corr_pert_phifem_circle_mult_nh}) and on the Square problem (Figure \ref{corr_pert_phifem_square_mult_nh}). We start by considering the same $\phi$-FEM scheme as in the homogeneous case, i.e. here we don't impose any boundary conditions.
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -1158,7 +1158,7 @@ Now we to test the correction by multiplying on an elevating problem with $\phi$
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_phifem_circle.png"}
-		\captionof{figure}{Representation of the results on the Circle with FEM.}
+		\captionof{figure}{Representation of the results on the Circle with $\phi$-FEM.}
 		\label{corr_pert_phifem_circle_reh_fig}
 	\end{figure} 
 \end{minipage} $\qquad$
@@ -1166,7 +1166,7 @@ Now we to test the correction by multiplying on an elevating problem with $\phi$
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_phifem_square.png"}
-		\captionof{figure}{Representation of the results on the Square with FEM.}
+		\captionof{figure}{Representation of the results on the Square with $\phi$-FEM.}
 		\label{corr_pert_phifem_square_reh_fig}
 	\end{figure} 
 \end{minipage}
@@ -1177,7 +1177,7 @@ Now, we impose the boundary conditions using the dual method, always considering
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_circle_dual.png"}
-		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with $\phi$-FEM (dual method).}
 		\label{corr_pert_phifem_circle_dual_reh}
 	\end{figure} 
 \end{minipage} $\qquad$
@@ -1185,7 +1185,7 @@ Now, we impose the boundary conditions using the dual method, always considering
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_phifem_square_dual.png"}
-		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
+		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with $\phi$-FEM (dual method).}
 		\label{corr_pert_phifem_square_dual_reh}
 	\end{figure} 
 \end{minipage}
@@ -1194,7 +1194,7 @@ Now, we impose the boundary conditions using the dual method, always considering
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/fig_phifem_circle_dual.png"}
-		\captionof{figure}{Representation of the results on the Circle with FEM.}
+		\captionof{figure}{Representation of the results on the Circle with $\phi$-FEM (dual method).}
 		\label{corr_pert_phifem_circle_dual_reh_fig}
 	\end{figure} 
 \end{minipage} $\qquad$
@@ -1202,7 +1202,7 @@ Now, we impose the boundary conditions using the dual method, always considering
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/fig_phifem_square_dual.png"}
-		\captionof{figure}{Representation of the results on the Square with FEM.}
+		\captionof{figure}{Representation of the results on the Square with $\phi$-FEM (dual method).}
 		\label{corr_pert_phifem_square_dual_reh_fig}
 	\end{figure} 
 \end{minipage}
@@ -1219,7 +1219,105 @@ Now, we impose the boundary conditions using the dual method, always considering
 
 \subsubsection{Correction on $\phi$-FEM solution} \label{Corr.results.phifem}
 
-\modif{Then we will look at correcting a disturbed solution for which we don't know the form of the perturbation. A $\phi$-FEM solution can be considered for injection into correction solvers.}
+In this section, we will consider the case of the circle with the solution defined in Section \ref{Corr.pb.circle.1} with $S=0.5$, $f=1$ and $\varphi=0$ (homogeneous case) and $n_{vert}=100$.
+
+The aim here is to test the different types of correction presented above on a perturbed solution whose perturbation is not analytically known. We therefore choose to consider
+\begin{equation*}
+	\tilde{\phi}=u_{\phi-FEM}
+\end{equation*}
+with $u_{\phi-FEM}$ the solution $\mathbb{P}_2$ obtained by solving the problem with the $\phi$-FEM method.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{"corr_phifem/phifem_solution.png"}
+	\captionof{figure}{Comparison of the exact solution $u_{ex}$ and the $\phi$-FEM, $u_{\phi-FEM}$.}
+	\label{corr_phifem_phifem_solution}
+\end{figure} 
+
+We obtain
+\begin{equation*}
+	||u_{ex}-u_{\phi-FEM}||_{0,\Omega}^{(rel)}=8.06e-4.
+\end{equation*}
+
+In the following, we will test the different types of correction using the standard FEM method.
+
+\textbf{Correction by adding :}
+
+We begin by testing the addition correction with standard FEM without integration by parts (Figure \ref{corr_phifem_phifem_corr_add}), then with integration by parts on the term with $\Delta\tilde{\phi}$ (Figure \ref{corr_phifem_phifem_corr_add_IPP}).
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_phifem/phifem_corr_add.png"}
+		\captionof{figure}{Correction of $u_{\phi-FEM}$ by adding with FEM.}
+		\label{corr_phifem_phifem_corr_add}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{"corr_phifem/phifem_corr_add_IPP.png"}
+		\captionof{figure}{Correction of $u_{\phi-FEM}$ by adding (with IPP) with FEM.}
+		\label{corr_phifem_phifem_corr_add_IPP}
+	\end{figure} 
+\end{minipage}
+
+We obtain
+\begin{equation*}
+	||u_{ex}-u_{add}||_{0,\Omega}^{(rel)}=2.019 \qquad \text{and } ||u_{ex}-u_{add2}||_{0,\Omega}^{(rel)}=5.12e-4
+\end{equation*}
+with $u_{add}$ the solution obtain with the correction by adding and $u_{add2}$ the solution obtained with the correction by adding with integration by parts.
+
+It would therefore seem that correction without integration by parts does not provide the right results at all. This is why, as a first step, we're going to calculate the first derivatives of the solution with FEniCS, according to x and y (Figure \ref{corr_phifem_derivees_premieres}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{"corr_phifem/derivees_premieres.png"}
+	\captionof{figure}{First derivatives of the exact solution $u_{ex}$ and the $\phi$-FEM solution $u_{\phi}$-FEM.}
+	\label{corr_phifem_derivees_premieres}
+\end{figure} 
+
+It would appear that there are some errors at the boundary of the domain, but they are fairly close to the exact derivatives. Let's now calculate the second derivatives of the solution with FEniCS, according to x and y (Figure \ref{corr_phifem_derivees_secondes}).
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{"corr_phifem/derivees_secondes.png"}
+	\captionof{figure}{Second derivatives of the exact solution $u_{ex}$ and the $\phi$-FEM solution $u_{\phi}$-FEM.}
+	\label{corr_phifem_derivees_secondes}
+\end{figure} 
+
+It seems that the second derivatives are very far from the exact second derivatives, which explains why addition without integration by parts, which uses these second derivatives, doesn't work at all.
+
+\textbf{Correction by multiplying :}
+
+We will now test the correction by multiplying with standard FEM (Figure \ref{corr_phifem_phifem_corr_mult}) and the correction by multiplying on a elevated problem by taking $m=1000$ (Figure \ref{corr_phifem_phifem_corr_mult_reh}).
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{"corr_phifem/phifem_corr_mult.png"}
+		\captionof{figure}{Correction of $u_{\phi-FEM}$ by multiplying with FEM.}
+		\label{corr_phifem_phifem_corr_mult}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{"corr_phifem/phifem_corr_mult_reh.png"}
+		\captionof{figure}{Correction of $u_{\phi-FEM}$ by multiplying on an elevated problem with FEM (m=1000).}
+		\label{corr_phifem_phifem_corr_mult_reh}
+	\end{figure} 
+\end{minipage}
+
+We obtain
+\begin{equation*}
+	||u_{ex}-u_{mult}||_{0,\Omega}^{(rel)}=2.37e-3 \qquad \text{and } ||u_{ex}-u_{mult,m}||_{0,\Omega}^{(rel)}=5.12e-4
+\end{equation*}
+with $u_{mult}$ the solution obtain with the correction by multiplying and $u_{mult,m}$ the solution obtained with the correction by multiplying on an elevated problem.
+
+\begin{Rem}
+	Note that the same error is obtained for correction by multiplying on an elevated problem and correction by addition with integration by parts.
+\end{Rem}
 
 \subsubsection{Correction with FNO} \label{Corr.results.FNO}
 
@@ -1233,7 +1331,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 \begin{enumerate}[label=\textbullet]
 	\item First, we randomly generate a sample of parameters defined by
 	\begin{equation*}
-		\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\}_{i=1,\dots,n_{data}}
+		\left\{\mu_0^{(i)},\mu_1^{(i)},\sigma^{(i)}\right\}_{i=1,\dots,n_{data}}
 	\end{equation*}
 	with $\sigma \sim \mathcal{U}([0.1,0.6])$ and $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ with the condition $\phi(\mu_0, \mu_1) < -0.05$.
 	
@@ -1267,32 +1365,32 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	
 	We thus have a collection of $\phi$-FEM solutions of the problem defined by
 	\begin{equation*}
-		\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}
+		\{u_i\}_{i=1,\dots,n_{data}}=\{\phi w_i\}_{i=1,\dots,n_{data}}.
 	\end{equation*}
 	
 	\item From the previous collections, we can now create the X\_train and Y\_train samples that will enable us to train the FNO. we will start by performing a kind of pre-processing on our data (explained in Section \ref{FNO.application}) by normalizing the source term collection. We thus consider
 	\begin{equation*}
-		f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in 1,\dots,n_{data}.
+		f_{i,norm} = \frac{f_i}{max_{j=1},\dots,n_{data} ||f_j||_{L^2(\mathcal{O})}}, \quad \forall i\in \{1,\dots,n_{data}\}.
 	\end{equation*}
 	We can now define X\_train as follows
 	\begin{equation*}
 		X\_train =  \left\{f_{i,norm},F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)},F_{i,norm}^{(yy)}\right\}_{i=1,\dots,n_{data}}
 	\end{equation*}
-	of size $(n_{data},n_{vert},n_{vert},5)$ where $F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}$ and $F_{i,norm}^{(yy)}$ are respectively the first primitives of $f_{i,norm}$ according to x and y and the second primitives of $f_{i,norm}$ according to x and y.
+	of size $(n_{data},n_{dofs},n_{dofs},5)$ where $F_{i,norm}^{(x)},F_{i,norm}^{(y)},F_{i,norm}^{(xx)}$ and $F_{i,norm}^{(yy)}$ are respectively the first primitives of $f_{i,norm}$ according to x and y and the second primitives of $f_{i,norm}$ according to x and y.
 	Y\_train can also be constructed as follows
 	\begin{equation*}
 		Y\_train = \{w_i\}_{i=1,\dots,n_{data}}
 	\end{equation*}
-	of size $(n_{data},n_{vert},n_{vert},1)$.
+	of size $(n_{data},n_{dofs},n_{dofs},1)$.
 	
 	\begin{Rem}
-		Considering the term $w$ as training data rather than $u$ ensures that the conditions at the edge will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by $\phi$ guarantees $u=0$ on $\Gamma$. 
+		Considering the term $w$ as training data rather than $u$ ensures that the conditions at the boundary will be accurate at the output of the FNO. Indeed, multiplying the FNO prediction by $\phi$ guarantees $u=0$ on $\Gamma$. 
 		
 		Similarly, in the non-homogeneous case, we simply multiply the FNO prediction by $\phi$ and then add the Dirichlet condition $g$.
 	\end{Rem}
 	
 	\begin{Rem}
-		In practice, the set defined above is separated into 2 sets: the training set (X\_train,Y\_train), which trains the FNO, and the validation set (X\_val,Y\_val), which validates the training. Together, these two sets contain the $n_{data}$ under consideration. In the following, we will consider $n_{data}$ to be the size of our separate training set (for 1000 data at the beginning, after separation we have $n_{data}=875$). 
+		In practice, the set defined above is separated into 2 sets: the training set (X\_train,Y\_train), which trains the FNO, and the validation set (X\_val,Y\_val), which validates the training. Together, these two sets contain the $n_{data}$ under consideration. In the following, we will consider $n_{data}$ to be the size of our separate training set (after separation : for the generation of 1000 data we have $n_{data}=875$). 
 	\end{Rem}
 	\item We can now train our FNO by minimizing the loss defined by
 	\begin{equation*}
@@ -1310,7 +1408,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	\end{Rem}
 \end{enumerate}
 
-By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (Figure \ref{misfits_f_gaussian}):
+By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (Figure \ref{misfits_f_gaussienne}):
 
 \begin{figure}[H]
 	\centering
@@ -1321,7 +1419,7 @@ By training our FNO over 4000 epochs with a batch size of 64, we obtain the foll
 
 \textbf{Results on the validation set :}
 
-We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (Figure \ref{error_val_f_gaussian}):
+We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of training on the validation set. In fact, we're going to consider different checkpoints in the training, or to be more precise, we're interested in different moments in the training (i.e. we will have 8 similar models whose total number of epochs differs: for the first, we make 500 epochs, for the second we make 1000... up to the last at 4000 epochs). Here are the errors obtained on the validation sample for each of these 8 checkpoints (Figure \ref{erreur_val_f_gaussienne}):
 
 \begin{figure}[H]
 	\centering
@@ -1330,12 +1428,12 @@ We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of t
 	\label{erreur_val_f_gaussienne}
 \end{figure} 
 
-Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (Figure \ref{infos_val_f_gaussian}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_val_f_gaussian}):
+Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (Figure \ref{infos_val_f_gaussienne}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_val_f_gaussienne}):
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\linewidth]{corr_FNO/infos_val_f_gaussienne.png}
+		\includegraphics[width=0.7\linewidth]{corr_FNO/infos_val_f_gaussienne.png}
 		\caption{Mean, standard deviation, minimum and maximum errors on the validation set according to checkpoints.}
 		\label{infos_val_f_gaussienne}
 	\end{figure} 
@@ -1349,23 +1447,27 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 	\end{figure} 
 \end{minipage}
 
+\textbf{\textit{Observation :}} It would seem, therefore, that as epochs progress, the errors in the validation sample decrease. In fact, we can see that the mean and standard deviation of the errors decrease according to the epoch. It would therefore seem that training works.
+
+\newpage
+
 \textbf{Results on a test set :}
 
-This time we're interested in a new test sample of size $n_{test}=100$, denoted X\_test, created in exactly the same way as the training sample (with parameters again created randomly) and we're looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (Figure \ref{error_test_f_gaussian}):
+This time we're interested in a new test sample of size $n_{test}=100$, denoted X\_test, created in exactly the same way as the training sample (with parameters again created randomly) and we're looking to reproduce exactly the same results as on the validation set. Here are the errors obtained on the test sample for each of these 8 checkpoints (Figure \ref{erreur_test_f_gaussienne}):
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{corr_FNO/erreur_test_f_gaussienne.png}
+	\includegraphics[width=0.8\linewidth]{corr_FNO/erreur_test_f_gaussienne.png}
 	\caption{Errors obtained on the test set at different training checkpoints (every 500 epochs).}
 	\label{erreur_test_f_gaussienne}
 \end{figure} 
 
-Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (Figure \ref{infos_test_f_gaussian}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_test_f_gaussian}):
+Here are the mean, standard deviation, minimum and maximum error values obtained on the test set at these different checkpoints (Figure \ref{infos_test_f_gaussienne}), as well as the boxplots of the errors at each checkpoint (Figure \ref{boxplot_test_f_gaussienne}):
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\linewidth]{corr_FNO/infos_test_f_gaussienne.png}
+		\includegraphics[width=0.8\linewidth]{corr_FNO/infos_test_f_gaussienne.png}
 		\caption{Mean, standard deviation, minimum and maximum errors on the test set according to checkpoints.}
 		\label{infos_test_f_gaussienne}
 	\end{figure} 
@@ -1373,21 +1475,21 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\linewidth]{corr_FNO/boxplot_test_f_gaussienne.png}
+		\includegraphics[width=0.8\linewidth]{corr_FNO/boxplot_test_f_gaussienne.png}
 		\caption{Boxplots of the errors on the test set according to checkpoints.}
 		\label{boxplot_test_f_gaussienne}
 	\end{figure} 
 \end{minipage}
 
-\textbf{Observation :} \modif{A FAIRE !}
+\textbf{Observation :} The same observations can be made as for the validation set.
 
 \paragraph{Correction of the FNO prediction} \label{Corr.results.FNO.Corr}
 
-As with the analytical solution and the perturbed solution, the $\phi$-FEM method is used to test the various correction methods presented in Section \ref{Corr.methods} on the test sample (of size $n_{test}=100$) created in Section \ref{Corr.results.FNO.Training}, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider  
+As with the analytical solution and the disturbed solution, the $\phi$-FEM method is used to test the various correction methods presented in Section \ref{Corr.methods} on the test sample (of size $n_{test}=100$) created in Section \ref{Corr.results.FNO.Training}, i.e. correction by addition, correction by multiplication and correction by multiplication on an elevated problem. For each piece of data in the test sample, we consider  
 \begin{equation*}
 	\tilde{\phi}=u_{FNO}=\phi w_{FNO}
 \end{equation*}
-with $w_{FNO}$ the prediction made by the FNO on the current data.
+with $w_{FNO}$ the prediction made by the FNO on the current test data.
 
 \begin{Rem}
 	Note that, unlike correction on analytic or perturbed solutions, the FNO can only predict the solution at points on the regular grid (i.e. nodes or degrees of freedom $\mathbb{P}^2$). At FNO output, we can therefore only provide our correctors with $\tilde{\phi}$ in $\mathbb{P}_2$.
@@ -1399,10 +1501,12 @@ Here are the errors obtained with the different correction methods, in addition 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{corr_FNO/corr_errors.png}
+	\includegraphics[width=\linewidth]{corr_FNO/corr_errors.png}
 	\caption{Errors obtained with the FNO and with different correction methods according to checkpoints.}
 	\label{corr_errors}
 \end{figure} 
+
+\newpage
 
 We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot}):
 
@@ -1413,15 +1517,15 @@ We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot
 	\label{corr_boxplot}
 \end{figure} 
 
-\textbf{Observation :} \modif{A faire !}
+\textbf{Observation :} The results here are not really conclusive. Indeed, the 3 correction methods considered did reduce the error made by the FNO, but none seems to be more efficient than $\phi$-FEM. In fact, the method that seems to give the best results is correction by multiplication, in contrast to the analytical test cases where the addition method seemed more effective.
 
 \paragraph{High degree interpolation} \label{Corr.results.FNO.Legendre}
 
-As explained in Section \ref{Corr.results.FNO.Corr}, it would seem that considering $\tilde{\phi}$ only in $\mathbb{P}^2$, is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial $\phi$-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a $\mathbb{P}_k$ space of higher degree ($k>2$). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.
+As shown in Section \ref{Corr.results.FNO.Corr}, it would seem that considering $\tilde{\phi}$ only in $\mathbb{P}^2$, is not sufficient for the various correction methods applied after the FNO to be more accurate than the initial $\phi$-FEM method. For this reason, we're going to attempt to interpolate the solution in order to evaluate this interpolation in a $\mathbb{P}_k$ space of higher degree ($k>2$). To do this, we will decompose our solution into a series of polynomials, choosing Legendre polynomials.
 
 \textbf{Explanation :}
 
-We want to decompose a function into a series of Legendre polynomials as follows:
+We want to decompose a function $f$ into a series of Legendre polynomials as follows:
 \begin{equation*}
 	f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
 	\label{decomp}
@@ -1447,7 +1551,7 @@ are orthogonal in space $L^2(]-1,1[^2)$ :
 	Numerically, we will use the trapezoid method to calculate the scalar product on $L^2(]-1,1[^2)$.
 \end{Rem}
 
-Let $p,p'\in\{0,\dots,P-1\}$ and $q,q'\in\{0,\dots,Q-1\}$, then
+Let $p,p'\in\{0,\dots,P-1\}$ and $q,q'\in\{0,\dots,Q-1\}$, then by the Legendre polynomials orthogonality , we have
 
 \begin{align*}
 	\langle Q_{p,q},Q_{p',q'}\rangle_{L^2(]-1,1[^2)}\int_{-1}^1 \int_{-1}^1 Q_{p,q}(x,y)Q_{p',q'}(x,y)dxdy&=\int_{-1}^1 \int_{-1}^1 P_p(x)P_q(y)P_{p'}(x)P_{q'}(y)dxdy \\
@@ -1495,7 +1599,7 @@ Let's take $P=Q=5$ and consider the evaluation of $f$ on a regular $N\times N$ g
 \begin{equation*}
 	f(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)
 \end{equation*}
-at any point $x,y\in[0,1]$. Considering, for example, a new regular grid of size $N_2\times N_2$ of $[0,1]^2$ with $N_2=500$, we obtain an error $||\cdot||_0$ between the analytical solution and the expression of the solution in a series of Legendre polynomials of $8.1e-4$ (Figure \ref{legendre_ana}).
+at any point $x,y\in[0,1]$. Considering, for example, a new regular grid of size $N_2\times N_2$ of $[0,1]^2$ with $N_2=500$, we obtain an absolute error $||\cdot||_{0,\Omega}^{(abs)}$ on Omega between the analytical solution and the expression of the solution in a series of Legendre polynomials of $8.1e-4$ (Figure \ref{legendre_ana}).
 
 \begin{figure}[H]
 	\centering
@@ -1512,7 +1616,7 @@ We will again consider the problem presented in Section \ref{Corr.pb.circle.2}, 
 \end{equation*}
 and thus
 \begin{equation*}
-	u_{\theta,i}=\phi(x,y)w_{\theta,i}(x,y).
+	u_{\theta,i}(x,y)=\phi(x,y)w_{\theta,i}(x,y).
 \end{equation*}
 
 \begin{Rem}
@@ -1521,7 +1625,7 @@ and thus
 
 In the following, we will consider $P=Q$ and test the decomposition for $P=4$, $P=6$ and $P=8$ on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (Figure \ref{mean_error_reconstruction}). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom $\mathbb{P}_2$, denoted W\_pred (of size $(n_{test},n_{dofs},n_{dofs})$). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom $\mathbb{P}_2$, denoted W\_pred\_reconstruct (of size $(n_{test},n_{dofs},n_{dofs})$), then we calculate the error
 \begin{center}
-	 mean\_error\_reconstruction = $||$W\_pred-W\_pred\_reconstruct$||_{0,\mathcal{O}}$
+	 mean\_error\_reconstruction = $||$W\_pred-W\_pred\_reconstruct$||_{0,\mathcal{O}}^{(abs)}$
 \end{center}
 
 \begin{figure}[H]
@@ -1531,11 +1635,11 @@ In the following, we will consider $P=Q$ and test the decomposition for $P=4$, $
 	\label{mean_error_reconstruction}
 \end{figure} 
 
-Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered.
+Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered with a disturbed solution (Section \ref{Corr.results.disturbed}).
 
-We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (Figure \ref{max_error_reconstruction}), which is the error defined by
+We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (Figure \ref{max_error_reconstruction}),  ans which is defined by
 \begin{center}
-	max\_error\_reconstruction = $\max|$W\_pred-W\_pred\_reconstruct$|$
+	max\_error\_reconstruction = $\max_\Omega|$W\_pred-W\_pred\_reconstruct$|$
 \end{center}
 This will allow us to see if there are any error spikes at certain points.
 
@@ -1555,9 +1659,9 @@ We can also display solutions in the case of an example (Figure \ref{example_w})
 	\label{example_w}
 \end{figure} 
 
-It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the $u$ solution, rather than $w$, and consider it on the circle only. To do this, we multiply the predicted solution by $\phi$ and apply a mask ( equal to 1 on the domain and 0 outside). We're then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (Figure \ref{mean_error_solution}), defined by
+It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the $u$ solution, rather than $w$, and consider it on the circle only. To do this, we multiply the predicted solution by $\phi$ and apply a mask (equal to 1 on the domain and 0 outside). We're then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (Figure \ref{mean_error_solution}), defined by
 \begin{center}
-	mean\_error\_solution = $||$(W\_pred-W\_pred\_reconstruct)$\times\phi||_{0,\Omega}$
+	mean\_error\_solution = $||$(W\_pred-W\_pred\_reconstruct)$\times\phi||_{0,\Omega}^{(abs)}$
 \end{center}
 
 \begin{figure}[H]
@@ -1569,7 +1673,7 @@ It would therefore seem that some regions are more difficult to approach by deco
 
 Then we also look at the maximum error on the solution (Figure \ref{max_error_solution}), defined by
 \begin{center}
-	max\_error\_solution = $\max_\Omega|$W\_pred-W\_pred\_reconstruct$|\times\phi$
+	max\_error\_solution = $\max_\Omega|$(W\_pred-W\_pred\_reconstruct)$\times\phi|$
 \end{center}
 
 \begin{figure}[H]
@@ -1582,7 +1686,7 @@ Then we also look at the maximum error on the solution (Figure \ref{max_error_so
 We can then compare the solution with the one reconstructed by the series decomposition of Legendre polynomials on the same example (Figure \ref{example_y_mask}).
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{corr_FNO/example_y_mask.png}
+	\includegraphics[width=0.7\linewidth]{corr_FNO/example_y_mask.png}
 	\caption{Example of result on $y$ (first data from first checkpoint).}
 	\label{example_y_mask}
 \end{figure} 
@@ -1601,8 +1705,8 @@ For each data item at each checkpoint, we will compare the following errors (Fig
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{corr_FNO/FNO_corr_Pk.png}
-	\caption{Correction by multuiplication with $tild{\phi}$ of high degree.}
+	\includegraphics[width=0.8\linewidth]{corr_FNO/FNO_corr_Pk.png}
+	\caption{Correction by multuiplication with $\tilde{\phi}$ of high degree.}
 	\label{FNO_corr_Pk}
 \end{figure} 
 
@@ -1610,6 +1714,192 @@ At this stage, the error generated by the decomposition into Legendre polynomial
 
 \subsubsection{Correction with other networks} \label{Corr.results.neural_net}
 
-\paragraph{Multiperceptron} \label{Corr.results.neural_net.multiperceptron}
+As explained in Section \ref{FNO.application} and Section \ref{Corr.results.FNO}, the general idea of FNO in our application framework is to consider a collection of $n_{data}$ data defined by $\{f_i\}_{i=1,\dots, n_{data}}$ where each $f_i$ is the evaluation of our source term $f$ associated with parameters $i$ on a regular grid of our domain $\mathcal{O}$ of size $n_{dofs}\times n_{dofs}$ (with $n_{dofs}$ the number of degrees of freedom $\mathbb{P}_1$ or $\mathbb{P}_2$). 
+We then use the FNO to predict the solution to the problem under consideration (in our case, the Poisson problem with Dirichlet condition) on the points of a regular grid (whose resolution may differ from that of the input data). 
+
+As we wish to consider a high-degree $\tilde{\phi}$ for the correction solvers, we tried to interpolate the FNO prediction by decomposing it in the form of a series of Legendre polynomials (Section \ref{Corr.results.FNO.Legendre}) in order to have an analytical expression of the solution at every point of the domain, which was not successful.
+
+We will now consider a new idea, which consists in using a neural network to predict not a collection of solutions, but a single solution at any point in the domain. More precisely, this time we consider our input data to be a collection of 2D points of size $n_{pts}$, $\{(x_i,y_i)\}_{i=1,\dots, n_{pts}}$ and we seek to predict the solution $\{u_i\}_{i=1,\dots,n_{dots}}$ at each of these points with $u_i=\phi(x_i,y_i)w_i$ and $w_i=w_\theta(x_i,y_i)$.
+
+We then test the correction of the solution predicted by this neural network in order to check whether the problem is due to the FNO. If this network produces the expected results, we can add it to the FNO output as a new layer for considering higher-degree solutions.
+
+Two neural networks will be tested here: the first is a Fully-Connected Multi-Layer Perceptron (Fully-Connected MLP) presented in Section \ref{Corr.results.neural_net.MLP} and the second is a Physics-Informed Neural Networks
+(PINNs) presented in Section \ref{Corr.results.neural_net.PINNs}.
+
+In the following, we'll consider the case of the trigonometric solution on the square defined in Section \ref{Corr.pb.square.1} with $S=0.5$, $f=1$ and $\varphi=0$ (so the problem is homogeneous).
+
+\begin{Rem}
+	For MLP and PINNs, we'll be using pytorch codes supplied and implemented by Emmanuel Franck\footnote{Emmanuel Franck : \url{https://irma.math.unistra.fr/~franck/}} and Victor Michel-Dansac\footnote{https://irma.math.unistra.fr/~franck/ : \url{https://irma.math.unistra.fr/~micheldansac/}}.
+\end{Rem}
+
+\paragraph{MLP} \label{Corr.results.neural_net.MLP}
+
+Fully-connected Multi Layer Perceptrons are simple dense (i.e. fully-connected) neural networks that can be represented by Figure \ref{corr_networks_MLP_schema}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{corr_networks/MLP_schema.png}
+	\caption{Representation of a fully-connected MLP.}
+	\label{corr_networks_MLP_schema}
+\end{figure} 
+
+Consider a regular $\mathbb{P}_2$ grid with $n_{vert}=64$ nodes in each direction (and therefore $n_{dofs}=123$ degrees of freedom). Consider the following training sample:
+\begin{align*}
+	X\_train&=\{(x_i,y_i)\}_{i=1,\dots,n_{dofs}^2} \\
+	Y\_train&=\{u_i\}_{i=1,\dots,n_{dofs}^2} 
+\end{align*}
+with $(x_i,y_i)$ the coordinates of the degrees of freedom and $u_i=u_{ex}(x_i,y_i)$ the exact solution at each degree of freedom.
+
+The MLP training loss is defined by
+\begin{equation*}
+	loss_\theta^{(0)} = \frac{1}{n_{dofs}^2}\sum_{i=1}^{n_{dofs}^2} mse(u_i-\phi(x_i,y_i)w_{\theta,i})
+\end{equation*}
+with $w_{\theta,i}$ the MLP prediction at points $(x_i,y_i)$.
+
+We'll consider a 6-layer network of respective size $\{10,20,60,60,20,10\}$ that we'll train over 4000 epochs (Figure \ref{corr_networks_MLP_loss}) with a batch size of 16, a learning rate of $0.01$ and a hyperbolic tangent activation function. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.45\linewidth]{corr_networks/MLP_loss.png}
+	\caption{Loss obtained during the MLP training.}
+	\label{corr_networks_MLP_loss}
+\end{figure} 
+
+Taking the training sample to evaluate the model, we obtain an error $||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=8.09e-3$ and the model seems to learn the solution well (Figure \ref{corr_networks_MLP_solution}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{corr_networks/MLP_solution.png}
+	\caption{Comparaison of the exact solution and the MLP prediciton.}
+	\label{corr_networks_MLP_solution}
+\end{figure} 
+
+Let's now test the correction by addition without integration by parts (Figure \ref{corr_networks_MLP_corr_add_FEM}) with FEM by taking
+\begin{equation*}
+	\tilde{\phi}=u_{MLP}
+\end{equation*}
+with $u_{MLP}$ the MLP predicition.
+
+To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{corr_networks/MLP_corr_add_FEM.png}
+	\caption{Solution obtained with the correction by adding with FEM on the MLP prediction.}
+	\label{corr_networks_MLP_corr_add_FEM}
+\end{figure}
+
+We obtain an error $||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3$. Thus, it would seem that the results are not very promising: for this problem, the FEM error is $2.80e-2$, so we only obtain an error reduction of $4.91$.
+
+Consequently, we're going to look at the first (Figure \ref{corr_networks_MLP_derivees_premieres}) and second (Figure \ref{corr_networks_MLP_derivees_secondes}) derivatives of the MLP prediction, which will be calculated with FEniCS and compared with the exact derivatives. We obtain the errors $||u_{ex}-u_{MLP}||_{1,\Omega}^{(rel)}=1.77e-1$ and $||u_{ex}-u_{MLP}||_{2,\Omega}^{(rel)}=5.136$.
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{corr_networks/MLP_derivees_premieres.png}
+		\caption{First derivatives computed with FEniCS on the MLP prediction.}
+		\label{corr_networks_MLP_derivees_premieres}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{corr_networks/MLP_derivees_secondes.png}
+		\caption{Second derivatives computed with FEniCS on the MLP prediction.}
+		\label{corr_networks_MLP_derivees_secondes}
+	\end{figure} 
+\end{minipage}
+
+\begin{Rem}
+	The derivatives displayed on the left in Figure \ref{corr_networks_MLP_derivees_premieres} and Figure \ref{corr_networks_MLP_derivees_secondes} are on the $\mathcal{O}$ domain, so a mask must be applied and the derivatives on the right which are displayed on the $\Omega$ domain.
+\end{Rem}
+
+It seems that the second derivatives are completely wrong, which is not surprising since the model is not trained on the derivatives. To solve this problem, we could very well decide to add the model's derivatives to the loss as in the FNO loss, but we'll choose here to consider a PINNs whose results are presented in Section \ref{Corr.results.neural_net.PINNs}.
+
+\begin{Rem}
+	Please note that the derivatives of this model cannot be calculated in the same way as for the FNO, i.e. by finite differences but by calculating the derivative of the $w_\theta$ model directly.
+\end{Rem}
 
 \paragraph{PINNs} \label{Corr.results.neural_net.PINNs}
+
+Physics-Informed Neural Networks are neural networks whose structure is variable, but whose loss is the residual of the problem under consideration. We choose to consider an MLP as the model with 6-layer network of respective size $\{10,20,60,60,20,10\}$ that we will train over 20000 epochs, a variable learning rate parameter and a hyperbolic sinus activation function. Half of the training is performed with a learning rate of 0.01 and the other half with a learning rate of 0.001.
+
+Here we choose to train the network with $n_{pts}$ points randomly selected in the domain, and consider for each epoch a new training sample defined by
+\begin{align*}
+	X\_train&=\{(x_i,y_i)\}_{i=1,\dots,n_{pts}} \\
+	Y\_train&=\{f_i\}_{i=1,\dots,n_{pts}} 
+\end{align*}
+with $(x_i,y_i)$ the coordinates of the points and $f_i=f(x_i,y_i)$ the second member of the problem evaluated at each points.
+
+Considering the Poisson problem, the PINNs loss is defined as the residual of the problem by
+\begin{equation*}
+	loss_\theta = \Delta(\phi(x_i,y_i)w_{\theta,i})+f_i
+\end{equation*}
+with $w_{\theta,i}$ the PINNs prediction at points $(x_i,y_i)$.
+
+At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (Figure \ref{corr_networks_PINNs_loss}).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{corr_networks/PINNs_loss.png}
+	\caption{PINNs prediction, Exact solution and Loss obtained.}
+	\label{corr_networks_PINNs_loss}
+\end{figure} 
+
+\textbf{Correction with FEM :}
+
+Let's now test the correction by addition without integration by parts (Figure \ref{corr_networks_MLP_corr_add_FEM}) with FEM by taking
+\begin{equation*}
+	\tilde{\phi}=u_{PINNS}
+\end{equation*}
+with $u_{PINNS}$ the PINNS predicition.
+
+To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{corr_networks/PINNs_FEM_add.png}
+	\caption{Solution obtained with the correction by adding with FEM on the PINNs prediction.}
+	\label{corr_networks_PINNS_corr_add_FEM}
+\end{figure}
+
+We obtain an error $||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=2.98e-5$. Thus, it would seem that the results are very promising: for this problem, the FEM error is $2.80e-2$, so we obtain an error reduction of $940.89$.
+
+\textbf{Correction with $\phi$-FEM :}
+
+As the correction on FEM seems to be working, we're going to test the correction by addition without integration by parts (Figure \ref{corr_networks_PINNs_corr_add_PhiFEM}) with $\phi$-FEM.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{corr_networks/PINNs_PhiFEM_add.png}
+	\caption{Solution obtained with the correction by adding with $\phi$-FEM on the PINNs prediction.}
+	\label{corr_networks_PINNs_corr_add_PhiFEM}
+\end{figure}
+
+We obtain an error $||u_{ex}\tilde{\phi}C||_{0,\Omega}^{(rel)}=8.92e-4$. Thus, it would seem that the results are not very promising with $\phi$-FEM: for this problem, the $\phi$-FEM error is $1.92e-2$, so we only obtain an error reduction of $21.61$.
+
+Consequently, we're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_premieres}) and second (Figure \ref{corr_networks_PINNs_derivees_secondes}) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. 
+
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{corr_networks/PINNs_derivees_premieres.png}
+		\caption{First derivatives computed with Pytorch and FEniCS on the PINNs prediction.}
+		\label{corr_networks_PINNs_derivees_premieres}
+	\end{figure} 
+\end{minipage} $\qquad$
+\begin{minipage}{0.48\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{corr_networks/PINNs_derivees_secondes.png}
+		\caption{Second derivatives computed with Pytorch and FEniCS on the PINNs prediction.}
+		\label{corr_networks_PINNs_derivees_secondes}
+	\end{figure} 
+\end{minipage}
+
+\begin{Rem}
+	The derivatives displayed on the left in Figure \ref{corr_networks_PINNs_derivees_premieres} and Figure \ref{corr_networks_PINNs_derivees_secondes} are on the $\mathcal{O}$ domain, so a mask must be applied and the derivatives on the right which are displayed on the $\Omega$ domain.
+\end{Rem}
+
+\begin{Rem}
+	We found an error in the PINNs part that could not be resolved in time to put the results in this report. In fact, we trained the model on the $[0,1]^2$ domain, which is our $\Omega$ domain, but for $\phi$-FEM we had to consider a surrounding domain to $\Omega$. We therefore need to train PINNs on $\mathcal{0}=[-0.5,1.5]^2$, which would explain why the correction with FEM works but the one with $\phi$-FEM doesn't work properly.
+\end{Rem}
