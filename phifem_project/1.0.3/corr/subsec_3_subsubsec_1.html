@@ -147,7 +147,7 @@
     <a class="nav-link" href="../fourier/subsec_1.html">Fourier Layer structure</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../fourier/subsec_2.html">Some details on the convolution sublayer</a>
+    <a class="nav-link" href="../fourier/subsec_2.html">Some details on the convolution sub-layer</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../fourier/subsec_3.html">Application</a>
@@ -225,9 +225,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conclu.html">Conclusion</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_5.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -451,10 +448,10 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="sect1">
-<h2 id="_results_with_differents_epsilon"><a class="anchor" href="#_results_with_differents_epsilon"></a>1. Results with differents \(\epsilon\)</h2>
+<h2 id="_results_with_different_epsilon"><a class="anchor" href="#_results_with_different_epsilon"></a>1. Results with different \(\epsilon\)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The aim of this section is to test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying \(\epsilon\)).</p>
+<p>The aim of this section is to test correction by addition (without integration by parts) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying \(\epsilon\)).</p>
 </div>
 <div class="paragraph">
 <p>We will try to separate the cases according to the frequencies considered. In other words, for \(f,f_p\in\{1,2,3,4\}\), we&#8217;re interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency (\(f&gt;f_p\)), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal (\(f=f_p\)), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution (\(f&lt;f_p\)).</p>
@@ -476,7 +473,7 @@ title="Fullscreen mode"
 </ul>
 </div>
 <div class="paragraph">
-<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_fem_circle_add">Figure 3</a>) and on the Square problem (<a href="#corr_pert_fem_square_add">Figure 4</a>).</p>
+<p>First, we consider the correction by adding (without integration by parts) on the Circle problem (<a href="#corr_pert_fem_circle_add">Figure 3</a>) and on the Square problem (<a href="#corr_pert_fem_square_add">Figure 4</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -611,7 +608,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>En considérant \(\tilde{\phi}\) dans \(\mathbb{P}_2\) et le problème homogène, on va appliquer la correction by adding on the Circle problem (<a href="#corr_pert_fem_circle_add_P2">Figure 11</a>) and on the Square problem (<a href="#corr_pert_fem_square_add_P2">Figure 12</a>).</p>
+<p>Considering \(\tilde{\phi}\) in \(\mathbb{P}_2\) and the homogeneous problem, we&#8217;ll apply the correction by adding on the Circle problem (<a href="#corr_pert_fem_circle_add_P2">Figure 11</a>) and on the Square problem (<a href="#corr_pert_fem_square_add_P2">Figure 12</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -681,7 +678,7 @@ title="Fullscreen mode"
 </ul>
 </div>
 <div class="paragraph">
-<p>First, we consider the correction by adding (without IPP) on the Circle problem (<a href="#corr_pert_phifem_circle_add">Figure 15</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add">Figure 16</a>).</p>
+<p>First, we consider the correction by adding (without integration by parts) on the Circle problem (<a href="#corr_pert_phifem_circle_add">Figure 15</a>) and on the Square problem (<a href="#corr_pert_phifem_square_add">Figure 16</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>

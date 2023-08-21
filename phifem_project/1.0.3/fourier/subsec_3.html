@@ -147,7 +147,7 @@
     <a class="nav-link" href="subsec_1.html">Fourier Layer structure</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_2.html">Some details on the convolution sublayer</a>
+    <a class="nav-link" href="subsec_2.html">Some details on the convolution sub-layer</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="subsec_3.html">Application</a>
@@ -225,9 +225,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conclu.html">Conclusion</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_5.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -344,7 +341,7 @@ u&amp;=g, \; &amp;&amp;\text{in } \Gamma,
 For example, we may want to consider a case where the level-set function \(\phi\) changes, as in the case where we want to solve the problem of the geometry of an organ at different time steps. In this case, we&#8217;ll need to generate a \(\{\phi_i\}_{i=1,\dots,n_{data}}\) collection of level-sets sufficiently representative of the possible variations of the levelset. In a more simple case, if our geometry is defined by an ellipse in a precise domain, the \(\{\phi_i\}_{i=1,\dots,n_{data}}\) family will group \(n_{data}\) ellipses whose parameters change, such as center or axes.</p>
 </div>
 <div class="paragraph">
-<p>We may also want to solve the problem for a collection of source terms \(\{f_i\}_{i=1,\dots,n_{data}}\). For example, this set could be a Gaussian set whose esperance and variance are varied. In the same idea, we might wish to vary the Dirchlet condition and thus create a collection \(\{g_i\}_{i=1,\dots,n_{data}}\).</p>
+<p>We may also want to solve the problem for a collection of source terms \(\{f_i\}_{i=1,\dots,n_{data}}\). For example, this set could be a Gaussian set whose expected value and variance are varied. In the same idea, we might wish to vary the Dirichlet condition and thus create a collection \(\{g_i\}_{i=1,\dots,n_{data}}\).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -458,7 +455,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div>
 </div>
 <div class="paragraph">
-<p>with \(w_i\) the \(\phi\)-FEM solution associated to the i-th problem considered (i.e. the i-th Y_train sample data), \(w_{\theta,i}\) the FNO prediction associated to the i-th problem, \(\phi_i\) the i-th levelset and mse the "Mean Square Error" function defined by</p>
+<p>with \(w_i\) the \(\phi\)-FEM solution associated to the i-th problem considered (i.e. the i-th Y_train sample data), \(w_{\theta,i}\) the FNO prediction associated to the i-th problem, \(\phi_i\) the i-th level-set and mse the "Mean Square Error" function defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">

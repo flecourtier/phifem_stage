@@ -147,7 +147,7 @@
     <a class="nav-link" href="../fourier/subsec_1.html">Fourier Layer structure</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../fourier/subsec_2.html">Some details on the convolution sublayer</a>
+    <a class="nav-link" href="../fourier/subsec_2.html">Some details on the convolution sub-layer</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../fourier/subsec_3.html">Application</a>
@@ -225,9 +225,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conclu.html">Conclusion</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_5.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -324,7 +321,7 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">Context and general principle of the method</h1>
 <div class="paragraph">
-<p>The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (<a href="#mesh_fem">Figure 1</a>). Unlike this type of method, \(\phi\)-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (<a href="#mesh_phifem">Figure 2</a>). As the boundary of the geometry is represented by a level-set function \(\phi\), only this function will change over time, which is a real time-saver.</p>
+<p>The \(\phi\)-FEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (<a href="#mesh_fem">Figure 1</a>). Unlike this type of method, \(\phi\)-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (<a href="#mesh_phifem">Figure 2</a>). As the boundary of the geometry is represented by a level-set function \(\phi\), only this function will change over time, which is a real time-saver.</p>
 </div>
 <div class="admonitionblock note">
 <table>

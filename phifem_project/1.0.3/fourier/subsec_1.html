@@ -147,7 +147,7 @@
     <a class="nav-link" href="subsec_1.html">Fourier Layer structure</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="subsec_2.html">Some details on the convolution sublayer</a>
+    <a class="nav-link" href="subsec_2.html">Some details on the convolution sub-layer</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="subsec_3.html">Application</a>
@@ -225,9 +225,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../conclu.html">Conclusion</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../section_5.html">Bibliography</a>
   </li>
 </ul>
   </li>
@@ -325,7 +322,7 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each Fourier layer is divided into two sublayers:</p>
+<p>Each Fourier layer is divided into two sub-layers:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -349,7 +346,7 @@ image::fourier/activation_functions.png[width=180.0,height=144.0]</p>
 <p>\(\mathcal{C}_\theta^l\) is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see <a href="#_convolution_sublayer">Section 1</a>.</p>
 </li>
 <li>
-<p>\(\mathcal{B}_\theta^l\) is the "bias-layer". For more details, see <a href="#_bias_sublayer">Section 2</a>.</p>
+<p>\(\mathcal{B}_\theta^l\) is the "bias-layer". For more details, see <a href="#_bias_sub-layer">[_bias_sub-layer]</a>.</p>
 </li>
 </ul>
 </div>
@@ -375,7 +372,7 @@ image::fourier/activation_functions.png[width=180.0,height=144.0]</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In other words, this transormation is applied channel by channel.</p>
+<p>In other words, this transformation is applied channel by channel.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -460,18 +457,18 @@ S&=\sum_{i'}\left(e^{\frac{2\sqrt{-1}\pi}{ni}(i-i'')}\right)^{i'}\sum_{j'}\left(
 <p>And finally \(\mathcal{F}\) is the reciprocal function of \(\mathcal{F}^{-1}\).</p>
 </div>
 <div class="paragraph">
-<p>For more details about the Convolution sublayer, see <a href="subsec_2.html" class="xref page">Section "Some details on the convolution sublayer"</a>.</p>
+<p>For more details about the Convolution sub-layer, see <a href="subsec_2.html" class="xref page">Section "Some details on the convolution sub-layer"</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_bias_sublayer"><a class="anchor" href="#_bias_sublayer"></a>2. Bias subLayer</h2>
+<h2 id="_bias_sub_layer"><a class="anchor" href="#_bias_sub_layer"></a>2. Bias sub-layer</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The bias layer is a 2D convolution with a kernel size of 1. This means that it only performs matrix multiplication on the channels, but pixel by pixel. In other words, it mixes channels via a kernel, but does not allow interaction between pixels.</p>
 </div>
 <div class="paragraph">
-<p>Precisly,</p>
+<p>Precisely,</p>
 </div>
 <div class="stemblock">
 <div class="content">
