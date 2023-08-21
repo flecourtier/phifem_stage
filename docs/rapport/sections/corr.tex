@@ -1,7 +1,7 @@
 \section{Correction} \label{Corr}
 \graphicspath{{images/corr}}
 
-In this section, we will look at the different correction methods. we will start by presenting the different problems considered (Section \ref{Corr.problems}), then we will introduce the different correction methods (Section \ref{Corr.methods}), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (Section \ref{Corr.theo_results}), and finish by presenting the numerical results obtained (Section \ref{Corr.results}).
+In this section, we'll introduce the notion of correction, with the aim of correcting the output of neural networks (in particular the FNO), which are extremely fast but not very accurate. Thus, we will look at the different correction methods. We will start by presenting the different problems considered (Section \ref{Corr.problems}), then we will introduce the different correction methods (Section \ref{Corr.methods}), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (Section \ref{Corr.theo_results}), and finish by presenting the numerical results obtained (Section \ref{Corr.results}).
 
 \subsection{Presentation of different problems considered} \label{Corr.problems}
 
@@ -646,6 +646,8 @@ We can defined too
 \end{equation*}
 the absolute error.
 
+In this section, we'll assume that $\tilde{\phi}$ is in $\mathbb{P}_k$ with $k=10$.
+
 \subsubsection{Correction on exact solution} \label{Corr.results.ana}
 
 First, we will look at the correction of an exact solution. In other words, we consider
@@ -769,6 +771,8 @@ As explained above, we begin by considering $\tilde{\phi}$ as a manually perturb
 	\tilde{\phi}(x,y)=u_{ex}(x,y)+\epsilon P(x,y)
 \end{equation*}
 where $u_{ex}$ defines the exact solution to the problem, $P$ the perturbation applied to it and $\epsilon$ is a real number that allows the amplitude of the perturbation to be easily increased or decreased. 
+
+In this section, we'll assume that $\tilde{\phi}$ is in $\mathbb{P}_k$ with $k=10$.
 
 \begin{Rem}
 	Notice that by taking $\epsilon=0$, we return to the case of correction on an exact solution presented in Section \ref{Corr.results.ana}. 
@@ -923,6 +927,47 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 	
 	\textbf{\textit{Observation :}} In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case.
 \end{enumerate}
+
+\begin{Rem}
+	En considérant $\tilde{\phi}$ dans $\mathbb{P}_2$ et le problème homogène, on va appliquer la correction by adding on the Circle problem (Figure \ref{corr_pert_fem_circle_add_P2}) and on the Square problem (Figure \ref{corr_pert_fem_square_add_P2}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_circle_add_P2.png"}
+			\captionof{figure}{Correction by adding on the Circle with standard FEM in the homogeneous case ($\tilde{\phi}$ in $\mathbb{P}_2$).}
+			\label{corr_pert_fem_circle_add_P2}
+		\end{figure} 
+	\end{minipage} $\qquad$
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_square_add_P2.png"}
+			\captionof{figure}{Correction by adding on the Square with standard FEM in the homogeneous case ($\tilde{\phi}$ in $\mathbb{P}_2$).}
+			\label{corr_pert_fem_square_add_P2}
+		\end{figure} 
+	\end{minipage}
+	
+	And by considering the correction by multiplying on the Circle problem (Figure \ref{corr_pert_fem_circle_mult_P2}) and on the Square problem (Figure \ref{corr_pert_fem_square_mult_P2}).
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_circle_mult_P2.png"}
+			\captionof{figure}{Correction by multiplying on the Circle with standard FEM in the homogeneous case ($\tilde{\phi}$ in $\mathbb{P}_2$).}
+			\label{corr_pert_fem_circle_mult_P2}
+		\end{figure} 
+	\end{minipage} $\qquad$
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.95\linewidth]{"corr_pert/diff_eps/fem_square_mult_P2.png"}
+			\captionof{figure}{Correction by multiplying on the Square with standard FEM in the homogeneous case ($\tilde{\phi}$ in $\mathbb{P}_2$).}
+			\label{corr_pert_fem_square_mult_P2}
+		\end{figure} 
+	\end{minipage}
+	\textbf{\textit{Observation :}} In view of the results obtained here, it seems that considering $\phi$ only in a space of degree 2 is not sufficient to considerably improve the errors obtained by standard methods, even when considering an exact solution.
+\end{Rem}
 
 \textbf{Results with $\phi$-FEM :}
 
@@ -1778,9 +1823,11 @@ Let's now test the correction by addition without integration by parts (Figure \
 \begin{equation*}
 	\tilde{\phi}=u_{MLP}
 \end{equation*}
-with $u_{MLP}$ the MLP predicition.
+with $u_{MLP}$ the MLP prediction.
 
 To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
+
+\textbf{Correction with FEM :}
 
 \begin{figure}[H]
 	\centering
@@ -1791,7 +1838,9 @@ To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
 
 We obtain an error $||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3$. Thus, it would seem that the results are not very promising: for this problem, the FEM error is $2.80e-2$, so we only obtain an error reduction of $4.91$.
 
-Consequently, we're going to look at the first (Figure \ref{corr_networks_MLP_derivees_premieres}) and second (Figure \ref{corr_networks_MLP_derivees_secondes}) derivatives of the MLP prediction, which will be calculated with FEniCS and compared with the exact derivatives. We obtain the errors $||u_{ex}-u_{MLP}||_{1,\Omega}^{(rel)}=1.77e-1$ and $||u_{ex}-u_{MLP}||_{2,\Omega}^{(rel)}=5.136$.
+\textbf{Derivative of the prediction :}
+
+Consequently, we're going to look at the first (Figure \ref{corr_networks_MLP_derivees_premieres}) and second (Figure \ref{corr_networks_MLP_derivees_secondes}) derivatives of the MLP prediction, which will be calculated with FEniCS and compared with the exact derivatives. We obtain the errors $||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=1.77e-1$ and $||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=5.136$.
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
@@ -1824,12 +1873,12 @@ It seems that the second derivatives are completely wrong, which is not surprisi
 
 Physics-Informed Neural Networks are neural networks whose structure is variable, but whose loss is the residual of the problem under consideration. We choose to consider an MLP as the model with 6-layer network of respective size $\{10,20,60,60,20,10\}$ that we will train over 20000 epochs, a variable learning rate parameter and a hyperbolic sinus activation function. Half of the training is performed with a learning rate of 0.01 and the other half with a learning rate of 0.001.
 
-Here we choose to train the network with $n_{pts}$ points randomly selected in the domain, and consider for each epoch a new training sample defined by
+Here we choose to train the network with $n_{pts}$ points randomly selected in the domain $\mathcal{O}$, and consider for each epoch a new training sample defined by
 \begin{align*}
 	X\_train&=\{(x_i,y_i)\}_{i=1,\dots,n_{pts}} \\
 	Y\_train&=\{f_i\}_{i=1,\dots,n_{pts}} 
 \end{align*}
-with $(x_i,y_i)$ the coordinates of the points and $f_i=f(x_i,y_i)$ the second member of the problem evaluated at each points.
+with $(x_i,y_i)$ the coordinates of the points and $f_i=f(x_i,y_i)$ the second member of the problem evaluated at each points. We will choose $n_{pts}=20000$.
 
 Considering the Poisson problem, the PINNs loss is defined as the residual of the problem by
 \begin{equation*}
@@ -1845,24 +1894,39 @@ At the end of the training, we display the solution, the PINNs prediciton and th
 	\label{corr_networks_PINNs_loss}
 \end{figure} 
 
+\begin{Rem}
+	It would seem that the prediction is not very good at the border of the $\mathcal{O}$ domain, but as this is a sufficiently large surrounding domain, we won't need the prediction in these areas, far from $\Omega$.
+\end{Rem}
+
 \textbf{Correction with FEM :}
 
 Let's now test the correction by addition without integration by parts (Figure \ref{corr_networks_MLP_corr_add_FEM}) with FEM by taking
 \begin{equation*}
 	\tilde{\phi}=u_{PINNS}
 \end{equation*}
-with $u_{PINNS}$ the PINNS predicition.
+with $u_{PINNS}$ the PINNS predicition and thus we consider $\tilde{\phi}$ in $\mathbb{P}_{10}$ for $n_{vert}=32$.
 
-To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
+Before the correction, we have the following error. 
+\begin{equation*}
+	||u_{ex}-\tilde{\phi}||_{0,\Omega}^{(rel)}=1.93e-3.
+\end{equation*}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{corr_networks/PINNs_FEM_add.png}
+	\includegraphics[width=0.45\linewidth]{corr_networks/PINNs_FEM_add.png}
 	\caption{Solution obtained with the correction by adding with FEM on the PINNs prediction.}
 	\label{corr_networks_PINNS_corr_add_FEM}
 \end{figure}
 
-We obtain an error $||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=2.98e-5$. Thus, it would seem that the results are very promising: for this problem, the FEM error is $2.80e-2$, so we obtain an error reduction of $940.89$.
+After the correction, we obtain the following error 
+\begin{equation*}
+	||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.13e-4.
+\end{equation*}
+Thus, it would seem that the results are very promising: for this problem, the FEM error is 
+\begin{equation*}
+	||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=2.80e-2
+\end{equation*}
+so we obtain an error reduction of $246.60$.
 
 \textbf{Correction with $\phi$-FEM :}
 
@@ -1870,14 +1934,24 @@ As the correction on FEM seems to be working, we're going to test the correction
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{corr_networks/PINNs_PhiFEM_add.png}
+	\includegraphics[width=0.45\linewidth]{corr_networks/PINNs_PhiFEM_add.png}
 	\caption{Solution obtained with the correction by adding with $\phi$-FEM on the PINNs prediction.}
 	\label{corr_networks_PINNs_corr_add_PhiFEM}
 \end{figure}
 
-We obtain an error $||u_{ex}\tilde{\phi}C||_{0,\Omega}^{(rel)}=8.92e-4$. Thus, it would seem that the results are not very promising with $\phi$-FEM: for this problem, the $\phi$-FEM error is $1.92e-2$, so we only obtain an error reduction of $21.61$.
+After the correction, we obtain the following error 
+\begin{equation*}
+	||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.27e-4.
+\end{equation*}
+Thus, it would seem that the results are very promising: for this problem, the FEM error is 
+\begin{equation*}
+	||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=1.92e-2
+\end{equation*}
+so we obtain an error reduction of $151.34$.
 
-Consequently, we're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_premieres}) and second (Figure \ref{corr_networks_PINNs_derivees_secondes}) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. 
+\textbf{Derivatives of the prediction :}
+
+We're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_premieres}) and second (Figure \ref{corr_networks_PINNs_derivees_secondes}) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. We obtain the errors $||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=6.44e-3$ and $||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=1.02e-1$.
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
@@ -1896,10 +1970,4 @@ Consequently, we're going to look too at the first (Figure \ref{corr_networks_PI
 	\end{figure} 
 \end{minipage}
 
-\begin{Rem}
-	The derivatives displayed on the left in Figure \ref{corr_networks_PINNs_derivees_premieres} and Figure \ref{corr_networks_PINNs_derivees_secondes} are on the $\mathcal{O}$ domain, so a mask must be applied and the derivatives on the right which are displayed on the $\Omega$ domain.
-\end{Rem}
-
-\begin{Rem}
-	We found an error in the PINNs part that could not be resolved in time to put the results in this report. In fact, we trained the model on the $[0,1]^2$ domain, which is our $\Omega$ domain, but for $\phi$-FEM we had to consider a surrounding domain to $\Omega$. We therefore need to train PINNs on $\mathcal{0}=[-0.5,1.5]^2$, which would explain why the correction with FEM works but the one with $\phi$-FEM doesn't work properly.
-\end{Rem}
+It would therefore seem that the use of PINNs provides results similar to those obtained on perturbed analytic solutions for $\tilde{\phi}$ in $\mathbb{P}_k$ with $k$ large enough ($k=10$).

@@ -1,7 +1,7 @@
 \section{Fourier Neural Operator (FNO)} \label{FNO}
 \graphicspath{{images/fourier}}
 
-We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.
+We will now introduce Fourier Neural Operators (FNO), which belong to the category of so-called neural operator networks. Unlike standard neural networks, which learn using inputs and outputs of fixed dimensions, neural operators learn operators, which are mappings between spaces of functions. They can be evaluated at any data resolution without the need for retraining. As a result, they are widely used in PDE solving and constitute an active field of research. For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.
 
 In image treatment, we call image tensors of size $ni\times nj\times nk$, where $ni\times nj$ corresponds to the image resolution and $nk$ corresponds to its number of channels. For example, an RGB (Red Green Blue) image has $nk=3$ channels. 
 We choose here to present the FNO as an operator acting on discrete images. The reference article \cite{li_fourier_2021} present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.
@@ -16,7 +16,7 @@ We choose here to present the FNO as an operator acting on discrete images. The 
 The following figure (Figure \ref{FNO_schema}) describes the FNO architecture in detail:
 
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{"fno_schema.png"}
+	\includegraphics[width=0.9\linewidth]{"fno_schema.png"}
 	\captionof{figure}{Architecture of the FNO.}
 	\label{FNO_schema}
 \end{figure}
@@ -27,8 +27,6 @@ The architecture of the FNO is as follows:
 	G_\theta = Q \circ \mathcal{H}_\theta^L \circ \dots \circ \mathcal{H}_\theta^1 \circ P
 \end{equation*}
 
-\newpage
-
 We'll now describe the composition of the Figure \ref{FNO_schema} in a little more detail :
 \begin{enumerate}[label=\textbullet]
 	\item We start with input X of shape (batch\_size, height, width, nb\_channels) with batch\_size the number of images to be processed at the same time, height and width the dimensions of the images and nb\_channels the number of channels. Simplify by (bs,ni,nj,nk).
@@ -37,6 +35,14 @@ We'll now describe the composition of the Figure \ref{FNO_schema} in a little mo
 	\item We then return to the target dimension by performing a $Q$ transformation. In our case, the number of output channels is 1.
 	\item We then obtain the output of the $Y$ model of shape (bs,ni,nj,1). 
 \end{enumerate}
+
+\begin{Rem}
+	Note that the $P$ and $Q$ layers are in fact fully-connected multi-layer perceptrons, which means that they perform local transformations at each point, and therefore do not depend on the mesh resolution considered.
+	
+	Fourier layers are also independent of mesh resolution. Indeed, as we learn in Fourier space, the value of the Fourier modes does not depend on the mesh resolution.
+	
+	We deduce that the entire FNO does not depend on the mesh resolution.
+\end{Rem}
 
 \subsection{Fourier Layer structure} \label{FNO.fourierlayer}
 
@@ -134,6 +140,8 @@ Precisly,
 \begin{equation*}
 	\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k
 \end{equation*}
+
+\newpage
 
 \subsection{Some details on the convolution sublayer} \label{FNO.details_conv}
 

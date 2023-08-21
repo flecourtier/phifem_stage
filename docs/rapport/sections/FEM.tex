@@ -102,7 +102,7 @@ The general approach of the finite element method is to write down the variation
 
 where $V$ is a Hilbert space, $a$ is a bilinear form and $l$ is a linear form.
 
-To do this, we multiply the PDE by a test function $v\in V$, then integrate over $L^2(\Omega)$. \modif{remarque Michel "pas assez précis", qu'est-ce que je dois rajouter ?}
+To do this, we multiply the PDE by a test function $v\in V$, then integrate over $L^2(\Omega)$.
 
 The idea of FEM is to use Galerkin's method. We then look for an approximate solution $u_h$ in $V_h$, a finite-dimensional space dependent on a positive parameter $h$ such that
 
@@ -145,6 +145,15 @@ with
 	A=(a(\varphi_i,\varphi_j))_{1\le i,j\le N_h}, \quad U=(u_i)_{1\le i\le N_h} \quad \text{and} \quad b=(l(\varphi_j))_{1\le j\le N_h}
 \end{equation*}
 
+\begin{Rem}
+	To impose Dirichlet boundary conditions, we can use one of 2 methods. The elimination method consists in modifying the rows associated with the boundary nodes in the finite element matrix. More precisely, we set the rows to 0 except 1 on the diagonal and the value of the condition on the second member. In other words, we simply write the value of the degrees of freedom at the Dirichlet boundary. The penalization method consists in modifying the matrix and the second member as follows:
+	\begin{align*}
+		&A_{i,i} := A_{i,i}+\frac{1}{\epsilon} \\
+		&f_i := f_i + \frac{1}{\epsilon}g_i
+	\end{align*}
+	with $\epsilon >0$ and $i$ is a boundary nodes.
+\end{Rem}
+
 \subsubsection{Some details on FEM}
 
 After having seen the general principle of FEM, it remains to define the $V_h$ spaces and the $\{\varphi_i\}$ basis functions.
@@ -152,9 +161,6 @@ After having seen the general principle of FEM, it remains to define the $V_h$ s
 \begin{Rem}
 	The choice of $V_h$ space is fundamental to have an efficient method that gives a good approximation $u_h$ of $u$. In particular, the choice of the $\{\varphi_i\}$ basis of $V_h$ influences the structure of the $A$ matrix in terms of its sparsity and its condition number.
 \end{Rem}
-
-%\modif{Rajouter intro différentes notions abordées !}
-%\trad{Pour ce faire, nous aurons besoin de plusieurs notions, qui seront détaillées dans les sections suivantes. Tout d'abord, nous aurons besoin de générer un \textbf{maillage} de notre domaine $\Omega$. Ainsi, nous pourrons résoudre l'EDP de manière discrète, en des points choisis. C'est alors qu'intervient la notion d'\textbf{éléments finis de Lagrange}. Les propriétés de ces éléments, notamment en terme de \textbf{famille affine d'élément fini} est un point clé de la méthode qui va nous permettre de ramener chaque élément du maillage à un \textbf{élément de référence} à l'aide d'une \textbf{transformation géométrique}.}
 
 To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a \textbf{mesh} of our $\Omega$ domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of \textbf{finite Lagrange elements} comes in. The properties of these elements, particularly in terms of their \textbf{affine family of finite elements}, is a key point of the method, which will enable us to bring each element of the mesh back to a \textbf{reference element} by using a \textbf{geometric transformation}. To describe these steps, we'll need to know 2 basic concepts: the \textbf{unisolvence} principle and the definitions of the \textbf{polynomial spaces} used ($\mathbb{P}_k$ and $\mathbb{Q}_k$).
 
@@ -278,7 +284,7 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 		The reference elements in 1D, 2D triangular and 3D tetrahedral are :
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\linewidth]{"FEM_reference_element.png"}
+			\includegraphics[width=0.7\linewidth]{"FEM_reference_element.png"}
 			\captionof{figure}{Example of reference Elements.}
 		\end{figure}
 	\end{Rem}
@@ -291,7 +297,7 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.3\linewidth]{"FEM_triangle_mesh.png"}
+	\includegraphics[width=0.25\linewidth]{"FEM_triangle_mesh.png"}
 	\captionof{figure}{Example of a triangular mesh on a circles.}
 	\label{triangle_mesh}
 \end{figure}
@@ -352,7 +358,7 @@ By noting $\{a_1,\dots,a_{N_f}\}=\bigcup_{K\in\mathcal{T}_h}\{a_{K,1},\dots,a_{K
 	\forall j\in\{1,\dots,N_f\}, \quad {\varphi_j}_{|K}=\psi_{K,a_{K,j}}
 \end{equation*}
 
-The $\phi_j$ functions are then in the space of piecewise affine continuous functions, defined by
+The $\phi_j$ functions are then in the space of piece-wise affine continuous functions, defined by
 \begin{equation*}
 	P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}\subset H^1(\Omega)
 \end{equation*}
@@ -409,7 +415,7 @@ In this section, we will present the $\phi$-FEM method. We will first present th
 
 \subsubsection{Context and general principle of the method} \label{FEMs.PhiFEM.pinciple}
 
-The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (Figure \ref{mesh_fem}). Unlike this type of method, $\phi$-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (Figure \ref{mesh_phifem}). As the boundary of the geometry is represented by a levelset function $\phi$, only this function will change over time, which is a real time-saver.
+The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (Figure \ref{mesh_fem}). Unlike this type of method, $\phi$-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (Figure \ref{mesh_phifem}). As the boundary of the geometry is represented by a level-set function $\phi$, only this function will change over time, which is a real time-saver.
 
 \begin{Rem}
 	Note that changing the $\phi$ function creates new sets of cells, all of them described in the Section \ref{FEMs.PhiFEM.Pres.Spaces}.
@@ -602,7 +608,7 @@ The first term of $G_h(w,v)$ defined by
 \end{equation*}
 is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.
 
-By substracting $G_h^{rhs}(v)$ from the second term of $G_h(w,v)$, i.e.
+By subtracting $G_h^{rhs}(v)$ from the second term of $G_h(w,v)$, i.e.
 \begin{equation*}
 	\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v),
 \end{equation*}
@@ -653,5 +659,8 @@ In the case of a non-homogeneous Dirichlet condition, we want to impose $u=g$ on
 	\end{equation*}
 	\begin{Rem}
 		The factors $\frac{1}{h}$ and $\frac{1}{h^2}$ control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.
+	\end{Rem}
+	\begin{Rem}
+		In the context of this internship, we won't be concerned with the choice of stabilization parameters $\sigma$ and $\gamma$. We'll always take $\sigma=20$ and $\gamma=1$, but it's important to note that they can have a significant influence on the results.
 	\end{Rem}
 \end{enumerate}
