@@ -14,7 +14,7 @@ In all the following cases, we will consider stem:[S=0.5], as well as stem:[\var
 
 [NOTE]
 ====
-We will consider here only the case of correction by addition (with and without IPP on stem:[\Delta\tilde{\phi}]) as well as the case of correction by multiplication.
+We will consider here only the case of correction by addition (with and without an integration by parts) on stem:[\Delta\tilde{\phi}]) as well as the case of correction by multiplication.
 ====
 
 

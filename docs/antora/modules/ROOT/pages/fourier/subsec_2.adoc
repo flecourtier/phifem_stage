@@ -1,6 +1,6 @@
 :stem: latexmath
 :xrefstyle: short
-= Some details on the convolution sublayer
+= Some details on the convolution sub-layer
 
 In this section, we will specify some details for the convolution layer.
 
@@ -32,7 +32,7 @@ To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT 
 
 == Real DFT
 
-In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm). In fact, for stem:[\mathcal{F}^{-1}(A)] to be real if stem:[A] is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
+In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transform). In fact, for stem:[\mathcal{F}^{-1}(A)] to be real if stem:[A] is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
 [stem]
 ++++
 A_{i,nj-(j+1)} = \bar{A}_{i,j}

@@ -138,7 +138,7 @@ Thus stem:[(K,\Sigma,P)] is a Lagrange Finite Element.
 []
 ====
 *Definition.*
-Two finite elements stem:[(\hat{K},\hat{\Sigma},\hat{P})] and stem:[(K,\Sigma,P)] are affine-equivalent if and only if there exists an inversible affine function stem:[F] such that
+Two finite elements stem:[(\hat{K},\hat{\Sigma},\hat{P})] and stem:[(K,\Sigma,P)] are affine-equivalent if and only if there exists an irreversible affine function stem:[F] such that
 
 *  stem:[K=F(\hat{K})]
 *  stem:[a_i=F(\hat{a_i}),i=1,\dots,N] 

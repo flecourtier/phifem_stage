@@ -72,7 +72,7 @@ To do this, we consider stem:[\tilde{\phi}] in stem:[\mathbb{P}_10] for stem:[n_
 
 [[corr_networks_MLP_corr_add_FEM]]
 .Solution obtained with the correction by adding with FEM on the MLP prediction.
-image::corr/orr_networks/MLP_corr_add_FEM.pn[width=300.0,height=240.0]
+image::corr/orr_networks/MLP_corr_add_FEM.pn[width=270.0,height=216.0]
 
 We obtain an error stem:[||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3]. Thus, it would seem that the results are not very promising: for this problem, the FEM error is stem:[2.80e-2], so we only obtain an error reduction of stem:[4.91].
 
@@ -84,10 +84,10 @@ Consequently, we're going to look at the first (<<corr_networks_MLP_derivees_pre
 |===
 |[[corr_networks_MLP_derivees_premieres]]
 .First derivatives computed with FEniCS on the MLP prediction.
-image::corr/orr_networks/MLP_derivees_premieres.pn[width=210.0,height=168.0]
+image::corr/orr_networks/MLP_derivees_premieres.pn[width=180.0,height=144.0]
 |[[corr_networks_MLP_derivees_secondes]]
 .Second derivatives computed with FEniCS on the MLP prediction.
-image::corr/orr_networks/MLP_derivees_secondes.pn[width=210.0,height=168.0]
+image::corr/orr_networks/MLP_derivees_secondes.pn[width=180.0,height=144.0]
 
 |===
 
@@ -129,7 +129,7 @@ with stem:[w_{\theta,i}] the PINNs prediction at points stem:[(x_i,y_i)].
 At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (<<corr_networks_PINNs_loss>>).
 [[corr_networks_PINNs_loss]]
 .PINNs prediction, Exact solution and Loss obtained.
-image::corr/orr_networks/PINNs_loss.pn[width=420.0,height=336.0]
+image::corr/orr_networks/PINNs_loss.pn[width=360.0,height=288.0]
 
 
 [NOTE]

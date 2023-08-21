@@ -66,9 +66,9 @@ image::corr/corr_pert/diff_eps/norms_nh.png[width=240.0,height=192.0]
 In the previous results, we use the direct method to impose the boundary conditions with stem:[\phi]-FEM.
 ====
 
-== Results with differents stem:[\epsilon]
+== Results with different stem:[\epsilon]
 
-The aim of this section is to test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying stem:[\epsilon]). 
+The aim of this section is to test correction by addition (without integration by parts) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying stem:[\epsilon]). 
 
 We will try to separate the cases according to the frequencies considered. In other words, for stem:[f,f_p\in\{1,2,3,4\}], we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency (stem:[f>f_p]), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal (stem:[f=f_p]), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution (stem:[f<f_p]). 
 
@@ -81,7 +81,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 
 *  *Results on the homogeneous case :*
 
-First, we consider the correction by adding (without IPP) on the Circle problem (<<corr_pert_fem_circle_add>>) and on the Square problem (<<corr_pert_fem_square_add>>).
+First, we consider the correction by adding (without integration by parts) on the Circle problem (<<corr_pert_fem_circle_add>>) and on the Square problem (<<corr_pert_fem_square_add>>).
 
 [cols="a,a"]
 |===
@@ -150,7 +150,7 @@ image::corr/corr_pert/diff_eps/fem_square_mult_nh.png[width=285.0,height=228.0]
 
 [NOTE]
 ====
-En considérant stem:[\tilde{\phi}] dans stem:[\mathbb{P}_2] et le problème homogène, on va appliquer la correction by adding on the Circle problem (<<corr_pert_fem_circle_add_P2>>) and on the Square problem (<<corr_pert_fem_square_add_P2>>).
+Considering stem:[\tilde{\phi}] in stem:[\mathbb{P}_2] and the homogeneous problem, we'll apply the correction by adding on the Circle problem (<<corr_pert_fem_circle_add_P2>>) and on the Square problem (<<corr_pert_fem_square_add_P2>>).
 
 [cols="a,a"]
 |===
@@ -189,7 +189,7 @@ Then we will consider the stem:[\phi]-FEM method on the homogeneous case (i.e. w
 
 *  *Results on the homogeneous case :*
 
-First, we consider the correction by adding (without IPP) on the Circle problem (<<corr_pert_phifem_circle_add>>) and on the Square problem (<<corr_pert_phifem_square_add>>).
+First, we consider the correction by adding (without integration by parts) on the Circle problem (<<corr_pert_phifem_circle_add>>) and on the Square problem (<<corr_pert_phifem_square_add>>).
 
 [cols="a,a"]
 |===

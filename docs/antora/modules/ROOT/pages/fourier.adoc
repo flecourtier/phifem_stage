@@ -23,7 +23,7 @@ The features include
 
 ** xref:fourier/subsec_1.adoc[Fourier Layer structure]
 
-** xref:fourier/subsec_2.adoc[Some details on the convolution sublayer]
+** xref:fourier/subsec_2.adoc[Some details on the convolution sub-layer]
 
 ** xref:fourier/subsec_3.adoc[Application]
 

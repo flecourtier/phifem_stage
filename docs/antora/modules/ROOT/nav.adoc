@@ -18,7 +18,7 @@
 ** xref:fourier.adoc[Fourier Neural Operator (FNO)]
 *** xref:fourier/subsec_0.adoc[Architecture of the FNO]
 *** xref:fourier/subsec_1.adoc[Fourier Layer structure]
-*** xref:fourier/subsec_2.adoc[Some details on the convolution sublayer]
+*** xref:fourier/subsec_2.adoc[Some details on the convolution sub-layer]
 *** xref:fourier/subsec_3.adoc[Application]
 ** xref:corr.adoc[Correction]
 *** xref:corr/subsec_0.adoc[Presentation of different problems considered]
@@ -39,4 +39,3 @@
 **** xref:corr/subsec_3_subsubsec_3.adoc[Correction with FNO]
 **** xref:corr/subsec_3_subsubsec_4.adoc[Correction with other networks]
 ** xref:conclu.adoc[Conclusion]
-** xref:section_5.adoc[Bibliography]

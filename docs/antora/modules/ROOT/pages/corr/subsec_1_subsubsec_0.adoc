@@ -58,7 +58,7 @@ In the non-homogeneous case, the formulation is the same, as the correction prob
 
 [NOTE]
 ====
-In practice, it may be useful to integrate by parts (IPP) the term containing stem:[\Delta \tilde{\phi}] (implicitly included in stem:[\tilde{f}]).
+In practice, it may be useful to integrate by parts the term containing stem:[\Delta \tilde{\phi}] (implicitly included in stem:[\tilde{f}]).
 
 So for FEM, as stem:[v\in H_0^1(\Omega)], we have
 [stem]

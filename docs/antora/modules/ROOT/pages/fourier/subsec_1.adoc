@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Fourier Layer structure
 
-Each Fourier layer is divided into two sublayers:
+Each Fourier layer is divided into two sub-layers:
 
 [stem]
 ++++
@@ -17,7 +17,7 @@ where
 image::fourier/activation_functions.png[width=180.0,height=144.0]
 
 *  stem:[\mathcal{C}_\theta^l] is a convolution layer where convolution is performed by FFT (Fast Fourier Transform). For more details, see <<_convolution_sublayer>>.
-*  stem:[\mathcal{B}_\theta^l] is the "bias-layer". For more details, see <<_bias_sublayer>>.
+*  stem:[\mathcal{B}_\theta^l] is the "bias-layer". For more details, see <<_bias_sub-layer>>.
 
 
 == Convolution sublayer
@@ -34,7 +34,7 @@ where stem:[\mathcal{F}] corresponds to the 2D Discrete Fourier Transform (DFT) 
 ++++
 (Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'}
 ++++
-In other words, this transormation is applied channel by channel.
+In other words, this transformation is applied channel by channel.
 
 
 [NOTE]
@@ -97,13 +97,13 @@ We deduce that
 
 And finally stem:[\mathcal{F}] is the reciprocal function of stem:[\mathcal{F}^{-1}].
 
-For more details about the Convolution sublayer, see xref:fourier/subsec_2.adoc[Section "Some details on the convolution sublayer"].
+For more details about the Convolution sub-layer, see xref:fourier/subsec_2.adoc[Section "Some details on the convolution sub-layer"].
 
-== Bias subLayer
+== Bias sub-layer
 
 The bias layer is a 2D convolution with a kernel size of 1. This means that it only performs matrix multiplication on the channels, but pixel by pixel. In other words, it mixes channels via a kernel, but does not allow interaction between pixels.
 
-Precisly,
+Precisely,
 
 [stem]
 ++++

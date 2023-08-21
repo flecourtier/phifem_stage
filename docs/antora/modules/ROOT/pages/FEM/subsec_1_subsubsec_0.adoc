@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Context and general principle of the method
 
-The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (<<mesh_fem>>). Unlike this type of method, stem:[\phi]-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (<<mesh_phifem>>). As the boundary of the geometry is represented by a level-set function stem:[\phi], only this function will change over time, which is a real time-saver.
+The stem:[\phi]-FEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (<<mesh_fem>>). Unlike this type of method, stem:[\phi]-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (<<mesh_phifem>>). As the boundary of the geometry is represented by a level-set function stem:[\phi], only this function will change over time, which is a real time-saver.
 
 
 [NOTE]

@@ -17,7 +17,7 @@ with stem:[u=\phi w].
 This problem can be approached in different ways.
 For example, we may want to consider a case where the level-set function stem:[\phi] changes, as in the case where we want to solve the problem of the geometry of an organ at different time steps. In this case, we'll need to generate a stem:[\{\phi_i\}_{i=1,\dots,n_{data}}] collection of level-sets sufficiently representative of the possible variations of the levelset. In a more simple case, if our geometry is defined by an ellipse in a precise domain, the stem:[\{\phi_i\}_{i=1,\dots,n_{data}}] family will group stem:[n_{data}] ellipses whose parameters change, such as center or axes.
 
-We may also want to solve the problem for a collection of source terms stem:[\{f_i\}_{i=1,\dots,n_{data}}]. For example, this set could be a Gaussian set whose esperance and variance are varied. In the same idea, we might wish to vary the Dirchlet condition and thus create a collection stem:[\{g_i\}_{i=1,\dots,n_{data}}].
+We may also want to solve the problem for a collection of source terms stem:[\{f_i\}_{i=1,\dots,n_{data}}]. For example, this set could be a Gaussian set whose expected value and variance are varied. In the same idea, we might wish to vary the Dirichlet condition and thus create a collection stem:[\{g_i\}_{i=1,\dots,n_{data}}].
 
 
 [NOTE]
@@ -79,7 +79,7 @@ loss_\theta^{(1)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_x(\phi_i
 loss_\theta^{(2)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}(\phi_iw_i)-\nabla_{xx}(\phi_iw_{\theta,i})) + mse(\nabla_{yy}(\phi_iw_i)-\nabla_{yy}(\phi_iw_{\theta,i}))
 \end{aligned}
 ++++
-with stem:[w_i] the stem:[\phi]-FEM solution associated to the i-th problem considered (i.e. the i-th Y_train sample data), stem:[w_{\theta,i}] the FNO prediction associated to the i-th problem, stem:[\phi_i] the i-th levelset and mse the "Mean Square Error" function defined by
+with stem:[w_i] the stem:[\phi]-FEM solution associated to the i-th problem considered (i.e. the i-th Y_train sample data), stem:[w_{\theta,i}] the FNO prediction associated to the i-th problem, stem:[\phi_i] the i-th level-set and mse the "Mean Square Error" function defined by
 [stem]
 ++++
 mse(A)=\frac{1}{ni}\frac{1}{nj}\sum_{i=0}^{ni-1}\sum_{j=0}^{nj-1}A_{i,j}^2.
