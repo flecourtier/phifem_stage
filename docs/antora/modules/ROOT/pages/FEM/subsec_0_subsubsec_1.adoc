@@ -14,7 +14,7 @@ The general approach of the finite element method is to write down the variation
 
 where stem:[V] is a Hilbert space, stem:[a] is a bilinear form and stem:[l] is a linear form.
 
-To do this, we multiply the PDE by a test function stem:[v\in V], then integrate over stem:[L^2(\Omega)]. #remarque Michel "pas assez précis", qu'est-ce que je dois rajouter ?#
+To do this, we multiply the PDE by a test function stem:[v\in V], then integrate over stem:[L^2(\Omega)].
 
 The idea of FEM is to use Galerkin's method. We then look for an approximate solution stem:[u_h] in stem:[V_h], a finite-dimensional space dependent on a positive parameter stem:[h] such that
 
@@ -63,4 +63,18 @@ with
 ++++
 A=(a(\varphi_i,\varphi_j))_{1\le i,j\le N_h}, \quad U=(u_i)_{1\le i\le N_h} \quad \text{and} \quad b=(l(\varphi_j))_{1\le j\le N_h}
 ++++
+
+
+[NOTE]
+====
+To impose Dirichlet boundary conditions, we can use one of 2 methods. The elimination method consists in modifying the rows associated with the boundary nodes in the finite element matrix. More precisely, we set the rows to 0 except 1 on the diagonal and the value of the condition on the second member. In other words, we simply write the value of the degrees of freedom at the Dirichlet boundary. The penalization method consists in modifying the matrix and the second member as follows:
+[stem]
+++++
+\begin{aligned}
+&A_{i,i} := A_{i,i}+\frac{1}{\epsilon} \\
+&f_i := f_i + \frac{1}{\epsilon}g_i
+\end{aligned}
+++++
+with stem:[\epsilon >0] and stem:[i] is a boundary nodes.
+====
 

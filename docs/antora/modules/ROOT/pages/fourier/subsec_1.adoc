@@ -110,3 +110,4 @@ Precisly,
 \mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k
 ++++
 
+

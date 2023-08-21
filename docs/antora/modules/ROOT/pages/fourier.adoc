@@ -3,7 +3,7 @@
 = Fourier Neural Operator (FNO)
 :imagesdir: \{moduledir\}/assets/images/fourier
 
-We will now introduce Fourier Neural Operators (FNO). For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.
+We will now introduce Fourier Neural Operators (FNO), which belong to the category of so-called neural operator networks. Unlike standard neural networks, which learn using inputs and outputs of fixed dimensions, neural operators learn operators, which are mappings between spaces of functions. They can be evaluated at any data resolution without the need for retraining. As a result, they are widely used in PDE solving and constitute an active field of research. For more information, please refer to the following article \cite{li_fourier_2021,li_fourier_2022,li_neural_2020,li_physics-informed_2023}.
 
 In image treatment, we call image tensors of size stem:[ni\times nj\times nk], where stem:[ni\times nj] corresponds to the image resolution and stem:[nk] corresponds to its number of channels. For example, an RGB (Red Green Blue) image has stem:[nk=3] channels. 
 We choose here to present the FNO as an operator acting on discrete images. The reference article \cite{li_fourier_2021} present it in its continuous aspect, which is an interesting point of view. Indeed, it is thanks to this property that it can be trained/evaluated with images of different resolutions.

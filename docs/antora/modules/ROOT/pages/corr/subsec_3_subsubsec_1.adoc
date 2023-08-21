@@ -11,6 +11,8 @@ As explained above, we begin by considering stem:[\tilde{\phi}] as a manually pe
 ++++
 where stem:[u_{ex}] defines the exact solution to the problem, stem:[P] the perturbation applied to it and stem:[\epsilon] is a real number that allows the amplitude of the perturbation to be easily increased or decreased. 
 
+In this section, we'll assume that stem:[\tilde{\phi}] is in stem:[\mathbb{P}_k] with stem:[k=10].
+
 
 [NOTE]
 ====
@@ -61,7 +63,7 @@ image::corr/corr_pert/diff_eps/norms_nh.png[width=240.0,height=192.0]
 
 [NOTE]
 ====
-In the previous results, we use the direct method to impose the edge conditions with stem:[\phi]-FEM.
+In the previous results, we use the direct method to impose the boundary conditions with stem:[\phi]-FEM.
 ====
 
 == Results with differents stem:[\epsilon]
@@ -144,6 +146,41 @@ image::corr/corr_pert/diff_eps/fem_square_mult_nh.png[width=285.0,height=228.0]
 
 *_Observation :_* In view of the results obtained, it would appear that the conclusions are the same as for the homogeneous case.
 
+
+
+[NOTE]
+====
+En considérant stem:[\tilde{\phi}] dans stem:[\mathbb{P}_2] et le problème homogène, on va appliquer la correction by adding on the Circle problem (<<corr_pert_fem_circle_add_P2>>) and on the Square problem (<<corr_pert_fem_square_add_P2>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_fem_circle_add_P2]]
+.Correction by adding on the Circle with standard FEM in the homogeneous case (stem:[\tilde{\phi}] in stem:[\mathbb{P}_2]).
+
+image::corr/corr_pert/diff_eps/fem_circle_add_P2.png[width=285.0,height=228.0]
+|[[corr_pert_fem_square_add_P2]]
+.Correction by adding on the Square with standard FEM in the homogeneous case (stem:[\tilde{\phi}] in stem:[\mathbb{P}_2]).
+
+image::corr/corr_pert/diff_eps/fem_square_add_P2.png[width=285.0,height=228.0]
+
+|===
+
+And by considering the correction by multiplying on the Circle problem (<<corr_pert_fem_circle_mult_P2>>) and on the Square problem (<<corr_pert_fem_square_mult_P2>>).
+
+[cols="a,a"]
+|===
+|[[corr_pert_fem_circle_mult_P2]]
+.Correction by multiplying on the Circle with standard FEM in the homogeneous case (stem:[\tilde{\phi}] in stem:[\mathbb{P}_2]).
+
+image::corr/corr_pert/diff_eps/fem_circle_mult_P2.png[width=285.0,height=228.0]
+|[[corr_pert_fem_square_mult_P2]]
+.Correction by multiplying on the Square with standard FEM in the homogeneous case (stem:[\tilde{\phi}] in stem:[\mathbb{P}_2]).
+
+image::corr/corr_pert/diff_eps/fem_square_mult_P2.png[width=285.0,height=228.0]
+
+|===
+*_Observation :_* In view of the results obtained here, it seems that considering stem:[\phi] only in a space of degree 2 is not sufficient to considerably improve the errors obtained by standard methods, even when considering an exact solution.
+====
 
 *Results with stem:[\phi]-FEM :*
 
@@ -228,7 +265,7 @@ image::corr/corr_pert/diff_eps/phifem_square_add_nh.png[width=270.0,height=216.0
 
 |===
 
-Then, we consider the correction by multiplying on the Circle problem (<<corr_pert_phifem_circle_mult_nh>>) and on the Square problem (<<corr_pert_phifem_square_mult_nh>>). We start by considering the same stem:[\phi]-FEM scheme as in the homogeneous case, i.e. here we don't impose any edge conditions.
+Then, we consider the correction by multiplying on the Circle problem (<<corr_pert_phifem_circle_mult_nh>>) and on the Square problem (<<corr_pert_phifem_square_mult_nh>>). We start by considering the same stem:[\phi]-FEM scheme as in the homogeneous case, i.e. here we don't impose any boundary conditions.
 
 [cols="a,a"]
 |===

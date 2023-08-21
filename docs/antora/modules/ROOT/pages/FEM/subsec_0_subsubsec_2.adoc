@@ -10,7 +10,6 @@ After having seen the general principle of FEM, it remains to define the stem:[V
 The choice of stem:[V_h] space is fundamental to have an efficient method that gives a good approximation stem:[u_h] of stem:[u]. In particular, the choice of the stem:[\{\varphi_i\}] basis of stem:[V_h] influences the structure of the stem:[A] matrix in terms of its sparsity and its condition number.
 ====
 
-
 To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a *mesh* of our stem:[\Omega] domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of *finite Lagrange elements* comes in. The properties of these elements, particularly in terms of their *affine family of finite elements*, is a key point of the method, which will enable us to bring each element of the mesh back to a *reference element* by using a *geometric transformation*. To describe these steps, we'll need to know 2 basic concepts: the *unisolvence* principle and the definitions of the *polynomial spaces* used (stem:[\mathbb{P}_k] and stem:[\mathbb{Q}_k]).
 
 == Unisolvance
@@ -161,7 +160,7 @@ In practice, working with an affine family of finite elements means that all int
 
 The reference elements in 1D, 2D triangular and 3D tetrahedral are :
 .figure
-image::FEM/FEM_reference_element.png[width=480.0,height=384.0]
+image::FEM/FEM_reference_element.png[width=420.0,height=336.0]
 ====
 
 == Mesh
@@ -172,7 +171,7 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 
 [[triangle_mesh]]
 .figure
-image::FEM/FEM_triangle_mesh.png[width=180.0,height=144.0]
+image::FEM/FEM_triangle_mesh.png[width=150.0,height=120.0]
 
 == Construction of stem:[V_h] space
 
@@ -235,7 +234,7 @@ By noting stem:[\{a_1,\dots,a_{N_f}\}=\bigcup_{K\in\mathcal{T}_h}\{a_{K,1},\dots
 \forall j\in\{1,\dots,N_f\}, \quad {\varphi_j}_{|K}=\psi_{K,a_{K,j}}
 ++++
 
-The stem:[\phi_j] functions are then in the space of piecewise affine continuous functions, defined by
+The stem:[\phi_j] functions are then in the space of piece-wise affine continuous functions, defined by
 [stem]
 ++++
 P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}\subset H^1(\Omega)

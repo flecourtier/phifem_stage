@@ -24,6 +24,8 @@ We can defined too
 ++++
 the absolute error.
 
+In this section, we'll assume that stem:[\tilde{\phi}] is in stem:[\mathbb{P}_k] with stem:[k=10].
+
 
 ---
 The features include

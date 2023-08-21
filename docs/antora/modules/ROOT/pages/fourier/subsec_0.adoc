@@ -6,7 +6,7 @@ The following figure (<<FNO_schema>>) describes the FNO architecture in detail:
 
 [[FNO_schema]]
 .figure
-image::fourier/fno_schema.png[width=600.0,height=480.0]
+image::fourier/fno_schema.png[width=540.0,height=432.0]
 
 The architecture of the FNO is as follows:
 
@@ -14,7 +14,6 @@ The architecture of the FNO is as follows:
 ++++
 G_\theta = Q \circ \mathcal{H}_\theta^L \circ \dots \circ \mathcal{H}_\theta^1 \circ P
 ++++
-
 
 We'll now describe the composition of the <<FNO_schema>> in a little more detail :
 
@@ -24,4 +23,14 @@ We'll now describe the composition of the <<FNO_schema>> in a little more detail
 *  We then return to the target dimension by performing a stem:[Q] transformation. In our case, the number of output channels is 1.
 *  We then obtain the output of the stem:[Y] model of shape (bs,ni,nj,1). 
 
+
+
+[NOTE]
+====
+Note that the stem:[P] and stem:[Q] layers are in fact fully-connected multi-layer perceptrons, which means that they perform local transformations at each point, and therefore do not depend on the mesh resolution considered.
+
+Fourier layers are also independent of mesh resolution. Indeed, as we learn in Fourier space, the value of the Fourier modes does not depend on the mesh resolution.
+
+We deduce that the entire FNO does not depend on the mesh resolution.
+====
 

@@ -2,5 +2,95 @@
 :xrefstyle: short
 = Correction on stem:[\phi]-FEM solution
 
-#Then we will look at correcting a disturbed solution for which we don't know the form of the perturbation. A stem:[\phi]-FEM solution can be considered for injection into correction solvers.#
+In this section, we will consider the case of the circle with the solution defined in <<_first_problem>> with stem:[S=0.5], stem:[f=1] and stem:[\varphi=0] (homogeneous case) and stem:[n_{vert}=100].
+
+The aim here is to test the different types of correction presented above on a perturbed solution whose perturbation is not analytically known. We therefore choose to consider
+[stem]
+++++
+\tilde{\phi}=u_{\phi-FEM}
+++++
+with stem:[u_{\phi-FEM}] the solution stem:[\mathbb{P}_2] obtained by solving the problem with the stem:[\phi]-FEM method.
+
+[[corr_phifem_phifem_solution]]
+.Comparison of the exact solution stem:[u_{ex}] and the stem:[\phi]-FEM, stem:[u_{\phi-FEM}].
+
+image::corr/corr_phifem/phifem_solution.png[width=360.0,height=288.0]
+
+We obtain
+[stem]
+++++
+||u_{ex}-u_{\phi-FEM}||_{0,\Omega}^{(rel)}=8.06e-4.
+++++
+
+In the following, we will test the different types of correction using the standard FEM method.
+
+*Correction by adding :*
+
+We begin by testing the addition correction with standard FEM without integration by parts (<<corr_phifem_phifem_corr_add>>), then with integration by parts on the term with stem:[\Delta\tilde{\phi}] (<<corr_phifem_phifem_corr_add_IPP>>).
+
+[cols="a,a"]
+|===
+|[[corr_phifem_phifem_corr_add]]
+.Correction of stem:[u_{\phi-FEM}] by adding with FEM.
+
+image::corr/corr_phifem/phifem_corr_add.png[width=300.0,height=240.0]
+|[[corr_phifem_phifem_corr_add_IPP]]
+.Correction of stem:[u_{\phi-FEM}] by adding (with IPP) with FEM.
+
+image::corr/corr_phifem/phifem_corr_add_IPP.png[width=300.0,height=240.0]
+
+|===
+
+We obtain
+[stem]
+++++
+||u_{ex}-u_{add}||_{0,\Omega}^{(rel)}=2.019 \qquad \text{and } ||u_{ex}-u_{add2}||_{0,\Omega}^{(rel)}=5.12e-4
+++++
+with stem:[u_{add}] the solution obtain with the correction by adding and stem:[u_{add2}] the solution obtained with the correction by adding with integration by parts.
+
+It would therefore seem that correction without integration by parts does not provide the right results at all. This is why, as a first step, we're going to calculate the first derivatives of the solution with FEniCS, according to x and y (<<corr_phifem_derivees_premieres>>).
+
+[[corr_phifem_derivees_premieres]]
+.First derivatives of the exact solution stem:[u_{ex}] and the stem:[\phi]-FEM solution stem:[u_{\phi}]-FEM.
+
+image::corr/corr_phifem/derivees_premieres.png[width=360.0,height=288.0]
+
+It would appear that there are some errors at the boundary of the domain, but they are fairly close to the exact derivatives. Let's now calculate the second derivatives of the solution with FEniCS, according to x and y (<<corr_phifem_derivees_secondes>>).
+
+[[corr_phifem_derivees_secondes]]
+.Second derivatives of the exact solution stem:[u_{ex}] and the stem:[\phi]-FEM solution stem:[u_{\phi}]-FEM.
+
+image::corr/corr_phifem/derivees_secondes.png[width=360.0,height=288.0]
+
+It seems that the second derivatives are very far from the exact second derivatives, which explains why addition without integration by parts, which uses these second derivatives, doesn't work at all.
+
+*Correction by multiplying :*
+
+We will now test the correction by multiplying with standard FEM (<<corr_phifem_phifem_corr_mult>>) and the correction by multiplying on a elevated problem by taking stem:[m=1000] (<<corr_phifem_phifem_corr_mult_reh>>).
+
+[cols="a,a"]
+|===
+|[[corr_phifem_phifem_corr_mult]]
+.Correction of stem:[u_{\phi-FEM}] by multiplying with FEM.
+
+image::corr/corr_phifem/phifem_corr_mult.png[width=270.0,height=216.0]
+|[[corr_phifem_phifem_corr_mult_reh]]
+.Correction of stem:[u_{\phi-FEM}] by multiplying on an elevated problem with FEM (m=1000).
+
+image::corr/corr_phifem/phifem_corr_mult_reh.png[width=270.0,height=216.0]
+
+|===
+
+We obtain
+[stem]
+++++
+||u_{ex}-u_{mult}||_{0,\Omega}^{(rel)}=2.37e-3 \qquad \text{and } ||u_{ex}-u_{mult,m}||_{0,\Omega}^{(rel)}=5.12e-4
+++++
+with stem:[u_{mult}] the solution obtain with the correction by multiplying and stem:[u_{mult,m}] the solution obtained with the correction by multiplying on an elevated problem.
+
+
+[NOTE]
+====
+Note that the same error is obtained for correction by multiplying on an elevated problem and correction by addition with integration by parts.
+====
 

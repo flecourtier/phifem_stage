@@ -15,7 +15,7 @@ The first term of stem:[G_h(w,v)] defined by
 ++++
 is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.
 
-By substracting stem:[G_h^{rhs}(v)] from the second term of stem:[G_h(w,v)], i.e.
+By subtracting stem:[G_h^{rhs}(v)] from the second term of stem:[G_h(w,v)], i.e.
 [stem]
 ++++
 \sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v),
@@ -82,5 +82,10 @@ G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.
 [NOTE]
 ====
 The factors stem:[\frac{1}{h}] and stem:[\frac{1}{h^2}] control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.
+====
+
+[NOTE]
+====
+In the context of this internship, we won't be concerned with the choice of stabilization parameters stem:[\sigma] and stem:[\gamma]. We'll always take stem:[\sigma=20] and stem:[\gamma=1], but it's important to note that they can have a significant influence on the results.
 ====
 

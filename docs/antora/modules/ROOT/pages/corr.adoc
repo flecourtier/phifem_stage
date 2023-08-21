@@ -3,7 +3,7 @@
 = Correction
 :imagesdir: \{moduledir\}/assets/images/corr
 
-In this section, we will look at the different correction methods. we will start by presenting the different problems considered (xref:corr/subsec_0.adoc[Section "Presentation of different problems considered"]), then we will introduce the different correction methods (xref:corr/subsec_1.adoc[Section "Presentation of the different correction methods considered"]), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (xref:corr/subsec_2.adoc[Section "Theoretical results"]), and finish by presenting the numerical results obtained (xref:corr/subsec_3.adoc[Section "Numerical results"]).
+In this section, we'll introduce the notion of correction, with the aim of correcting the output of neural networks (in particular the FNO), which are extremely fast but not very accurate. Thus, we will look at the different correction methods. We will start by presenting the different problems considered (xref:corr/subsec_0.adoc[Section "Presentation of different problems considered"]), then we will introduce the different correction methods (xref:corr/subsec_1.adoc[Section "Presentation of the different correction methods considered"]), more specifically correction by addition, correction by multiplication and correction by multiplication on a so-called elevated problem. We will then continue by presenting some theoretical results on these different methods (xref:corr/subsec_2.adoc[Section "Theoretical results"]), and finish by presenting the numerical results obtained (xref:corr/subsec_3.adoc[Section "Numerical results"]).
 
 
 ---

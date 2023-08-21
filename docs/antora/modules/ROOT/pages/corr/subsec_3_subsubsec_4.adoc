@@ -2,6 +2,205 @@
 :xrefstyle: short
 = Correction with other networks
 
-== Multiperceptron
+As explained in xref:fourier/subsec_3.adoc[Section "Application"] and xref:corr/subsec_3_subsubsec_3.adoc[Section "Correction with FNO"], the general idea of FNO in our application framework is to consider a collection of stem:[n_{data}] data defined by stem:[\{f_i\}_{i=1,\dots, n_{data}}] where each stem:[f_i] is the evaluation of our source term stem:[f] associated with parameters stem:[i] on a regular grid of our domain stem:[\mathcal{O}] of size stem:[n_{dofs}\times n_{dofs}] (with stem:[n_{dofs}] the number of degrees of freedom stem:[\mathbb{P}_1] or stem:[\mathbb{P}_2]). 
+We then use the FNO to predict the solution to the problem under consideration (in our case, the Poisson problem with Dirichlet condition) on the points of a regular grid (whose resolution may differ from that of the input data). 
+
+As we wish to consider a high-degree stem:[\tilde{\phi}] for the correction solvers, we tried to interpolate the FNO prediction by decomposing it in the form of a series of Legendre polynomials (<<_high_degree_interpolation>>) in order to have an analytical expression of the solution at every point of the domain, which was not successful.
+
+We will now consider a new idea, which consists in using a neural network to predict not a collection of solutions, but a single solution at any point in the domain. More precisely, this time we consider our input data to be a collection of 2D points of size stem:[n_{pts}], stem:[\{(x_i,y_i)\}_{i=1,\dots, n_{pts}}] and we seek to predict the solution stem:[\{u_i\}_{i=1,\dots,n_{dots}}] at each of these points with stem:[u_i=\phi(x_i,y_i)w_i] and stem:[w_i=w_\theta(x_i,y_i)].
+
+We then test the correction of the solution predicted by this neural network in order to check whether the problem is due to the FNO. If this network produces the expected results, we can add it to the FNO output as a new layer for considering higher-degree solutions.
+
+Two neural networks will be tested here: the first is a Fully-Connected Multi-Layer Perceptron (Fully-Connected MLP) presented in <<_mlp>> and the second is a Physics-Informed Neural Networks
+(PINNs) presented in <<_pinns>>.
+
+In the following, we'll consider the case of the trigonometric solution on the square defined in <<_problem>> with stem:[S=0.5], stem:[f=1] and stem:[\varphi=0] (so the problem is homogeneous).
+
+
+[NOTE]
+====
+For MLP and PINNs, we'll be using pytorch codes supplied and implemented by Emmanuel Franck\footnote{Emmanuel Franck : \url{https://irma.math.unistra.fr/~franck/}} and Victor Michel-Dansac\footnote{https://irma.math.unistra.fr/~franck/ : \url{https://irma.math.unistra.fr/~micheldansac/}}.
+====
+
+== MLP
+
+Fully-connected Multi Layer Perceptrons are simple dense (i.e. fully-connected) neural networks that can be represented by <<corr_networks_MLP_schema>>. 
+
+[[corr_networks_MLP_schema]]
+.Representation of a fully-connected MLP.
+image::corr/orr_networks/MLP_schema.pn[width=180.0,height=144.0]
+
+Consider a regular stem:[\mathbb{P}_2] grid with stem:[n_{vert}=64] nodes in each direction (and therefore stem:[n_{dofs}=123] degrees of freedom). Consider the following training sample:
+[stem]
+++++
+\begin{aligned}
+X_train&=\{(x_i,y_i)\}_{i=1,\dots,n_{dofs}^2} \\
+Y_train&=\{u_i\}_{i=1,\dots,n_{dofs}^2} 
+\end{aligned}
+++++
+with stem:[(x_i,y_i)] the coordinates of the degrees of freedom and stem:[u_i=u_{ex}(x_i,y_i)] the exact solution at each degree of freedom.
+
+The MLP training loss is defined by
+[stem]
+++++
+loss_\theta^{(0)} = \frac{1}{n_{dofs}^2}\sum_{i=1}^{n_{dofs}^2} mse(u_i-\phi(x_i,y_i)w_{\theta,i})
+++++
+with stem:[w_{\theta,i}] the MLP prediction at points stem:[(x_i,y_i)].
+
+We'll consider a 6-layer network of respective size stem:[\{10,20,60,60,20,10\}] that we'll train over 4000 epochs (<<corr_networks_MLP_loss>>) with a batch size of 16, a learning rate of stem:[0.01] and a hyperbolic tangent activation function. 
+
+[[corr_networks_MLP_loss]]
+.Loss obtained during the MLP training.
+image::corr/orr_networks/MLP_loss.pn[width=270.0,height=216.0]
+
+Taking the training sample to evaluate the model, we obtain an error stem:[||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=8.09e-3] and the model seems to learn the solution well (<<corr_networks_MLP_solution>>).
+
+[[corr_networks_MLP_solution]]
+.Comparaison of the exact solution and the MLP prediciton.
+image::corr/orr_networks/MLP_solution.pn[width=420.0,height=336.0]
+
+Let's now test the correction by addition without integration by parts (<<corr_networks_MLP_corr_add_FEM>>) with FEM by taking
+[stem]
+++++
+\tilde{\phi}=u_{MLP}
+++++
+with stem:[u_{MLP}] the MLP prediction.
+
+To do this, we consider stem:[\tilde{\phi}] in stem:[\mathbb{P}_10] for stem:[n_{vert}=32].
+
+*Correction with FEM :*
+
+[[corr_networks_MLP_corr_add_FEM]]
+.Solution obtained with the correction by adding with FEM on the MLP prediction.
+image::corr/orr_networks/MLP_corr_add_FEM.pn[width=300.0,height=240.0]
+
+We obtain an error stem:[||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3]. Thus, it would seem that the results are not very promising: for this problem, the FEM error is stem:[2.80e-2], so we only obtain an error reduction of stem:[4.91].
+
+*Derivative of the prediction :*
+
+Consequently, we're going to look at the first (<<corr_networks_MLP_derivees_premieres>>) and second (<<corr_networks_MLP_derivees_secondes>>) derivatives of the MLP prediction, which will be calculated with FEniCS and compared with the exact derivatives. We obtain the errors stem:[||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=1.77e-1] and stem:[||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=5.136].
+
+[cols="a,a"]
+|===
+|[[corr_networks_MLP_derivees_premieres]]
+.First derivatives computed with FEniCS on the MLP prediction.
+image::corr/orr_networks/MLP_derivees_premieres.pn[width=210.0,height=168.0]
+|[[corr_networks_MLP_derivees_secondes]]
+.Second derivatives computed with FEniCS on the MLP prediction.
+image::corr/orr_networks/MLP_derivees_secondes.pn[width=210.0,height=168.0]
+
+|===
+
+
+[NOTE]
+====
+The derivatives displayed on the left in <<corr_networks_MLP_derivees_premieres>> and <<corr_networks_MLP_derivees_secondes>> are on the stem:[\mathcal{O}] domain, so a mask must be applied and the derivatives on the right which are displayed on the stem:[\Omega] domain.
+====
+
+It seems that the second derivatives are completely wrong, which is not surprising since the model is not trained on the derivatives. To solve this problem, we could very well decide to add the model's derivatives to the loss as in the FNO loss, but we'll choose here to consider a PINNs whose results are presented in <<_pinns>>.
+
+
+[NOTE]
+====
+Please note that the derivatives of this model cannot be calculated in the same way as for the FNO, i.e. by finite differences but by calculating the derivative of the stem:[w_\theta] model directly.
+====
 
 == PINNs
+
+Physics-Informed Neural Networks are neural networks whose structure is variable, but whose loss is the residual of the problem under consideration. We choose to consider an MLP as the model with 6-layer network of respective size stem:[\{10,20,60,60,20,10\}] that we will train over 20000 epochs, a variable learning rate parameter and a hyperbolic sinus activation function. Half of the training is performed with a learning rate of 0.01 and the other half with a learning rate of 0.001.
+
+Here we choose to train the network with stem:[n_{pts}] points randomly selected in the domain stem:[\mathcal{O}], and consider for each epoch a new training sample defined by
+[stem]
+++++
+\begin{aligned}
+X_train&=\{(x_i,y_i)\}_{i=1,\dots,n_{pts}} \\
+Y_train&=\{f_i\}_{i=1,\dots,n_{pts}} 
+\end{aligned}
+++++
+with stem:[(x_i,y_i)] the coordinates of the points and stem:[f_i=f(x_i,y_i)] the second member of the problem evaluated at each points. We will choose stem:[n_{pts}=20000].
+
+Considering the Poisson problem, the PINNs loss is defined as the residual of the problem by
+[stem]
+++++
+loss_\theta = \Delta(\phi(x_i,y_i)w_{\theta,i})+f_i
+++++
+with stem:[w_{\theta,i}] the PINNs prediction at points stem:[(x_i,y_i)].
+
+At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (<<corr_networks_PINNs_loss>>).
+[[corr_networks_PINNs_loss]]
+.PINNs prediction, Exact solution and Loss obtained.
+image::corr/orr_networks/PINNs_loss.pn[width=420.0,height=336.0]
+
+
+[NOTE]
+====
+It would seem that the prediction is not very good at the border of the stem:[\mathcal{O}] domain, but as this is a sufficiently large surrounding domain, we won't need the prediction in these areas, far from stem:[\Omega].
+====
+
+*Correction with FEM :*
+
+Let's now test the correction by addition without integration by parts (<<corr_networks_MLP_corr_add_FEM>>) with FEM by taking
+[stem]
+++++
+\tilde{\phi}=u_{PINNS}
+++++
+with stem:[u_{PINNS}] the PINNS predicition and thus we consider stem:[\tilde{\phi}] in stem:[\mathbb{P}_{10}] for stem:[n_{vert}=32].
+
+Before the correction, we have the following error. 
+[stem]
+++++
+||u_{ex}-\tilde{\phi}||_{0,\Omega}^{(rel)}=1.93e-3.
+++++
+
+[[corr_networks_PINNS_corr_add_FEM]]
+.Solution obtained with the correction by adding with FEM on the PINNs prediction.
+image::corr/orr_networks/PINNs_FEM_add.pn[width=270.0,height=216.0]
+
+After the correction, we obtain the following error 
+[stem]
+++++
+||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.13e-4.
+++++
+Thus, it would seem that the results are very promising: for this problem, the FEM error is 
+[stem]
+++++
+||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=2.80e-2
+++++
+so we obtain an error reduction of stem:[246.60].
+
+*Correction with stem:[\phi]-FEM :*
+
+As the correction on FEM seems to be working, we're going to test the correction by addition without integration by parts (<<corr_networks_PINNs_corr_add_PhiFEM>>) with stem:[\phi]-FEM.
+
+[[corr_networks_PINNs_corr_add_PhiFEM]]
+.Solution obtained with the correction by adding with stem:[\phi]-FEM on the PINNs prediction.
+image::corr/orr_networks/PINNs_PhiFEM_add.pn[width=270.0,height=216.0]
+
+After the correction, we obtain the following error 
+[stem]
+++++
+||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.27e-4.
+++++
+Thus, it would seem that the results are very promising: for this problem, the FEM error is 
+[stem]
+++++
+||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=1.92e-2
+++++
+so we obtain an error reduction of stem:[151.34].
+
+*Derivatives of the prediction :*
+
+We're going to look too at the first (<<corr_networks_PINNs_derivees_premieres>>) and second (<<corr_networks_PINNs_derivees_secondes>>) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. We obtain the errors stem:[||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=6.44e-3] and stem:[||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=1.02e-1].
+
+[cols="a,a"]
+|===
+|[[corr_networks_PINNs_derivees_premieres]]
+.First derivatives computed with Pytorch and FEniCS on the PINNs prediction.
+image::corr/orr_networks/PINNs_derivees_premieres.pn[width=240.0,height=192.0]
+|[[corr_networks_PINNs_derivees_secondes]]
+.Second derivatives computed with Pytorch and FEniCS on the PINNs prediction.
+image::corr/orr_networks/PINNs_derivees_secondes.pn[width=240.0,height=192.0]
+
+|===
+
+It would therefore seem that the use of PINNs provides results similar to those obtained on perturbed analytic solutions for stem:[\tilde{\phi}] in stem:[\mathbb{P}_k] with stem:[k] large enough (stem:[k=10]).
