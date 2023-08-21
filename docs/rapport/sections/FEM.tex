@@ -265,7 +265,7 @@ The most classic and simplest type of finite element is the Lagrange finite elem
 	\end{Example}
 
 	\begin{Def}
-		Two finite elements $(\hat{K},\hat{\Sigma},\hat{P})$ and $(K,\Sigma,P)$ are affine-equivalent if and only if there exists an inversible affine function $F$ such that
+		Two finite elements $(\hat{K},\hat{\Sigma},\hat{P})$ and $(K,\Sigma,P)$ are affine-equivalent if and only if there exists an irreversible affine function $F$ such that
 		\begin{enumerate}[label=\textbullet]
 			\item $K=F(\hat{K})$
 			\item $a_i=F(\hat{a_i}),i=1,\dots,N$ 
@@ -415,7 +415,7 @@ In this section, we will present the $\phi$-FEM method. We will first present th
 
 \subsubsection{Context and general principle of the method} \label{FEMs.PhiFEM.pinciple}
 
-The PhiFEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (Figure \ref{mesh_fem}). Unlike this type of method, $\phi$-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (Figure \ref{mesh_phifem}). As the boundary of the geometry is represented by a level-set function $\phi$, only this function will change over time, which is a real time-saver.
+The $\phi$-FEM method is a new fictitious domain finite element method that does not require a mesh conforming to the real boundary. In the context of augmented surgery, this method presents a considerable advantage. During real-time simulation, the geometry (in our specific context, an organ such as the liver, for example) can deform over time. Methods such as standard FEM, which requires a mesh fitted to the boundary, necessitate a complete remeshing of the geometry at each time step (Figure \ref{mesh_fem}). Unlike this type of method, $\phi$-FEM requires only the generation of a single mesh : the mesh of a fictitious domain containing the entire geometry (Figure \ref{mesh_phifem}). As the boundary of the geometry is represented by a level-set function $\phi$, only this function will change over time, which is a real time-saver.
 
 \begin{Rem}
 	Note that changing the $\phi$ function creates new sets of cells, all of them described in the Section \ref{FEMs.PhiFEM.Pres.Spaces}.

@@ -46,7 +46,7 @@ We'll now describe the composition of the Figure \ref{FNO_schema} in a little mo
 
 \subsection{Fourier Layer structure} \label{FNO.fourierlayer}
 
-Each Fourier layer is divided into two sublayers:
+Each Fourier layer is divided into two sub-layers:
 
 \begin{equation*}
 	\tilde{Y}=\mathcal{H}_\theta^l(\tilde{X})=\sigma\left(\mathcal{C}_\theta^l(\tilde{X})+\mathcal{B}_\theta^l(\tilde{X})\right)
@@ -78,7 +78,7 @@ where $\mathcal{F}$ corresponds to the 2D Discrete Fourier Transform (DFT) on a 
 \begin{equation*}
 	(Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'}
 \end{equation*}
-In other words, this transormation is applied channel by channel.
+In other words, this transformation is applied channel by channel.
 
 \begin{Rem}
 	An image is fundamentally a signal. Just as 1D signals show changes in amplitude (sound) over time, 2D signals show variations in intensity (light) over space. The Fourier transform allows us to move from the spatial or temporal domain into the frequency domain. In a sound signal (1D signal), low frequencies represent low-pitched sounds and high frequencies represent high-pitched sounds. In the case of an image (2D signal), low frequencies represent large homogeneous surfaces and blurred parts, while high frequencies represent contours, more generally abrupt changes in intensity and, finally, noise.
@@ -129,13 +129,13 @@ We deduce that
 
 And finally $\mathcal{F}$ is the reciprocal function of $\mathcal{F}^{-1}$.
 
-For more details about the Convolution sublayer, see Section \ref{FNO.details_conv}.
+For more details about the Convolution sub-layer, see Section \ref{FNO.details_conv}.
 
-\subsubsection{Bias subLayer} \label{FNO.bias_sublayer}
+\subsubsection{Bias sub-layer} \label{FNO.bias_sublayer}
 
 The bias layer is a 2D convolution with a kernel size of 1. This means that it only performs matrix multiplication on the channels, but pixel by pixel. In other words, it mixes channels via a kernel, but does not allow interaction between pixels.
 
-Precisly,
+Precisely,
 
 \begin{equation*}
 	\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k
@@ -143,7 +143,7 @@ Precisly,
 
 \newpage
 
-\subsection{Some details on the convolution sublayer} \label{FNO.details_conv}
+\subsection{Some details on the convolution sub-layer} \label{FNO.details_conv}
 
 In this section, we will specify some details for the convolution layer.
 
@@ -171,7 +171,7 @@ To speed up computations, we will use the FFT (Fast Fourier Transform). The FFT 
 
 \subsubsection{Real DFT}
 
-In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transorm). In fact, for $\mathcal{F}^{-1}(A)$ to be real if $A$ is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
+In reality, we'll be using a specific implementation of FFT, called RFFT (Real Fast Fourier Transform). In fact, for $\mathcal{F}^{-1}(A)$ to be real if $A$ is a complex-valued matrix, it is necessary that A respects the Hermitian symmetry:
 \begin{equation*}
 	A_{i,nj-(j+1)} = \bar{A}_{i,j}
 \end{equation*}
@@ -228,7 +228,7 @@ with $u=\phi w$.
 This problem can be approached in different ways.
 For example, we may want to consider a case where the level-set function $\phi$ changes, as in the case where we want to solve the problem of the geometry of an organ at different time steps. In this case, we'll need to generate a $\{\phi_i\}_{i=1,\dots,n_{data}}$ collection of level-sets sufficiently representative of the possible variations of the levelset. In a more simple case, if our geometry is defined by an ellipse in a precise domain, the $\{\phi_i\}_{i=1,\dots,n_{data}}$ family will group $n_{data}$ ellipses whose parameters change, such as center or axes.
 
-We may also want to solve the problem for a collection of source terms $\{f_i\}_{i=1,\dots,n_{data}}$. For example, this set could be a Gaussian set whose esperance and variance are varied. In the same idea, we might wish to vary the Dirchlet condition and thus create a collection $\{g_i\}_{i=1,\dots,n_{data}}$.
+We may also want to solve the problem for a collection of source terms $\{f_i\}_{i=1,\dots,n_{data}}$. For example, this set could be a Gaussian set whose expected value and variance are varied. In the same idea, we might wish to vary the Dirichlet condition and thus create a collection $\{g_i\}_{i=1,\dots,n_{data}}$.
 
 \begin{Rem}
 	Note that we're working in a discrete way here, so for each $i$, the terms $f_i$, $g_i$ and $\phi_i$ are in fact 2D matrices of size $(ni,nj)$.
@@ -274,7 +274,7 @@ Here are the steps that will be performed to train the FNO (Figure \ref{FNO_trai
 		loss_\theta^{(1)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_x(\phi_iw_i)-\nabla_x(\phi_iw_{\theta,i}))+mse(\nabla_y(\phi_iw_i)-\nabla_y(\phi_iw_{\theta,i})) \\
 		loss_\theta^{(2)} &= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}(\phi_iw_i)-\nabla_{xx}(\phi_iw_{\theta,i})) + mse(\nabla_{yy}(\phi_iw_i)-\nabla_{yy}(\phi_iw_{\theta,i}))
 	\end{align*}
-	with $w_i$ the $\phi$-FEM solution associated to the i-th problem considered (i.e. the i-th Y\_train sample data), $w_{\theta,i}$ the FNO prediction associated to the i-th problem, $\phi_i$ the i-th levelset and mse the "Mean Square Error" function defined by
+	with $w_i$ the $\phi$-FEM solution associated to the i-th problem considered (i.e. the i-th Y\_train sample data), $w_{\theta,i}$ the FNO prediction associated to the i-th problem, $\phi_i$ the i-th level-set and mse the "Mean Square Error" function defined by
 	\begin{equation*}
 		mse(A)=\frac{1}{ni}\frac{1}{nj}\sum_{i=0}^{ni-1}\sum_{j=0}^{nj-1}A_{i,j}^2.
 	\end{equation*}

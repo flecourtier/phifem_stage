@@ -236,7 +236,7 @@ and
 In the non-homogeneous case, the formulation is the same, as the correction problem stays homogeneous ($\tilde{C}=0$ on $\Gamma$).
 
 \begin{Rem}
-	In practice, it may be useful to integrate by parts (IPP) the term containing $\Delta \tilde{\phi}$ (implicitly included in $\tilde{f}$).
+	In practice, it may be useful to integrate by parts the term containing $\Delta \tilde{\phi}$ (implicitly included in $\tilde{f}$).
 	
 	So for FEM, as $v\in H_0^1(\Omega)$, we have
 	\begin{equation*}
@@ -659,7 +659,7 @@ This first step enables us to check that, by supplying an already exact solution
 In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
 
 \begin{Rem}
-	We will consider here only the case of correction by addition (with and without IPP on $\Delta\tilde{\phi}$) as well as the case of correction by multiplication.
+	We will consider here only the case of correction by addition (with and without an integration by parts) on $\Delta\tilde{\phi}$) as well as the case of correction by multiplication.
 \end{Rem}
 
 \begin{enumerate}[label=\textbullet]
@@ -823,9 +823,9 @@ Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle
 	In the previous results, we use the direct method to impose the boundary conditions with $\phi$-FEM.
 \end{Rem}
 
-\paragraph{Results with differents $\epsilon$} \label{Corr.results.disturbed.eps} 
+\paragraph{Results with different $\epsilon$} \label{Corr.results.disturbed.eps} 
 
-The aim of this section is to test correction by addition (without IPP) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying $\epsilon$). 
+The aim of this section is to test correction by addition (without integration by parts) and correction by multiplication by varying the amplitude of the perturbation (in other words, by varying $\epsilon$). 
 
 We will try to separate the cases according to the frequencies considered. In other words, for $f,f_p\in\{1,2,3,4\}$, we're interested in the following three cases. The first is the case where the solution frequency is greater than the perturbation frequency ($f>f_p$), i.e. a highly variable solution and a less variable perturbation. The second is where the solution and perturbation frequencies are equal ($f=f_p$), i.e. the solution and perturbation have the same variability. The last category covers cases where the perturbation is "nastier" than the solution, i.e. it has a higher frequency than the solution ($f<f_p$). 
 
@@ -838,7 +838,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 \begin{enumerate}[label=\textbullet]
 	\item \textbf{Results on the homogeneous case :}
 	
-	First, we consider the correction by adding (without IPP) on the Circle problem (Figure \ref{corr_pert_fem_circle_add}) and on the Square problem (Figure \ref{corr_pert_fem_square_add}).
+	First, we consider the correction by adding (without integration by parts) on the Circle problem (Figure \ref{corr_pert_fem_circle_add}) and on the Square problem (Figure \ref{corr_pert_fem_square_add}).
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -929,7 +929,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 \end{enumerate}
 
 \begin{Rem}
-	En considérant $\tilde{\phi}$ dans $\mathbb{P}_2$ et le problème homogène, on va appliquer la correction by adding on the Circle problem (Figure \ref{corr_pert_fem_circle_add_P2}) and on the Square problem (Figure \ref{corr_pert_fem_square_add_P2}).
+	Considering $\tilde{\phi}$ in $\mathbb{P}_2$ and the homogeneous problem, we'll apply the correction by adding on the Circle problem (Figure \ref{corr_pert_fem_circle_add_P2}) and on the Square problem (Figure \ref{corr_pert_fem_square_add_P2}).
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -976,7 +976,7 @@ Then we will consider the $\phi$-FEM method on the homogeneous case (i.e. with $
 \begin{enumerate}[label=\textbullet]
 	\item \textbf{Results on the homogeneous case :}
 	
-	First, we consider the correction by adding (without IPP) on the Circle problem (Figure \ref{corr_pert_phifem_circle_add}) and on the Square problem (Figure \ref{corr_pert_phifem_square_add}).
+	First, we consider the correction by adding (without integration by parts) on the Circle problem (Figure \ref{corr_pert_phifem_circle_add}) and on the Square problem (Figure \ref{corr_pert_phifem_square_add}).
 	
 	\begin{minipage}{0.48\linewidth}
 		\begin{figure}[H]
@@ -1831,7 +1831,7 @@ To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\linewidth]{corr_networks/MLP_corr_add_FEM.png}
+	\includegraphics[width=0.45\linewidth]{corr_networks/MLP_corr_add_FEM.png}
 	\caption{Solution obtained with the correction by adding with FEM on the MLP prediction.}
 	\label{corr_networks_MLP_corr_add_FEM}
 \end{figure}
@@ -1845,7 +1845,7 @@ Consequently, we're going to look at the first (Figure \ref{corr_networks_MLP_de
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\linewidth]{corr_networks/MLP_derivees_premieres.png}
+		\includegraphics[width=0.6\linewidth]{corr_networks/MLP_derivees_premieres.png}
 		\caption{First derivatives computed with FEniCS on the MLP prediction.}
 		\label{corr_networks_MLP_derivees_premieres}
 	\end{figure} 
@@ -1853,7 +1853,7 @@ Consequently, we're going to look at the first (Figure \ref{corr_networks_MLP_de
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\linewidth]{corr_networks/MLP_derivees_secondes.png}
+		\includegraphics[width=0.6\linewidth]{corr_networks/MLP_derivees_secondes.png}
 		\caption{Second derivatives computed with FEniCS on the MLP prediction.}
 		\label{corr_networks_MLP_derivees_secondes}
 	\end{figure} 
@@ -1889,7 +1889,7 @@ with $w_{\theta,i}$ the PINNs prediction at points $(x_i,y_i)$.
 At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (Figure \ref{corr_networks_PINNs_loss}).
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{corr_networks/PINNs_loss.png}
+	\includegraphics[width=0.6\linewidth]{corr_networks/PINNs_loss.png}
 	\caption{PINNs prediction, Exact solution and Loss obtained.}
 	\label{corr_networks_PINNs_loss}
 \end{figure} 
