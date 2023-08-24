@@ -1,0 +1,901 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{bedlaoui_les_nodate}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ba7b7eca8e1653f3c81058830148d4f3}{%
+           family={Bedlaoui},
+           familyi={B\bibinitperiod},
+           given={Allal},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{fullhash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{bibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authorbibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authornamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authorfullhash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \field{extraname}{1}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Les éléments finis : de la théorie à la pratique}
+      \field{shorttitle}{Les éléments finis}
+      \field{title}{Les éléments finis : de la théorie à la pratique}
+      \field{urlday}{16}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\8EUFDPSW\\Les_éléments_finis_de_la_théorie_à_la_pratique.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
+      \endverb
+      \verb{url}
+      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
+      \endverb
+    \endentry
+    \entry{bedlaoui_les_nodate-1}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ba7b7eca8e1653f3c81058830148d4f3}{%
+           family={Bedlaoui},
+           familyi={B\bibinitperiod},
+           given={Allal},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{fullhash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{bibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authorbibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authornamehash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \strng{authorfullhash}{ba7b7eca8e1653f3c81058830148d4f3}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Les éléments finis : de la théorie à la pratique}
+      \field{shorttitle}{Les éléments finis}
+      \field{title}{Les éléments finis : de la théorie à la pratique}
+      \field{urlday}{16}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
+      \endverb
+      \verb{url}
+      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
+      \endverb
+    \endentry
+    \entry{brezis_functional_2011}{book}{}
+      \name{author}{1}{}{%
+        {{hash=31e0c25a6fb0297f0536bede27a04cd4}{%
+           family={Brezis},
+           familyi={B\bibinitperiod},
+           given={Haim},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, {NY}}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{fullhash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{bibnamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authorbibnamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authornamehash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \strng{authorfullhash}{31e0c25a6fb0297f0536bede27a04cd4}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-387-70913-0 978-0-387-70914-7}
+      \field{langid}{english}
+      \field{title}{Functional Analysis, Sobolev Spaces and Partial Differential Equations}
+      \field{urlday}{17}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{year}{2011}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.1007/978-0-387-70914-7
+      \endverb
+      \verb{urlraw}
+      \verb https://link.springer.com/10.1007/978-0-387-70914-7
+      \endverb
+      \verb{url}
+      \verb https://link.springer.com/10.1007/978-0-387-70914-7
+      \endverb
+    \endentry
+    \entry{burman_ghost_2010}{article}{}
+      \name{author}{1}{}{%
+        {{hash=70e758d2f4966518cb0c05c63cc91cb5}{%
+           family={Burman},
+           familyi={B\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \strng{fullhash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \strng{bibnamehash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \strng{authorbibnamehash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \strng{authornamehash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \strng{authorfullhash}{70e758d2f4966518cb0c05c63cc91cb5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1778-3569}
+      \field{journaltitle}{Comptes Rendus. Mathématique}
+      \field{langid}{french}
+      \field{note}{Number: 21-22}
+      \field{number}{21}
+      \field{title}{Ghost penalty}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{348}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1217\bibrangedash 1220}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1016/j.crma.2010.10.006
+      \endverb
+      \verb{urlraw}
+      \verb http://www.numdam.org/articles/10.1016/j.crma.2010.10.006/
+      \endverb
+      \verb{url}
+      \verb http://www.numdam.org/articles/10.1016/j.crma.2010.10.006/
+      \endverb
+    \endentry
+    \entry{burman_cutfem_2015}{article}{}
+      \name{author}{5}{}{%
+        {{hash=70e758d2f4966518cb0c05c63cc91cb5}{%
+           family={Burman},
+           familyi={B\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+        {{hash=f449b0150e8ce28c1aabcb7c1a5da1e2}{%
+           family={Claus},
+           familyi={C\bibinitperiod},
+           given={Susanne},
+           giveni={S\bibinitperiod}}}%
+        {{hash=09b2f14a812374e9ef08a46254fa2805}{%
+           family={Hansbo},
+           familyi={H\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c993b57c09886ebd805b3e558bbca1f7}{%
+           family={Larson},
+           familyi={L\bibinitperiod},
+           given={Mats\bibnamedelima G.},
+           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=376fb8330f662b78da0e26f7757ed69e}{%
+           family={Massing},
+           familyi={M\bibinitperiod},
+           given={André},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{dbb4521af8d2a40b01aa626f006978bb}
+      \strng{fullhash}{2ecfd7cd602ed075a7405da849700bc5}
+      \strng{bibnamehash}{dbb4521af8d2a40b01aa626f006978bb}
+      \strng{authorbibnamehash}{dbb4521af8d2a40b01aa626f006978bb}
+      \strng{authornamehash}{dbb4521af8d2a40b01aa626f006978bb}
+      \strng{authorfullhash}{2ecfd7cd602ed075a7405da849700bc5}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{We discuss recent advances on robust unfitted finite element methods on cut meshes. These methods are designed to facilitate computations on complex geometries obtained, for example, from computer-aided design or image data from applied sciences. Both the treatment of boundaries and interfaces and the discretization of {PDEs} on surfaces are discussed and illustrated numerically. Copyright © 2014 John Wiley \& Sons, Ltd.}
+      \field{issn}{1097-0207}
+      \field{journaltitle}{International Journal for Numerical Methods in Engineering}
+      \field{langid}{english}
+      \field{note}{Number: 7 \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/nme.4823}
+      \field{number}{7}
+      \field{shorttitle}{{CutFEM}}
+      \field{title}{{CutFEM}: Discretizing geometry and partial differential equations}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{104}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{472\bibrangedash 501}
+      \range{pages}{30}
+      \verb{doi}
+      \verb 10.1002/nme.4823
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.4823
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.4823
+      \endverb
+      \keyw{extended finite element method,finite element methods,Galerkin,level sets,meshfree methods,stability,unfitted methods}
+    \endentry
+    \entry{cotin_phi-fem_nodate}{book}{}
+      \name{author}{5}{}{%
+        {{hash=483e7500a60d0e80350944be0201a2f7}{%
+           family={Cotin},
+           familyi={C\bibinitperiod},
+           given={Stéphane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=077ce0897ead46a8f998caf4fc1c8eea}{%
+           family={Duprez},
+           familyi={D\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=188d3fc269aa90debb020ed8c3e5d90e}{%
+           family={Lleras},
+           familyi={L\bibinitperiod},
+           given={Vanessa},
+           giveni={V\bibinitperiod}}}%
+        {{hash=13e2b6ec659509dba4fb2bfccac907c6}{%
+           family={Lozinski},
+           familyi={L\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+        {{hash=589df7d448bb86231e001b7b3ba5b0cf}{%
+           family={Vuillemot},
+           familyi={V\bibinitperiod},
+           given={Killian},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{76c1a8f75cf741f165ebb2c74a65707c}
+      \strng{fullhash}{8e790160a15d58e682dbcf7fadf0daa1}
+      \strng{bibnamehash}{76c1a8f75cf741f165ebb2c74a65707c}
+      \strng{authorbibnamehash}{76c1a8f75cf741f165ebb2c74a65707c}
+      \strng{authornamehash}{76c1a8f75cf741f165ebb2c74a65707c}
+      \strng{authorfullhash}{8e790160a15d58e682dbcf7fadf0daa1}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{One of the major issues in the computational mechanics is to take into account the geometrical complexity. To overcome this diﬃculty and to avoid the expensive mesh generation, geometrically unﬁtted methods, i.e. the numerical methods using the simple computational meshes that do not ﬁt the boundary of the domain, and/or the internal interfaces, have been widely developed. In the present work, we investigate the performances of an unﬁtted method called $\phi$-{FEM} that converges optimally and uses classical ﬁnite element spaces so that it can be easily implemented using general {FEM} libraries. The main idea is to take into account the geometry thanks to a level set function describing the boundary or the interface. Up to now, the $\phi$-{FEM} approach has been proposed, tested and substantiated mathematically only in some simplest settings: Poisson equation with Dirichlet/Neumann/Robin boundary conditions. Our goal here is to demonstrate its applicability to some more sophisticated governing equations arising in the computational mechanics. We consider the linear elasticity equations accompanied by either pure Dirichlet boundary conditions or by the mixed ones (Dirichlet and Neumann boundary conditios co-existing on parts of the boundary), an interface problem (linear elasticity with material coeﬃcients abruptly changing over an internal interface), a model of elastic structures with cracks, and ﬁnally the heat equation. In all these settings, we derive an appropriate variant of $\phi$-{FEM} and then illustrate it by numerical tests on manufactured solutions. We also compare the accuracy and eﬃciency of $\phi$-{FEM} with those of the standard ﬁtted {FEM} on the meshes of similar size, revealing the substantial gains that can be achieved by $\phi$-{FEM} in both the accuracy and the computational time.}
+      \field{langid}{english}
+      \field{title}{$\phi$-{FEM}: an efficient simulation tool using simple meshes for problems in structure mechanics and heat transfer}
+      \true{nocite}
+    \endentry
+    \entry{duprez_phi-fem_2023}{article}{}
+      \name{author}{3}{}{%
+        {{hash=077ce0897ead46a8f998caf4fc1c8eea}{%
+           family={Duprez},
+           familyi={D\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=188d3fc269aa90debb020ed8c3e5d90e}{%
+           family={Lleras},
+           familyi={L\bibinitperiod},
+           given={Vanessa},
+           giveni={V\bibinitperiod}}}%
+        {{hash=13e2b6ec659509dba4fb2bfccac907c6}{%
+           family={Lozinski},
+           familyi={L\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{fullhash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{bibnamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authorbibnamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authornamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authorfullhash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \field{extraname}{1}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{We present an immersed boundary method to simulate the creeping motion of a solid in a ﬂuid thanks to the Stokes equation and a {FEM} element strategy called φ-{FEM} using the description of the solid with a level-set function. One of the advantages of our method is the use of standard ﬁnite element spaces and classical integration tools. We obtain the optimal convergence of the method theoretically and numerically.}
+      \field{issn}{2822-7840, 2804-7214}
+      \field{journaltitle}{{ESAIM}: Mathematical Modelling and Numerical Analysis}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{note}{Number: 3}
+      \field{number}{3}
+      \field{shortjournal}{{ESAIM}: M2AN}
+      \field{shorttitle}{$\phi$ -{FEM}}
+      \field{title}{$\phi$-{FEM}: an optimally convergent and easily implementable immersed boundary method for particulate flows and Stokes equations}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{57}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{1111\bibrangedash 1142}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1051/m2an/2023010
+      \endverb
+      \verb{urlraw}
+      \verb https://www.esaim-m2an.org/10.1051/m2an/2023010
+      \endverb
+      \verb{url}
+      \verb https://www.esaim-m2an.org/10.1051/m2an/2023010
+      \endverb
+    \endentry
+    \entry{duprez_new_2023}{article}{}
+      \name{author}{3}{}{%
+        {{hash=077ce0897ead46a8f998caf4fc1c8eea}{%
+           family={Duprez},
+           familyi={D\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=188d3fc269aa90debb020ed8c3e5d90e}{%
+           family={Lleras},
+           familyi={L\bibinitperiod},
+           given={Vanessa},
+           giveni={V\bibinitperiod}}}%
+        {{hash=13e2b6ec659509dba4fb2bfccac907c6}{%
+           family={Lozinski},
+           familyi={L\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{fullhash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{bibnamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authorbibnamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authornamehash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \strng{authorfullhash}{02ced2bdfbf9047fe3be75c9179dff1c}
+      \field{extraname}{2}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a new finite element method, called $\phi$-{FEM}, to solve numerically elliptic partial differential equations with natural (Neumann or Robin) boundary conditions using simple computational grids, not fitted to the boundary of the physical domain. The boundary data are taken into account using a level-set function, which is a popular tool to deal with complicated or evolving domains. Our approach belongs to the family of fictitious domain methods (or immersed boundary methods) and is close to recent methods of {CutFEM}/{XFEM} type. Contrary to the latter, $\phi$-{FEM} does not need any nonstandard numerical integration on cut mesh elements or on the actual boundary, while assuring the optimal convergence orders with finite elements of any degree and providing reasonably well conditioned discrete problems. In the first version of $\phi$-{FEM}, only essential (Dirichlet) boundary conditions was considered. Here, to deal with natural boundary conditions, we introduce the gradient of the primary solution as an auxiliary variable. This is done only on the mesh cells cut by the boundary, so that the size of the numerical system is only slightly increased. We prove theoretically the optimal convergence of our scheme and a bound on the discrete problem conditioning, independent of the mesh cuts. The numerical experiments confirm these results.}
+      \field{issn}{1098-2426}
+      \field{journaltitle}{Numerical Methods for Partial Differential Equations}
+      \field{langid}{english}
+      \field{note}{Number: 1 \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/num.22878}
+      \field{number}{1}
+      \field{title}{A new $\phi$-{FEM} approach for problems with natural boundary conditions}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{39}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{281\bibrangedash 303}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1002/num.22878
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/num.22878
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/num.22878
+      \endverb
+      \keyw{fictitious domain,finite element method,numerical analysis}
+    \endentry
+    \entry{duprez_phi-fem_2020}{article}{}
+      \name{author}{2}{}{%
+        {{hash=077ce0897ead46a8f998caf4fc1c8eea}{%
+           family={Duprez},
+           familyi={D\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=13e2b6ec659509dba4fb2bfccac907c6}{%
+           family={Lozinski},
+           familyi={L\bibinitperiod},
+           given={Alexei},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \strng{fullhash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \strng{bibnamehash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \strng{authorbibnamehash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \strng{authornamehash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \strng{authorfullhash}{80793e67c4279a3d5ee0dd37f763fe91}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The purpose of this paper is to present a new fictitious domain approach inspired by the extended finite element method introduced by Moës, Dolbow, and Belytschko in [Internat. J. Numer. Methods Engrg., 46 (1999), pp. 131–150]. An optimal method is obtained thanks to an additional stabilization technique. Some a priori estimates are established and numerical experiments illustrate different aspects of the method. The presentation is made on a simple Poisson problem with mixed Neumann and Dirichlet boundary conditions. The extension to other problems or boundary conditions is quite straightforward.}
+      \field{issn}{0036-1429}
+      \field{journaltitle}{{SIAM} Journal on Numerical Analysis}
+      \field{month}{1}
+      \field{note}{Number: 2 Publisher: Society for Industrial and Applied Mathematics}
+      \field{number}{2}
+      \field{shortjournal}{{SIAM} J. Numer. Anal.}
+      \field{shorttitle}{$\phi$-{FEM}}
+      \field{title}{$\phi$-{FEM}: A Finite Element Method on Domains Defined by Level-Sets}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{58}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{1008\bibrangedash 1028}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1137/19M1248947
+      \endverb
+      \verb{urlraw}
+      \verb https://epubs.siam.org/doi/10.1137/19M1248947
+      \endverb
+      \verb{url}
+      \verb https://epubs.siam.org/doi/10.1137/19M1248947
+      \endverb
+    \endentry
+    \entry{li_neural_2020}{misc}{}
+      \name{author}{7}{}{%
+        {{hash=009036050bf23abe561429f6eaa0b018}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Zongyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=d3715d69863d59245589f244c5866bd4}{%
+           family={Kovachki},
+           familyi={K\bibinitperiod},
+           given={Nikola},
+           giveni={N\bibinitperiod}}}%
+        {{hash=3648b51d63e1ae389e46f87296d4c89a}{%
+           family={Azizzadenesheli},
+           familyi={A\bibinitperiod},
+           given={Kamyar},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9caea1a7b561311e5146f4c7f740496c}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Burigede},
+           giveni={B\bibinitperiod}}}%
+        {{hash=1e523aae18c868f77439b35add494ff9}{%
+           family={Bhattacharya},
+           familyi={B\bibinitperiod},
+           given={Kaushik},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9fdd1b883dec513483f9ee5c99b7e251}{%
+           family={Stuart},
+           familyi={S\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bd4a2be6ede169a3c794a1cd7e3fb9a2}{%
+           family={Anandkumar},
+           familyi={A\bibinitperiod},
+           given={Anima},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{fullhash}{3e58006f2c869702116637d04136c3b9}
+      \strng{bibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorbibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authornamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorfullhash}{3e58006f2c869702116637d04136c3b9}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The classical development of neural networks has been primarily for mappings between a finite-dimensional Euclidean space and a set of classes, or between two finite-dimensional Euclidean spaces. The purpose of this work is to generalize neural networks so that they can learn mappings between infinite-dimensional spaces (operators). The key innovation in our work is that a single set of network parameters, within a carefully designed network architecture, may be used to describe mappings between infinite-dimensional spaces and between different finite-dimensional approximations of those spaces. We formulate approximation of the infinite-dimensional mapping by composing nonlinear activation functions and a class of integral operators. The kernel integration is computed by message passing on graph networks. This approach has substantial practical consequences which we will illustrate in the context of mappings between input data to partial differential equations ({PDEs}) and their solutions. In this context, such learned networks can generalize among different approximation methods for the {PDE} (such as finite difference or finite element methods) and among approximations corresponding to different underlying levels of resolution and discretization. Experiments confirm that the proposed graph kernel network does have the desired properties and show competitive performance compared to the state of the art solvers.}
+      \field{day}{6}
+      \field{eprinttype}{arxiv}
+      \field{month}{3}
+      \field{number}{{arXiv}:2003.03485}
+      \field{shorttitle}{Neural Operator}
+      \field{title}{Neural Operator: Graph Kernel Network for Partial Differential Equations}
+      \field{urlday}{17}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.2003.03485
+      \endverb
+      \verb{eprint}
+      \verb 2003.03485 [cs, math, stat]
+      \endverb
+      \verb{file}
+      \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\RR7G6ACN\\Li et al. - 2020 - Neural Operator Graph Kernel Network for Partial .pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\3BA468BP\\2003.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2003.03485
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2003.03485
+      \endverb
+      \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis,Statistics - Machine Learning}
+    \endentry
+    \entry{li_fourier_2021}{misc}{}
+      \name{author}{7}{}{%
+        {{hash=009036050bf23abe561429f6eaa0b018}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Zongyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=d3715d69863d59245589f244c5866bd4}{%
+           family={Kovachki},
+           familyi={K\bibinitperiod},
+           given={Nikola},
+           giveni={N\bibinitperiod}}}%
+        {{hash=3648b51d63e1ae389e46f87296d4c89a}{%
+           family={Azizzadenesheli},
+           familyi={A\bibinitperiod},
+           given={Kamyar},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9caea1a7b561311e5146f4c7f740496c}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Burigede},
+           giveni={B\bibinitperiod}}}%
+        {{hash=1e523aae18c868f77439b35add494ff9}{%
+           family={Bhattacharya},
+           familyi={B\bibinitperiod},
+           given={Kaushik},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9fdd1b883dec513483f9ee5c99b7e251}{%
+           family={Stuart},
+           familyi={S\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bd4a2be6ede169a3c794a1cd7e3fb9a2}{%
+           family={Anandkumar},
+           familyi={A\bibinitperiod},
+           given={Anima},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{fullhash}{3e58006f2c869702116637d04136c3b9}
+      \strng{bibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorbibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authornamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorfullhash}{3e58006f2c869702116637d04136c3b9}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The classical development of neural networks has primarily focused on learning mappings between finite-dimensional Euclidean spaces. Recently, this has been generalized to neural operators that learn mappings between function spaces. For partial differential equations ({PDEs}), neural operators directly learn the mapping from any functional parametric dependence to the solution. Thus, they learn an entire family of {PDEs}, in contrast to classical methods which solve one instance of the equation. In this work, we formulate a new neural operator by parameterizing the integral kernel directly in Fourier space, allowing for an expressive and efficient architecture. We perform experiments on Burgers' equation, Darcy flow, and Navier-Stokes equation. The Fourier neural operator is the first {ML}-based method to successfully model turbulent flows with zero-shot super-resolution. It is up to three orders of magnitude faster compared to traditional {PDE} solvers. Additionally, it achieves superior accuracy compared to previous learning-based solvers under fixed resolution.}
+      \field{day}{16}
+      \field{eprinttype}{arxiv}
+      \field{month}{5}
+      \field{note}{Issue: {arXiv}:2010.08895}
+      \field{number}{{arXiv}:2010.08895}
+      \field{title}{Fourier Neural Operator for Parametric Partial Differential Equations}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.2010.08895
+      \endverb
+      \verb{eprint}
+      \verb 2010.08895 [cs, math]
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2010.08895
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2010.08895
+      \endverb
+      \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
+    \endentry
+    \entry{li_fourier_2022}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=009036050bf23abe561429f6eaa0b018}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Zongyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=6762d769b0ca3dccfcf8b43c49ff1221}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Daniel\bibnamedelima Zhengyu},
+           giveni={D\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+        {{hash=9caea1a7b561311e5146f4c7f740496c}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Burigede},
+           giveni={B\bibinitperiod}}}%
+        {{hash=bd4a2be6ede169a3c794a1cd7e3fb9a2}{%
+           family={Anandkumar},
+           familyi={A\bibinitperiod},
+           given={Anima},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{fullhash}{f6942b4fdf5039fff12ec06854db96b0}
+      \strng{bibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorbibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authornamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorfullhash}{f6942b4fdf5039fff12ec06854db96b0}
+      \field{extraname}{3}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Deep learning surrogate models have shown promise in solving partial differential equations ({PDEs}). Among them, the Fourier neural operator ({FNO}) achieves good accuracy, and is significantly faster compared to numerical solvers, on a variety of {PDEs}, such as fluid flows. However, the {FNO} uses the Fast Fourier transform ({FFT}), which is limited to rectangular domains with uniform grids. In this work, we propose a new framework, viz., geo-{FNO}, to solve {PDEs} on arbitrary geometries. Geo-{FNO} learns to deform the input (physical) domain, which may be irregular, into a latent space with a uniform grid. The {FNO} model with the {FFT} is applied in the latent space. The resulting geo-{FNO} model has both the computation efficiency of {FFT} and the flexibility of handling arbitrary geometries. Our geo-{FNO} is also flexible in terms of its input formats, viz., point clouds, meshes, and design parameters are all valid inputs. We consider a variety of {PDEs} such as the Elasticity, Plasticity, Euler's, and Navier-Stokes equations, and both forward modeling and inverse design problems. Geo-{FNO} is \$10{\textasciicircum}5\$ times faster than the standard numerical solvers and twice more accurate compared to direct interpolation on existing {ML}-based {PDE} solvers such as the standard {FNO}.}
+      \field{day}{11}
+      \field{eprinttype}{arxiv}
+      \field{month}{7}
+      \field{number}{{arXiv}:2207.05209}
+      \field{title}{Fourier Neural Operator with Learned Deformations for {PDEs} on General Geometries}
+      \field{urlday}{17}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.2207.05209
+      \endverb
+      \verb{eprint}
+      \verb 2207.05209 [cs, math]
+      \endverb
+      \verb{file}
+      \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\GZ6KQYA4\\Li et al. - 2022 - Fourier Neural Operator with Learned Deformations .pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\24RAWPUX\\2207.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2207.05209
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2207.05209
+      \endverb
+      \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
+    \endentry
+    \entry{li_physics-informed_2023}{misc}{}
+      \name{author}{8}{}{%
+        {{hash=009036050bf23abe561429f6eaa0b018}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Zongyi},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=f3ba96cab227287cf8f7fe504045aad0}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Hongkai},
+           giveni={H\bibinitperiod}}}%
+        {{hash=d3715d69863d59245589f244c5866bd4}{%
+           family={Kovachki},
+           familyi={K\bibinitperiod},
+           given={Nikola},
+           giveni={N\bibinitperiod}}}%
+        {{hash=265194c102a073a98d3bd2635a323711}{%
+           family={Jin},
+           familyi={J\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8fa8e139a016c75c02ff3e23d335bdd2}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Haoxuan},
+           giveni={H\bibinitperiod}}}%
+        {{hash=9caea1a7b561311e5146f4c7f740496c}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Burigede},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3648b51d63e1ae389e46f87296d4c89a}{%
+           family={Azizzadenesheli},
+           familyi={A\bibinitperiod},
+           given={Kamyar},
+           giveni={K\bibinitperiod}}}%
+        {{hash=bd4a2be6ede169a3c794a1cd7e3fb9a2}{%
+           family={Anandkumar},
+           familyi={A\bibinitperiod},
+           given={Anima},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{fullhash}{a20453edd54dc7869dd1af04d3e64900}
+      \strng{bibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorbibnamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authornamehash}{edf93f47ab09a8c56b86e9ad2e628607}
+      \strng{authorfullhash}{a20453edd54dc7869dd1af04d3e64900}
+      \field{extraname}{4}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, we propose physics-informed neural operators ({PINO}) that combine training data and physics constraints to learn the solution operator of a given family of parametric Partial Differential Equations ({PDE}). {PINO} is the first hybrid approach incorporating data and {PDE} constraints at different resolutions to learn the operator. Specifically, in {PINO}, we combine coarse-resolution training data with {PDE} constraints imposed at a higher resolution. The resulting {PINO} model can accurately approximate the ground-truth solution operator for many popular {PDE} families and shows no degradation in accuracy even under zero-shot super-resolution, i.e., being able to predict beyond the resolution of training data. {PINO} uses the Fourier neural operator ({FNO}) framework that is guaranteed to be a universal approximator for any continuous operator and discretization-convergent in the limit of mesh refinement. By adding {PDE} constraints to {FNO} at a higher resolution, we obtain a high-fidelity reconstruction of the ground-truth operator. Moreover, {PINO} succeeds in settings where no training data is available and only {PDE} constraints are imposed, while previous approaches, such as the Physics-Informed Neural Network ({PINN}), fail due to optimization challenges, e.g., in multi-scale dynamic systems such as Kolmogorov flows.}
+      \field{day}{29}
+      \field{eprinttype}{arxiv}
+      \field{month}{7}
+      \field{number}{{arXiv}:2111.03794}
+      \field{title}{Physics-Informed Neural Operator for Learning Partial Differential Equations}
+      \field{urlday}{17}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.2111.03794
+      \endverb
+      \verb{eprint}
+      \verb 2111.03794 [cs, math]
+      \endverb
+      \verb{file}
+      \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\F3JX48IL\\Li et al. - 2023 - Physics-Informed Neural Operator for Learning Part.pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\6IKINPQE\\2111.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2111.03794
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2111.03794
+      \endverb
+      \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
+    \endentry
+    \entry{noauthor_methodes_nodate}{online}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeltitlesource}{title}
+      \field{title}{Méthodes numériques pour les {EDP}}
+      \field{urlday}{16}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Méthodes numériques pour les EDP:C\:\\Users\\Elève\\Zotero\\storage\\8SHDDVTY\\csmi-edp.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://feelpp.github.io/csmi-edp/#/
+      \endverb
+      \verb{url}
+      \verb https://feelpp.github.io/csmi-edp/#/
+      \endverb
+    \endentry
+    \entry{moes_x-fem_2002}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1404d676814945395479853f575fb383}{%
+           family={Moës},
+           familyi={M\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=7baf40772d707fab6fd1da4c79156dd4}{%
+           family={Belytschko},
+           familyi={B\bibinitperiod},
+           given={Ted},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{274512f3cd9398d753d694c0f007a6d0}
+      \strng{fullhash}{274512f3cd9398d753d694c0f007a6d0}
+      \strng{bibnamehash}{274512f3cd9398d753d694c0f007a6d0}
+      \strng{authorbibnamehash}{274512f3cd9398d753d694c0f007a6d0}
+      \strng{authornamehash}{274512f3cd9398d753d694c0f007a6d0}
+      \strng{authorfullhash}{274512f3cd9398d753d694c0f007a6d0}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In 1999, an extension of the ﬁnite element method was introduced. Later called X-{FEM} (“{eXtended} Finite Element Method”), this extension allows one to model surfaces of discontinuity (cracks, material interfaces, free surfaces, . . . ) on a mesh even if the mesh does not conform to these surfaces. This paper summarizes the achievement obtained so far with {XFEM}, especially regarding the coupling of X-{FEM} with the “level sets” method which provides an efﬁcient representation of the surfaces and a robust computation of their evolution.}
+      \field{issn}{1250-6559}
+      \field{journaltitle}{Revue Européenne des Éléments Finis}
+      \field{langid}{french}
+      \field{month}{1}
+      \field{note}{Number: 2-4}
+      \field{number}{2}
+      \field{shortjournal}{Revue Européenne des Éléments Finis}
+      \field{title}{X-{FEM}, de nouvelles frontières pour les éléments finis}
+      \field{urlday}{26}
+      \field{urlmonth}{7}
+      \field{urlyear}{2023}
+      \field{volume}{11}
+      \field{year}{2002}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \field{pages}{305\bibrangedash 318}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.3166/reef.11.305-318
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.3166/reef.11.305-318
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.3166/reef.11.305-318
+      \endverb
+    \endentry
+    \entry{quarteroni_methodes_2007}{book}{}
+      \name{author}{4}{}{%
+        {{hash=c28a2501b2d78ab05e717a1f7a22209f}{%
+           family={Quarteroni},
+           familyi={Q\bibinitperiod},
+           given={Alfio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=be440651581b60c85c4bedc9cf2c1052}{%
+           family={Sacco},
+           familyi={S\bibinitperiod},
+           given={Ricardo},
+           giveni={R\bibinitperiod}}}%
+        {{hash=2fc2128fdc5c010ed6b8e8af8f05eb88}{%
+           family={Saleri},
+           familyi={S\bibinitperiod},
+           given={Fausto},
+           giveni={F\bibinitperiod}}}%
+        {{hash=462e3a6fa55981f44d51856fc6c2d422}{%
+           family={Gerbeau},
+           familyi={G\bibinitperiod},
+           given={Jean-Frédéric},
+           giveni={J\bibinithyphendelim F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Milan}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{825a5952fa41aa2ed94566ff144a5a35}
+      \strng{fullhash}{d78c6aca6712fbcaa05618dd12f655ac}
+      \strng{bibnamehash}{825a5952fa41aa2ed94566ff144a5a35}
+      \strng{authorbibnamehash}{825a5952fa41aa2ed94566ff144a5a35}
+      \strng{authornamehash}{825a5952fa41aa2ed94566ff144a5a35}
+      \strng{authorfullhash}{d78c6aca6712fbcaa05618dd12f655ac}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{edition}{Ed. revue et augmentée}
+      \field{isbn}{978-88-470-0495-5}
+      \field{langid}{french}
+      \field{shorttitle}{Méthodes numériques}
+      \field{title}{Méthodes numériques: algorithmes, analyse et applications}
+      \field{year}{2007}
+      \field{dateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Quarteroni et al. - 2007 - Méthodes numériques algorithmes, analyse et appli.pdf:C\:\\Users\\Elève\\Zotero\\storage\\9WUI37XB\\Quarteroni et al. - 2007 - Méthodes numériques algorithmes, analyse et appli.pdf:application/pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
