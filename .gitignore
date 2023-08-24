@@ -2,6 +2,10 @@ docs/suivi/suivi*
 !docs/suivi/suivi.tex
 !docs/suivi/suivi.pdf
 
+docs/presentation/presentation*
+!docs/presentation/presentation.tex
+!docs/presentation/presentation.pdf
+
 docs/suivi/abstract/abstract*
 !docs/suivi/abstract/abstract.py
 !docs/suivi/abstract/abstract.tex

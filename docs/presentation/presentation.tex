@@ -104,13 +104,13 @@
 	\end{frame}
 
 	\begin{frame}{Scientific context}
-		\color{red}A COMPLETER !!\color{black}
-%		Because of the geometry of organs, mimesis has developed a new method: the $\phi$-FEM method. \\
-%		\textbf{Abstract :} Mimesis propose a new fictitious domain finite element method, well suited for elliptic problems posed
-%		in a domain given by a level-set function without requiring a mesh fitting the boundary. 
-%		\begin{center}
-%			\pgfimage[width=0.8\linewidth]{images/intro/context_geometry.jpg}
-%		\end{center}
+		\color{red}A MODIFIER !!\color{black} \\
+		Because of the geometry of organs, mimesis has developed a new method: the $\phi$-FEM method. \\
+		\textbf{Abstract :} Mimesis propose a new fictitious domain finite element method, well suited for elliptic problems posed
+		in a domain given by a level-set function without requiring a mesh fitting the boundary. 
+		\begin{center}
+			\pgfimage[width=0.8\linewidth]{images/intro/context_geometry.jpg}
+		\end{center}
 	\end{frame}
 
 	\begin{frame}{Objectives - Deliverables}
@@ -121,7 +121,7 @@
 		\end{enumerate}
 		\textbf{Aim :} Neural networks are very fast, but not very accurate \\
 		=> finite element methods are used to improve prediction accuracy.
-		
+		\textbf{Remark :} Implementation in Python with FEniCS, Pytorch and Tensorflow.
 		\underline{\textbf{Deliverables :}}
 
 		\begin{enumerate}[\ding{217}]
@@ -135,15 +135,26 @@
 	\begin{frame}{Problem considered}
 		\textbf{Poisson problem with Dirichlet conditions :} \\
 		Find $u : \Omega \rightarrow \mathbb{R}^d (d=1,2,3)$ such that
-		\begin{equation*}
+		\begin{equation}
 			\left\{
 			\begin{aligned}
 				-\Delta u &= f, \; &&\text{in } \; \Omega, \\
 				u&=g, \; &&\text{on } \; \partial\Omega,
 			\end{aligned}
-			\right.
+			\right. \tag{$\mathcal{P}$} \label{pb_initial}
+		\end{equation}
+		with $\Delta$ the Laplace operator, $\Omega$ a smooth bounded open set and $\partial\Omega$ its boundary. \\
+		In this section, we defined by
+		\begin{equation*}
+			||u_{ex}-u_{method}||_{0,\Omega_h}^{(rel)}=\frac{\int_{\Omega_h} (u_{ex}-u_{method})^2}{\int_{\Omega_h} u_{ex}^2}
 		\end{equation*}
-		with $\Delta$ the Laplace operator, $\Omega$ a smooth bounded open set and $\partial\Omega$ its boundary.
+		the relative error between the exact solution $u_{ex}$ and $u_{method}$ a solution obtained by FEM or $\phi$-FEM, a correction solver or the prediction of an neural network.
+		
+%		We can defined too
+%		\begin{equation*}
+%			||u_{ex}-u_{method}||_{0,\Omega_h}^{(abs)}=\int_{\Omega_h} (u_{ex}-u_{method})^2
+%		\end{equation*}
+%		the absolute error.
 	\end{frame}
 
 	\section{General methods and tools}
@@ -188,6 +199,7 @@
 				V_h:=P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}
 			\end{equation*}
 			where $\mathbb{P}_k$ is a vector space of polynomials of total degree less than or equal to $k$.
+			\item In the case of non-homogeneous condition : use of penalization or elimination methods.
 		\end{enumerate}
 		
 	\end{frame}
@@ -296,8 +308,47 @@
 		\end{enumerate}
 	\end{frame}
 
-	\begin{frame}{Non-homogeneous case}
-		TO DO !
+	\begin{frame}{Non-homogeneous case - Direct method}
+		\setstretch{0.5}
+		\small
+		Suppose that $g$ is currently given over the entire $\Omega_h$, we have
+		\begin{equation*}
+			u=\phi w +g, \; \text{on } \Omega_h.
+		\end{equation*}
+		\textit{Problem :} Find $w_h$ on $\Omega_h$ such that
+		\begin{align*}
+			\int_{\Omega_h}\nabla(\phi_h w_h)&\nabla(\phi_h v_h)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi_h w_h)\phi_h v_h+G_h(w_h,v_h)=\int_{\Omega_h}f\phi_h v_h \\
+			&-\int_{\Omega_h}\nabla g\nabla(\phi_h v_h)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v_h+G_h^{rhs}(v_h), \; \forall v_h\in \Omega_h
+		\end{align*}
+		with
+		\begin{equation*}
+			G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial}{\partial n}(\phi_h w)\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta(\phi_h w)\Delta(\phi_h v)
+		\end{equation*}
+		and
+		\begin{equation*}
+			G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta(\phi_h v)-\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial g}{\partial n}\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta g\Delta(\phi_h v)
+		\end{equation*}
+	\end{frame}
+			
+	\begin{frame}{Non-homogeneous case - Dual method}
+		\setstretch{0.5}
+		\small
+		Assuming $g$ defined on $\Omega_h^\Gamma$, introduce $p$ on $\Omega_h^\Gamma$ in addition to $u$ on $\Omega_h$ with
+		\begin{equation*}
+			u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
+		\end{equation*}
+		\textit{Problem :} Find $u$ on $\Omega_h$ and $p$ on $\Omega_h^\Gamma$ such that
+		\begin{align*}
+			\int_{\Omega_h}\nabla u\nabla v&-\int_{\partial\Omega_h}\frac{\partial u}{\partial n} v + \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T \left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) + G_h(u,v) = \int_{\Omega_h}fv \\
+			&+ \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T g\left(v-\frac{1}{h}\phi q\right) + G_h^{rhs}(v), \; \forall v \; \text{on } \Omega_h, \; q \; \text{on } \Omega_h^\Gamma.
+		\end{align*}
+		with $\gamma$ an other positive stabilization parameter,
+		\begin{equation*}
+			G_h(u,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial u}{\partial n}\right]\left[\frac{\partial v}{\partial n}\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta u\Delta v
+		\end{equation*}
+		\begin{equation*}
+			\text{and } \qquad G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.
+		\end{equation*}
 	\end{frame}
 
 	\subsection{Fourier Neural Operator (FNO)}
@@ -374,53 +425,82 @@
 			\end{itemize}
 			\item \textbf{Low pass filter :} truncate high Fourier modes to ignore high frequencies $\Rightarrow$ enable a kind of regularization that helps the generalization
 			\begin{center}
-				\pgfimage[width=0.6\linewidth]{images/methods_tools/FNO_low_pass_filter.png}
+				\pgfimage[width=0.5\linewidth]{images/methods_tools/FNO_low_pass_filter.png}
 			\end{center}
 		\end{enumerate}		
+		\textbf{Limitation :} Use of regular grid $\Rightarrow$ only $\mathbb{P}_1$ or $\mathbb{P}_2$ solution
 	\end{frame}
 
 	\begin{frame}{Application}
-		TO DO !
+		FNO Training :
+		\begin{center}
+			\pgfimage[width=\linewidth]{images/methods_tools/FNO_train_schema.png}
+		\end{center}
+		Correction on the FNO predictions :
+		\begin{center}
+			\pgfimage[width=\linewidth]{images/methods_tools/FNO_test_schema.png}
+		\end{center}
 	\end{frame}
 	
 	\section{Correction}
 	
-	\begin{frame}{Problems considered}
-		\setstretch{0.5}
-		\small 
-		\textbf{1st problem considered :} Trigonometric solution on a Square. \\
-		\begin{minipage}{0.2\linewidth}
-			\pgfimage[width=\linewidth]{images/corr/geom_square.png}
+	\subsection{Problems considered}
+	
+	\begin{frame}{Trigonometric solution on a Square}
+		\setstretch{0.7}
+		\begin{minipage}{0.3\linewidth}
+			\centering
+			\pgfimage[width=0.8\linewidth]{images/corr/geom_square.png}
 		\end{minipage} \;
-		\begin{minipage}{0.78\linewidth}
+		\begin{minipage}{0.68\linewidth}
 			\begin{enumerate}[\ding{217}]
-				\item Level-set function (for formulation) : $\phi(x,y)=x(1-x)y(1-y)$
-				\item Level-set function (for construction) : $\phi_C(X)=||X-0.5||_\infty-0.5$
-				\item Analytical solution : $u_{ex}(x,y)=S\times sin\left(2\pi fx+\varphi\right)\times sin\left(2\pi fy+\varphi\right)$
-				\begin{itemize}
-					\item $S\in[0,1]$ : amplitude of the signal 
-					\item $f\in\mathbb{N}$ : "frequency" of the signal
-					\item $\varphi\in[0,1]$ : phase at the origin
-				\end{itemize}
-				\item Source term : $f(x,y)=8\pi^2 Sf^2\sin\left(2\pi fx + \varphi\right)\sin\left(2\pi fy + \varphi\right)$
-			\end{enumerate}
-		\end{minipage} \; \\ \; \\
-		
-		\textbf{2nd problem considered :} Unknown solution on a Circle. \\
-		\begin{minipage}{0.2\linewidth}
-			\pgfimage[width=\linewidth]{images/corr/geom_circle.png}
-		\end{minipage} \;
-		\begin{minipage}{0.78\linewidth}
-			\begin{enumerate}[\ding{217}]
-				\item Level-set function : $\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2$
-				\item Source term : $f(x,y) = \exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)$
-				\begin{itemize}
-					\item $\sigma \sim \mathcal{U}([0.1,0.6])$
-					\item $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ 
-				\end{itemize}
-				\item a reference solution $u_{ref}$ : over-refined $\mathbb{P}^1$ solution (with FEM)
+				\item Level-set function (for formulation) : $$\phi(x,y)=x(1-x)y(1-y)$$
+				\item Level-set function (for construction) : $$\phi_C(X)=||X-0.5||_\infty-0.5$$
+				
 			\end{enumerate}
 		\end{minipage}
+
+		
+			\begin{enumerate}[\ding{217}]
+				\item Analytical solution : (Homogeneous if $\varphi=0$)
+				$$u_{ex}(x,y)=S\times sin\left(2\pi fx+\varphi\right)\times sin\left(2\pi fy+\varphi\right)$$
+				\item Source term : $$f(x,y)=8\pi^2 Sf^2sin\left(2\pi fx + \varphi\right)sin\left(2\pi fy + \varphi\right)$$
+				\begin{minipage}{0.48\linewidth}
+					\begin{itemize}
+						\item $S\in[0,1]$ : amplitude of the signal 
+						\item $f\in\mathbb{N}$ : "frequency" of the signal
+						\item $\varphi\in[0,1]$ : phase at the origin
+					\end{itemize}
+				\end{minipage} \;
+				\begin{minipage}{0.48\linewidth}
+					\centering
+					\pgfimage[width=\linewidth]{images/corr/norms.png}
+				\end{minipage}
+			\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Unknown solution on a Circle}
+		\setstretch{0.7}
+		\begin{minipage}{0.3\linewidth}
+			\centering
+			\pgfimage[width=0.8\linewidth]{images/corr/geom_circle.png}
+		\end{minipage} \;
+		\begin{minipage}{0.68\linewidth}
+			\begin{enumerate}[\ding{217}]
+				\item Level-set function : 
+				$$\phi(x,y)=-1/8+(x-1/2)^2+(y-1/2)^2$$
+			\end{enumerate}
+		\end{minipage}
+		\begin{enumerate}[\ding{217}]
+			\item Source term : 
+			$$f(x,y) = exp\left(-\frac{(x-\mu_0)^2 + (y-\mu_1)^2}{2\sigma^2}\right)$$
+			\begin{itemize}
+				\item $\sigma \sim \mathcal{U}([0.1,0.6])$
+				\item $\mu_0, \mu_1 \sim \mathcal{U}([0.5-\sqrt{2}/4, 0.5+\sqrt{2}/4])$ 
+			\end{itemize}
+			with the condition $\phi(\mu_0, \mu_1) < -0.05$
+			\item a reference solution $u_{ref}$ : over-refined $\mathbb{P}^1$ solution (with FEM)
+		\end{enumerate}
 	\end{frame}
 	
 	\subsection{Methods considered}
@@ -440,14 +520,14 @@
 				\tilde{u}&=g, \; &&\text{in } \Gamma.
 			\end{aligned}\right.
 		\end{equation*}
-	
+		with $\tilde{C}\phi C$ for the $\phi$-FEM method
 		Rewriting the problem, we seek to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
-		\begin{equation*}
+		\begin{equation}
 			\left\{\begin{aligned}
 				-\Delta \tilde{C}&=\tilde{f}, \; &&\text{on } \Omega, \\
 				\tilde{C}&=0, \; &&\text{in } \Gamma.
-			\end{aligned}\right. %\tag{$\mathcal{C}_{+}$}
-		\end{equation*}
+			\end{aligned}\right. \tag{$\mathcal{C}_{+}$} \label{corr_add}
+		\end{equation}
 		with $\tilde{f}=f+\Delta\tilde{\phi}$.
 
 		In practice, it may be useful to integrate by parts the term containing $\Delta \tilde{\phi}$.
@@ -464,7 +544,7 @@
 			\left\{\begin{aligned}
 				&-\Delta (\tilde{\phi}C)=f, \; &&\text{on } \Omega, \\
 				&C=1, \; &&\text{on } \; \Gamma.
-			\end{aligned}\right.
+			\end{aligned}\right. \tag{$\mathcal{C}_\times$} \label{corr_mult}
 		\end{equation*}
 		
 		In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method.
@@ -472,14 +552,14 @@
 
 	\begin{frame}{Correction by multiplying (elevated problem)}
 		We introduced an initial modified problem : Find $\hat{u} : \Omega \rightarrow \mathbb{R}^d$ such that
-		\begin{equation*}
+		\begin{equation}
 			\left\{
 			\begin{aligned}
 				-\Delta \hat{u} = f, \; &&\text{in } \; \Omega, \\
 				\hat{u}=g+m, \; &&\text{on } \; \Gamma,
 			\end{aligned}
-			\right.
-		\end{equation*}
+			\right. \tag{$\mathcal{P}^\mathcal{M}$} \label{pb_reh}
+		\end{equation}
 		with $\hat{u}=u+m$ and $m$ a constant.
 		
 		We then apply the multiplication correction on the elevated problem by considering
@@ -488,21 +568,177 @@
 		\end{equation*}
 		and so we look for $C: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 		\begin{equation*}
-			\label{eq.corr.pbc_mult_reh}
 			\left\{\begin{aligned}
 				&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
 				&C=1, \; &&\text{on } \; \Gamma.
-			\end{aligned}\right. %\tag{$\mathcal{C}_\times^\mathcal{M}$}
+			\end{aligned}\right. \tag{$\mathcal{C}_\times^\mathcal{M}$} \label{corr_mult_reh}
 		\end{equation*}
 		
 		In the case of this correction, it is important to impose the boundary conditions either by the direct method, or by the dual method.
 	\end{frame}
-%	
-	\subsection{Theoretical results}
+	
+	\begin{frame}{Theoretical results}
+		Here, we're interested by (\ref{corr_mult_reh}) with standard FEM.
+		\begin{enumerate}[\ding{217}]
+			\item We can prove the following property:
+			\begin{equation*}
+				\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
+			\end{equation*}
+			with $\hat{u_{ex}}=u_{ex}+m$ the exact solution of (\ref{pb_reh}), $\hat{u_h}$ the solution obtained of (\ref{corr_mult_reh}) such that $\hat{u_h}=\hat{\phi}C_h$ with $\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m$.
+			\item With the previous property, we can show that, with $m$ sufficiently large, the error no longer depends on the solution but only on the perturbation $P$ :
+			\begin{equation*}
+				\left|\left|\frac{\hat{u_{ex}}}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
+			\end{equation*}
+			\item We can also prove that when m tends to infinity, the solution obtained with multiplication correction on an elevated problem  (\ref{corr_mult_reh}) converges to the solution obtained with correction by adding (\ref{corr_add}).
+		\end{enumerate}
+	\end{frame}
 	
 	\subsection{Numerical results}
 	
+	\begin{frame}{Correction on exact solution}
+		We consider the trigonometric solution on the square ($n_{vert}=100$) and
+		$$\tilde{\phi}=u_{ex}\in\mathbb{P}_{10}$$
+		\textbf{Results with FEM :}
+		\begin{center}
+			\pgfimage[width=0.7\linewidth]{images/corr/corr_ana/tab_errors_fem.png}
+		\end{center}
+		\textbf{Results with $\phi$-FEM :}
+		\begin{center}
+			\pgfimage[width=0.7\linewidth]{images/corr/corr_ana/tab_errors_phifem.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Correction on disturbed solution}
+		We consider the trigonometric solution on the square ($n_{vert}=100$) and
+		\begin{equation*}
+			\tilde{\phi}=u_{ex}+\epsilon P\in\mathbb{P}_{10}
+		\end{equation*}
+		where $u_{ex}$ the exact solution to the problem, $P$ the perturbation and $\epsilon$ a real number (amplitude of $P$).
+		
+		We will choose to consider $P$ as being of the same form as our exact solution defined by the parameters $(S_p,f_p,\varphi_p)$ with $\varphi_p=0$. \\
+		\color{red}TO DO !\color{black}
+	\end{frame}
+
+	\begin{frame}{Correction on disturbed solution - Elevated Problem}
+		Try the correction by multiplying on the elevated problem with FEM and $\phi$-FEM :
+		\begin{center}
+			\pgfimage[width=\linewidth]{images/corr/corr_pert/rehaussement/fig_reh.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Correction on a $\phi$-FEM solution}
+		We consider the trigonometric solution on the square and
+		$$\tilde{\phi}=u_{\phi-FEM}\in\mathbb{P}_{2}$$
+		where $u_{\phi-FEM}$ is the solution obtained with $\phi$-FEM ($n_{vert}=32$). \\
+		We will correct this solution with the different correction methods by using FEM. \\
+		We obtain the following correction terms ($\tilde{C}$ for addition and $C$ for multiplication) :
+		\begin{center}
+			\pgfimage[width=0.9\linewidth]{images/corr/corr_phifem/results_corr.png}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}{Correction on a $\phi$-FEM solution - Derivatives}
+		We compute the first and second derivatives of $\tilde{\phi}$ according to $x$ and $y$.
+		\begin{center}
+			\pgfimage[width=\linewidth]{images/corr/corr_phifem/derivees.png}
+		\end{center}
+		We can see that the second derivatives are quite far from the true derivatives.
+	\end{frame}
+
+	\begin{frame}[allowframebreaks]{Correction on a FNO prediction}
+		We consider the unknown solution on the circle (with $f$ Gaussian) and
+		$\tilde{\phi}=u_{FNO}\in\mathbb{P}_{2}$ where $u_{FNO}$ is the FNO prediction ($n_{vert}=32$). \\
+		We will apply the different correction methods on the FNO prediction (of a test sample of size $n_{test}=100$). \\
+		Training on 4000 epochs (with bs=64 and lr=0.01) :
+		\begin{minipage}{0.52\linewidth}
+			\centering
+			\pgfimage[width=0.9\linewidth]{images/corr/corr_FNO/misfits_f_gaussienne.png}
+		\end{minipage}
+		\begin{minipage}{0.46\linewidth}
+			\centering
+			\pgfimage[width=0.7\linewidth]{images/corr/corr_FNO/infos_test_f_gaussienne.png}
+		\end{minipage}	
+		
+		\newpage
+		
+		\begin{minipage}{0.38\linewidth}
+			\centering
+			\pgfimage[width=\linewidth]{images/corr/corr_FNO/boxplot_test_f_gaussienne.png}
+		\end{minipage} \;
+		\begin{minipage}{0.58\linewidth}
+			\centering
+			\pgfimage[width=\linewidth]{images/corr/corr_FNO/corr_boxplot.png}
+		\end{minipage}
+	
+		\textbf{increase the degree of the $\mathbb{P}_k$ space ?} \\
+		interpolation of $\tilde{\phi}$ : decomposition into a series of Legendre polynomials $\Rightarrow$ analytical expression of the solution valid at any point of $\Omega$ $\Rightarrow$ application of the correction in $\mathbb{P}^10$
+	\end{frame}
+
+	\begin{frame}[allowframebreaks]{Correction with other networks}
+		\textbf{Idea :} using a neural network to predict a single solution at any point in the domain \\
+		\quad input data = a collection of $n_{pts}$ 2D points : $\{(x_i,y_i)\}_{i=1,\dots, n_{pts}}$ \\
+		\quad output = solution at each of these points : $\{u_i\}_{i=1,\dots,n_{dots}}$ \\
+		\quad \quad with $u_i=\phi(x_i,y_i)w_i$ and $w_i=w_\theta(x_i,y_i)$.
+		\begin{enumerate}[\ding{217}]
+			\item start with Fully-connected Multi-Layer Perceptron (MLP) but bad derivatives
+			\item try with a Physics-Informed Neural Networks (PINNs)
+			\begin{minipage}{0.48\linewidth}
+				model = MLP with 6-layer network ($\{10,20,60,60,20,10\}$)
+				\centering
+				\pgfimage[width=\linewidth]{images/corr/corr_networks/MLP_schema.png}
+			\end{minipage}
+			\begin{minipage}{0.48\linewidth}
+				Training over 20000 epochs (first half with lr=0.01, second half with lr=0.001) :
+				\centering
+				\pgfimage[width=\linewidth]{images/corr/corr_networks/PINNs_loss.png}
+			\end{minipage}
+		\end{enumerate}
+		
+		\newpage
+		
+		We consider the trigonometric solution on the square and $\tilde{\phi}=u_{PINNs}\in\mathbb{P}_{10}$ where $u_{PINNs}$ is the PINNs prediction ($n_{vert}=32$) and we have 
+		\begin{equation*}
+			||u_{ex}-\tilde{\phi}||_{0,\Omega}^{(rel)}=1.93e-3.
+		\end{equation*}
+		We will correct this solution with the correction by adding (with FEM and $\phi$-FEM).
+		
+		\begin{minipage}{0.48\linewidth}
+			Standard FEM method :
+			\centering
+			\pgfimage[width=0.6\linewidth]{images/corr/corr_networks/PINNs_FEM_add.png} \\
+			$||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.13e-4$ \\
+			divided by 246.60 (FEM : 2.80e-2)
+		\end{minipage}
+		\begin{minipage}{0.48\linewidth}
+			$\phi$-FEM method :
+			\centering
+			\pgfimage[width=0.6\linewidth]{images/corr/corr_networks/PINNs_FEM_add.png} \\
+			$||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.27e-4$ \\
+			divided by 151.34 ($\phi$-FEM : 1.92e-2)
+			
+		\end{minipage}
+		
+	\end{frame}
+	
 	\section{Conclusion} %perspectives
+	
+	\begin{frame}{Conclusion}
+		\begin{enumerate}[\ding{217}]
+			\item obtain numerical results on analytical solutions $\Rightarrow$ correction methods considered functional and theoretical results confirmed
+			\item correction methods on the FNO predictions not satisfactory
+			\item try to increase the degree of the solution : 
+			\begin{itemize}
+				\item Legendre and MLP not satisfactory 
+				\item PINNs : reduction of the error made by conventional methods (FEM and $\phi$-FEM) by a factor of around 100 (correction by addition). 
+			\end{itemize}
+		\end{enumerate}
+		\textbf{Perspectives :}
+		\begin{enumerate}[\ding{217}]
+			\item try adding PINNs to the output of the FNO (add the PINNs as a layer output that would replace the decomposition into a series of polynomials) $\Rightarrow$ solution at any point in the domain 
+			\item carry out some documentation work to find more suitable models than the FNO
+			\item consider more complex and time-varying geometries (such as 3D organ geometries)
+		\end{enumerate}
+	\end{frame}
 
 	\section{Bibliography}
 	
