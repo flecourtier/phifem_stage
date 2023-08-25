@@ -33,7 +33,7 @@
 
 \title[PhiFEM]{Innovative non-conformal finite element methods for augmented surgery}
 \subtitle{Internship presentation}
-\author[name]{LECOURTIER Frédérique, DUPREZ Michel, FRANCK Emmanuel, LLERAS Vanessa}
+\author[name]{Author : LECOURTIER Frédérique \\ Supervisors : DUPREZ Michel, FRANCK Emmanuel, LLERAS Vanessa}
 \institute{\large Strasbourg University}
 \date{\today}
 
@@ -86,7 +86,7 @@
 			\pgfimage[width=0.3\linewidth]{images/intro/logo-mimesis.png}
 		\end{center}
 		\begin{enumerate}[\ding{217}]
-			\item project-team as sub-team of MLMS ("Machine Leraning, Modélisation et Simulation") of Inria
+			\item project-team Inria affiliated with MLMS ("Machine Learning, Modélisation et Simulation") and with The Inria Nancy Center.
 			\item \textbf{Aim :} to create real-time digital twins of an organ
 			\item \textbf{Scientific challenges :}
 			\begin{itemize}
@@ -104,28 +104,33 @@
 	\end{frame}
 
 	\begin{frame}{Scientific context}
-		\color{red}A MODIFIER !!\color{black} \\
-		Because of the geometry of organs, mimesis has developed a new method: the $\phi$-FEM method. \\
-		\textbf{Abstract :} Mimesis propose a new fictitious domain finite element method, well suited for elliptic problems posed
-		in a domain given by a level-set function without requiring a mesh fitting the boundary. 
+		\textbf{Abstract :} Mimesis propose a new fictitious domain finite element method, the $\phi$-FEM Method, given by a level-set function without requiring a mesh fitting the boundary. 
+		
+		\begin{enumerate}[\ding{217}]
+			\item Fictitious domain methods allow to mesh complex geometries to ensure geometric quality (such as organs like the liver)
+			\item Cartesian grid adapted for neural networks
+			\item \textit{Practical case:} Real-time simulation, form optimization
+		\end{enumerate}
+		
 		\begin{center}
-			\pgfimage[width=0.8\linewidth]{images/intro/context_geometry.jpg}
-		\end{center}
+			\pgfimage[width=0.8\linewidth]{images/intro/context_geometry.png}
+		\end{center}		
 	\end{frame}
 
 	\begin{frame}{Objectives - Deliverables}
-		\underline{\textbf{Objectives :}} \\
+		\textbf{Objective :} Correct and certify the prediction of a Fourier Neural Operator (FNO)
+		
+		\textbf{Tools :} 
+		
 		\begin{enumerate}[\ding{217}]
-			\item Train a Fourier Neural Operator (FNO), with $\phi$-FEM solutions, to predict the solutions of a given PDE.
-			\item Apply a correction on the FNO predictions.
+			\item the $\phi$-FEM method (to be adapted for our purpose) 
+			\item the FNO implementation by Vincent Vigon with Tensorflow.
 		\end{enumerate}
-		\textbf{Aim :} Neural networks are very fast, but not very accurate \\
-		=> finite element methods are used to improve prediction accuracy.
-		\textbf{Remark :} Implementation in Python with FEniCS, Pytorch and Tensorflow.
-		\underline{\textbf{Deliverables :}}
+		
+		\textbf{Deliverables :}
 
 		\begin{enumerate}[\ding{217}]
-			\item a \href{https://github.com/flecourtier/phifem_stage/blob/main/docs/suivi/suivi.pdf}{weekly tracking report} ( in French)
+			\item a \href{https://github.com/flecourtier/phifem_stage/blob/main/docs/suivi/suivi.pdf}{weekly tracking report} (in French)
 			\item a \href{https://github.com/flecourtier/phifem_stage}{github repository} containing all the code allowing to reproduce the results presented in this report
 			\item a \href{https://csmi.cemosis.fr/csmi-stages-2023/m2/_attachments/Lecourtier-Fr\%C3\%A9d\%C3\%A9rique.pdf}{report} of the internship
 			\item an \href{https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/main_page.html}{online report} generated with a tool called antora (made by a github CI)
@@ -194,30 +199,22 @@
 				\centering
 				\qquad \pgfimage[width=0.8\linewidth]{images/methods_tools/FEM_triangle_mesh.png}
 			\end{minipage}
+			(Importance of geometric quality)
 			\item Construct a space of piece-wise affine continuous functions, defined by
 			\begin{equation*}
 				V_h:=P_{C,h}^k=\{v_h\in C^0(\bar{\Omega}), \forall K\in\mathcal{T}_h, {v_h}_{|K}\in\mathbb{P}_k\}
 			\end{equation*}
-			where $\mathbb{P}_k$ is a vector space of polynomials of total degree less than or equal to $k$.
-			\item In the case of non-homogeneous condition : use of penalization or elimination methods.
+			where $\mathbb{P}_k$ is the vector space of polynomials of total degree less than or equal to $k$.
 		\end{enumerate}
 		
 	\end{frame}
 
 	\subsection{$\phi$-FEM method}
 	
-	\begin{frame}{Context}
-		\textbf{Idea :} $\phi$-FEM method = new fictitious domain finite element method that does not require a mesh conforming to the real boundary.
-		\begin{center}
-			\pgfimage[width=0.7\linewidth]{images/methods_tools/PhiFEM_context_mesh.png}
-		\end{center}
-		\textbf{Advantage :} boundary represented by a level-set function $\Rightarrow$ only this function will change over time during real-time simulation
-	\end{frame}
-	
 	\begin{frame}{Problem}
-		We pose $u=\phi w$ such that
+		We pose $u=\phi w+g$ such that
 		$$\left\{\begin{aligned}
-			-\Delta (\phi w) &= f, \; \text{on } \Omega, \\
+			-\Delta u &= f, \; \text{on } \Omega, \\
 			u&=g, \; \text{in } \Gamma, \\
 		\end{aligned}\right.$$
 		where $\phi$ is the level-set function and $\Omega$ and $\Gamma$ are given by :
@@ -280,8 +277,7 @@
 		\end{minipage}
 	\end{frame}
 
-	\begin{frame}{Application to the Poisson problem}
-		We start by consider the \textbf{homogeneous case} ($g=0$ on $\Gamma$). \\
+	\begin{frame}{Direct Method - Poisson problem}
 		\textbf{Approach Problem :} Find $w_h\in V_h^{(k)}$ such that 
 		$$a_h(w_h,v_h) = l_h(v_h) \quad \forall v_h \in V_h^{(k)}$$
 		where
@@ -289,6 +285,9 @@
 		$$l_h(v)=\int_{\Omega_h} f \phi_h v + G_h^{rhs}(v)$$
 		and 
 		$$V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T), \; \forall T\in\mathcal{T}_h\right\}.$$
+		For the non homogeneous case, we replace
+		$$u=\phi w \quad \rightarrow \quad u=\phi w+g$$ 
+		by supposing that $g$ is currently given over the entire $\Omega_h$.
 	\end{frame}
 
 	\begin{frame}{Stabilization terms}
@@ -297,7 +296,7 @@
 			\pgfimage[width=\linewidth]{images/methods_tools/PhiFEM_stab_terms.png}
 		\end{center}
 		\small
-		\underline{1st term :} Ghost penality \cite{burman_ghost_2010}, ensure continuity of the solution by penalizing gradient jumps. \\
+		\underline{1st term :} Ghost penality [Burman, 2010], ensure continuity of the solution by penalizing gradient jumps. \\
 		\underline{2nd term :} require the solution to verify the strong form on $\Omega_h^\Gamma$. \\
 		\normalsize
 		\textbf{Purpose :} 
@@ -307,58 +306,22 @@
 			\item permit to restore the coercivity of the bilinear scheme
 		\end{enumerate}
 	\end{frame}
-
-	\begin{frame}{Non-homogeneous case - Direct method}
-		\setstretch{0.5}
-		\small
-		Suppose that $g$ is currently given over the entire $\Omega_h$, we have
-		\begin{equation*}
-			u=\phi w +g, \; \text{on } \Omega_h.
-		\end{equation*}
-		\textit{Problem :} Find $w_h$ on $\Omega_h$ such that
-		\begin{align*}
-			\int_{\Omega_h}\nabla(\phi_h w_h)&\nabla(\phi_h v_h)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi_h w_h)\phi_h v_h+G_h(w_h,v_h)=\int_{\Omega_h}f\phi_h v_h \\
-			&-\int_{\Omega_h}\nabla g\nabla(\phi_h v_h)+\int_{\partial\Omega_h}\frac{\partial g}{\partial n}\phi_h v_h+G_h^{rhs}(v_h), \; \forall v_h\in \Omega_h
-		\end{align*}
-		with
-		\begin{equation*}
-			G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial}{\partial n}(\phi_h w)\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta(\phi_h w)\Delta(\phi_h v)
-		\end{equation*}
-		and
-		\begin{equation*}
-			G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta(\phi_h v)-\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial g}{\partial n}\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta g\Delta(\phi_h v)
-		\end{equation*}
-	\end{frame}
 			
-	\begin{frame}{Non-homogeneous case - Dual method}
-		\setstretch{0.5}
-		\small
-		Assuming $g$ defined on $\Omega_h^\Gamma$, introduce $p$ on $\Omega_h^\Gamma$ in addition to $u$ on $\Omega_h$ with
-		\begin{equation*}
-			u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
-		\end{equation*}
-		\textit{Problem :} Find $u$ on $\Omega_h$ and $p$ on $\Omega_h^\Gamma$ such that
+	\begin{frame}{Dual method -  Poisson Problem}
+		\setstretch{0.5}		
+		\textbf{Problem :} Find $u$ on $\Omega_h$ and $p$ on $\Omega_h^\Gamma$ such that
 		\begin{align*}
-			\int_{\Omega_h}\nabla u\nabla v&-\int_{\partial\Omega_h}\frac{\partial u}{\partial n} v + \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T \left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) + G_h(u,v) = \int_{\Omega_h}fv \\
-			&+ \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T g\left(v-\frac{1}{h}\phi q\right) + G_h^{rhs}(v), \; \forall v \; \text{on } \Omega_h, \; q \; \text{on } \Omega_h^\Gamma.
+			\int_{\Omega_h}\nabla u\nabla v&-\int_{\partial\Omega_h}\frac{\partial u}{\partial n} v + \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T \left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) \\
+			&+ G_h(u,v) = \int_{\Omega_h}fv + G_h^{rhs}(v), \; \forall v \; \text{on } \Omega_h, \; q \; \text{on } \Omega_h^\Gamma
 		\end{align*}
-		with $\gamma$ an other positive stabilization parameter,
-		\begin{equation*}
-			G_h(u,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial u}{\partial n}\right]\left[\frac{\partial v}{\partial n}\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta u\Delta v
-		\end{equation*}
-		\begin{equation*}
-			\text{and } \qquad G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.
-		\end{equation*}
+		with $\gamma$ an other positive stabilization parameter and $G_h$ and $G_h^{rhs}$ the stabilization terms defined previously.
+		
+		For the non homogeneous case, we replace
+		$$\int_T \left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) \quad \rightarrow \quad \int_T\left(u-\frac{1}{h}\phi p-g\right)\left(v-\frac{1}{h}\phi q\right)$$ 
+		by assuming $g$ is defined on $\Omega_h^\Gamma$
 	\end{frame}
 
 	\subsection{Fourier Neural Operator (FNO)}
-	
-	\begin{frame}{Presentation}
-		\begin{enumerate}[\ding{217}]
-			\item widely used in PDE solving and constitute an active field of research
-			\item FNO are Neural Operator networks : Unlike standard neural networks, which learn using inputs and outputs of fixed dimensions, neural operators \textbf{learn operators, which are mappings between spaces of functions}. \item can be evaluated at any data resolution without the need for retraining
-		\end{enumerate}
-	\end{frame}
 
 	\begin{frame}{Architecture of the FNO}
 		\begin{center}
@@ -369,69 +332,15 @@
 		with bs the batch size, ni and nj the grid resolution and nk the number of channels.
 	\end{frame}
 
-	\begin{frame}{Description of the FNO architecture}
-		\begin{center}
-			\centering
-			\pgfimage[width=\linewidth]{images/methods_tools/FNO_schema_moitie1.png}
-		\end{center}
+	\begin{frame}{Important points}
 		\begin{enumerate}[\ding{217}]
-			\item perform a $P$ transformation, to move to a space with more channels (to build a sufficiently rich representation of the data)
-			\item apply $L$ Fourier layers defined by
-			$$\mathcal{H}_\theta^l(\tilde{X})=\sigma\left(\mathcal{C}_\theta^l(\tilde{X})+\mathcal{B}_\theta^l(\tilde{X})\right),\; l=1,\dots,L$$
-			with $\tilde{X}$ the input of the current layer and
-			\begin{itemize}
-				\item $\sigma$ an activation function (ReLU or GELU)
-				\item $\mathcal{C}_\theta^l$ : convolution sublayer (convolution performed by Fast Fourier Transform)
-				\item $\mathcal{B}_\theta^l$ : "bias-sublayer"
-			\end{itemize}
-			\item return to the target dimension by performing a $Q$ transformation (in our case, the number of output channels is 1)
+			\item widely used in PDE solving and constitute an active field of research
+			\item FNO are Neural Operator networks : Unlike standard neural networks, which learn using inputs and outputs of fixed dimensions, neural operators \textbf{learn operators, which are mappings between spaces of functions}.
+			\item \textbf{Mesh resolution independent :} can be evaluated at any data resolution without the need for retraining
 		\end{enumerate}
 	\end{frame}
 
-	\begin{frame}{Fourier Layer Structure}
-		\setstretch{0.5}
-		\textbf{Convolution sublayer : } \quad $\mathcal{C}_\theta^l(X)=\mathcal{F}^{-1}(\mathcal{F}(X)\cdot\hat{W})$ \quad
-		\begin{minipage}{0.3\linewidth}
-			\vspace{-15pt}
-			\centering
-			\pgfimage[width=\linewidth]{images/methods_tools/FNO_schema_moitie2.png}
-		\end{minipage}
-		\begin{enumerate}[\ding{217}]
-			\item $\hat{W}$ : a trainable kernel
-			\item $\mathcal{F}$ : 2D Discrete Fourier Transform (DFT) defined by
-			\begin{equation*}
-				\mathcal{F}(X)_{ijk}=\frac{1}{ni}\frac{1}{nj}\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}X_{i'j'k}e^{-2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)}
-			\end{equation*}
-			$\mathcal{F}^{-1}$ : its inverse.
-			\item $(Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'} \quad \Rightarrow \quad$ applied channel by channel
-		\end{enumerate} \; \\
-		\textbf{Bias-sublayer :} \quad  $\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k$ \quad
-		\begin{minipage}{0.3\linewidth}
-			\vspace{-10pt}
-			\pgfimage[width=0.3\linewidth]{images/methods_tools/FNO_schema_moitie2_bis.png}
-		\end{minipage}
-		\begin{enumerate}[\ding{217}]
-			\item 2D convolution with a kernel of size 1
-			\item allowing channels to be mixed via a kernel without allowing interaction between pixels.
-		\end{enumerate}
-	\end{frame}
-
-	\begin{frame}{Some details on the FNO}
-		\begin{enumerate}[\ding{217}]
-			\item \textbf{Mesh resolution independent : }
-			\begin{itemize}
-				\item $P$ and $Q$ = fully-connected multi-layer perceptron $\Rightarrow$ perform local transformations at each point
-				\item Fourier layers also independent of mesh resolution : learn in Fourier space so the value of the Fourier modes does not depend on the mesh resolution
-			\end{itemize}
-			\item \textbf{Low pass filter :} truncate high Fourier modes to ignore high frequencies $\Rightarrow$ enable a kind of regularization that helps the generalization
-			\begin{center}
-				\pgfimage[width=0.5\linewidth]{images/methods_tools/FNO_low_pass_filter.png}
-			\end{center}
-		\end{enumerate}		
-		\textbf{Limitation :} Use of regular grid $\Rightarrow$ only $\mathbb{P}_1$ or $\mathbb{P}_2$ solution
-	\end{frame}
-
-	\begin{frame}{Application}
+	\begin{frame}{Objective}
 		FNO Training :
 		\begin{center}
 			\pgfimage[width=\linewidth]{images/methods_tools/FNO_train_schema.png}
@@ -454,29 +363,28 @@
 		\end{minipage} \;
 		\begin{minipage}{0.68\linewidth}
 			\begin{enumerate}[\ding{217}]
-				\item Level-set function (for formulation) : $$\phi(x,y)=x(1-x)y(1-y)$$
-				\item Level-set function (for construction) : $$\phi_C(X)=||X-0.5||_\infty-0.5$$
-				
+				\item Level-set function : 
+				$$\phi(x,y)=x(1-x)y(1-y)$$
+				\item Analytical solution : (Homogeneous if $\varphi=0$)
+				$$u_{ex}(x,y)=S\times sin\left(2\pi fx+\varphi\right)\times sin\left(2\pi fy+\varphi\right)$$				
 			\end{enumerate}
 		\end{minipage}
-
 		
-			\begin{enumerate}[\ding{217}]
-				\item Analytical solution : (Homogeneous if $\varphi=0$)
-				$$u_{ex}(x,y)=S\times sin\left(2\pi fx+\varphi\right)\times sin\left(2\pi fy+\varphi\right)$$
-				\item Source term : $$f(x,y)=8\pi^2 Sf^2sin\left(2\pi fx + \varphi\right)sin\left(2\pi fy + \varphi\right)$$
-				\begin{minipage}{0.48\linewidth}
-					\begin{itemize}
-						\item $S\in[0,1]$ : amplitude of the signal 
-						\item $f\in\mathbb{N}$ : "frequency" of the signal
-						\item $\varphi\in[0,1]$ : phase at the origin
-					\end{itemize}
-				\end{minipage} \;
-				\begin{minipage}{0.48\linewidth}
-					\centering
-					\pgfimage[width=\linewidth]{images/corr/norms.png}
-				\end{minipage}
-			\end{enumerate}
+		\begin{enumerate}[\ding{217}]
+			\item Source term : $$f(x,y)=8\pi^2 Sf^2sin\left(2\pi fx + \varphi\right)sin\left(2\pi fy + \varphi\right)$$
+			
+			\begin{minipage}{0.48\linewidth}
+				\begin{itemize}
+					\item $S=0.5\in[0,1]$ : amplitude of the signal 
+					\item $f\in\mathbb{N}$ : "frequency" of the signal
+					\item $\varphi\in[0,1]$ : phase at the origin
+				\end{itemize}
+			\end{minipage} \;
+			\begin{minipage}{0.48\linewidth}
+				\centering
+				\pgfimage[width=\linewidth]{images/corr/norms.png}
+			\end{minipage}
+		\end{enumerate}
 	\end{frame}
 
 	\begin{frame}{Unknown solution on a Circle}
@@ -520,7 +428,8 @@
 				\tilde{u}&=g, \; &&\text{in } \Gamma.
 			\end{aligned}\right.
 		\end{equation*}
-		with $\tilde{C}\phi C$ for the $\phi$-FEM method
+		with $\tilde{C}=\phi C$ for the $\phi$-FEM method.
+		
 		Rewriting the problem, we seek to find $\tilde{C}: \Omega \rightarrow \mathbb{R}^d$ solution to the problem
 		\begin{equation}
 			\left\{\begin{aligned}
@@ -578,18 +487,17 @@
 	\end{frame}
 	
 	\begin{frame}{Theoretical results}
-		Here, we're interested by (\ref{corr_mult_reh}) with standard FEM.
+		We consider $\hat{u_{ex}}=u_{ex}+m$ the exact solution of the elevated problem \ref{pb_reh} with $u_{ex}$ the exact solution of the initial problem \ref{pb_initial}. \\
+		Here, we are interested by (\ref{corr_mult_reh}) with standard FEM on a disturbed solution defined by
+		$$\hat{\phi}=\tilde{\phi}+m=\hat{u_{ex}}+\epsilon P$$
+		with $\tilde{\phi}=u_{ex}+\epsilon P$.
 		\begin{enumerate}[\ding{217}]
-			\item We can prove the following property:
-			\begin{equation*}
-				\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
-			\end{equation*}
-			with $\hat{u_{ex}}=u_{ex}+m$ the exact solution of (\ref{pb_reh}), $\hat{u_h}$ the solution obtained of (\ref{corr_mult_reh}) such that $\hat{u_h}=\hat{\phi}C_h$ with $\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m$.
-			\item With the previous property, we can show that, with $m$ sufficiently large, the error no longer depends on the solution but only on the perturbation $P$ :
+			\item We have $\quad \left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}$
+			\item With $m$ sufficiently large, the error no longer depends on the solution but only on the perturbation $P$ :
 			\begin{equation*}
 				\left|\left|\frac{\hat{u_{ex}}}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
 			\end{equation*}
-			\item We can also prove that when m tends to infinity, the solution obtained with multiplication correction on an elevated problem  (\ref{corr_mult_reh}) converges to the solution obtained with correction by adding (\ref{corr_add}).
+			\item When m tends to infinity, the solution obtained with multiplication correction on an elevated problem  (\ref{corr_mult_reh}) converges to the solution obtained with correction by adding (\ref{corr_add}).
 		\end{enumerate}
 	\end{frame}
 	
@@ -600,55 +508,56 @@
 		$$\tilde{\phi}=u_{ex}\in\mathbb{P}_{10}$$
 		\textbf{Results with FEM :}
 		\begin{center}
-			\pgfimage[width=0.7\linewidth]{images/corr/corr_ana/tab_errors_fem.png}
+			\pgfimage[width=0.6\linewidth]{images/corr/corr_ana/tab_errors_fem.png}
 		\end{center}
 		\textbf{Results with $\phi$-FEM :}
 		\begin{center}
-			\pgfimage[width=0.7\linewidth]{images/corr/corr_ana/tab_errors_phifem.png}
+			\pgfimage[width=0.6\linewidth]{images/corr/corr_ana/tab_errors_phifem.png}
 		\end{center}
+		\textbf{Remark :} For the addition, we hope $C=0$ and for the multiplication $C=1$ (on $\Omega$).
 	\end{frame}
 
-	\begin{frame}{Correction on disturbed solution}
-		We consider the trigonometric solution on the square ($n_{vert}=100$) and
-		\begin{equation*}
-			\tilde{\phi}=u_{ex}+\epsilon P\in\mathbb{P}_{10}
-		\end{equation*}
-		where $u_{ex}$ the exact solution to the problem, $P$ the perturbation and $\epsilon$ a real number (amplitude of $P$).
+	\begin{frame}[allowframebreaks]{Correction on disturbed solution}
+		We consider the trigonometric solution on the square ($n_{vert}=100$ and $\varphi=0$) and
+		$$\tilde{\phi}=u_{ex}+\epsilon P\in\mathbb{P}_{10}$$
 		
-		We will choose to consider $P$ as being of the same form as our exact solution defined by the parameters $(S_p,f_p,\varphi_p)$ with $\varphi_p=0$. \\
-		\color{red}TO DO !\color{black}
-	\end{frame}
-
-	\begin{frame}{Correction on disturbed solution - Elevated Problem}
-		Try the correction by multiplying on the elevated problem with FEM and $\phi$-FEM :
+		where $\epsilon$ a real number and $P$ the perturbation (same expression as $u_{ex}$ with $(S_p,f_p,\varphi_p)$ parameters). Consider $\varphi_p=0$ so that $P=0$ on $\Gamma$ and therefore $\tilde{\phi}=0$ on $\Gamma$.
+		
+		\textbf{1st result :} $\epsilon$ convergence. \\
+		Correction by adding with FEM :
+		\begin{center}
+			\pgfimage[width=0.27\linewidth]{images/corr/corr_pert/epsilon_convergence.png}
+		\end{center}
+	
+		\textbf{2nd result :} Importance of perturbation form.
+		
+		We fix $f_p=2$ and $\epsilon=0.001$. \\
+		Correction by multiplying on an elevated problem with FEM :
+		\begin{minipage}{0.58\linewidth}
+			\centering
+			\pgfimage[width=0.9\linewidth]{images/corr/corr_pert/pert_tab.png}
+		\end{minipage} \;
+		\begin{minipage}{0.38\linewidth}
+			\centering
+			\pgfimage[width=\linewidth]{images/corr/corr_pert/pert_fig.png}
+		\end{minipage}
+	
+		\newpage
+	
+		\textbf{3rd result :} Convergence of the correction by multiplying on an elevated problem. \\
+		Correction by multiplying on the elevated problem with FEM and $\phi$-FEM :
 		\begin{center}
 			\pgfimage[width=\linewidth]{images/corr/corr_pert/rehaussement/fig_reh.png}
 		\end{center}
-	\end{frame}
-
-	\begin{frame}{Correction on a $\phi$-FEM solution}
-		We consider the trigonometric solution on the square and
-		$$\tilde{\phi}=u_{\phi-FEM}\in\mathbb{P}_{2}$$
-		where $u_{\phi-FEM}$ is the solution obtained with $\phi$-FEM ($n_{vert}=32$). \\
-		We will correct this solution with the different correction methods by using FEM. \\
-		We obtain the following correction terms ($\tilde{C}$ for addition and $C$ for multiplication) :
-		\begin{center}
-			\pgfimage[width=0.9\linewidth]{images/corr/corr_phifem/results_corr.png}
-		\end{center}
-	\end{frame}
-
-	\begin{frame}{Correction on a $\phi$-FEM solution - Derivatives}
-		We compute the first and second derivatives of $\tilde{\phi}$ according to $x$ and $y$.
-		\begin{center}
-			\pgfimage[width=\linewidth]{images/corr/corr_phifem/derivees.png}
-		\end{center}
-		We can see that the second derivatives are quite far from the true derivatives.
+	
+		\textbf{Remark :} For $\phi$-FEM, we do not find the same type of results
 	\end{frame}
 
 	\begin{frame}[allowframebreaks]{Correction on a FNO prediction}
 		We consider the unknown solution on the circle (with $f$ Gaussian) and
-		$\tilde{\phi}=u_{FNO}\in\mathbb{P}_{2}$ where $u_{FNO}$ is the FNO prediction ($n_{vert}=32$). \\
-		We will apply the different correction methods on the FNO prediction (of a test sample of size $n_{test}=100$). \\
+		$$\tilde{\phi}=u_{FNO}\in\mathbb{P}_{2}$$
+		where $u_{FNO}$ is the FNO prediction ($n_{vert}=32$). \\
+		We consider a test sample of size $n_{test}=100$. \\
 		Training on 4000 epochs (with bs=64 and lr=0.01) :
 		\begin{minipage}{0.52\linewidth}
 			\centering
@@ -661,38 +570,36 @@
 		
 		\newpage
 		
-		\begin{minipage}{0.38\linewidth}
-			\centering
-			\pgfimage[width=\linewidth]{images/corr/corr_FNO/boxplot_test_f_gaussienne.png}
-		\end{minipage} \;
+		We will apply the different correction methods on the FNO prediction on the test sample. \\
 		\begin{minipage}{0.58\linewidth}
 			\centering
 			\pgfimage[width=\linewidth]{images/corr/corr_FNO/corr_boxplot.png}
+		\end{minipage} \;
+		\begin{minipage}{0.38\linewidth}
+			\centering
+			\pgfimage[width=\linewidth]{images/corr/corr_FNO/corr_errors.png}
 		\end{minipage}
-	
-		\textbf{increase the degree of the $\mathbb{P}_k$ space ?} \\
-		interpolation of $\tilde{\phi}$ : decomposition into a series of Legendre polynomials $\Rightarrow$ analytical expression of the solution valid at any point of $\Omega$ $\Rightarrow$ application of the correction in $\mathbb{P}^10$
 	\end{frame}
 
 	\begin{frame}[allowframebreaks]{Correction with other networks}
 		\textbf{Idea :} using a neural network to predict a single solution at any point in the domain \\
 		\quad input data = a collection of $n_{pts}$ 2D points : $\{(x_i,y_i)\}_{i=1,\dots, n_{pts}}$ \\
 		\quad output = solution at each of these points : $\{u_i\}_{i=1,\dots,n_{dots}}$ \\
-		\quad \quad with $u_i=\phi(x_i,y_i)w_i$ and $w_i=w_\theta(x_i,y_i)$.
-		\begin{enumerate}[\ding{217}]
-			\item start with Fully-connected Multi-Layer Perceptron (MLP) but bad derivatives
-			\item try with a Physics-Informed Neural Networks (PINNs)
-			\begin{minipage}{0.48\linewidth}
-				model = MLP with 6-layer network ($\{10,20,60,60,20,10\}$)
-				\centering
-				\pgfimage[width=\linewidth]{images/corr/corr_networks/MLP_schema.png}
-			\end{minipage}
-			\begin{minipage}{0.48\linewidth}
-				Training over 20000 epochs (first half with lr=0.01, second half with lr=0.001) :
-				\centering
-				\pgfimage[width=\linewidth]{images/corr/corr_networks/PINNs_loss.png}
-			\end{minipage}
-		\end{enumerate}
+		\quad \quad with $u_i=\phi(x_i,y_i)w_i$ and $w_i=w_\theta(x_i,y_i)$. \\
+		
+		We try with a Physics-Informed Neural Networks (PINNs)
+		
+		\begin{minipage}{0.48\linewidth}
+			model = MLP with 6-layer network ($\{10,20,60,60,20,10\}$)
+			\centering
+			\pgfimage[width=0.7\linewidth]{images/corr/corr_networks/MLP_schema.png}
+			$$loss = mse(\Delta (\phi(x_i,y_i)w_{\theta,i})+f_i)$$
+		\end{minipage}
+		\begin{minipage}{0.48\linewidth}
+			Training over 20000 epochs ($n_{test}=20000$) :
+			\centering
+			\pgfimage[width=\linewidth]{images/corr/corr_networks/PINNs_loss.png}
+		\end{minipage}
 		
 		\newpage
 		
@@ -715,7 +622,6 @@
 			\pgfimage[width=0.6\linewidth]{images/corr/corr_networks/PINNs_FEM_add.png} \\
 			$||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.27e-4$ \\
 			divided by 151.34 ($\phi$-FEM : 1.92e-2)
-			
 		\end{minipage}
 		
 	\end{frame}
@@ -743,7 +649,76 @@
 	\section{Bibliography}
 	
 	\begin{frame}[allowframebreaks]{}
+		\tiny
+		\setstretch{0.2}
+		\AtNextBibliography{\tiny}
 		\printbibliography[heading=none]
+	\end{frame}
+
+	\begin{frame}{Description of the FNO architecture}
+		\begin{center}
+			\centering
+			\pgfimage[width=\linewidth]{images/methods_tools/FNO_schema_moitie1.png}
+		\end{center}
+		\begin{enumerate}[\ding{217}]
+			\item perform a $P$ transformation, to move to a space with more channels (to build a sufficiently rich representation of the data)
+			\item apply $L$ Fourier layers defined by
+			$$\mathcal{H}_\theta^l(\tilde{X})=\sigma\left(\mathcal{C}_\theta^l(\tilde{X})+\mathcal{B}_\theta^l(\tilde{X})\right),\; l=1,\dots,L$$
+			with $\tilde{X}$ the input of the current layer and
+			\begin{itemize}
+				\item $\sigma$ an activation function (ReLU or GELU)
+				\item $\mathcal{C}_\theta^l$ : convolution sublayer (convolution performed by Fast Fourier Transform)
+				\item $\mathcal{B}_\theta^l$ : "bias-sublayer"
+			\end{itemize}
+			\item return to the target dimension by performing a $Q$ transformation (in our case, the number of output channels is 1)
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Fourier Layer Structure}
+		\setstretch{0.5}
+		\textbf{Convolution sublayer : } \quad $\mathcal{C}_\theta^l(X)=\mathcal{F}^{-1}(\mathcal{F}(X)\cdot\hat{W})$ \quad
+		\begin{minipage}{0.3\linewidth}
+			\vspace{-15pt}
+			\centering
+			\pgfimage[width=\linewidth]{images/methods_tools/FNO_schema_moitie2.png}
+		\end{minipage}
+		\begin{enumerate}[\ding{217}]
+			\item $\hat{W}$ : a trainable kernel
+			\item $\mathcal{F}$ : 2D Discrete Fourier Transform (DFT) defined by
+			\begin{equation*}
+				\mathcal{F}(X)_{ijk}=\frac{1}{ni}\frac{1}{nj}\sum_{i'=0}^{ni-1}\sum_{j'=0}^{nj-1}X_{i'j'k}e^{-2\sqrt{-1}\pi\left(\frac{ii'}{ni}+\frac{jj'}{nj}\right)}
+			\end{equation*}
+			$\mathcal{F}^{-1}$ : its inverse.
+			\item $(Y\cdot\hat{W})_{ijk}=\sum_{k'}Y_{ijk'}\hat{W}_{ijk'} \quad \Rightarrow \quad$ applied channel by channel
+		\end{enumerate} \; \\
+		\textbf{Bias-sublayer :} \quad  $\mathcal{B}_\theta^l(X)_{ijk}=\sum_{k'}X_{ijk}W_{k'k}+B_k$ \quad
+		\begin{minipage}{0.3\linewidth}
+			\vspace{-10pt}
+			\pgfimage[width=0.3\linewidth]{images/methods_tools/FNO_schema_moitie2_bis.png}
+		\end{minipage}
+		\begin{enumerate}[\ding{217}]
+			\item 2D convolution with a kernel of size 1
+			\item allowing channels to be mixed via a kernel without allowing interaction between pixels.
+		\end{enumerate}
+	\end{frame}
+
+	\begin{frame}{Correction on a $\phi$-FEM solution}
+		We consider the trigonometric solution on the square and
+		$$\tilde{\phi}=u_{\phi-FEM}\in\mathbb{P}_{2}$$
+		where $u_{\phi-FEM}$ is the solution obtained with $\phi$-FEM ($n_{vert}=32$). \\
+		We will correct this solution with the different correction methods by using FEM. \\
+		We obtain the following correction terms ($\tilde{C}$ for addition and $C$ for multiplication) :
+		\begin{center}
+			\pgfimage[width=0.9\linewidth]{images/corr/corr_phifem/results_corr.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Correction on a $\phi$-FEM solution - Derivatives}
+		We compute the first and second derivatives of $\tilde{\phi}$ according to $x$ and $y$.
+		\begin{center}
+			\pgfimage[width=\linewidth]{images/corr/corr_phifem/derivees.png}
+		\end{center}
+		We can see that the second derivatives are quite far from the true derivatives.
 	\end{frame}
 	
 \end{document}

@@ -33,7 +33,6 @@
       \strng{authorbibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
       \strng{authornamehash}{ba7b7eca8e1653f3c81058830148d4f3}
       \strng{authorfullhash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \field{extraname}{1}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
@@ -41,53 +40,9 @@
       \field{abstract}{Les éléments finis : de la théorie à la pratique}
       \field{shorttitle}{Les éléments finis}
       \field{title}{Les éléments finis : de la théorie à la pratique}
-      \field{urlday}{16}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{file}
       \verb Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\8EUFDPSW\\Les_éléments_finis_de_la_théorie_à_la_pratique.html:text/html
-      \endverb
-      \verb{urlraw}
-      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
-      \endverb
-      \verb{url}
-      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
-      \endverb
-    \endentry
-    \entry{bedlaoui_les_nodate-1}{book}{}
-      \name{author}{1}{}{%
-        {{hash=ba7b7eca8e1653f3c81058830148d4f3}{%
-           family={Bedlaoui},
-           familyi={B\bibinitperiod},
-           given={Allal},
-           giveni={A\bibinitperiod}}}%
-      }
-      \strng{namehash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \strng{fullhash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \strng{bibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \strng{authorbibnamehash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \strng{authornamehash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \strng{authorfullhash}{ba7b7eca8e1653f3c81058830148d4f3}
-      \field{extraname}{2}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Les éléments finis : de la théorie à la pratique}
-      \field{shorttitle}{Les éléments finis}
-      \field{title}{Les éléments finis : de la théorie à la pratique}
-      \field{urlday}{16}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
-      \field{urldateera}{ce}
-      \true{nocite}
-      \verb{urlraw}
-      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
-      \endverb
-      \verb{url}
-      \verb https://www.academia.edu/36497995/Les_%C3%A9l%C3%A9ments_finis_de_la_th%C3%A9orie_%C3%A0_la_pratique
       \endverb
     \endentry
     \entry{brezis_functional_2011}{book}{}
@@ -117,21 +72,11 @@
       \field{isbn}{978-0-387-70913-0 978-0-387-70914-7}
       \field{langid}{english}
       \field{title}{Functional Analysis, Sobolev Spaces and Partial Differential Equations}
-      \field{urlday}{17}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
       \field{year}{2011}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{doi}
       \verb 10.1007/978-0-387-70914-7
-      \endverb
-      \verb{urlraw}
-      \verb https://link.springer.com/10.1007/978-0-387-70914-7
-      \endverb
-      \verb{url}
-      \verb https://link.springer.com/10.1007/978-0-387-70914-7
       \endverb
     \endentry
     \entry{burman_ghost_2010}{article}{}
@@ -158,23 +103,13 @@
       \field{note}{Number: 21-22}
       \field{number}{21}
       \field{title}{Ghost penalty}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{348}
       \field{year}{2010}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \field{pages}{1217\bibrangedash 1220}
       \range{pages}{4}
       \verb{doi}
       \verb 10.1016/j.crma.2010.10.006
-      \endverb
-      \verb{urlraw}
-      \verb http://www.numdam.org/articles/10.1016/j.crma.2010.10.006/
-      \endverb
-      \verb{url}
-      \verb http://www.numdam.org/articles/10.1016/j.crma.2010.10.006/
       \endverb
     \endentry
     \entry{burman_cutfem_2015}{article}{}
@@ -223,24 +158,14 @@
       \field{number}{7}
       \field{shorttitle}{{CutFEM}}
       \field{title}{{CutFEM}: Discretizing geometry and partial differential equations}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{104}
       \field{year}{2015}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \field{pages}{472\bibrangedash 501}
       \range{pages}{30}
       \verb{doi}
       \verb 10.1002/nme.4823
-      \endverb
-      \verb{urlraw}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.4823
-      \endverb
-      \verb{url}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.4823
       \endverb
       \keyw{extended finite element method,finite element methods,Galerkin,level sets,meshfree methods,stability,unfitted methods}
     \endentry
@@ -326,24 +251,14 @@
       \field{shortjournal}{{ESAIM}: M2AN}
       \field{shorttitle}{$\phi$ -{FEM}}
       \field{title}{$\phi$-{FEM}: an optimally convergent and easily implementable immersed boundary method for particulate flows and Stokes equations}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{57}
       \field{year}{2023}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \field{pages}{1111\bibrangedash 1142}
       \range{pages}{32}
       \verb{doi}
       \verb 10.1051/m2an/2023010
-      \endverb
-      \verb{urlraw}
-      \verb https://www.esaim-m2an.org/10.1051/m2an/2023010
-      \endverb
-      \verb{url}
-      \verb https://www.esaim-m2an.org/10.1051/m2an/2023010
       \endverb
     \endentry
     \entry{duprez_new_2023}{article}{}
@@ -382,24 +297,14 @@
       \field{note}{Number: 1 \_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/num.22878}
       \field{number}{1}
       \field{title}{A new $\phi$-{FEM} approach for problems with natural boundary conditions}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{39}
       \field{year}{2023}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \field{pages}{281\bibrangedash 303}
       \range{pages}{23}
       \verb{doi}
       \verb 10.1002/num.22878
-      \endverb
-      \verb{urlraw}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/num.22878
-      \endverb
-      \verb{url}
-      \verb https://onlinelibrary.wiley.com/doi/abs/10.1002/num.22878
       \endverb
       \keyw{fictitious domain,finite element method,numerical analysis}
     \endentry
@@ -435,24 +340,14 @@
       \field{shortjournal}{{SIAM} J. Numer. Anal.}
       \field{shorttitle}{$\phi$-{FEM}}
       \field{title}{$\phi$-{FEM}: A Finite Element Method on Domains Defined by Level-Sets}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{58}
       \field{year}{2020}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \field{pages}{1008\bibrangedash 1028}
       \range{pages}{21}
       \verb{doi}
       \verb 10.1137/19M1248947
-      \endverb
-      \verb{urlraw}
-      \verb https://epubs.siam.org/doi/10.1137/19M1248947
-      \endverb
-      \verb{url}
-      \verb https://epubs.siam.org/doi/10.1137/19M1248947
       \endverb
     \endentry
     \entry{li_neural_2020}{misc}{}
@@ -514,12 +409,8 @@
       \field{number}{{arXiv}:2003.03485}
       \field{shorttitle}{Neural Operator}
       \field{title}{Neural Operator: Graph Kernel Network for Partial Differential Equations}
-      \field{urlday}{17}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
       \field{year}{2020}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.2003.03485
@@ -529,12 +420,6 @@
       \endverb
       \verb{file}
       \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\RR7G6ACN\\Li et al. - 2020 - Neural Operator Graph Kernel Network for Partial .pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\3BA468BP\\2003.html:text/html
-      \endverb
-      \verb{urlraw}
-      \verb http://arxiv.org/abs/2003.03485
-      \endverb
-      \verb{url}
-      \verb http://arxiv.org/abs/2003.03485
       \endverb
       \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis,Statistics - Machine Learning}
     \endentry
@@ -597,24 +482,14 @@
       \field{note}{Issue: {arXiv}:2010.08895}
       \field{number}{{arXiv}:2010.08895}
       \field{title}{Fourier Neural Operator for Parametric Partial Differential Equations}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{year}{2021}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.2010.08895
       \endverb
       \verb{eprint}
       \verb 2010.08895 [cs, math]
-      \endverb
-      \verb{urlraw}
-      \verb http://arxiv.org/abs/2010.08895
-      \endverb
-      \verb{url}
-      \verb http://arxiv.org/abs/2010.08895
       \endverb
       \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
     \endentry
@@ -661,12 +536,8 @@
       \field{month}{7}
       \field{number}{{arXiv}:2207.05209}
       \field{title}{Fourier Neural Operator with Learned Deformations for {PDEs} on General Geometries}
-      \field{urlday}{17}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
       \field{year}{2022}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.2207.05209
@@ -676,12 +547,6 @@
       \endverb
       \verb{file}
       \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\GZ6KQYA4\\Li et al. - 2022 - Fourier Neural Operator with Learned Deformations .pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\24RAWPUX\\2207.html:text/html
-      \endverb
-      \verb{urlraw}
-      \verb http://arxiv.org/abs/2207.05209
-      \endverb
-      \verb{url}
-      \verb http://arxiv.org/abs/2207.05209
       \endverb
       \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
     \endentry
@@ -748,12 +613,8 @@
       \field{month}{7}
       \field{number}{{arXiv}:2111.03794}
       \field{title}{Physics-Informed Neural Operator for Learning Partial Differential Equations}
-      \field{urlday}{17}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
       \field{year}{2023}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.2111.03794
@@ -764,12 +625,6 @@
       \verb{file}
       \verb arXiv Fulltext PDF:C\:\\Users\\Elève\\Zotero\\storage\\F3JX48IL\\Li et al. - 2023 - Physics-Informed Neural Operator for Learning Part.pdf:application/pdf;arXiv.org Snapshot:C\:\\Users\\Elève\\Zotero\\storage\\6IKINPQE\\2111.html:text/html
       \endverb
-      \verb{urlraw}
-      \verb http://arxiv.org/abs/2111.03794
-      \endverb
-      \verb{url}
-      \verb http://arxiv.org/abs/2111.03794
-      \endverb
       \keyw{Computer Science - Machine Learning,Mathematics - Numerical Analysis}
     \endentry
     \entry{noauthor_methodes_nodate}{online}{}
@@ -777,19 +632,9 @@
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labeltitlesource}{title}
       \field{title}{Méthodes numériques pour les {EDP}}
-      \field{urlday}{16}
-      \field{urlmonth}{8}
-      \field{urlyear}{2023}
-      \field{urldateera}{ce}
       \true{nocite}
       \verb{file}
       \verb Méthodes numériques pour les EDP:C\:\\Users\\Elève\\Zotero\\storage\\8SHDDVTY\\csmi-edp.html:text/html
-      \endverb
-      \verb{urlraw}
-      \verb https://feelpp.github.io/csmi-edp/#/
-      \endverb
-      \verb{url}
-      \verb https://feelpp.github.io/csmi-edp/#/
       \endverb
     \endentry
     \entry{moes_x-fem_2002}{article}{}
@@ -824,24 +669,14 @@
       \field{number}{2}
       \field{shortjournal}{Revue Européenne des Éléments Finis}
       \field{title}{X-{FEM}, de nouvelles frontières pour les éléments finis}
-      \field{urlday}{26}
-      \field{urlmonth}{7}
-      \field{urlyear}{2023}
       \field{volume}{11}
       \field{year}{2002}
       \field{dateera}{ce}
-      \field{urldateera}{ce}
       \true{nocite}
       \field{pages}{305\bibrangedash 318}
       \range{pages}{14}
       \verb{doi}
       \verb 10.3166/reef.11.305-318
-      \endverb
-      \verb{urlraw}
-      \verb https://www.tandfonline.com/doi/full/10.3166/reef.11.305-318
-      \endverb
-      \verb{url}
-      \verb https://www.tandfonline.com/doi/full/10.3166/reef.11.305-318
       \endverb
     \endentry
     \entry{quarteroni_methodes_2007}{book}{}

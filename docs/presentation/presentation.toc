@@ -2,10 +2,10 @@
 \beamer@sectionintoc {2}{General methods and tools}{7}{0}{2}
 \beamer@subsectionintoc {2}{1}{Standard FEM method}{8}{0}{2}
 \beamer@subsectionintoc {2}{2}{$\phi $-FEM method}{11}{0}{2}
-\beamer@subsectionintoc {2}{3}{Fourier Neural Operator (FNO)}{20}{0}{2}
-\beamer@sectionintoc {3}{Correction}{27}{0}{3}
-\beamer@subsectionintoc {3}{1}{Problems considered}{28}{0}{3}
-\beamer@subsectionintoc {3}{2}{Methods considered}{31}{0}{3}
-\beamer@subsectionintoc {3}{3}{Numerical results}{36}{0}{3}
-\beamer@sectionintoc {4}{Conclusion}{46}{0}{4}
-\beamer@sectionintoc {5}{Bibliography}{48}{0}{5}
+\beamer@subsectionintoc {2}{3}{Fourier Neural Operator (FNO)}{18}{0}{2}
+\beamer@sectionintoc {3}{Correction}{22}{0}{3}
+\beamer@subsectionintoc {3}{1}{Problems considered}{23}{0}{3}
+\beamer@subsectionintoc {3}{2}{Methods considered}{26}{0}{3}
+\beamer@subsectionintoc {3}{3}{Numerical results}{31}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{40}{0}{4}
+\beamer@sectionintoc {5}{Bibliography}{42}{0}{5}
