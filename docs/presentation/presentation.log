@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2022.4.1)  25 AUG 2023 02:20
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2022.4.1)  25 AUG 2023 02:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1957,13 +1957,9 @@ File: images/corr/corr_FNO/corr_boxplot.png Graphic file (type bmp)
 <images/corr/corr_FNO/corr_boxplot.png>
 File: images/corr/corr_FNO/corr_errors.png Graphic file (type bmp)
 <images/corr/corr_FNO/corr_errors.png>
-
-Overfull \vbox (1.73889pt too high) detected at line 582
- []
-
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
-[36
+ [36
 
 ]
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
@@ -1990,7 +1986,8 @@ File: images/intro/logo-mimesis.png Graphic file (type bmp)
  [39
 
 
-] (presentation.toc)
+]
+(presentation.toc)
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
  [40
@@ -1999,12 +1996,12 @@ File: images/intro/logo-mimesis.png Graphic file (type bmp)
 
 Package paralist Warning: Incorrect label; no or multiple counters.
 (paralist)                The label is: {\fontfamily {pzd}\fontencoding {U}\fon
-tseries {m}\fontshape {n}\selectfont \char 217} on input line 647.
+tseries {m}\fontshape {n}\selectfont \char 217} on input line 650.
 
 
 Package paralist Warning: Incorrect label; no or multiple counters.
 (paralist)                The label is: {\fontfamily {pzd}\fontencoding {U}\fon
-tseries {m}\fontshape {n}\selectfont \char 217} on input line 647.
+tseries {m}\fontshape {n}\selectfont \char 217} on input line 650.
 
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
@@ -2027,7 +2024,7 @@ File: images/methods_tools/FNO_schema_moitie1.png Graphic file (type bmp)
 
 Package paralist Warning: Incorrect label; no or multiple counters.
 (paralist)                The label is: {\fontfamily {pzd}\fontencoding {U}\fon
-tseries {m}\fontshape {n}\selectfont \char 217} on input line 675.
+tseries {m}\fontshape {n}\selectfont \char 217} on input line 678.
 
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
@@ -2040,14 +2037,14 @@ File: images/methods_tools/FNO_schema_moitie2.png Graphic file (type bmp)
 
 Package paralist Warning: Incorrect label; no or multiple counters.
 (paralist)                The label is: {\fontfamily {pzd}\fontencoding {U}\fon
-tseries {m}\fontshape {n}\selectfont \char 217} on input line 703.
+tseries {m}\fontshape {n}\selectfont \char 217} on input line 706.
 
 File: images/methods_tools/FNO_schema_moitie2_bis.png Graphic file (type bmp)
 <images/methods_tools/FNO_schema_moitie2_bis.png>
 
 Package paralist Warning: Incorrect label; no or multiple counters.
 (paralist)                The label is: {\fontfamily {pzd}\fontencoding {U}\fon
-tseries {m}\fontshape {n}\selectfont \char 217} on input line 703.
+tseries {m}\fontshape {n}\selectfont \char 217} on input line 706.
 
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
@@ -2057,7 +2054,7 @@ File: images/intro/logo-mimesis.png Graphic file (type bmp)
 File: images/corr/corr_phifem/results_corr.png Graphic file (type bmp)
 <images/corr/corr_phifem/results_corr.png>
 LaTeX Font Info:    Font shape `TU/OpenSans(0)/m/it' will be
-(Font)              scaled to size 11.94717pt on input line 714.
+(Font)              scaled to size 11.94717pt on input line 717.
 File: images/intro/logo-mimesis.png Graphic file (type bmp)
 <images/intro/logo-mimesis.png>
  [46
