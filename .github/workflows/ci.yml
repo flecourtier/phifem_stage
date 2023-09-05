@@ -18,7 +18,7 @@ jobs:
     name: Convert latex to antora
     if: "!contains(github.event.head_commit.message, 'docs skip')"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install credentials
       run: echo https://$GITHUB_OAUTH:@github.com > $HOME/.git-credentials
       env:
@@ -43,7 +43,7 @@ jobs:
     name: Build, Install, Package documentation
     if: "!contains(github.event.head_commit.message, 'docs skip')"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install credentials
       run: echo https://$GITHUB_OAUTH:@github.com > $HOME/.git-credentials
       env:
