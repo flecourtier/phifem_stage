@@ -4,6 +4,8 @@
 
 Here, we will consider the stem:[\Omega] domain to be the unit square stem:[\Omega=[0,1]^2]. This domain is entirely included in the fictitious domain stem:[O=[-0.5,1.5]^2] (<<geom_square>>).
 
+== Level-set functions
+
 In this case, we will consider two level-set functions. The first function stem:[\phi], defined by
 [stem]
 ++++

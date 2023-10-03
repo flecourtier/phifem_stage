@@ -2,11 +2,7 @@
 :xrefstyle: short
 = General presentation of the stem:[\phi]-FEM method
 
-In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (stem:[g=0] on stem:[\Gamma]). For the case of non-homogeneous Dirichlet conditions, we will give more details in <<_non-homogeneous_case>>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. stem:[\phi]-FEM schemes for the Poisson problem with Neumann or mixed (Dirichlet and Neumann) conditions are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. The stem:[\phi]-FEM scheme can also be found for other PDEs, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate}, the heat equation \cite[Chapter~5]{cotin_phi-fem_nodate} and the Stokes problem  \cite{duprez_phi-fem_2023}.
-
-== Description of spaces
-
-As previously said, we will consider the Poisson-Dirichlet problem
+In this section, we will present the stem:[\phi]-FEM method. We consider the case of the Poisson problem with homogeneous Dirichlet boundary conditions \cite{duprez_phi-fem_2020}. 
 [stem]
 ++++
 \left\{
@@ -17,28 +13,31 @@ u&=g, \; &&\text{on } \; \partial\Omega,
 \right.
 \label{eq.Poisson}
 ++++
-
 where the domain stem:[\Omega] and its boundary stem:[\Gamma] are given by a level-set function stem:[\phi] such that
 [stem]
 ++++
 \Omega=\{\phi < 0\} \quad \text{and} \quad \Gamma=\{\phi = 0\}.
 ++++
 
-The level-set function stem:[\phi] is supposed to be known on stem:[\mathbb{R}^d], sufficiently smooth, and to behave near stem:[\Gamma] as the signed distance to stem:[\Gamma] (<<space1>>). 
-
 [[space1]]
 .figure
-image::FEM/PhiFEM_level_set.png[width=240.0,height=192.0]
+image::FEM/PhiFEM_level_set.png[width=222.0,height=177.6]
+
+
+[NOTE]
+====
+For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. stem:[\phi]-FEM schemes for the Poisson problem with Neumann or mixed (Dirichlet and Neumann) conditions are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. The stem:[\phi]-FEM scheme can also be found for other PDEs, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate}, the heat equation \cite[Chapter~5]{cotin_phi-fem_nodate} and the Stokes problem \cite{duprez_phi-fem_2023}.
+====
 
 
 ---
 *Example.*
-If stem:[\Omega] is a circle of center stem:[A] of coordinates stem:[(x_A,y_A)] and radius stem:[r], the level-set function can be defined by
+If stem:[\; \Omega] is a circle of center stem:[A] of coordinates stem:[(x_A,y_A)] and radius stem:[r], a level-set function can be defined by
 [stem]
 ++++
 \phi(x,y)=-r^2+(x-x_A)^2+(y-y_A)^2.
 ++++
-If stem:[\Omega] is an ellipse with center stem:[A] of coordinates stem:[(x_A,y_A)] and parameters stem:[(a,b)], the level-set function can be defined by
+If stem:[\; \Omega] is an ellipse with center stem:[A] of coordinates stem:[(x_A,y_A)] and parameters stem:[(a,b)], a level-set function can be defined by
 [stem]
 ++++
 \phi(x,y)=-1+\frac{(x-x_A)^2}{a^2}+\frac{(y-y_A)^2}{b^2}.
@@ -60,7 +59,7 @@ We will consider stem:[\mathcal{T}_h] a sub-mesh of stem:[\mathcal{T}_h^\mathcal
 ++++
 \mathcal{T}_h=\left\{T\in \mathcal{T}_h^\mathcal{O}:T\cap\{\phi_h<0\}\ne\emptyset\right\}.
 ++++
-We denote stem:[\Omega_h] the domain covered by the stem:[\mathcal{T}_h] mesh (stem:[\Omega_h] will be slightly larger than stem:[\Omega]) and stem:[\partial\Omega_h] its boundary (<<space3>>). The domain stem:[\Omega_h] is defined by
+We denote by stem:[\Omega_h] the domain covered by the stem:[\mathcal{T}_h] mesh (stem:[\Omega_h] will be slightly larger than stem:[\Omega]) and stem:[\partial\Omega_h] its boundary (<<space3>>). The domain stem:[\Omega_h] is defined by
 [stem]
 ++++
 \Omega_h=\left(\cup_{T\in\mathcal{T}_h}T\right)^O.
@@ -104,61 +103,4 @@ image::FEM/PhiFEM_boundary_cells.png[width=270.0,height=216.0]
 image::FEM/PhiFEM_boundary_edges.png[width=270.0,height=216.0]
 
 |===
-
-== Description of the stem:[\phi]-FEM method
-
-As with standard FEM, the general idea behind stem:[\phi]-FEM is to find a weak solution (i.e. a solution to the variational problem) to the considered problem (\ref{eq.Poisson}). The main difference lies in the spaces considered. In fact, we are no longer looking to solve the problem on stem:[\Omega] (of boundary stem:[\Gamma]) but on stem:[\Omega_h] (of boundary stem:[\partial\Omega_h]). Since our boundary conditions are defined on stem:[\Gamma], we don't have a direct condition on the stem:[\partial\Omega_h] boundary, so we will have to add terms to the variational formulation of the problem, called stabilization terms.
-
-Assuming that the right-hand side stem:[f] is currently well-defined on stem:[\Omega_h] and that the solution stem:[u] can be extended on stem:[\Omega_h] such that stem:[-\Delta u=f] on stem:[\Omega_h], we can introduce a new unknown stem:[w\in H^1(\Omega_h)] such that stem:[u=\phi w] and the boundary condition on stem:[\Gamma] is satisfied (since stem:[\phi=0] on stem:[\Gamma]). After an integration by parts, we have
-[stem]
-++++
-\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h).
-++++
-
-[NOTE]
-====
-Note that stem:[\Omega_h] is constructed using stem:[\phi_h] and therefore implicitly depends on stem:[\phi].
-====
-Given an approximation stem:[\phi_h] of stem:[\phi] on the mesh stem:[\mathcal{T}_h], as defined in <<_description_of_spaces>>, and a finite element space stem:[V_h] on stem:[\mathcal{T}_h], we can then search for stem:[w_h\in V_h] such that
-[stem]
-++++
-a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.
-++++
-We can consider the finite element space stem:[V_h=V_h^{(k)}] with
-[stem]
-++++
-V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T) \;  \forall T\in\mathcal{T}_h\right\}.
-++++
-The bilinear form stem:[a_h] and the linear form stem:[l_h] are defined by
-[stem]
-++++
-a_h(w,v)=\int_{\Omega_h} \nabla (\phi_h w) \cdot \nabla (\phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\phi_h w)\phi_h v+G_h(w,v)
-++++
-and
-[stem]
-++++
-l_h(v)=\int_{\Omega_h} f \phi_h v + G_h^{rhs}(v)
-++++
-with
-[stem]
-++++
-G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)
-++++
-and
-[stem]
-++++
-G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v).
-++++
-with stem:[\sigma] an independent parameter of h, which we'll call the stabilization parameter.
-
-
-[NOTE]
-====
-Note that stem:[[\;\cdot\;]] is the jump on the interface stem:[E] defined by
-[stem]
-++++
-\left[\frac{\partial}{\partial n}(\phi_h w)\right]=\nabla(\phi_h w)^+\cdot n - \nabla(\phi_h w)^-\cdot n
-++++
-with stem:[n] is the unit normal vector outside stem:[E].
-====
 

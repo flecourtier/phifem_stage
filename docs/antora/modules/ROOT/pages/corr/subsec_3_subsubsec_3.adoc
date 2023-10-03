@@ -1,8 +1,8 @@
 :stem: latexmath
 :xrefstyle: short
-= Correction with FNO
+= Correction on a FNO prediction
 
-In this section, we will consider the problem presented in <<_stem:[f]_gaussian>>, where we take as geometry the circle and stem:[f] Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
+In this section, we will consider the problem presented in <<_second_problem>>, where we take as geometry the circle and stem:[f] Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
 
 We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we will follow the steps presented in xref:fourier/subsec_3.adoc[Section "Application"]. In the following, we will choose an FNO with 4 Fourier layers.
 
@@ -39,7 +39,7 @@ We can also consider the degrees of freedom stem:[\mathbb{P}_2], which also form
 
 In our case, the geometry is fixed (the circle with center stem:[(0.5,0.5)] and radius stem:[\sqrt{2}/4]), so we will not have a level-set collection in our training data. Similarly, we choose to consider the homogeneous problem and so, since stem:[g=0] on stem:[\Gamma], we won't have a collection of Dirichlet conditions in our training data either.
 
-*  We can now use the stem:[\phi]-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in <<_description_of_the_stem:[\phi]-fem_method>> to solve for each stem:[i=1,\dots,n_{data}], the problem
+*  We can now use the stem:[\phi]-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in xref:FEM/subsec_1_subsubsec_2.adoc[Section "Description of the stem:[\phi]-FEM direct method"] and xref:FEM/subsec_1_subsubsec_3.adoc[Section "Description of the stem:[\phi]-FEM dual method"] to solve for each stem:[i=1,\dots,n_{data}], the problem
 [stem]
 ++++
 \left\{
@@ -110,11 +110,12 @@ In practice, it may be more interesting to train the FNO directly on stem:[\phi 
 ====
 
 
+
 By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (<<misfits_f_gaussienne>>):
 
 [[misfits_f_gaussienne]]
 .Misfits obtained during FNO training by epoch (line - training set, point - validation set).
-image::corr/orr_FNO/misfits_f_gaussienne.pn[width=360.0,height=288.0]
+image::corr/orr_FNO/misfits_f_gaussienne.pn[width=300.0,height=240.0]
 
 *Results on the validation set :*
 
@@ -122,7 +123,7 @@ We're interested here in the stem:[||\cdot||_{0,abs}] errors obtained at the end
 
 [[erreur_val_f_gaussienne]]
 .Errors obtained on the validation set at different training checkpoints (every 500 epochs).
-image::corr/orr_FNO/erreur_val_f_gaussienne.pn[width=540.0,height=432.0]
+image::corr/orr_FNO/erreur_val_f_gaussienne.pn[width=510.0,height=408.0]
 
 Here are the mean, standard deviation, minimum and maximum error values obtained on the validation set at these different checkpoints (<<infos_val_f_gaussienne>>), as well as the boxplots of the errors at each checkpoint (<<boxplot_val_f_gaussienne>>):
 
@@ -133,12 +134,11 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 image::corr/orr_FNO/infos_val_f_gaussienne.pn[width=210.0,height=168.0]
 |[[boxplot_val_f_gaussienne]]
 .Boxplots of the errors on the validation set according to checkpoints.
-image::corr/orr_FNO/boxplot_val_f_gaussienne.pn[width=270.0,height=216.0]
+image::corr/orr_FNO/boxplot_val_f_gaussienne.pn[width=240.0,height=192.0]
 
 |===
 
 *_Observation :_* It would seem, therefore, that as epochs progress, the errors in the validation sample decrease. In fact, we can see that the mean and standard deviation of the errors decrease according to the epoch. It would therefore seem that training works.
-
 
 *Results on a test set :*
 
@@ -186,12 +186,18 @@ Here are the errors obtained with the different correction methods, in addition 
 .Errors obtained with the FNO and with different correction methods according to checkpoints.
 image::corr/orr_FNO/corr_errors.pn[width=600.0,height=480.0]
 
+We can also plot the error boxplots at each checkpoint (<<corr_boxplot>>) and the errors obtained with the different methods at the last checkpoint(<<corr_boxplot_errors>>) :
 
-We can also plot the error boxplots at each checkpoint (<<corr_boxplot>>):
-
-[[corr_boxplot]]
+[cols="a,a"]
+|===
+|[[corr_boxplot]]
 .Errors obtained with the FNO and with different correction methods according to checkpoints.
-image::corr/orr_FNO/corr_boxplot.pn[width=360.0,height=288.0]
+image::corr/orr_FNO/corr_boxplot.pn[width=300.0,height=240.0]
+|[[corr_boxplot_errors]]
+.Errors obtained with different correction methods according to the test sample at the last checkpoint.
+image::corr/orr_FNO/corr_boxplot_errors.pn[width=300.0,height=240.0]
+
+|===
 
 *Observation :* The results here are not really conclusive. Indeed, the 3 correction methods considered did reduce the error made by the FNO, but none seems to be more efficient than stem:[\phi]-FEM. In fact, the method that seems to give the best results is correction by multiplication, in contrast to the analytical test cases where the addition method seemed more effective.
 
@@ -244,6 +250,7 @@ Let stem:[p,p'\in\{0,\dots,P-1\}] and stem:[q,q'\in\{0,\dots,Q-1\}], then by the
 &=\frac{4}{(2p+1)(2q+1)}\delta_{(p,q)(p',q')}
 \end{aligned}
 ++++
+
 
 Thus
 
@@ -302,7 +309,7 @@ image::corr/orr_FNO/legendre_ana.pn[width=360.0,height=288.0]
 
 *Decomposition of the FNO predictions into a Legendre polynomial series :*
 
-We will again consider the problem presented in <<_stem:[f]_gaussian>>, where we take as geometry the circle and stem:[f] as being a Gaussian. We again consider the sample stem:[X_test] (of size stem:[n_{test}=100]) but this time with stem:[n_{vert}=300] (and therefore stem:[n_{dofs}=599]) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output stem:[w_{\theta,i}], stem:[i=1,\dots,n_{test}] into a series of Legendre polynomials, defined by
+We will again consider the problem presented in <<_second_problem>>, where we take as geometry the circle and stem:[f] as being a Gaussian. We again consider the sample stem:[X_test] (of size stem:[n_{test}=100]) but this time with stem:[n_{vert}=300] (and therefore stem:[n_{dofs}=599]) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output stem:[w_{\theta,i}], stem:[i=1,\dots,n_{test}] into a series of Legendre polynomials, defined by
 [stem]
 ++++
 w_{\theta,i}(x,y)=\sum_{p=0}^{P-1}\sum_{q=0}^{Q-1}\alpha_{p,q}P_p(x)P_q(y)

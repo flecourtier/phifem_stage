@@ -1,103 +1,86 @@
 :stem: latexmath
 :xrefstyle: short
-= Comparison of correction methods
+= Interest of elevating the problem
 
-Here, we compare 2 methods, the addition correction method defined in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"] and the multiplication correction method on a elevated problem defined in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]. In fact, we will show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.
+The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] with a stem:[\mathbb{P}^1] solution. Only the standard FEM method is considered here. For this purpose, we will consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we will apply a perturbation, denoted stem:[P]. We then define
+[stem]
+++++
+\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
+++++
+with stem:[P] the perturbation (such that stem:[P=0] on stem:[\Gamma]) and stem:[\epsilon] small.
 
-*Correction by adding :*
+We pose
+[stem]
+++++
+\hat{\phi}=\tilde{\phi}+m
+++++
+with stem:[m] a constant, and consider the multiplication correction on a elevated problem, defined in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] by the problem
+[stem]
+++++
+\left\{\begin{aligned}
+&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
+\end{aligned}\right.
+++++
+with stem:[\hat{u}=\hat{\phi}C].
 
-Let's start by looking at the form of the solution in the case of correction by addition. The decomposition of stem:[u_h] on the stem:[(\varphi_1,\dots,\varphi_{N_h})] basis of stem:[V_h] is written as follows for this problem
+In xref:corr/subsec_2_subsubsec_0.adoc[Section "Error estimation of the correction on the elevated problem"], we have prove the following inequality in the context of this problem
 
 [stem]
 ++++
-u_h=C_h+\tilde{\phi}(x)=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
+\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}
 ++++
 
-We have 
+
+with stem:[c] a constant, stem:[\hat{u_{ex}}=u_{ex}+m] and stem:[C=\frac{u_{ex}+m}{\hat{\phi}}].
+
+For stem:[k=1], we then have
 [stem]
 ++++
-C_i=u_{ex}(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
+|C|_{2,\Omega}=\left|\frac{u_{ex}+m}{\hat{\phi}}\right|_{2,\Omega}=\left|\left|\left(\frac{u_{ex}+m}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}
 ++++
 with
 [stem]
 ++++
-u_{ex}(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i_2}
-++++
-With the 2 previous relations, we can develop \ref{decomp_pbc2} :
-[stem]
-++++
 \begin{aligned}
-u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
-&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{C_i_2}} \\
-&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)-\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{u_x_i_2}} \\
-u_h&=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
+\left(\frac{P}{\tilde{\phi}+m}\right)''&=\frac{P''(\tilde{\phi}+m)-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'(\tilde{\phi}+m))\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
+&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{mP''}{(\tilde{\phi}+m)^2}-\frac{2mP'\tilde{\phi}'}{(\tilde{\phi}+m)^3}
 \end{aligned}
 ++++
 
-*Correction by multiplying on an elevated problem :*
-
-We are now interested in the form of the solution in the case of multiplication correction on a elevated problem. The decomposition of stem:[\hat{u_h}] on the stem:[(\varphi_1,\dots,\varphi_{N_h})] basis of stem:[V_h] is written as follows for this problem
-
+As 
 [stem]
 ++++
-\hat{u_h}=C_h\hat{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \label{decomp_pbc1}
+\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{0,\Omega}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}
 ++++
-
-We have 
-[stem]
-++++
-C_i=\frac{u(x_i)+m}{\hat{\phi}(x_i)}=\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m} \label{C_i}
-++++
-with
-[stem]
-++++
-u(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i}
-++++
-and
-[stem]
-++++
-\tilde{\phi}(x)=\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}
-++++
-Moreover, we have 
-[stem]
-++++
-\sum_{i=1}^{N_h}\varphi_i=1 \label{sum_base}
-++++
-With the 4 previous relations, we can develop \ref{decomp_pbc1} :
+and 
 [stem]
 ++++
 \begin{aligned}
-\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \\
-&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{C_i}} \\
-&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m-\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{u_x_i}} \\
-&=\sum_{i=1}^{N_h}\left(1-\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
-&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
-&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{by \ref{phi_tilde_x} et \ref{sum_base}} \\
-&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
-&=\tilde{\phi}(x)+m-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''=m\left(\frac{P}{\hat{\phi}}\right)''&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{(\tilde{\phi}+m)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{m^2P''}{(\tilde{\phi}+m)^2}-\frac{2m^2P'\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
+&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{m^2P''}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2m^2P'\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{m\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{P''}{\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2P'\tilde{\phi}'}{m\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
 \end{aligned}
 ++++
-
-Thus
+then, for stem:[m] sufficiently large :
 [stem]
 ++++
-u_h=\hat{u_h}-m=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
-++++
-and finally
-[stem]
-++++
-u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}
+\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\sim\left|\left|P''\right|\right|_{0,\Omega}
 ++++
 
-So by \ref{result2} and \ref{result1}, it would seem that the 2 proposed methods are equivalent (taking stem:[m] to be large).
+Finally, for stem:[m] sufficiently large, we have stem:[||\hat{\phi}||_\infty\sim m] and thus
+[stem]
+++++
+\left|\left|\frac{u_{ex}+m}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
+++++
+
+We deduce that when stem:[m] is big, the error no longer depends on the solution but only on the perturbation stem:[P]. These results were obtained numerically and are presented in xref:corr/subsec_3_subsubsec_1.adoc[Section "Correction on disturbed solution"].
+
+However, when stem:[m] is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution stem:[\tilde{\phi}].
 
 
 [NOTE]
 ====
-Taking stem:[m=0], we return to the case of correction by multiplication defined in xref:corr/subsec_1_subsubsec_1.adoc[Section "Correction by multiplying"] and the solution is of the form
-[stem]
-++++
-u_h=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i
-++++
+In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"], elevated the problem is of no interest.
 ====
 

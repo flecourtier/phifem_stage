@@ -2,15 +2,15 @@
 :xrefstyle: short
 = Theoretical results
 
-The aim of this section is to present some interesting theoretical results. We begin by presenting the interest of elevating the problem in xref:corr/subsec_2_subsubsec_0.adoc[Section "Interest of elevating the problem"]. We will then present an interesting result for standard FEM in xref:corr/subsec_2_subsubsec_1.adoc[Section "Comparison of correction methods"]. In fact, we'll show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when stem:[m] tends to infinity. Finally, we will demonstrate the estimation error of the correction on the elevated problem in xref:corr/subsec_2_subsubsec_2.adoc[Section "Error estimation of the correction on the elevated problem"].
+The aim of this section is to present some interesting theoretical results. We begin by demonstrating the estimation error of the correction on the elevated problem in xref:corr/subsec_2_subsubsec_0.adoc[Section "Error estimation of the correction on the elevated problem"]. We will then present the interest of elevating the problem in xref:corr/subsec_2_subsubsec_1.adoc[Section "Interest of elevating the problem"]. Finally, we will present an interesting result for standard FEM in xref:corr/subsec_2_subsubsec_2.adoc[Section "Comparison of correction methods"]. In fact, we will show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when stem:[m] tends to infinity.
 
 
 ---
 The features include
 
-** xref:corr/subsec_2_subsubsec_0.adoc[Interest of elevating the problem]
+** xref:corr/subsec_2_subsubsec_0.adoc[Error estimation of the correction on the elevated problem]
 
-** xref:corr/subsec_2_subsubsec_1.adoc[Comparison of correction methods]
+** xref:corr/subsec_2_subsubsec_1.adoc[Interest of elevating the problem]
 
-** xref:corr/subsec_2_subsubsec_2.adoc[Error estimation of the correction on the elevated problem]
+** xref:corr/subsec_2_subsubsec_2.adoc[Comparison of correction methods]
 

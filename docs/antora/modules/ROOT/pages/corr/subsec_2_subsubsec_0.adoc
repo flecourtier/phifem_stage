@@ -1,85 +1,155 @@
 :stem: latexmath
 :xrefstyle: short
-= Interest of elevating the problem
+= Error estimation of the correction on the elevated problem
 
-The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] with a stem:[\mathbb{P}^1] solution. Only the standard FEM method is considered here. For this purpose, we will consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we will apply a perturbation, denoted stem:[P]. We then define
+As in the xref:corr/subsec_2_subsubsec_1.adoc[Section "Interest of elevating the problem"], we assume we have an analytical solution to the problem, denoted stem:[u_{ex}], to which we will apply a perturbation, denoted stem:[P]. We then define
 [stem]
 ++++
-\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
+\tilde{\phi}(x,y) = u_{ex}(x,y)+\epsilon P(x,y)
 ++++
 with stem:[P] the perturbation (such that stem:[P=0] on stem:[\Gamma]) and stem:[\epsilon] small.
 
-We pose
-[stem]
-++++
-\hat{\phi}=\tilde{\phi}+m
-++++
-with stem:[m] a constant, and consider the multiplication correction on a elevated problem, defined in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"] by the problem
+We consider
+stem:[]\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m=\hat{u_{ex}}+\epsilon Pstem:[]
+with stem:[\hat{u_{ex}}=u_{ex}+m] and stem:[m] a constant.
+
+We still want to solve the following problem:
 [stem]
 ++++
 \left\{\begin{aligned}
 &-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
 &\hat{u}=g+m, \; &&\text{on } \; \Gamma.
-\end{aligned}\right.
+\end{aligned}\right. \label{pb_reh} %\tag{stem:[\mathcal{C}]}
 ++++
-with stem:[\hat{u}=\hat{\phi}C].
-
-In xref:corr/subsec_2_subsubsec_2.adoc[Section "Error estimation of the correction on the elevated problem"], we will prove the following inequality in the context of this problem
-
+with stem:[\hat{u}=\hat{\phi}C] whose approximate variational problem consists of
 [stem]
 ++++
-\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}
+\text{Find } C_h\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h
 ++++
+with stem:[\hat{u_h}=\hat{\phi}C_h].
 
-with stem:[c] a constant, stem:[\hat{u_{ex}}=u_{ex}+m] and stem:[C=\frac{u_{ex}+m}{\hat{\phi}}].
-
-For stem:[k=1], we then have
+Here we seek to prove the following property:
 [stem]
 ++++
-|C|_{2,\Omega}=\left|\frac{u_{ex}+m}{\hat{\phi}}\right|_{2,\Omega}=\left|\left|\left(\frac{u_{ex}+m}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}
-++++
-with
-[stem]
-++++
-\begin{aligned}
-\left(\frac{P}{\tilde{\phi}+m}\right)''&=\frac{P''(\tilde{\phi}+m)-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'(\tilde{\phi}+m))\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
-&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{mP''}{(\tilde{\phi}+m)^2}-\frac{2mP'\tilde{\phi}'}{(\tilde{\phi}+m)^3}
-\end{aligned}
+\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
 ++++
 
-As 
+
+*   We're first interested in stem:[\left|\left|\hat{u}-\hat{u_h}\right|\right|_1].
+
+Since  stem:[V_h] is a vector subspace of  stem:[V], posing stem:[v=v_h], we obtain :
 [stem]
 ++++
-\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{0,\Omega}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}
+a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.
 ++++
-and 
+We then have Galerkin orthogonality:
+[stem]
+++++
+a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h
+++++
+and
 [stem]
 ++++
 \begin{aligned}
-\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''=m\left(\frac{P}{\hat{\phi}}\right)''&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{(\tilde{\phi}+m)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{m^2P''}{(\tilde{\phi}+m)^2}-\frac{2m^2P'\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
-&=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{m^2P''}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2m^2P'\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
-&=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{m\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{P''}{\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2P'\tilde{\phi}'}{m\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{by coercivity} \\
+&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) &&\text{with stem:[I_h] the Lagrange interpolator}\\
+&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
+&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{by continuity} \\
+&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
 \end{aligned}
 ++++
-then, for stem:[m] sufficiently large :
+Thus
 [stem]
 ++++
-\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\sim\left|\left|P''\right|\right|_{0,\Omega}
+||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.
 ++++
-
-Finally, for stem:[m] sufficiently large, we have stem:[||\hat{\phi}||_\infty\sim m] and thus
+By posing stem:[A=C-I_hC], we have
 [stem]
 ++++
-\left|\left|\frac{u_{ex}+m}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}
+|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1
+++++
+because
+[stem]
+++++
+||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1
+++++
+and
+[stem]
+++++
+||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.
+++++
+Therefore, we have
+[stem]
+++++
+|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1
 ++++
 
-We deduce that when stem:[m] is big, the error no longer depends on the solution but only on the perturbation stem:[P]. These results were obtained numerically and are presented in xref:corr/subsec_3_subsubsec_1.adoc[Section "Correction on disturbed solution"].
+Finally, using the interpolation inequality, we obtain
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
+\label{norme_H1}
+++++
 
-However, when stem:[m] is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution stem:[\tilde{\phi}].
+*  We can now turn our attention directly to stem:[\left|\left|\hat{u}-\hat{u_h}\right|\right|_0].
+
+We'll start by applying the Aubin-Nitsche duality method by considering the dual problem:
+
+Let stem:[\hat{z}\in H_0^1(\Omega)] solution of the problem
+stem:[]\left\{\begin{aligned}
+&-\Delta\hat{z}=\hat{e_h}, \; &&\text{in }\Omega \\
+&\hat{z}=0, \; &&\text{on } \Gamma
+\end{aligned}\right.stem:[]
+with stem:[\hat{e_h}=\hat{u}-\hat{u_h}].
+Thus
+stem:[]a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla vstem:[]
+and as stem:[\hat{e_h}\in H_0^1(\Omega)]
+[stem]
+++++
+a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+\label{norme_e_h}
+++++
+Moreover, by the regularity properties : 
+[stem]
+++++
+\hat{z}\in H^2(\Omega)
+\label{z_H_2}
+++++
+and
+[stem]
+++++
+||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
+\label{prop_reg}
+++++
+Thus
+[stem]
+++++
+\begin{aligned}
+||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2=a(\hat{z},\hat{e_h}) &&\text{by \ref{norme_e_h}} \\
+&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{by Galerkin orthogonality} \\
+&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{by continuity} \\
+&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{by \ref{z_H_2} et by interpolation inequality} \\
+&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{norme_H1}} \\
+&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{prop_reg}}
+\end{aligned}
+++++
+Finally
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}
+++++
 
 
 [NOTE]
 ====
-In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in xref:corr/subsec_1_subsubsec_0.adoc[Section "Correction by adding"], elevated the problem is of no interest.
+Denoting stem:[u=\hat{u}-m] and stem:[u_h=\hat{u_h}-m] the associated solutions to the initial problem obtained by multiplication correction on the elevated problem, we have : 
+[stem]
+++++
+||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0
+++++
+Please note that, here, stem:[u] and stem:[u_h] does not refer to the solution of the problem by correction without elevation.
+
+In fact, what this equality means is that when we go back to the original problem, after correcting the solution by multiplication on an elevated problem, the error is still the same.
 ====
+
 

@@ -14,7 +14,7 @@ with stem:[u_{\phi-FEM}] the solution stem:[\mathbb{P}_2] obtained by solving th
 [[corr_phifem_phifem_solution]]
 .Comparison of the exact solution stem:[u_{ex}] and the stem:[\phi]-FEM, stem:[u_{\phi-FEM}].
 
-image::corr/corr_phifem/phifem_solution.png[width=360.0,height=288.0]
+image::corr/corr_phifem/phifem_solution.png[width=330.0,height=264.0]
 
 We obtain
 [stem]

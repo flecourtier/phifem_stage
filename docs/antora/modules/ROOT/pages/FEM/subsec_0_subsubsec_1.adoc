@@ -16,11 +16,11 @@ where stem:[V] is a Hilbert space, stem:[a] is a bilinear form and stem:[l] is a
 
 To do this, we multiply the PDE by a test function stem:[v\in V], then integrate over stem:[L^2(\Omega)].
 
-The idea of FEM is to use Galerkin's method. We then look for an approximate solution stem:[u_h] in stem:[V_h], a finite-dimensional space dependent on a positive parameter stem:[h] such that
+The idea of FEM is to use Galerkin's method. We then look for an approximate solution stem:[u_h] in stem:[V_h], a finite-dimensional subspace dependent on a positive parameter stem:[h] such that
 
 [stem]
 ++++
-V_h\subset V, \quad \dim V_h = N_h<\infty, \quad \forall h>0
+V_h\subset V, \quad \dim V_h = N_h<\infty, \quad \forall h>0.
 ++++
 
 The variational problem can then be approached by :
@@ -28,7 +28,7 @@ The variational problem can then be approached by :
 *Approach Problem :*
 [stem]
 ++++
-\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V
+\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V.
 ++++
 
 As stem:[V_h] is of finite dimension, we can consider a basis stem:[(\varphi_1,\dots,\varphi_{N_h})] of stem:[V_h] and thus decompose stem:[u_h] on this basis as :
@@ -39,21 +39,21 @@ As stem:[V_h] is of finite dimension, we can consider a basis stem:[(\varphi_1,\
 u_h=\sum_{i=1}^{N_h}u_i\varphi_i	
 ++++
 
-The approached problem is then rewritten as
+By bilinearity of stem:[a], the approached problem is then rewritten as
 
 [stem]
 ++++
 \text{Find } u_1,\dots,u_{N_h} \text{ such that } \sum_{i=1}^{N_h}u_i a(\varphi_i,v_h)=l(v_h), \;\forall v_h\in V 
 ++++
 
-and
+which is equivalent to
 
 [stem]
 ++++
 \text{Find } u_1,\dots,u_{N_h} \text{ such that } \sum_{i=1}^{N_h}u_i a(\varphi_i,\varphi_j)=l(\varphi_j), \;\forall j\in \{1,\dots,N_h\}
 ++++
 
-Solving the PDE involves solving the following linear system:
+Thus, to find an approximation to the solution of the PDE, we simply solve the following linear system :
 [stem]
 ++++
 AU=b

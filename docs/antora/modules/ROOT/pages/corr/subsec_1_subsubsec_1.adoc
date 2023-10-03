@@ -47,5 +47,5 @@ and
 G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\tilde{\phi} v).
 ++++
 
-In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in <<_non-homogeneous_case>>.
+In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method in xref:FEM/subsec_1_subsubsec_2.adoc[Section "Description of the stem:[\phi]-FEM direct method"] or by the dual method presented in xref:FEM/subsec_1_subsubsec_3.adoc[Section "Description of the stem:[\phi]-FEM dual method"].
 

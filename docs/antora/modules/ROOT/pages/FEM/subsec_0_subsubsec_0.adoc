@@ -2,7 +2,7 @@
 :xrefstyle: short
 = Some notions of functional analysis.
 
-In this section, we'll recall some of the notions of functional analysis that will be used in the next sections. In particular, Lebesgue spaces and Sobolev spaces. Please refer to the book \cite{brezis_functional_2011}. Let's consider stem:[\Omega] an open of stem:[\mathbb{R}^d] (stem:[d=1,2,3]) with boundary stem:[\Gamma].
+In this section, we'll recall some of the notions of functional analysis that will be used in the next sections. In particular, Lebesgue spaces and Sobolev spaces. Please refer to the book \cite{brezis_functional_2011}. Let's consider stem:[\Omega] a smooth open-set of stem:[\mathbb{R}^d] (stem:[d=1,2,3]) with boundary stem:[\Gamma].
 
 We begin here by defining Lebesgue spaces:
 
@@ -40,7 +40,7 @@ H^1(\Omega)&=\left\{u\in L^2(\Omega)|\partial_{x_i}u\in L^2(\Omega)\right\} \\
 with the scalar product stem:[\langle u, v\rangle_{H^1(\Omega)}], defined by :
 [stem]
 ++++
-\langle u, v\rangle_{H^1(\Omega)} = \int_\Omega uv + \nabla u \cdot \nabla v, \forall u,v\in H^^1(\Omega)
+\langle u, v\rangle_{H^1(\Omega)} = \int_\Omega uv + \nabla u \cdot \nabla v, \forall u,v\in H^1(\Omega)
 ++++
 and the induced norm stem:[||\cdot||_{H^1(\Omega)}].
 
@@ -78,7 +78,7 @@ We also note that
 ++++
 ||u||^2_{H^2(\Omega)}=||u||^2_{L^2(\Omega)}+|u|^2_{H^1(\Omega)}+|u|^2_{H^2(\Omega)}
 ++++
-with stem:[|u|_{H^2\Omega)}=||u''||_{L^2(\Omega)}] called stem:[H^2] semi-norm.
+with stem:[|u|_{H^2\Omega)}=||\nabla^2 u||_{L^2(\Omega)}] called stem:[H^2] semi-norm.
 ====
 
 

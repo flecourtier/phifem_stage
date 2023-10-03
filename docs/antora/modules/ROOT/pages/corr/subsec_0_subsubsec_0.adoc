@@ -11,7 +11,7 @@ We will consider the level-set function stem:[\phi] defined by
 ++++
 negative function inside the domain, null at the boundary and positive outside it
 
-We will consider a first analytic trigonometric solution (<<_first_problem>>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<<_stem:[f]_gaussian>>) for which no exact solution is known, and for which we'll take an over-refined FEM solution as the reference solution.
+We will consider a first analytic trigonometric solution (<<_first_problem>>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<<_second_problem>>) for which no exact solution is known, and for which we'll take an over-refined FEM solution as the reference solution.
 
 == First problem
 
@@ -50,7 +50,7 @@ image::corr/f_circle.png[width=300.0,height=240.0]
 
 |===
 
-== stem:[f] Gaussian
+== Second problem
 
 In the case considered here, no analytical solution is known. We consider the source term stem:[f] to be a Gaussian defined by
 [stem]

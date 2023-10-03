@@ -7,9 +7,7 @@ First, we will look at the correction of an exact solution. In other words, we c
 ++++
 \tilde{\phi}=u_{ex}
 ++++
-This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error).
-
-In all the following cases, we will consider stem:[S=0.5], as well as stem:[\varphi=0] in the case of the homogeneous problem and stem:[\varphi=1] in the non-homogeneous case. We will vary stem:[f] between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction stem:[n_{vert}=100].
+This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error). In all the following cases, we will consider stem:[S=0.5], as well as stem:[\varphi=0] in the case of the homogeneous problem and stem:[\varphi=1] in the non-homogeneous case. We will vary stem:[f] between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction stem:[n_{vert}=100].
 
 
 [NOTE]
@@ -18,10 +16,10 @@ We will consider here only the case of correction by addition (with and without 
 ====
 
 
+
 *  *Results on the Circle :*
 
 We consider here the Circle problem with the solution defined in <<_first_problem>>.
-
 
 *Homogeneous case :*
 

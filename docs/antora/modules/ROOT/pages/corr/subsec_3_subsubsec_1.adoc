@@ -24,7 +24,7 @@ In our case, we will choose to consider stem:[P] as being of the same form as ou
 
 [NOTE]
 ====
-Note that the form of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of stem:[\phi]-FEM in xref:corr/subsec_3_subsubsec_2.adoc[Section "Correction on stem:[\phi]-FEM solution"] or FNO in xref:corr/subsec_3_subsubsec_3.adoc[Section "Correction with FNO"]).
+Note that the form of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of stem:[\phi]-FEM in xref:corr/subsec_3_subsubsec_2.adoc[Section "Correction on stem:[\phi]-FEM solution"] or FNO in xref:corr/subsec_3_subsubsec_3.adoc[Section "Correction on a FNO prediction"]).
 ====
 
 In the case of Circle geometry where we consider the problem \ref{Corr.pb.circle.1}, the perturbation will be defined by
@@ -47,7 +47,7 @@ where stem:[S_p\in[0,1]] is the amplitude of the signal, stem:[f_p\in\mathbb{N}]
 Note that for the boundary conditions of the solution to be satisfied, i.e. for stem:[\tilde{\phi}=u_{ex}] on stem:[\Gamma], it is essential that stem:[P=0] on stem:[\Gamma]. In the case of both circle and square, we will then take stem:[\varphi_p=0].
 ====
 
-Recall the relative errors obtained by standard FEM and stem:[\phi]-FEM on the circle and on the square for frequencies stem:[f\in\{1,2,3,4\}] for the homogeneous  (<<norms>>) and non-homogeneous problem  (<<norms_nh>>).
+Recall the relative errors obtained by standard FEM and stem:[\phi]-FEM (without correction) on the circle and on the square for frequencies stem:[f\in\{1,2,3,4\}] for the homogeneous  (<<norms>>) and non-homogeneous problem  (<<norms_nh>>).
 
 [cols="a,a"]
 |===
@@ -113,7 +113,7 @@ image::corr/corr_pert/diff_eps/fem_square_mult.png[width=285.0,height=228.0]
 *  Then, it would appear that, as with the standard FEM and stem:[\phi]-FEM solvers without correction, the more the solution varies (i.e. the larger stem:[f]), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
 *  It would also seem that for stem:[\epsilon=1] (i.e. a large perturbation), the stem:[\epsilon] parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the <<_results_on_the_elevated_problem>>.
 *  In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.
-*  There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed stem:[\epsilon]). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the xref:corr/subsec_2_subsubsec_0.adoc[Section "Interest of elevating the problem"] (for stem:[m] large, similar to correction by addition as explained above). Thus, as we have shown (in xref:corr/subsec_2_subsubsec_1.adoc[Section "Comparison of correction methods"]) that for stem:[m] large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.
+*  There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed stem:[\epsilon]). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the xref:corr/subsec_2_subsubsec_1.adoc[Section "Interest of elevating the problem"] (for stem:[m] large, similar to correction by addition as explained above). Thus, as we have shown (in xref:corr/subsec_2_subsubsec_2.adoc[Section "Comparison of correction methods"]) that for stem:[m] large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.		
 
 
 *  *Results on the non-homogeneous case :*
@@ -316,6 +316,9 @@ In this section, we aim to show numerically the interest of elevating the proble
 
 *Results with FEM :*
 
+
+*  *Comparison with the correction by adding :*
+
 Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in xref:corr/subsec_1_subsubsec_2.adoc[Section "Correction by multiplying on an elevated problem"]). We will test this method on the circle (<<corr_pert_fem_circle_reh>> and <<corr_pert_fem_circle_reh_fig>>) and on the square (<<corr_pert_fem_square_reh>> and <<corr_pert_fem_square_reh_fig>>) for selected frequencies and by varying stem:[m].
 
 [cols="a,a"]
@@ -340,7 +343,23 @@ image::corr/corr_pert/rehaussement/fig_fem_square.png[width=240.0,height=192.0]
 
 |===
 
-*Observation :* The numerical results obtained on the circle in <<corr_pert_fem_circle_reh>> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in xref:corr/subsec_2_subsubsec_1.adoc[Section "Comparison of correction methods"], we can see that by increasing stem:[m], the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding). 
+*Observation :* The numerical results obtained on the circle in <<corr_pert_fem_circle_reh>> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in xref:corr/subsec_2_subsubsec_2.adoc[Section "Comparison of correction methods"], we can see that by increasing stem:[m], the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding). 
+
+*  *Importance of the perturbation form:*
+
+Here, we seek to verify the importance of the shape of the perturbation on the multiplication correction on the enhanced problem, presented in xref:corr/subsec_2_subsubsec_1.adoc[Section "Interest of elevating the problem"]. By fixing stem:[f_p = 2] and stem:[\epsilon=10^{-3}] and varying stem:[f], we obtain the following result with the correction by multiplying on an elevated problem (with FEM) :
+[cols="a,a"]
+|===
+|\centering
+\includegraphics[width=0.9\linewidth]{corr_pert/rehaussement/pert_tab.png}
+|\centering
+\includegraphics[width=\linewidth]{corr_pert/rehaussement/pert_fig.png}
+
+|===
+
+*Observation :* It would then seem that the error obtained for large stem:[m] depends only on the shape of the perturbation and not on that of the solution. Indeed, by varying stem:[f], it would seem that we always converge to the same error (at stem:[f_p] and stem:[\epsilon] fixed).
+
+
 
 *Results with stem:[\phi]-FEM :*
 

@@ -2,15 +2,20 @@
 :xrefstyle: short
 = stem:[\phi]-FEM
 
-In this section, we will present the stem:[\phi]-FEM method. We will first present the context in which the method is used and its general principle (xref:FEM/subsec_1_subsubsec_0.adoc[Section "Context and general principle of the method"]. Next, we will give a general presentation of the method, starting with a description of the spaces required (<<_description_of_spaces>>), followed by a description of the stem:[\phi]-FEM method (<<_description_of_the_stem:[\phi]-fem_method>>). Finally, we will give some details on the stem:[\phi]-FEM method (section \ref{FEMs.PhiFEM.details}).
+In this section, we will present the stem:[\phi]-FEM method. We will first present fictitious domain methods (xref:FEM/subsec_1_subsubsec_0.adoc[Section "Fictitious domain methods"]). Next, we will give a general presentation of the method with a description of the spaces required (xref:FEM/subsec_1_subsubsec_1.adoc[Section "General presentation of the stem:[\phi]-FEM method"]), followed by a description of the stem:[\phi]-FEM direct method (xref:FEM/subsec_1_subsubsec_2.adoc[Section "Description of the stem:[\phi]-FEM direct method"]) and a description of the stem:[\phi]-FEM dual method (xref:FEM/subsec_1_subsubsec_3.adoc[Section "Description of the stem:[\phi]-FEM dual method"]). Finally, we will give some details on the stabilization terms 
+(xref:FEM/subsec_1_subsubsec_4.adoc[Section "Some details on the stabilization terms"]).
 
 
 ---
 The features include
 
-** xref:FEM/subsec_1_subsubsec_0.adoc[Context and general principle of the method]
+** xref:FEM/subsec_1_subsubsec_0.adoc[Fictitious domain methods]
 
 ** xref:FEM/subsec_1_subsubsec_1.adoc[General presentation of the stem:[\phi]-FEM method]
 
-** xref:FEM/subsec_1_subsubsec_2.adoc[Some details on stem:[\phi]-FEM]
+** xref:FEM/subsec_1_subsubsec_2.adoc[Description of the stem:[\phi]-FEM direct method]
+
+** xref:FEM/subsec_1_subsubsec_3.adoc[Description of the stem:[\phi]-FEM dual method]
+
+** xref:FEM/subsec_1_subsubsec_4.adoc[Some details on the stabilization terms]
 

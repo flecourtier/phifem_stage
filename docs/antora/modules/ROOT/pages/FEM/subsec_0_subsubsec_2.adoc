@@ -7,7 +7,7 @@ After having seen the general principle of FEM, it remains to define the stem:[V
 
 [NOTE]
 ====
-The choice of stem:[V_h] space is fundamental to have an efficient method that gives a good approximation stem:[u_h] of stem:[u]. In particular, the choice of the stem:[\{\varphi_i\}] basis of stem:[V_h] influences the structure of the stem:[A] matrix in terms of its sparsity and its condition number.
+The choice of stem:[V_h] space is fundamental to have an efficient method that gives a good approximation stem:[u_h] of stem:[u]. In particular, the choice of the stem:[\{\varphi_i\}] basis of stem:[V_h] influences the structure of the stem:[A] matrix in terms of its sparsity and its condition number but also affects the quality of the approximation.
 ====
 
 To do this, we'll need several notions, which will be detailed in the following sections. First, we'll need to generate a *mesh* of our stem:[\Omega] domain. This will enable us to solve the PDE discretely at selected points. This is where the notion of *finite Lagrange elements* comes in. The properties of these elements, particularly in terms of their *affine family of finite elements*, is a key point of the method, which will enable us to bring each element of the mesh back to a *reference element* by using a *geometric transformation*. To describe these steps, we'll need to know 2 basic concepts: the *unisolvence* principle and the definitions of the *polynomial spaces* used (stem:[\mathbb{P}_k] and stem:[\mathbb{Q}_k]).
@@ -89,7 +89,7 @@ A finite Lagrange element is a triplet stem:[(K,\Sigma,P)] such that
 
 ---
 *Example.*
-Let stem:[K] be the segment stem:[[a_1,a_2]]. Let's show that stem:[\Sigma=\{a_1,a_2\}] is stem:[P]-unisolvent for stem:[P=\mathbb{P}^1]. Since stem:[\{1,x\}] is a base of stem:[\mathbb{P}^1], we have stem:[\dim P = \text{card } \Sigma = 2]. 
+Let stem:[K] be the segment stem:[[a_1,a_2]]. Let's show that stem:[\Sigma=\{a_1,a_2\}] is stem:[P]-unisolvent for stem:[P=\mathbb{P}^1]. Since stem:[\{1,x\}] is a base of stem:[\;\mathbb{P}^1], we have stem:[\dim P = \text{card } \Sigma = 2]. 
 
 Moreover, we can write stem:[p_i=\alpha_i x+\beta_i, i=1,2]. Thus
 [stem]
@@ -171,7 +171,13 @@ In 2D, these elements can be triangles or rectangles. In 3D, they can be tetrahe
 
 [[triangle_mesh]]
 .figure
-image::FEM/FEM_triangle_mesh.png[width=150.0,height=120.0]
+image::FEM/FEM_triangle_mesh.png[width=120.0,height=96.0]
+
+
+[NOTE]
+====
+Note that it's important to have a certain geometric quality in the mesh, as this can influence the accuracy of the approximation. For example, if we're using triangles as 2D elements, it's preferable that all the elements in the mesh are not too flattened.
+====
 
 == Construction of stem:[V_h] space
 
