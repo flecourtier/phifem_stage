@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -329,7 +335,7 @@ title="Fullscreen mode"
 <p>To be more precise, we will test different correction methods (presented in <a href="../corr/subsec_1.html" class="xref page">Section "Presentation of the different correction methods considered"</a>) on different problems (presented in <a href="../corr/subsec_0.html" class="xref page">Section "Presentation of different problems considered"</a>) which will enable us to use the network prediction to help the solver get as close as possible to the solution. We will start by testing these different types of solver on an analytical solution (<a href="#_correction_on_exact_solution">[_correction_on_exact_solution]</a>), then on a "manually perturbed" solution (<a href="#_correction_on_disturbed_solution">[_correction_on_disturbed_solution]</a>) and finally on a \(\phi\)-FEM solution (<a href="#_correction_on_\(\phi\)-fem_solution">[_correction_on_\(\phi\)-fem_solution]</a>).</p>
 </div>
 <div class="paragraph">
-<p>After testing the various types of correction on the previous test cases, we&#8217;ll apply these same methods to the prediction of an FNO (<a href="#_correction_with_fno">[_correction_with_fno]</a>). The main objective is to enable the combination of FNO and correction to be more accurate than the conventional \(\phi\)-FEM solver. By first testing the different corrections on the previous test cases, we hope to get an idea of the order of errors to be expected. During the course of the internship, we realized that the results obtained on the FNO did not correspond to the expected analytical results. For this reason, other types of neural networks were considered, namely multi-perceptron networks (<a href="#_mlp">[_mlp]</a>) and PINNs (<a href="#_pinns">[_pinns]</a>), with the aim of checking whether the results obtained are related to the use of the FNO.</p>
+<p>After testing the various types of correction on the previous test cases, we&#8217;ll apply these same methods to the prediction of an FNO (<a href="#_correction_on_a_fno_prediction">[_correction_on_a_fno_prediction]</a>). The main objective is to enable the combination of FNO and correction to be more accurate than the conventional \(\phi\)-FEM solver, or at least to achieve a better time/accuracy ratio. By first testing the different corrections on the previous test cases, we hope to get an idea of the order of errors to be expected. During the course of the internship, we realized that the results obtained on the FNO did not correspond to the expected analytical results. For this reason, other types of neural networks were considered, namely multi-perceptron networks (<a href="#_mlp">[_mlp]</a>) and PINNs (<a href="#_pinns">[_pinns]</a>), with the aim of checking whether the results obtained are related to the use of the FNO.</p>
 </div>
 </article>
   </div>

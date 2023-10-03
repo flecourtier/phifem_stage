@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -323,7 +329,7 @@ title="Fullscreen mode"
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>As explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a> and <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a>, the general idea of FNO in our application framework is to consider a collection of \(n_{data}\) data defined by \(\{f_i\}_{i=1,\dots, n_{data}}\) where each \(f_i\) is the evaluation of our source term \(f\) associated with parameters \(i\) on a regular grid of our domain \(\mathcal{O}\) of size \(n_{dofs}\times n_{dofs}\) (with \(n_{dofs}\) the number of degrees of freedom \(\mathbb{P}_1\) or \(\mathbb{P}_2\)).
+<p>As explained in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a> and <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction on a FNO prediction"</a>, the general idea of FNO in our application framework is to consider a collection of \(n_{data}\) data defined by \(\{f_i\}_{i=1,\dots, n_{data}}\) where each \(f_i\) is the evaluation of our source term \(f\) associated with parameters \(i\) on a regular grid of our domain \(\mathcal{O}\) of size \(n_{dofs}\times n_{dofs}\) (with \(n_{dofs}\) the number of degrees of freedom \(\mathbb{P}_1\) or \(\mathbb{P}_2\)).
 We then use the FNO to predict the solution to the problem under consideration (in our case, the Poisson problem with Dirichlet condition) on the points of a regular grid (whose resolution may differ from that of the input data).</p>
 </div>
 <div class="paragraph">
@@ -400,7 +406,7 @@ Y_train&amp;=\{u_i\}_{i=1,\dots,n_{dofs}^2}
 </div>
 <div id="corr_networks_MLP_loss" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/MLP_loss.pn" alt="MLP loss" width="270.0" height="216.0">
+<img src="corr/orr_networks/MLP_loss.pn" alt="MLP loss" width="240.0" height="192.0">
 </div>
 <div class="title">Figure 2. Loss obtained during the MLP training.</div>
 </div>
@@ -409,7 +415,7 @@ Y_train&amp;=\{u_i\}_{i=1,\dots,n_{dofs}^2}
 </div>
 <div id="corr_networks_MLP_solution" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/MLP_solution.pn" alt="MLP solution" width="420.0" height="336.0">
+<img src="corr/orr_networks/MLP_solution.pn" alt="MLP solution" width="390.0" height="312.0">
 </div>
 <div class="title">Figure 3. Comparaison of the exact solution and the MLP prediciton.</div>
 </div>
@@ -432,7 +438,7 @@ Y_train&amp;=\{u_i\}_{i=1,\dots,n_{dofs}^2}
 </div>
 <div id="corr_networks_MLP_corr_add_FEM" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/MLP_corr_add_FEM.pn" alt="MLP corr add FEM" width="270.0" height="216.0">
+<img src="corr/orr_networks/MLP_corr_add_FEM.pn" alt="MLP corr add FEM" width="240.0" height="192.0">
 </div>
 <div class="title">Figure 4. Solution obtained with the correction by adding with FEM on the MLP prediction.</div>
 </div>
@@ -536,7 +542,7 @@ Y_train&amp;=\{f_i\}_{i=1,\dots,n_{pts}}
 </div>
 <div id="corr_networks_PINNs_loss" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/PINNs_loss.pn" alt="PINNs loss" width="360.0" height="288.0">
+<img src="corr/orr_networks/PINNs_loss.pn" alt="PINNs loss" width="540.0" height="432.0">
 </div>
 <div class="title">Figure 7. PINNs prediction, Exact solution and Loss obtained.</div>
 </div>
@@ -647,13 +653,13 @@ Y_train&amp;=\{f_i\}_{i=1,\dots,n_{pts}}
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_PINNs_derivees_premieres" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/PINNs_derivees_premieres.pn" alt="PINNs derivees premieres" width="240.0" height="192.0">
+<img src="corr/orr_networks/PINNs_derivees_premieres.pn" alt="PINNs derivees premieres" width="300.0" height="240.0">
 </div>
 <div class="title">Figure 10. First derivatives computed with Pytorch and FEniCS on the PINNs prediction.</div>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="corr_networks_PINNs_derivees_secondes" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_networks/PINNs_derivees_secondes.pn" alt="PINNs derivees secondes" width="240.0" height="192.0">
+<img src="corr/orr_networks/PINNs_derivees_secondes.pn" alt="PINNs derivees secondes" width="300.0" height="240.0">
 </div>
 <div class="title">Figure 11. Second derivatives computed with Pytorch and FEniCS on the PINNs prediction.</div>
 </div></div></td>

@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -320,18 +326,8 @@ title="Fullscreen mode"
 
 <article class="doc">
 <h1 class="page">General presentation of the \(\phi\)-FEM method</h1>
-<div id="preamble">
-<div class="sectionbody">
 <div class="paragraph">
-<p>In this section, we consider the case of the Poisson problem with homogeneous Dirichlet condition (\(g=0\) on \(\Gamma\)). For the case of non-homogeneous Dirichlet conditions, we will give more details in <a href="#_non-homogeneous_case">[_non-homogeneous_case]</a>. For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. \(\phi\)-FEM schemes for the Poisson problem with Neumann or mixed (Dirichlet and Neumann) conditions are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. The \(\phi\)-FEM scheme can also be found for other PDEs, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate}, the heat equation \cite[Chapter~5]{cotin_phi-fem_nodate} and the Stokes problem  \cite{duprez_phi-fem_2023}.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_description_of_spaces"><a class="anchor" href="#_description_of_spaces"></a>1. Description of spaces</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As previously said, we will consider the Poisson-Dirichlet problem</p>
+<p>In this section, we will present the \(\phi\)-FEM method. We consider the case of the Poisson problem with homogeneous Dirichlet boundary conditions \cite{duprez_phi-fem_2020}.</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -352,19 +348,30 @@ u&amp;=g, \; &amp;&amp;\text{on } \; \partial\Omega,
 \[\Omega=\{\phi &lt; 0\} \quad \text{and} \quad \Gamma=\{\phi = 0\}.\]
 </div>
 </div>
-<div class="paragraph">
-<p>The level-set function \(\phi\) is supposed to be known on \(\mathbb{R}^d\), sufficiently smooth, and to behave near \(\Gamma\) as the signed distance to \(\Gamma\) (<a href="#space1">Figure 1</a>).</p>
-</div>
 <div id="space1" class="imageblock">
 <div class="content">
-<img src="../_images/FEM/PhiFEM_level_set.png" alt="PhiFEM level set" width="240.0" height="192.0">
+<img src="../_images/FEM/PhiFEM_level_set.png" alt="PhiFEM level set" width="222.0" height="177.6">
 </div>
 <div class="title">Figure 1. figure</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For more details on mesh assumptions, convergence results and finite element matrix condition number, please refer to \cite{duprez_phi-fem_2020}. \(\phi\)-FEM schemes for the Poisson problem with Neumann or mixed (Dirichlet and Neumann) conditions are presented in \cite{duprez_new_2023,cotin_phi-fem_nodate}. The \(\phi\)-FEM scheme can also be found for other PDEs, including linear elasticity \cite[Chapter~2]{cotin_phi-fem_nodate}, the heat equation \cite[Chapter~5]{cotin_phi-fem_nodate} and the Stokes problem \cite{duprez_phi-fem_2023}.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <hr>
 <div class="paragraph">
 <p><strong>Example.</strong>
-If \(\Omega\) is a circle of center \(A\) of coordinates \((x_A,y_A)\) and radius \(r\), the level-set function can be defined by</p>
+If \(\; \Omega\) is a circle of center \(A\) of coordinates \((x_A,y_A)\) and radius \(r\), a level-set function can be defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -372,7 +379,7 @@ If \(\Omega\) is a circle of center \(A\) of coordinates \((x_A,y_A)\) and radiu
 </div>
 </div>
 <div class="paragraph">
-<p>If \(\Omega\) is an ellipse with center \(A\) of coordinates \((x_A,y_A)\) and parameters \((a,b)\), the level-set function can be defined by</p>
+<p>If \(\; \Omega\) is an ellipse with center \(A\) of coordinates \((x_A,y_A)\) and parameters \((a,b)\), a level-set function can be defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -403,7 +410,7 @@ If \(\Omega\) is a circle of center \(A\) of coordinates \((x_A,y_A)\) and radiu
 </div>
 </div>
 <div class="paragraph">
-<p>We denote \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) its boundary (<a href="#space3">Figure 3</a>). The domain \(\Omega_h\) is defined by</p>
+<p>We denote by \(\Omega_h\) the domain covered by the \(\mathcal{T}_h\) mesh (\(\Omega_h\) will be slightly larger than \(\Omega\)) and \(\partial\Omega_h\) its boundary (<a href="#space3">Figure 3</a>). The domain \(\Omega_h\) is defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -479,111 +486,6 @@ approximate boundary \(\Gamma_h = \{\phi_h=0\}\), i.e.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_description_of_the_phi_fem_method"><a class="anchor" href="#_description_of_the_phi_fem_method"></a>2. Description of the \(\phi\)-FEM method</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the considered problem (\ref{eq.Poisson}). The main difference lies in the spaces considered. In fact, we are no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we will have to add terms to the variational formulation of the problem, called stabilization terms.</p>
-</div>
-<div class="paragraph">
-<p>Assuming that the right-hand side \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied (since \(\phi=0\) on \(\Gamma\)). After an integration by parts, we have</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h).\]
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Note that \(\Omega_h\) is constructed using \(\phi_h\) and therefore implicitly depends on \(\phi\).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in <a href="#_description_of_spaces">Section 1</a>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.\]
-</div>
-</div>
-<div class="paragraph">
-<p>We can consider the finite element space \(V_h=V_h^{(k)}\) with</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T) \;  \forall T\in\mathcal{T}_h\right\}.\]
-</div>
-</div>
-<div class="paragraph">
-<p>The bilinear form \(a_h\) and the linear form \(l_h\) are defined by</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[a_h(w,v)=\int_{\Omega_h} \nabla (\phi_h w) \cdot \nabla (\phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\phi_h w)\phi_h v+G_h(w,v)\]
-</div>
-</div>
-<div class="paragraph">
-<p>and</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[l_h(v)=\int_{\Omega_h} f \phi_h v + G_h^{rhs}(v)\]
-</div>
-</div>
-<div class="paragraph">
-<p>with</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)\]
-</div>
-</div>
-<div class="paragraph">
-<p>and</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v).\]
-</div>
-</div>
-<div class="paragraph">
-<p>with \(\sigma\) an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Note that \([\;\cdot\;\)] is the jump on the interface \(E\) defined by</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\left[\frac{\partial}{\partial n}(\phi_h w)\right]=\nabla(\phi_h w)^+\cdot n - \nabla(\phi_h w)^-\cdot n\]
-</div>
-</div>
-<div class="paragraph">
-<p>with \(n\) is the unit normal vector outside \(E\).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
 </article>
   </div>
 </main>

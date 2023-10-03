@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Interest of elevating the problem :: PhiFEM Project - Docs</title>
+    <title>Error estimation of the correction on the elevated problem :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_2_subsubsec_0.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -262,7 +268,7 @@
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
     <li><a href="subsec_2.html">Theoretical results</a></li>
-    <li><a href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a></li>
+    <li><a href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a></li>
   </ul>
 </nav>
 
@@ -319,76 +325,74 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Interest of elevating the problem</h1>
+<h1 class="page">Error estimation of the correction on the elevated problem</h1>
 <div class="paragraph">
-<p>The aim of this section is to explain the interest in elevating the problem in the case of the multiplication correction presented in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a> with a \(\mathbb{P}^1\) solution. Only the standard FEM method is considered here. For this purpose, we will consider a so-called disturbed solution, i.e. one that is close to the exact solution. We assume we have an analytical solution to the problem, denoted \(u_{ex}\), to which we will apply a perturbation, denoted \(P\). We then define</p>
+<p>As in the <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Interest of elevating the problem"</a>, we assume we have an analytical solution to the problem, denoted \(u_{ex}\), to which we will apply a perturbation, denoted \(P\). We then define</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)\]
+\[\tilde{\phi}(x,y) = u_{ex}(x,y)+\epsilon P(x,y)\]
 </div>
 </div>
 <div class="paragraph">
 <p>with \(P\) the perturbation (such that \(P=0\) on \(\Gamma\)) and \(\epsilon\) small.</p>
 </div>
 <div class="paragraph">
-<p>We pose</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\hat{\phi}=\tilde{\phi}+m\]
-</div>
+<p>We consider
+\(]\hat{\phi}=\tilde{\phi}m=u_{ex}\epsilon P+m=\hat{u_{ex}}+\epsilon Pstem:[\)
+with \(\hat{u_{ex}}=u_{ex}+m\) and \(m\) a constant.</p>
 </div>
 <div class="paragraph">
-<p>with \(m\) a constant, and consider the multiplication correction on a elevated problem, defined in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a> by the problem</p>
+<p>We still want to solve the following problem:</p>
 </div>
 <div class="stemblock">
 <div class="content">
 \[\left\{\begin{aligned}
 &amp;-\Delta (\hat{\phi}C)=f, \; &amp;&amp;\text{in } \; \Omega, \\
 &amp;\hat{u}=g+m, \; &amp;&amp;\text{on } \; \Gamma.
-\end{aligned}\right.\]
+\end{aligned}\right. \label{pb_reh} %\tag{stem:[\mathcal{C}]}\]
 </div>
 </div>
 <div class="paragraph">
-<p>with \(\hat{u}=\hat{\phi}C\).</p>
-</div>
-<div class="paragraph">
-<p>In <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Error estimation of the correction on the elevated problem"</a>, we will prove the following inequality in the context of this problem</p>
+<p>with \(\hat{u}=\hat{\phi}C\) whose approximate variational problem consists of</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}\]
+\[\text{Find } C_h\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h\]
 </div>
 </div>
 <div class="paragraph">
-<p>with \(c\) a constant, \(\hat{u_{ex}}=u_{ex}+m\) and \(C=\frac{u_{ex}+m}{\hat{\phi}}\).</p>
+<p>with \(\hat{u_h}=\hat{\phi}C_h\).</p>
 </div>
 <div class="paragraph">
-<p>For \(k=1\), we then have</p>
+<p>Here we seek to prove the following property:</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[|C|_{2,\Omega}=\left|\frac{u_{ex}+m}{\hat{\phi}}\right|_{2,\Omega}=\left|\left|\left(\frac{u_{ex}+m}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\hat{\phi}}\right)''\right|\right|_{0,\Omega}=\epsilon\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}\]
+\[\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}\]
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;re first interested in \(\left|\left|\hat{u}-\hat{u_h}\right|\right|_1\).</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>with</p>
+<p>Since  \(V_h\) is a vector subspace of  \(V\), posing \(v=v_h\), we obtain :</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\begin{aligned}
-\left(\frac{P}{\tilde{\phi}+m}\right)''&amp;=\frac{P''(\tilde{\phi}+m)-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'(\tilde{\phi}+m))\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
-&amp;=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{(\tilde{\phi}+m)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{mP''}{(\tilde{\phi}+m)^2}-\frac{2mP'\tilde{\phi}'}{(\tilde{\phi}+m)^3}
-\end{aligned}\]
+\[a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.\]
 </div>
 </div>
 <div class="paragraph">
-<p>As</p>
+<p>We then have Galerkin orthogonality:</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left|\left|\left(\frac{P}{\tilde{\phi}+m}\right)''\right|\right|_{0,\Omega}=\left|\left|\left(\frac{P}{m\left(1+\frac{\tilde{\phi}}{m}\right)}\right)''\right|\right|_{0,\Omega}=\frac{1}{m}\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\]
+\[a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h\]
 </div>
 </div>
 <div class="paragraph">
@@ -397,33 +401,130 @@ title="Fullscreen mode"
 <div class="stemblock">
 <div class="content">
 \[\begin{aligned}
-\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''=m\left(\frac{P}{\hat{\phi}}\right)''&amp;=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{(\tilde{\phi}+m)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{(\tilde{\phi}+m)^3}+    \frac{m^2P''}{(\tilde{\phi}+m)^2}-\frac{2m^2P'\tilde{\phi}'}{(\tilde{\phi}+m)^3} \\
-&amp;=\frac{m(P''\tilde{\phi}-P\tilde{\phi}'')}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2m(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{m^2P''}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2m^2P'\tilde{\phi}'}{m^3\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
-&amp;=\frac{P''\tilde{\phi}-P\tilde{\phi}''}{m\left(1+\frac{\tilde{\phi}}{m}\right)^2}+\frac{2(P\tilde{\phi}'-P'\tilde{\phi})\tilde{\phi}'}{m^2\left(1+\frac{\tilde{\phi}}{m}\right)^3}+    \frac{P''}{\left(1+\frac{\tilde{\phi}}{m}\right)^2}-\frac{2P'\tilde{\phi}'}{m\left(1+\frac{\tilde{\phi}}{m}\right)^3} \\
+||\hat{u}-\hat{u_h}||_1^2&amp;\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &amp;&amp;\text{by coercivity} \\
+&amp;=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) &amp;&amp;\text{with stem:[I_h] the Lagrange interpolator}\\
+&amp;=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &amp;&amp;\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
+&amp;\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &amp;&amp;\text{by continuity} \\
+&amp;\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
 \end{aligned}\]
 </div>
 </div>
 <div class="paragraph">
-<p>then, for \(m\) sufficiently large :</p>
+<p>Thus</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left|\left|\left(\frac{P}{1+\frac{\tilde{\phi}}{m}}\right)''\right|\right|_{0,\Omega}\sim\left|\left|P''\right|\right|_{0,\Omega}\]
+\[||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.\]
 </div>
 </div>
 <div class="paragraph">
-<p>Finally, for \(m\) sufficiently large, we have \(||\hat{\phi}||_\infty\sim m\) and thus</p>
+<p>By posing \(A=C-I_hC\), we have</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left|\left|\frac{u_{ex}+m}{\hat{\phi}}-C_h\right|\right|_{0,\Omega}\le ch^{k+1}\epsilon\left|\left|P''\right|\right|_{0,\Omega}\]
+\[|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1\]
 </div>
 </div>
 <div class="paragraph">
-<p>We deduce that when \(m\) is big, the error no longer depends on the solution but only on the perturbation \(P\). These results were obtained numerically and are presented in <a href="subsec_3_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>.</p>
+<p>because</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1\]
+</div>
 </div>
 <div class="paragraph">
-<p>However, when \(m\) is small, we can see that the error is dominated by the first derivatives and second derivatives of the disturbed solution \(\tilde{\phi}\).</p>
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.\]
+</div>
+</div>
+<div class="paragraph">
+<p>Therefore, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1\]
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, using the interpolation inequality, we obtain</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
+\label{norme_H1}\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can now turn our attention directly to \(\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll start by applying the Aubin-Nitsche duality method by considering the dual problem:</p>
+</div>
+<div class="paragraph">
+<p>Let \(\hat{z}\in H_0^1(\Omega)\) solution of the problem
+\(]\left\{\begin{aligned}
+&amp;-\Delta\hat{z}=\hat{e_h}, \; &amp;&amp;\text{in }\Omega \\
+&amp;\hat{z}=0, \; &amp;&amp;\text{on } \Gamma
+\end{aligned}\right.stem:[\)
+with \(\hat{e_h}=\hat{u}-\hat{u_h}\).
+Thus
+\(]a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla vstem:[\)
+and as \(\hat{e_h}\in H_0^1(\Omega)\)</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+\label{norme_e_h}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Moreover, by the regularity properties :</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\hat{z}\in H^2(\Omega)
+\label{z_H_2}\]
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
+\label{prop_reg}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Thus</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+||\hat{u}-\hat{u_h}||_0^2&amp;=||\hat{e_h}||_0^2=a(\hat{z},\hat{e_h}) &amp;&amp;\text{by \ref{norme_e_h}} \\
+&amp;=a(\hat{z}-I_h\hat{z},\hat{e_h}) &amp;&amp;\text{by Galerkin orthogonality} \\
+&amp;\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &amp;&amp;\text{by continuity} \\
+&amp;\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &amp;&amp;\text{by \ref{z_H_2} et by interpolation inequality} \\
+&amp;\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &amp;&amp;\text{by \ref{norme_H1}} \\
+&amp;\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &amp;&amp;\text{by \ref{prop_reg}}
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Finally</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}\]
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -433,7 +534,18 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>In addition, raising the problem can be extremely efficient when the solution cancels out on the domain. However, note that in the case of the addition correction presented in <a href="subsec_1_subsubsec_0.html" class="xref page">Section "Correction by adding"</a>, elevated the problem is of no interest.</p>
+<p>Denoting \(u=\hat{u}-m\) and \(u_h=\hat{u_h}-m\) the associated solutions to the initial problem obtained by multiplication correction on the elevated problem, we have :</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0\]
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that, here, \(u\) and \(u_h\) does not refer to the solution of the problem by correction without elevation.</p>
+</div>
+<div class="paragraph">
+<p>In fact, what this equality means is that when we go back to the original problem, after correcting the solution by multiplication on an elevated problem, the error is still the same.</p>
 </div>
 </td>
 </tr>

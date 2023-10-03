@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -337,7 +343,7 @@ title="Fullscreen mode"
 <p>negative function inside the domain, null at the boundary and positive outside it</p>
 </div>
 <div class="paragraph">
-<p>We will consider a first analytic trigonometric solution (<a href="#_first_problem">Section 1</a>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>) for which no exact solution is known, and for which we&#8217;ll take an over-refined FEM solution as the reference solution.</p>
+<p>We will consider a first analytic trigonometric solution (<a href="#_first_problem">Section 1</a>), parameterized in such a way that the problem can be considered homogeneous and then consider a second problem (<a href="#_second_problem">Section 2</a>) for which no exact solution is known, and for which we&#8217;ll take an over-refined FEM solution as the reference solution.</p>
 </div>
 </div>
 </div>
@@ -408,7 +414,7 @@ f(x,y)=256\pi^2 S f^2&amp;\left((x-0.5)^2+(y-0.5)^2\right)\sin\left[8\pi f\left(
 </div>
 </div>
 <div class="sect1">
-<h2 id="_f_gaussian"><a class="anchor" href="#_f_gaussian"></a>2. \(f\) Gaussian</h2>
+<h2 id="_second_problem"><a class="anchor" href="#_second_problem"></a>2. Second problem</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the case considered here, no analytical solution is known. We consider the source term \(f\) to be a Gaussian defined by</p>

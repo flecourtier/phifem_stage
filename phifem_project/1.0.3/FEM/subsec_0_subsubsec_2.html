@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -333,7 +339,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The choice of \(V_h\) space is fundamental to have an efficient method that gives a good approximation \(u_h\) of \(u\). In particular, the choice of the \(\{\varphi_i\}\) basis of \(V_h\) influences the structure of the \(A\) matrix in terms of its sparsity and its condition number.</p>
+<p>The choice of \(V_h\) space is fundamental to have an efficient method that gives a good approximation \(u_h\) of \(u\). In particular, the choice of the \(\{\varphi_i\}\) basis of \(V_h\) influences the structure of the \(A\) matrix in terms of its sparsity and its condition number but also affects the quality of the approximation.</p>
 </div>
 </td>
 </tr>
@@ -483,7 +489,7 @@ A finite Lagrange element is a triplet \((K,\Sigma,P)\) such that</p>
 <hr>
 <div class="paragraph">
 <p><strong>Example.</strong>
-Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2\}\) is \(P\)-unisolvent for \(P=\mathbb{P}^1\). Since \(\{1,x\}\) is a base of \(\mathbb{P}^1\), we have \(\dim P = \text{card } \Sigma = 2\).</p>
+Let \(K\) be the segment \([a_1,a_2\)]. Let&#8217;s show that \(\Sigma=\{a_1,a_2\}\) is \(P\)-unisolvent for \(P=\mathbb{P}^1\). Since \(\{1,x\}\) is a base of \(\;\mathbb{P}^1\), we have \(\dim P = \text{card } \Sigma = 2\).</p>
 </div>
 <div class="paragraph">
 <p>Moreover, we can write \(p_i=\alpha_i x+\beta_i, i=1,2\). Thus</p>
@@ -608,9 +614,23 @@ image::FEM/FEM_reference_element.png[width=420.0,height=336.0]</p>
 </div>
 <div id="triangle_mesh" class="imageblock">
 <div class="content">
-<img src="../_images/FEM/FEM_triangle_mesh.png" alt="FEM triangle mesh" width="150.0" height="120.0">
+<img src="../_images/FEM/FEM_triangle_mesh.png" alt="FEM triangle mesh" width="120.0" height="96.0">
 </div>
 <div class="title">Figure 1. figure</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that it&#8217;s important to have a certain geometric quality in the mesh, as this can influence the accuracy of the approximation. For example, if we&#8217;re using triangles as 2D elements, it&#8217;s preferable that all the elements in the mesh are not too flattened.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

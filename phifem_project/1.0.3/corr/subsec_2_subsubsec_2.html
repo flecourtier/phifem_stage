@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Error estimation of the correction on the elevated problem :: PhiFEM Project - Docs</title>
+    <title>Comparison of correction methods :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_2_subsubsec_2.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -262,7 +268,7 @@
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
     <li><a href="subsec_2.html">Theoretical results</a></li>
-    <li><a href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a></li>
+    <li><a href="subsec_2_subsubsec_2.html">Comparison of correction methods</a></li>
   </ul>
 </nav>
 
@@ -319,71 +325,74 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Error estimation of the correction on the elevated problem</h1>
+<h1 class="page">Comparison of correction methods</h1>
 <div class="paragraph">
-<p>As in the <a href="subsec_2_subsubsec_0.html" class="xref page">Section "Interest of elevating the problem"</a>, we assume we have an analytical solution to the problem, denoted \(u_{ex}\), to which we will apply a perturbation, denoted \(P\). We then define</p>
+<p>Here, we compare 2 methods, the addition correction method defined in <a href="subsec_1_subsubsec_0.html" class="xref page">Section "Correction by adding"</a> and the multiplication correction method on a elevated problem defined in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a>. In fact, we will show that when m tends to infinity, the solution of the multiplication correction on a elevated problem converges to the solution of the addition correction.</p>
+</div>
+<div class="paragraph">
+<p><strong>Correction by adding :</strong></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start by looking at the form of the solution in the case of correction by addition. The decomposition of \(u_h\) on the \((\varphi_1,\dots,\varphi_{N_h})\) basis of \(V_h\) is written as follows for this problem</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)\]
+\[u_h=C_h+\tilde{\phi}(x)=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}\]
 </div>
 </div>
 <div class="paragraph">
-<p>with \(P\) the perturbation (such that \(P=0\) on \(\Gamma\)) and \(\epsilon\) small.</p>
-</div>
-<div class="paragraph">
-<p>We consider
-\(]\hat{\phi}=\tilde{\phi}m=u_{ex}\epsilon P+m=\hat{u_{ex}}+\epsilon Pstem:[\)
-with \(\hat{u_{ex}}=u_{ex}+m\) et \(m\) a constant.</p>
-</div>
-<div class="paragraph">
-<p>We still want to solve the following problem:</p>
+<p>We aim to have</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left\{\begin{aligned}
-&amp;-\Delta (\hat{\phi}C)=f, \; &amp;&amp;\text{in } \; \Omega, \\
-&amp;\hat{u}=g+m, \; &amp;&amp;\text{on } \; \Gamma.
-\end{aligned}\right. \label{pb_reh} %\tag{stem:[\mathcal{C}]}\]
+\[C_i=u_{ex}(x_i)-\tilde{\phi}(x_i) \label{C_i_2}\]
 </div>
 </div>
 <div class="paragraph">
-<p>with \(\hat{u}=\hat{\phi}C\) whose approximate variational problem consists of</p>
+<p>with</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\text{Find } \hat{u_h}\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h\]
+\[u_{ex}(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i_2}\]
 </div>
 </div>
 <div class="paragraph">
-<p>Here we seek to prove the following property:</p>
+<p>With the 2 previous relations, we can develop \ref{decomp_pbc2} :</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}\]
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>We&#8217;re first interested in \(\left|\left|\hat{u}-\hat{u_h}\right|\right|_1\).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Since  \(V_h\) is a vector subspace of  \(V\), posing \(v=v_h\), we obtain :</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.\]
+\[\begin{aligned}
+u_h&amp;=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{C_i_2}} \\
+&amp;=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)-\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{u_x_i_2}} \\
+u_h&amp;=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
+\end{aligned}\]
 </div>
 </div>
 <div class="paragraph">
-<p>We then have Galerkin orthogonality:</p>
+<p><strong>Correction by multiplying on an elevated problem :</strong></p>
+</div>
+<div class="paragraph">
+<p>We are now interested in the form of the solution in the case of multiplication correction on a elevated problem. The decomposition of \(\hat{u_h}\) on the \((\varphi_1,\dots,\varphi_{N_h})\) basis of \(V_h\) is written as follows for this problem</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h\]
+\[\hat{u_h}=C_h\hat{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \label{decomp_pbc1}\]
+</div>
+</div>
+<div class="paragraph">
+<p>We aim to have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[C_i=\frac{u(x_i)+m}{\hat{\phi}(x_i)}=\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m} \label{C_i}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[u(x_i)=\tilde{\phi}(x_i)-\epsilon P(x_i) \label{u_x_i}\]
 </div>
 </div>
 <div class="paragraph">
@@ -391,12 +400,30 @@ with \(\hat{u_{ex}}=u_{ex}+m\) et \(m\) a constant.</p>
 </div>
 <div class="stemblock">
 <div class="content">
+\[\tilde{\phi}(x)\approx\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Moreover, we have</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\sum_{i=1}^{N_h}\varphi_i=1 \label{sum_base}\]
+</div>
+</div>
+<div class="paragraph">
+<p>With the 4 previous relations, we can develop \ref{decomp_pbc1} :</p>
+</div>
+<div class="stemblock">
+<div class="content">
 \[\begin{aligned}
-||\hat{u}-\hat{u_h}||_1^2&amp;\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &amp;&amp;\text{by coercivity} \\
-&amp;=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) \\
-&amp;=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &amp;&amp;\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
-&amp;\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &amp;&amp;\text{by continuity} \\
-&amp;\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
+\hat{u_h}&amp;=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x)=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{C_i}} \\
+&amp;=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m-\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{u_x_i}} \\
+&amp;=\sum_{i=1}^{N_h}\left(1-\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
+&amp;=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
+&amp;\approx\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{by \ref{phi_tilde_x} et \ref{sum_base}} \\
+&amp;=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
+&amp;=\tilde{\phi}(x)+m-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
 \end{aligned}\]
 </div>
 </div>
@@ -405,118 +432,19 @@ with \(\hat{u_{ex}}=u_{ex}+m\) et \(m\) a constant.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.\]
+\[u_h=\hat{u_h}-m\approx\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\]
 </div>
 </div>
 <div class="paragraph">
-<p>By posing \(A=C-I_hC\), we have</p>
+<p>and finally</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1\]
+\[u_h\xrightarrow[m\to\infty]{} \tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\varphi_i \label{result1}\]
 </div>
 </div>
 <div class="paragraph">
-<p>because</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1\]
-</div>
-</div>
-<div class="paragraph">
-<p>and</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.\]
-</div>
-</div>
-<div class="paragraph">
-<p>Therefore, we have</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1\]
-</div>
-</div>
-<div class="paragraph">
-<p>Finally, using the interpolation inequality, we obtain</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
-\label{norme_H1}\]
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>We can now turn our attention directly to \(\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll start by applying the Aubin-Nitsche duality method by considering the dual problem:</p>
-</div>
-<div class="paragraph">
-<p>Let \(\hat{z}\in H_0^1(\Omega)\) solution of the problem
-\(]\left\{\begin{aligned}
-&amp;-\Delta\hat{z}=\hat{e_h}, \; &amp;&amp;\text{in }\Omega \\
-&amp;\hat{z}=0, \; &amp;&amp;\text{on } \Gamma
-\end{aligned}\right.stem:[\)
-with \(\hat{e_h}=\hat{u}-\hat{u_h}\).
-Thus
-\(]a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla vstem:[\)
-and as \(\hat{e_h}\in H_0^1(\Omega)\)</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
-\label{norme_e_h}\]
-</div>
-</div>
-<div class="paragraph">
-<p>Moreover, by the regularity properties :</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\hat{z}\in H^2(\Omega)
-\label{z_H_2}\]
-</div>
-</div>
-<div class="paragraph">
-<p>and</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
-\label{prop_reg}\]
-</div>
-</div>
-<div class="paragraph">
-<p>Thus</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{aligned}
-||\hat{u}-\hat{u_h}||_0^2&amp;=||\hat{e_h}||_0^2 \\
-&amp;=a(\hat{z},\hat{e_h}) &amp;&amp;\text{by \ref{norme_e_h}} \\
-&amp;=a(\hat{z}-I_h\hat{z},\hat{e_h}) &amp;&amp;\text{by Galerkin orthogonality} \\
-&amp;\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &amp;&amp;\text{by continuity} \\
-&amp;\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &amp;&amp;\text{by \ref{z_H_2} et by interpolation inequality} \\
-&amp;\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &amp;&amp;\text{by \ref{norme_H1}} \\
-&amp;\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &amp;&amp;\text{by \ref{prop_reg}}
-\end{aligned}\]
-</div>
-</div>
-<div class="paragraph">
-<p>Finally</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}\]
-</div>
+<p>So by \ref{result2} and \ref{result1}, it would seem that the 2 proposed methods are equivalent (taking \(m\) to be large).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -526,11 +454,11 @@ and as \(\hat{e_h}\in H_0^1(\Omega)\)</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that</p>
+<p>Taking \(m=0\), we return to the case of correction by multiplication defined in <a href="subsec_1_subsubsec_1.html" class="xref page">Section "Correction by multiplying"</a> and the solution is of the form</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0\]
+\[u_h=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)}\right)\varphi_i\]
 </div>
 </div>
 </td>

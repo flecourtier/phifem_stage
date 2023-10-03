@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -324,7 +330,7 @@ title="Fullscreen mode"
 <p><strong>Weak formulation :</strong></p>
 </div>
 <div class="paragraph">
-<p>We want to apply the standard FEM method to the Poisson problem with Dirichlet condition under consideration. Let&#8217;s start by writing the variational formulation of the problem. We start with the strong formulation of the problem :</p>
+<p>We want to apply the standard FEM method to the Poisson problem with Dirichlet boundary condition under consideration. Let&#8217;s start by writing the variational formulation of the problem. For the moment, we have the following strong formulation of the problem :</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -352,7 +358,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\text{Find } u\in V \text{ such that } a(u,v)=l(v), \;\forall v\in V\]
+\[\text{Find } u\in H_0^1(\Omega) \text{ such that } a(u,v)=l(v), \;\forall v\in H_0^1(\Omega)\]
 </div>
 </div>
 <div class="paragraph">
@@ -370,10 +376,10 @@ title="Fullscreen mode"
 <p>because \(v\in H_0^1(\Omega)\).</p>
 </div>
 <div class="paragraph">
-<p><strong>Unicity of the solution :</strong></p>
+<p><strong>Uniqueness of the solution :</strong></p>
 </div>
 <div class="paragraph">
-<p>An important result of the FEM method is the following theorem, which shows the unicity of the solution:</p>
+<p>An important result of the FEM method is the following theorem, which shows the uniqueness of the solution:</p>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -394,7 +400,60 @@ title="Fullscreen mode"
 </div>
 </div>
 <div class="paragraph">
-<p>It can then be shown that the Poisson problem with Dirichlet condition has a unique weak solution \(u\in H^2(\Omega)\).</p>
+<p>Let&#8217;s show that the Poisson problem with Dirichlet boundary condition has a unique weak solution \(u\in H_0^1(\Omega)\).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It&#8217;s easy to see that \(a\) is a bilinear (and symmetrical) form.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s show that \(a\) is continuous. Let \(u,v \in H_0^1(\Omega)\), then</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+|a(u,v)|&amp;=\left|\int_\Omega \nabla u\cdot\nabla v\right|=|\langle u,v\rangle_{H^1(\Omega)} \\
+&amp;\le ||u||_{H^1(\Omega)} ||v||_{H^1(\Omega)} \quad\text{by Cauchy-Schwarz}
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s show that \(a\) is coercive. Let \(u \in H_0^1(\Omega)\), then</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+a(u,u)&amp;=\int_\Omega \nabla u\cdot\nabla u=\int_\Omega |\nabla u|^2 \\
+&amp;=\frac{1}{2}\int_\Omega |\nabla u|^2+\frac{1}{2}\int_\Omega |\nabla u|^2 \\
+&amp;\ge\frac{1}{2}\alpha\int_\Omega u^2+\frac{1}{2}\int_\Omega |\nabla u|^2 \quad \text{by Poincaré} \\
+&amp;\ge \alpha\int_\Omega u^2+|\nabla u|^2=\alpha||u||_{H^1(\Omega)}
+\end{aligned}\]
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It is easy to see that \(l\) is a linear form.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s show that \(l\) is continuous. Let \(v \in H_0^1(\Omega)\), then</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{aligned}
+|l(v)|&amp;=\left|\int_\Omega fv\right|=|\langle f,v\rangle_{L^2(\Omega)}| \\
+&amp;\le ||f||_{L^2(\Omega)} ||v||_{L^2(\Omega)} \quad\text{by Cauchy-Schwarz} \\
+&amp;\le ||f||_{L^2(\Omega)} ||v||_{H^1(\Omega)}
+\end{aligned}\]
+</div>
+</div>
+<div class="paragraph">
+<p>By the Lax-Milgram theorem, we deduce that the Poisson problem with Dirichlet boundary condition has a unique weak solution \(u\in H_0^1(\Omega)\).</p>
 </div>
 </article>
   </div>

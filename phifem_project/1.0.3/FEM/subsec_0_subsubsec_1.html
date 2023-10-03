@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -341,11 +347,11 @@ title="Fullscreen mode"
 <p>To do this, we multiply the PDE by a test function \(v\in V\), then integrate over \(L^2(\Omega)\).</p>
 </div>
 <div class="paragraph">
-<p>The idea of FEM is to use Galerkin&#8217;s method. We then look for an approximate solution \(u_h\) in \(V_h\), a finite-dimensional space dependent on a positive parameter \(h\) such that</p>
+<p>The idea of FEM is to use Galerkin&#8217;s method. We then look for an approximate solution \(u_h\) in \(V_h\), a finite-dimensional subspace dependent on a positive parameter \(h\) such that</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[V_h\subset V, \quad \dim V_h = N_h&lt;\infty, \quad \forall h&gt;0\]
+\[V_h\subset V, \quad \dim V_h = N_h&lt;\infty, \quad \forall h&gt;0.\]
 </div>
 </div>
 <div class="paragraph">
@@ -356,7 +362,7 @@ title="Fullscreen mode"
 </div>
 <div class="stemblock">
 <div class="content">
-\[\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V\]
+\[\text{Find } u_h\in V_h \text{ such that } a(u_h,v_h)=l(v_h), \;\forall v_h\in V.\]
 </div>
 </div>
 <div class="paragraph">
@@ -369,7 +375,7 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 </div>
 </div>
 <div class="paragraph">
-<p>The approached problem is then rewritten as</p>
+<p>By bilinearity of \(a\), the approached problem is then rewritten as</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -377,7 +383,7 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 </div>
 </div>
 <div class="paragraph">
-<p>and</p>
+<p>which is equivalent to</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -385,7 +391,7 @@ u_h=\sum_{i=1}^{N_h}u_i\varphi_i\]
 </div>
 </div>
 <div class="paragraph">
-<p>Solving the PDE involves solving the following linear system:</p>
+<p>Thus, to find an approximation to the solution of the PDE, we simply solve the following linear system :</p>
 </div>
 <div class="stemblock">
 <div class="content">

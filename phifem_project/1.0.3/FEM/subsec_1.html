@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -320,7 +326,8 @@ title="Fullscreen mode"
 <article class="doc">
 <h1 class="page">\(\phi\)-FEM</h1>
 <div class="paragraph">
-<p>In this section, we will present the \(\phi\)-FEM method. We will first present the context in which the method is used and its general principle (<a href="subsec_1_subsubsec_0.html" class="xref page">Section "Context and general principle of the method"</a>. Next, we will give a general presentation of the method, starting with a description of the spaces required (<a href="#_description_of_spaces">[_description_of_spaces]</a>), followed by a description of the \(\phi\)-FEM method (<a href="#_description_of_the_\(\phi\)-fem_method">[_description_of_the_\(\phi\)-fem_method]</a>). Finally, we will give some details on the \(\phi\)-FEM method (section \ref{FEMs.PhiFEM.details}).</p>
+<p>In this section, we will present the \(\phi\)-FEM method. We will first present fictitious domain methods (<a href="subsec_1_subsubsec_0.html" class="xref page">Section "Fictitious domain methods"</a>). Next, we will give a general presentation of the method with a description of the spaces required (<a href="subsec_1_subsubsec_1.html" class="xref page">Section "General presentation of the \(\phi\)-FEM method"</a>), followed by a description of the \(\phi\)-FEM direct method (<a href="subsec_1_subsubsec_2.html" class="xref page">Section "Description of the \(\phi\)-FEM direct method"</a>) and a description of the \(\phi\)-FEM dual method (<a href="subsec_1_subsubsec_3.html" class="xref page">Section "Description of the \(\phi\)-FEM dual method"</a>). Finally, we will give some details on the stabilization terms
+(<a href="subsec_1_subsubsec_4.html" class="xref page">Section "Some details on the stabilization terms"</a>).</p>
 </div>
 <hr>
 <div class="paragraph">
@@ -329,13 +336,19 @@ title="Fullscreen mode"
 <div class="ulist">
 <ul>
 <li>
-<p><a href="subsec_1_subsubsec_0.html" class="xref page">Context and general principle of the method</a></p>
+<p><a href="subsec_1_subsubsec_0.html" class="xref page">Fictitious domain methods</a></p>
 </li>
 <li>
 <p><a href="subsec_1_subsubsec_1.html" class="xref page">General presentation of the \(\phi\)-FEM method</a></p>
 </li>
 <li>
-<p><a href="subsec_1_subsubsec_2.html" class="xref page">Some details on \(\phi\)-FEM</a></p>
+<p><a href="subsec_1_subsubsec_2.html" class="xref page">Description of the \(\phi\)-FEM direct method</a></p>
+</li>
+<li>
+<p><a href="subsec_1_subsubsec_3.html" class="xref page">Description of the \(\phi\)-FEM dual method</a></p>
+</li>
+<li>
+<p><a href="subsec_1_subsubsec_4.html" class="xref page">Some details on the stabilization terms</a></p>
 </li>
 </ul>
 </div>

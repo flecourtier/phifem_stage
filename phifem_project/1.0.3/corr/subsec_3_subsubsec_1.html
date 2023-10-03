@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -364,7 +370,7 @@ title="Fullscreen mode"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Note that the form of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of \(\phi\)-FEM in <a href="subsec_3_subsubsec_2.html" class="xref page">Section "Correction on \(\phi\)-FEM solution"</a> or FNO in <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction with FNO"</a>).</p>
+<p>Note that the form of the perturbation has a huge influence on the accuracy of the solvers, and that the difficulty lies in the following cases where its expression is not explicitly known (as in the case of \(\phi\)-FEM in <a href="subsec_3_subsubsec_2.html" class="xref page">Section "Correction on \(\phi\)-FEM solution"</a> or FNO in <a href="subsec_3_subsubsec_3.html" class="xref page">Section "Correction on a FNO prediction"</a>).</p>
 </div>
 </td>
 </tr>
@@ -407,7 +413,7 @@ title="Fullscreen mode"
 </table>
 </div>
 <div class="paragraph">
-<p>Recall the relative errors obtained by standard FEM and \(\phi\)-FEM on the circle and on the square for frequencies \(f\in\{1,2,3,4\}\) for the homogeneous  (<a href="#norms">Figure 1</a>) and non-homogeneous problem  (<a href="#norms_nh">Figure 2</a>).</p>
+<p>Recall the relative errors obtained by standard FEM and \(\phi\)-FEM (without correction) on the circle and on the square for frequencies \(f\in\{1,2,3,4\}\) for the homogeneous  (<a href="#norms">Figure 1</a>) and non-homogeneous problem  (<a href="#norms_nh">Figure 2</a>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -540,7 +546,7 @@ title="Fullscreen mode"
 <p>In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.</p>
 </li>
 <li>
-<p>There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed \(\epsilon\)). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the <a href="subsec_2_subsubsec_0.html" class="xref page">Section "Interest of elevating the problem"</a> (for \(m\) large, similar to correction by addition as explained above). Thus, as we have shown (in <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Comparison of correction methods"</a>) that for \(m\) large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.</p>
+<p>There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed \(\epsilon\)). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Interest of elevating the problem"</a> (for \(m\) large, similar to correction by addition as explained above). Thus, as we have shown (in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Comparison of correction methods"</a>) that for \(m\) large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.</p>
 </li>
 <li>
 <p><strong>Results on the non-homogeneous case :</strong></p>
@@ -915,6 +921,13 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 <div class="paragraph">
 <p><strong>Results with FEM :</strong></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Comparison with the correction by adding :</strong></p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in <a href="subsec_1_subsubsec_2.html" class="xref page">Section "Correction by multiplying on an elevated problem"</a>). We will test this method on the circle (<a href="#corr_pert_fem_circle_reh">Figure 29</a> and <a href="#corr_pert_fem_circle_reh_fig">Figure 31</a>) and on the square (<a href="#corr_pert_fem_square_reh">Figure 30</a> and <a href="#corr_pert_fem_square_reh_fig">Figure 32</a>) for selected frequencies and by varying \(m\).</p>
 </div>
@@ -963,7 +976,38 @@ In fact, in the homogeneous case, for \(f=f_p\) the perturbation is identical to
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Observation :</strong> The numerical results obtained on the circle in <a href="#corr_pert_fem_circle_reh">Figure 29</a> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Comparison of correction methods"</a>, we can see that by increasing \(m\), the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding).</p>
+<p><strong>Observation :</strong> The numerical results obtained on the circle in <a href="#corr_pert_fem_circle_reh">Figure 29</a> and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in <a href="subsec_2_subsubsec_2.html" class="xref page">Section "Comparison of correction methods"</a>, we can see that by increasing \(m\), the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Importance of the perturbation form:</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here, we seek to verify the importance of the shape of the perturbation on the multiplication correction on the enhanced problem, presented in <a href="subsec_2_subsubsec_1.html" class="xref page">Section "Interest of elevating the problem"</a>. By fixing \(f_p = 2\) and \(\epsilon=10^{-3}\) and varying \(f\), we obtain the following result with the correction by multiplying on an elevated problem (with FEM) :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>\centering
+\includegraphics[width=0.9\linewidth]{corr_pert/rehaussement/pert_tab.png}</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>\centering
+\includegraphics[width=\linewidth]{corr_pert/rehaussement/pert_fig.png}</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Observation :</strong> It would then seem that the error obtained for large \(m\) depends only on the shape of the perturbation and not on that of the solution. Indeed, by varying \(f\), it would seem that we always converge to the same error (at \(f_p\) and \(\epsilon\) fixed).</p>
 </div>
 <div class="paragraph">
 <p><strong>Results with \(\phi\)-FEM :</strong></p>

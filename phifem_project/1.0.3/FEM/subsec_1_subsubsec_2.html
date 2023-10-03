@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Some details on \(\phi\)-FEM :: PhiFEM Project - Docs</title>
+    <title>Description of the \(\phi\)-FEM direct method :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/FEM/subsec_1_subsubsec_2.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -124,13 +124,19 @@
     <a class="nav-link" href="subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="../corr/subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="../corr/subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="../corr/subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="../corr/subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../corr/subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -262,7 +268,7 @@
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../FEM.html">Finite Element Methods (FEMs)</a></li>
     <li><a href="subsec_1.html">\(\phi\)-FEM</a></li>
-    <li><a href="subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a></li>
+    <li><a href="subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a></li>
   </ul>
 </nav>
 
@@ -319,66 +325,113 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Some details on \(\phi\)-FEM</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Description of the \(\phi\)-FEM direct method</h1>
 <div class="paragraph">
-<p>In this section, we first give some information on stabilization terms (<a href="#_stabilization_terms">Section 1</a>) and then present two methods for imposing non-homogeneous Dirichlet conditions, the direct method and the dual method (<a href="#_non-homogeneous_case">[_non-homogeneous_case]</a>).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_stabilization_terms"><a class="anchor" href="#_stabilization_terms"></a>1. Stabilization terms</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>As introduced previously, the stabilization terms are intended to reduce the errors created by the "fictitious" boundary, but they also have the effect of ensuring the correct condition number of the finite element matrix and permitting to restore the coercivity of the bilinear scheme.</p>
+<p>As with standard FEM, the general idea behind \(\phi\)-FEM is to find a weak solution (i.e. a solution to the variational problem) to the considered problem (\ref{eq.Poisson}). The main difference lies in the spaces considered. In fact, we are no longer looking to solve the problem on \(\Omega\) (of boundary \(\Gamma\)) but on \(\Omega_h\) (of boundary \(\partial\Omega_h\)). Since our boundary conditions are defined on \(\Gamma\), we don&#8217;t have a direct condition on the \(\partial\Omega_h\) boundary, so we will have to add terms to the variational formulation of the problem, called stabilization terms.</p>
 </div>
 <div class="paragraph">
-<p>The first term of \(G_h(w,v)\) defined by</p>
+<p>Let&#8217;s first consider the homogeneous case, then assuming that the source term \(f\) is currently well-defined on \(\Omega_h\) and that the solution \(u\) can be extended on \(\Omega_h\) such that \(-\Delta u=f\) on \(\Omega_h\), we can introduce a new unknown \(w\in H^1(\Omega_h)\) such that \(u=\phi w\) and the boundary condition on \(\Gamma\) is satisfied (since \(\phi=0\) on \(\Gamma\)). After an integration by parts, we have</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]\]
+\[\int_{\Omega_h}\nabla(\phi w)\cdot\nabla(\phi v)-\int_{\partial\Omega_h}\frac{\partial}{\partial n}(\phi w)\phi v=\int_{\Omega_h} f\phi v,\quad \forall v\in H^1(\Omega_h).\]
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that \(\Omega_h\) is constructed using \(\phi_h\) and therefore implicitly depends on \(\phi\).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>is a first-order stabilization term. This stabilization term is based on \cite{burman_ghost_2010}. It also ensures the continuity of the solution by penalizing gradient jumps.</p>
-</div>
-<div class="paragraph">
-<p>By subtracting \(G_h^{rhs}(v)\) from the second term of \(G_h(w,v)\), i.e.</p>
+<p>Given an approximation \(\phi_h\) of \(\phi\) on the mesh \(\mathcal{T}_h\), as defined in <a href="subsec_1_subsubsec_1.html" class="xref page">Section "General presentation of the \(\phi\)-FEM method"</a>, and a finite element space \(V_h\) on \(\mathcal{T}_h\), we can then search for \(w_h\in V_h\) such that</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v),\]
+\[a_h(w_h,v_h)=l_h(v_h), \quad \forall v_h\in V_h.\]
 </div>
 </div>
 <div class="paragraph">
-<p>which can be rewritten as</p>
+<p>The bilinear form \(a_h\) and the linear form \(l_h\) are defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \left(\Delta(\phi_h w)+f\right)\Delta(\phi_h v),\]
+\[a_h(w,v)=\int_{\Omega_h} \nabla (\phi_h w) \cdot \nabla (\phi_h v) - \int_{\partial\Omega_h} \frac{\partial}{\partial n}(\phi_h w)\phi_h v+G_h(w,v)\]
 </div>
 </div>
 <div class="paragraph">
-<p>we recognize the strong formulation of the Poisson problem. This second-order stabilization term penalizes the scheme by requiring the solution to verify the strong form on \(\Omega_h^\Gamma\). In fact, this term cancels out if \(\phi_h w\) is the exact solution of the Poisson problem under consideration.</p>
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[l_h(v)=\int_{\Omega_h} f \phi_h v + G_h^{rhs}(v)\]
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_non_homogeneous_case"><a class="anchor" href="#_non_homogeneous_case"></a>2. Non-homogeneous case</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>In the case of a non-homogeneous Dirichlet condition, we want to impose \(u=g\) on \(\Gamma\). To do this, we will consider 2 approaches introduced in \cite{cotin_phi-fem_nodate} and presented below:</p>
+<p>with</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Direct method :</strong> In this method, we must suppose that \(g\) is currently given over the entire \(\Omega_h\) and not just over \(\Gamma\). We can then write the solution \(u\) as</p>
-</li>
-</ul>
+<div class="stemblock">
+<div class="content">
+\[G_h(w,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma} \int_E \left[\frac{\partial}{\partial n}(\phi_h w)\right] \left[\frac{\partial}{\partial n}(\phi_h v)\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} \Delta(\phi_h w)\Delta(\phi_h v)\]
 </div>
-u=\phi w +g, \; \text{on } \Omega_h.
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\phi_h v).\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(\sigma\) an independent parameter of h, which we&#8217;ll call the stabilization parameter.</p>
+</div>
+<div class="paragraph">
+<p>We can consider the finite element space \(V_h=V_h^{(k)}\) with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[V_h^{(k)}=\left\{v_h\in H^1(\Omega_h):v_{h|_T}\in\mathbb{P}_k(T) \;  \forall T\in\mathcal{T}_h\right\}.\]
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Note that \([\;\cdot\;\)] is the jump on the interface \(E\) defined by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\left[\frac{\partial}{\partial n}(\phi_h w)\right]=\nabla(\phi_h w)^+\cdot n - \nabla(\phi_h w)^-\cdot n\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(n\) is the unit normal vector outside \(E\).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the case of a non-homogeneous Dirichlet condition, we want to impose \(u=g\) on \(\Gamma\). With the direct method, we must suppose that \(g\) is currently given over the entire \(\Omega_h\) and not just over \(\Gamma\). We can then write the solution \(u\) as</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[u=\phi w +g, \; \text{on } \Omega_h.\]
+</div>
+</div>
 <div class="paragraph">
 <p>It can then be injected into the weak formulation of the homogeneous problem and we can then search for \(w_h\) on \(\Omega_h\) such that</p>
 </div>
@@ -404,71 +457,6 @@ u=\phi w +g, \; \text{on } \Omega_h.
 <div class="stemblock">
 <div class="content">
 \[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta(\phi_h v)-\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial g}{\partial n}\right]\left[\frac{\partial}{\partial n}(\phi_h v)\right]-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta g\Delta(\phi_h v)\]
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Dual method :</strong> We now assume that \(g\) is defined on \(\Omega_h^\Gamma\) and not on \(\Omega_h\). We then introduce a new unknown \(p\) on \(\Omega_h^\Gamma\) in addition to the unknown \(u\) on \(\Omega_h\) and so we aim to impose</p>
-</li>
-</ul>
-</div>
-u=\phi p+g, \; \text{on } \Omega_h^\Gamma.
-<div class="paragraph">
-<p>So we look for \(u\) on \(\Omega_h\) and \(p\) on \(\Omega_h^\Gamma\) such that</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{aligned}
-\int_{\Omega_h}\nabla u\nabla v-\int_{\partial\Omega_h}\frac{\partial u}{\partial n} v + \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T &amp;\left(u-\frac{1}{h}\phi p\right)\left(v-\frac{1}{h}\phi q\right) + G_h(u,v) = \int_{\Omega_h}fv \\
-&amp;+ \frac{\gamma}{h^2} \sum_{T\in\mathcal{T}_h^\Gamma}\int_T g\left(v-\frac{1}{h}\phi q\right) + G_h^{rhs}(v), \; \forall v \; \text{on } \Omega_h, \; q \; \text{on } \Omega_h^\Gamma.
-\end{aligned}\]
-</div>
-</div>
-<div class="paragraph">
-<p>with \(\gamma\) an other positive stabilization parameter,</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[G_h(u,v)=\sigma h\sum_{E\in\mathcal{F}_h^\Gamma}\int_E\left[\frac{\partial u}{\partial n}\right]\left[\frac{\partial v}{\partial n}\right]+\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T \Delta u\Delta v\]
-</div>
-</div>
-<div class="paragraph">
-<p>and</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma}\int_T f\Delta v.\]
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The factors \(\frac{1}{h}\) and \(\frac{1}{h^2}\) control the condition number of the finite element matrix. For more details, please refer to the article \cite{duprez_new_2023}.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>In the context of this internship, we won&#8217;t be concerned with the choice of stabilization parameters \(\sigma\) and \(\gamma\). We&#8217;ll always take \(\sigma=20\) and \(\gamma=1\), but it&#8217;s important to note that they can have a significant influence on the results.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 </div>
 </div>
 </article>

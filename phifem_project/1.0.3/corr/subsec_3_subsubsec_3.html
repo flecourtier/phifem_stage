@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Correction with FNO :: PhiFEM Project - Docs</title>
+    <title>Correction on a FNO prediction :: PhiFEM Project - Docs</title>
     <link rel="canonical" href="https://flecourtier.github.io/phifem_stage/phifem_project/1.0.3/corr/subsec_3_subsubsec_3.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../_/css/site.css">
@@ -124,13 +124,19 @@
     <a class="nav-link" href="../FEM/subsec_1.html">\(\phi\)-FEM</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Context and general principle of the method</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_0.html">Fictitious domain methods</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="../FEM/subsec_1_subsubsec_1.html">General presentation of the \(\phi\)-FEM method</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Some details on \(\phi\)-FEM</a>
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_2.html">Description of the \(\phi\)-FEM direct method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_3.html">Description of the \(\phi\)-FEM dual method</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../FEM/subsec_1_subsubsec_4.html">Some details on the stabilization terms</a>
   </li>
 </ul>
   </li>
@@ -190,13 +196,13 @@
     <a class="nav-link" href="subsec_2.html">Theoretical results</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_0.html">Interest of elevating the problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_0.html">Error estimation of the correction on the elevated problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_1.html">Comparison of correction methods</a>
+    <a class="nav-link" href="subsec_2_subsubsec_1.html">Interest of elevating the problem</a>
   </li>
   <li class="nav-item" data-depth="4">
-    <a class="nav-link" href="subsec_2_subsubsec_2.html">Error estimation of the correction on the elevated problem</a>
+    <a class="nav-link" href="subsec_2_subsubsec_2.html">Comparison of correction methods</a>
   </li>
 </ul>
   </li>
@@ -214,7 +220,7 @@
     <a class="nav-link" href="subsec_3_subsubsec_2.html">Correction on \(\phi\)-FEM solution</a>
   </li>
   <li class="nav-item is-current-page" data-depth="4">
-    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction with FNO</a>
+    <a class="nav-link" href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a>
   </li>
   <li class="nav-item" data-depth="4">
     <a class="nav-link" href="subsec_3_subsubsec_4.html">Correction with other networks</a>
@@ -262,7 +268,7 @@
     <li><a href="../main_page.html">PhiFEM project</a></li>
     <li><a href="../corr.html">Correction</a></li>
     <li><a href="subsec_3.html">Numerical results</a></li>
-    <li><a href="subsec_3_subsubsec_3.html">Correction with FNO</a></li>
+    <li><a href="subsec_3_subsubsec_3.html">Correction on a FNO prediction</a></li>
   </ul>
 </nav>
 
@@ -319,11 +325,11 @@ title="Fullscreen mode"
 </aside>
 
 <article class="doc">
-<h1 class="page">Correction with FNO</h1>
+<h1 class="page">Correction on a FNO prediction</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, we will consider the problem presented in <a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>, where we take as geometry the circle and \(f\) Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution.</p>
+<p>In this section, we will consider the problem presented in <a href="#_second_problem">[_second_problem]</a>, where we take as geometry the circle and \(f\) Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution.</p>
 </div>
 <div class="paragraph">
 <p>We want to train an FNO to predict the solutions of the problem under consideration and test the correction on its predictions. To do this, we will follow the steps presented in <a href="../fourier/subsec_3.html" class="xref page">Section "Application"</a>. In the following, we will choose an FNO with 4 Fourier layers.</p>
@@ -392,7 +398,7 @@ title="Fullscreen mode"
 <div class="ulist">
 <ul>
 <li>
-<p>We can now use the \(\phi\)-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in <a href="#_description_of_the_\(\phi\)-fem_method">[_description_of_the_\(\phi\)-fem_method]</a> to solve for each \(i=1,\dots,n_{data}\), the problem</p>
+<p>We can now use the \(\phi\)-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in <a href="../FEM/subsec_1_subsubsec_2.html" class="xref page">Section "Description of the \(\phi\)-FEM direct method"</a> and <a href="../FEM/subsec_1_subsubsec_3.html" class="xref page">Section "Description of the \(\phi\)-FEM dual method"</a> to solve for each \(i=1,\dots,n_{data}\), the problem</p>
 </li>
 </ul>
 </div>
@@ -514,7 +520,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div>
 <div id="misfits_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/misfits_f_gaussienne.pn" alt="misfits f gaussienne" width="360.0" height="288.0">
+<img src="corr/orr_FNO/misfits_f_gaussienne.pn" alt="misfits f gaussienne" width="300.0" height="240.0">
 </div>
 <div class="title">Figure 1. Misfits obtained during FNO training by epoch (line - training set, point - validation set).</div>
 </div>
@@ -526,7 +532,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div>
 <div id="erreur_val_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/erreur_val_f_gaussienne.pn" alt="erreur val f gaussienne" width="540.0" height="432.0">
+<img src="corr/orr_FNO/erreur_val_f_gaussienne.pn" alt="erreur val f gaussienne" width="510.0" height="408.0">
 </div>
 <div class="title">Figure 2. Errors obtained on the validation set at different training checkpoints (every 500 epochs).</div>
 </div>
@@ -548,7 +554,7 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div id="boxplot_val_f_gaussienne" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/boxplot_val_f_gaussienne.pn" alt="boxplot val f gaussienne" width="270.0" height="216.0">
+<img src="corr/orr_FNO/boxplot_val_f_gaussienne.pn" alt="boxplot val f gaussienne" width="240.0" height="192.0">
 </div>
 <div class="title">Figure 4. Boxplots of the errors on the validation set according to checkpoints.</div>
 </div></div></td>
@@ -641,14 +647,30 @@ loss_\theta^{(2)} &amp;= \frac{1}{n_{data}}\sum_{i=1}^{n_{data}} mse(\nabla_{xx}
 <div class="title">Figure 8. Errors obtained with the FNO and with different correction methods according to checkpoints.</div>
 </div>
 <div class="paragraph">
-<p>We can also plot the error boxplots at each checkpoint (<a href="#corr_boxplot">Figure 9</a>):</p>
+<p>We can also plot the error boxplots at each checkpoint (<a href="#corr_boxplot">Figure 9</a>) and the errors obtained with the different methods at the last checkpoint(<a href="#corr_boxplot_errors">Figure 10</a>) :</p>
 </div>
-<div id="corr_boxplot" class="imageblock unresolved">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_boxplot" class="imageblock unresolved">
 <div class="content">
-<img src="corr/orr_FNO/corr_boxplot.pn" alt="corr boxplot" width="360.0" height="288.0">
+<img src="corr/orr_FNO/corr_boxplot.pn" alt="corr boxplot" width="300.0" height="240.0">
 </div>
 <div class="title">Figure 9. Errors obtained with the FNO and with different correction methods according to checkpoints.</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="corr_boxplot_errors" class="imageblock unresolved">
+<div class="content">
+<img src="corr/orr_FNO/corr_boxplot_errors.pn" alt="corr boxplot errors" width="300.0" height="240.0">
 </div>
+<div class="title">Figure 10. Errors obtained with different correction methods according to the test sample at the last checkpoint.</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p><strong>Observation :</strong> The results here are not really conclusive. Indeed, the 3 correction methods considered did reduce the error made by the FNO, but none seems to be more efficient than \(\phi\)-FEM. In fact, the method that seems to give the best results is correction by multiplication, in contrast to the analytical test cases where the addition method seemed more effective.</p>
 </div>
@@ -808,19 +830,19 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </div>
 </div>
 <div class="paragraph">
-<p>at any point \(x,y\in[0,1\)]. Considering, for example, a new regular grid of size \(N_2\times N_2\) of \([0,1\)^2] with \(N_2=500\), we obtain an absolute error \(||\cdot||_{0,\Omega}^{(abs)}\) on Omega between the analytical solution and the expression of the solution in a series of Legendre polynomials of \(8.1e-4\) (<a href="#legendre_ana">Figure 10</a>).</p>
+<p>at any point \(x,y\in[0,1\)]. Considering, for example, a new regular grid of size \(N_2\times N_2\) of \([0,1\)^2] with \(N_2=500\), we obtain an absolute error \(||\cdot||_{0,\Omega}^{(abs)}\) on Omega between the analytical solution and the expression of the solution in a series of Legendre polynomials of \(8.1e-4\) (<a href="#legendre_ana">Figure 11</a>).</p>
 </div>
 <div id="legendre_ana" class="imageblock unresolved">
 <div class="content">
 <img src="corr/orr_FNO/legendre_ana.pn" alt="legendre ana" width="360.0" height="288.0">
 </div>
-<div class="title">Figure 10. Reconstruction of the solution by Legendre polynomials on a new grid of size \(500\times 500\).</div>
+<div class="title">Figure 11. Reconstruction of the solution by Legendre polynomials on a new grid of size \(500\times 500\).</div>
 </div>
 <div class="paragraph">
 <p><strong>Decomposition of the FNO predictions into a Legendre polynomial series :</strong></p>
 </div>
 <div class="paragraph">
-<p>We will again consider the problem presented in <a href="#_\(f\)_gaussian">[_\(f\)_gaussian]</a>, where we take as geometry the circle and \(f\) as being a Gaussian. We again consider the sample \(X_test\) (of size \(n_{test}=100\)) but this time with \(n_{vert}=300\) (and therefore \(n_{dofs}=599\)) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output \(w_{\theta,i}\), \(i=1,\dots,n_{test}\) into a series of Legendre polynomials, defined by</p>
+<p>We will again consider the problem presented in <a href="#_second_problem">[_second_problem]</a>, where we take as geometry the circle and \(f\) as being a Gaussian. We again consider the sample \(X_test\) (of size \(n_{test}=100\)) but this time with \(n_{vert}=300\) (and therefore \(n_{dofs}=599\)) to integrate more precisely and thus have a better approximation of the decomposition coefficients. We seek to decompose each FNO output \(w_{\theta,i}\), \(i=1,\dots,n_{test}\) into a series of Legendre polynomials, defined by</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -850,7 +872,7 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 </table>
 </div>
 <div class="paragraph">
-<p>In the following, we will consider \(P=Q\) and test the decomposition for \(P=4\), \(P=6\) and \(P=8\) on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (<a href="#mean_error_reconstruction">Figure 11</a>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom \(\mathbb{P}_2\), denoted W_pred (of size \((n_{test},n_{dofs},n_{dofs})\)). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom \(\mathbb{P}_2\), denoted W_pred_reconstruct (of size \((n_{test},n_{dofs},n_{dofs})\)), then we calculate the error
+<p>In the following, we will consider \(P=Q\) and test the decomposition for \(P=4\), \(P=6\) and \(P=8\) on each data of the test sample and at each checkpoint considered. First, we will look at the mean error made by the decomposition into a series of Legendre polynomials, which we will call the mean reconstruction error (<a href="#mean_error_reconstruction">Figure 12</a>). In other words, for each data item, we calculate the coefficients of the decomposition from the known values of the solution in degrees of freedom \(\mathbb{P}_2\), denoted W_pred (of size \((n_{test},n_{dofs},n_{dofs})\)). We then look at the reconstruction of the solution by the decomposition into a series of Legendre polynomials in these same degrees of freedom \(\mathbb{P}_2\), denoted W_pred_reconstruct (of size \((n_{test},n_{dofs},n_{dofs})\)), then we calculate the error
 \begin{center}
  mean_error_reconstruction = \(||\)W_pred-W_pred_reconstruct\(||_{0,\mathcal{O}}^{(abs)}\)
 \end{center}</p>
@@ -859,13 +881,13 @@ Note that the Legendre polynomials are orthogonal in the space \(L^2(\)-1,1[)] a
 <div class="content">
 <img src="corr/orr_FNO/mean_error_reconstruction.pn" alt="mean error reconstruction" width="540.0" height="432.0">
 </div>
-<div class="title">Figure 11. Mean reconstruction error for each data in test set (at each checkpoint).</div>
+<div class="title">Figure 12. Mean reconstruction error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
 <p>Looking at the results, it seems that the decomposition works. However, it would appear that, on average, we are not as precise as in the analytical case considered with a disturbed solution (<a href="subsec_3_subsubsec_1.html" class="xref page">Section "Correction on disturbed solution"</a>).</p>
 </div>
 <div class="paragraph">
-<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 12</a>),  ans which is defined by
+<p>We can now look at the maximum error made by the Legendre polynomial series decomposition, which we will call the maximum reconstruction error (<a href="#max_error_reconstruction">Figure 13</a>),  ans which is defined by
 \begin{center}
 max_error_reconstruction = \(\max_\Omega|\)W_pred-W_pred_reconstruct\(|\)
 \end{center}
@@ -875,19 +897,19 @@ This will allow us to see if there are any error spikes at certain points.</p>
 <div class="content">
 <img src="corr/orr_FNO/max_error_reconstruction.pn" alt="max error reconstruction" width="540.0" height="432.0">
 </div>
-<div class="title">Figure 12. Maximal reconstruction error for each data in test set (at each checkpoint).</div>
+<div class="title">Figure 13. Maximal reconstruction error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>We can also display solutions in the case of an example (<a href="#example_w">Figure 13</a>). we will take the first data item from the first checkpoint to compare W_pred and W_pred_reconstruct.</p>
+<p>We can also display solutions in the case of an example (<a href="#example_w">Figure 14</a>). we will take the first data item from the first checkpoint to compare W_pred and W_pred_reconstruct.</p>
 </div>
 <div id="example_w" class="imageblock unresolved">
 <div class="content">
 <img src="corr/orr_FNO/example_w.pn" alt="example w" width="540.0" height="432.0">
 </div>
-<div class="title">Figure 13. Example of result on \(w\) (first data from first checkpoint).</div>
+<div class="title">Figure 14. Example of result on \(w\) (first data from first checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the \(u\) solution, rather than \(w\), and consider it on the circle only. To do this, we multiply the predicted solution by \(\phi\) and apply a mask (equal to 1 on the domain and 0 outside). We&#8217;re then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (<a href="#mean_error_solution">Figure 14</a>), defined by
+<p>It would therefore seem that some regions are more difficult to approach by decomposition than others. We can now look directly at the \(u\) solution, rather than \(w\), and consider it on the circle only. To do this, we multiply the predicted solution by \(\phi\) and apply a mask (equal to 1 on the domain and 0 outside). We&#8217;re then interested in the same errors, but this time only on the solution in our domain. Consider the mean error on the solution (<a href="#mean_error_solution">Figure 15</a>), defined by
 \begin{center}
 mean_error_solution = \(||\)(W_pred-W_pred_reconstruct)\(\times\phi||_{0,\Omega}^{(abs)}\)
 \end{center}</p>
@@ -896,10 +918,10 @@ mean_error_solution = \(||\)(W_pred-W_pred_reconstruct)\(\times\phi||_{0,\Omega}
 <div class="content">
 <img src="corr/orr_FNO/mean_error_solution.pn" alt="mean error solution" width="540.0" height="432.0">
 </div>
-<div class="title">Figure 14. Mean solution error for each data in test set (at each checkpoint).</div>
+<div class="title">Figure 15. Mean solution error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>Then we also look at the maximum error on the solution (<a href="#max_error_solution">Figure 15</a>), defined by
+<p>Then we also look at the maximum error on the solution (<a href="#max_error_solution">Figure 16</a>), defined by
 \begin{center}
 max_error_solution = \(\max_\Omega|\)(W_pred-W_pred_reconstruct)\(\times\phi|\)
 \end{center}</p>
@@ -908,16 +930,16 @@ max_error_solution = \(\max_\Omega|\)(W_pred-W_pred_reconstruct)\(\times\phi|\)
 <div class="content">
 <img src="corr/orr_FNO/max_error_solution.pn" alt="max error solution" width="540.0" height="432.0">
 </div>
-<div class="title">Figure 15. Max solution error for each data in test set (at each checkpoint).</div>
+<div class="title">Figure 16. Max solution error for each data in test set (at each checkpoint).</div>
 </div>
 <div class="paragraph">
-<p>We can then compare the solution with the one reconstructed by the series decomposition of Legendre polynomials on the same example (<a href="#example_y_mask">Figure 16</a>).</p>
+<p>We can then compare the solution with the one reconstructed by the series decomposition of Legendre polynomials on the same example (<a href="#example_y_mask">Figure 17</a>).</p>
 </div>
 <div id="example_y_mask" class="imageblock unresolved">
 <div class="content">
 <img src="corr/orr_FNO/example_y_mask.pn" alt="example y mask" width="420.0" height="336.0">
 </div>
-<div class="title">Figure 16. Example of result on \(y\) (first data from first checkpoint).</div>
+<div class="title">Figure 17. Example of result on \(y\) (first data from first checkpoint).</div>
 </div>
 <div class="paragraph">
 <p>We can therefore see that it was more interesting to decompose into a series of Legendre polynomials \(w\) and then multiply by \(\phi\), rather than considering \(u\) directly.</p>
@@ -937,13 +959,13 @@ max_error_solution = \(\max_\Omega|\)(W_pred-W_pred_reconstruct)\(\times\phi|\)
 <p>where \(x,y\) are the degrees of freedom associated with \(\mathbb{P}^k\) with \(k\) large enough.</p>
 </div>
 <div class="paragraph">
-<p>For each data item at each checkpoint, we will compare the following errors (<a href="#FNO_corr_Pk">Figure 17</a>): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with \(\tilde{\phi}\) in \(\mathbb{P}_2\) without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for \(k=3\) and \(k=5\). To do this, we will simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom \(\mathbb{P}_k\) (for \(k=3\) and \(k=5\)). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).</p>
+<p>For each data item at each checkpoint, we will compare the following errors (<a href="#FNO_corr_Pk">Figure 18</a>): the FNO errors, the errors obtained with the classic multiplication correction (i.e. with \(\tilde{\phi}\) in \(\mathbb{P}_2\) without Legendre polynomial series decomposition) and finally the errors obtained with the decomposition for \(k=3\) and \(k=5\). To do this, we will simply use the calculated coefficients and evaluate the analytical expression of the decomposition in degrees of freedom \(\mathbb{P}_k\) (for \(k=3\) and \(k=5\)). Each of these errors will be calculated using the reference solution (over-refined solution obtained with standard FEM).</p>
 </div>
 <div id="FNO_corr_Pk" class="imageblock unresolved">
 <div class="content">
 <img src="corr/orr_FNO/FNO_corr_Pk.pn" alt="FNO corr Pk" width="480.0" height="384.0">
 </div>
-<div class="title">Figure 17. Correction by multuiplication with stem:[\tilde</div>
+<div class="title">Figure 18. Correction by multuiplication with stem:[\tilde</div>
 </div>
 <div class="paragraph">
 <p>At this stage, the error generated by the decomposition into Legendre polynomial series is probably affecting the correction too much. For this reason, we have not pursued this approach.</p>
