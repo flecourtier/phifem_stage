@@ -101,7 +101,7 @@ and represented in Figure \ref{f_circle}.
 	\end{figure} 
 \end{minipage}
 
-\paragraph{$f$ Gaussian} \label{Corr.pb.circle.2}
+\paragraph{Second problem} \label{Corr.pb.circle.2}
 
 In the case considered here, no analytical solution is known. We consider the source term $f$ to be a Gaussian defined by
 \begin{equation*}
@@ -125,6 +125,8 @@ Since we don't have an exact solution, we will consider a so-called reference so
 \subsubsection{Second domain : the Square.} \label{Corr.pb.square}
 
 Here, we will consider the $\Omega$ domain to be the unit square $\Omega=[0,1]^2$. This domain is entirely included in the fictitious domain $O=[-0.5,1.5]^2$ (Figure \ref{geom_square}).
+
+\paragraph{Level-set functions}
 
 In this case, we will consider two level-set functions. The first function $\phi$, defined by
 \begin{equation*}
@@ -287,7 +289,7 @@ and
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\tilde{\phi} v).
 \end{equation*}
 
-In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
+In the non-homogeneous case, it is important to impose the boundary conditions either by the direct method in Section \ref{FEMs.PhiFEM.direct_method} or by the dual method presented in Section \ref{FEMs.PhiFEM.dual_method}.
 
 \subsubsection{Correction by multiplying on an elevated problem} \label{Corr.method.mult_reh}
 
@@ -340,7 +342,7 @@ and
 	G_h^{rhs}(v)=-\sigma h^2\sum_{T\in\mathcal{T}_h^\Gamma} \int_{T} f \Delta(\hat{\phi} v).
 \end{equation*}
 
-In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for $m\ne 0$), so it is important to impose the boundary conditions either by the direct method, or by the dual method presented in Section \ref{FEMs.PhiFEM.details.nh}.
+In the case of this correction, whether the problem is homogeneous or non-homogeneous, the correction problem is non-homogeneous (for $m\ne 0$), so it is important to impose the boundary conditions either by the direct method in Section \ref{FEMs.PhiFEM.direct_method} or by the dual method presented in Section \ref{FEMs.PhiFEM.dual_method}.
 
 \begin{Rem}
 	Note that if the problem is sufficiently elevated for its solution to be strictly positive, the operation of bringing $C=\frac{\tilde{u}}{\hat{\phi}}$ closer to 1 doesn't pose any problem (since in this case $\hat{\phi}\ne 0$). Moreover, we can easily return to the original problem by subtracting $m$ from $\tilde{u}$.
@@ -348,7 +350,136 @@ In the case of this correction, whether the problem is homogeneous or non-homoge
 
 \subsection{Theoretical results} \label{Corr.theo_results}
 
-The aim of this section is to present some interesting theoretical results. We begin by presenting the interest of elevating the problem in Section \ref{Corr.theo_results.reh}. We will then present an interesting result for standard FEM in Section \ref{Corr.theo_results.comp_add_reh}. In fact, we'll show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when $m$ tends to infinity. Finally, we will demonstrate the estimation error of the correction on the elevated problem in Section \ref{Corr.theo_results.error_reh}.
+The aim of this section is to present some interesting theoretical results. We begin by demonstrating the estimation error of the correction on the elevated problem in Section \ref{Corr.theo_results.error_reh}. We will then present the interest of elevating the problem in Section \ref{Corr.theo_results.reh}. Finally, we will present an interesting result for standard FEM in Section \ref{Corr.theo_results.comp_add_reh}. In fact, we will show that the solution obtained by the multiplication correction on the elevated problem converges to the solution obtained by the addition correction when $m$ tends to infinity.
+
+\subsubsection{Error estimation of the correction on the elevated problem} \label{Corr.theo_results.error_reh}
+
+As in the Section \ref{Corr.theo_results.reh}, we assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we will apply a perturbation, denoted $P$. We then define
+\begin{equation*}
+	\tilde{\phi}(x,y) = u_{ex}(x,y)+\epsilon P(x,y)
+\end{equation*}
+with $P$ the perturbation (such that $P=0$ on $\Gamma$) and $\epsilon$ small.
+
+We consider
+$$\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m=\hat{u_{ex}}+\epsilon P$$
+with $\hat{u_{ex}}=u_{ex}+m$ and $m$ a constant.
+
+We still want to solve the following problem:
+\begin{equation*}
+	\left\{\begin{aligned}
+		&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
+		&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
+	\end{aligned}\right. \label{pb_reh} %\tag{$\mathcal{C}$}
+\end{equation*}
+with $\hat{u}=\hat{\phi}C$ whose approximate variational problem consists of
+\begin{equation*}
+	\text{Find } C_h\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h
+\end{equation*}
+with $\hat{u_h}=\hat{\phi}C_h$.
+
+Here we seek to prove the following property:
+\begin{equation*}
+	\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
+\end{equation*}
+
+\begin{enumerate}[label=\textbullet]
+	\item  We're first interested in $\left|\left|\hat{u}-\hat{u_h}\right|\right|_1$.
+	
+	Since  $V_h$ is a vector subspace of  $V$, posing $v=v_h$, we obtain :
+	\begin{equation*}
+		a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.
+	\end{equation*}
+	We then have Galerkin orthogonality:
+	\begin{equation*}
+		a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h
+	\end{equation*}
+	and
+	\begin{align*}
+		||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{by coercivity} \\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) &&\text{with $I_h$ the Lagrange interpolator}\\
+		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
+		&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{by continuity} \\
+		&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
+	\end{align*}
+	Thus
+	\begin{equation*}
+		||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.
+	\end{equation*}
+	By posing $A=C-I_hC$, we have
+	\begin{equation*}
+		|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1
+	\end{equation*}
+	because
+	\begin{equation*}
+		||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1
+	\end{equation*}
+	and
+	\begin{equation*}
+		||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.
+	\end{equation*}
+	Therefore, we have
+	\begin{equation*}
+		|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1
+	\end{equation*}
+	
+	Finally, using the interpolation inequality, we obtain
+	\begin{equation}
+		||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
+		\label{norme_H1}
+	\end{equation} 
+	
+	\item We can now turn our attention directly to $\left|\left|\hat{u}-\hat{u_h}\right|\right|_0$.
+	
+	We'll start by applying the Aubin-Nitsche duality method by considering the dual problem:
+	
+	Let $\hat{z}\in H_0^1(\Omega)$ solution of the problem
+	$$\left\{\begin{aligned}
+		&-\Delta\hat{z}=\hat{e_h}, \; &&\text{in }\Omega \\
+		&\hat{z}=0, \; &&\text{on } \Gamma
+	\end{aligned}\right.$$
+	with $\hat{e_h}=\hat{u}-\hat{u_h}$.
+	Thus
+	$$a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla v$$
+	and as $\hat{e_h}\in H_0^1(\Omega)$
+	\begin{equation}
+		a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
+		\label{norme_e_h}
+	\end{equation}
+	Moreover, by the regularity properties : 
+	\begin{equation}
+		\hat{z}\in H^2(\Omega)
+		\label{z_H_2}
+	\end{equation}
+	and
+	\begin{equation}
+		||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
+		\label{prop_reg}
+	\end{equation}
+\newpage
+	Thus
+	\begin{align*}
+		||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2=a(\hat{z},\hat{e_h}) &&\text{by \ref{norme_e_h}} \\
+		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{by Galerkin orthogonality} \\
+		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{by continuity} \\
+		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{by \ref{z_H_2} et by interpolation inequality} \\
+		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{norme_H1}} \\
+		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{prop_reg}}
+	\end{align*}
+	Finally
+	\begin{equation*}
+		||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}
+	\end{equation*}
+	
+	\begin{Rem}
+		Denoting $u=\hat{u}-m$ and $u_h=\hat{u_h}-m$ the associated solutions to the initial problem obtained by multiplication correction on the elevated problem, we have : 
+		\begin{equation*}
+			||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0
+		\end{equation*}
+		Please note that, here, $u$ and $u_h$ does not refer to the solution of the problem by correction without elevation.
+		
+		In fact, what this equality means is that when we go back to the original problem, after correcting the solution by multiplication on an elevated problem, the error is still the same.
+	\end{Rem}
+\end{enumerate}
 
 \subsubsection{Interest of elevating the problem} \label{Corr.theo_results.reh}
 
@@ -371,11 +502,13 @@ with $m$ a constant, and consider the multiplication correction on a elevated pr
 \end{equation*}
 with $\hat{u}=\hat{\phi}C$.
 
-In Section \ref{Corr.theo_results.error_reh}, we will prove the following inequality in the context of this problem
+In Section \ref{Corr.theo_results.error_reh}, we have prove the following inequality in the context of this problem
 
 \begin{equation*}
 	\left|\left|\hat{u_{ex}}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1,\Omega}
 \end{equation*}
+
+\newpage
 
 with $c$ a constant, $\hat{u_{ex}}=u_{ex}+m$ and $C=\frac{u_{ex}+m}{\hat{\phi}}$.
 
@@ -429,7 +562,7 @@ Let's start by looking at the form of the solution in the case of correction by 
 	u_h=C_h+\tilde{\phi}(x)=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)+\tilde{\phi}(x) \label{decomp_pbc2}
 \end{equation}
 
-We have 
+We aim to have
 \begin{equation}
 	C_i=u_{ex}(x_i)-\tilde{\phi}(x_i) \label{C_i_2}
 \end{equation}
@@ -439,8 +572,7 @@ with
 \end{equation}
 With the 2 previous relations, we can develop \ref{decomp_pbc2} :
 \begin{align*}
-	u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i \\
-	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{C_i_2}} \\
+	u_h&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}C_i\varphi_i=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(u(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{C_i_2}} \\
 	&=\tilde{\phi}(x)+\sum_{i=1}^{N_h}(\tilde{\phi}(x_i)-\epsilon P(x_i)-\tilde{\phi}(x_i))\varphi_i \quad \text{by \ref{u_x_i_2}} \\
 	u_h&=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h} P(x_i)\varphi_i \numberthis \label{result2}
 \end{align*}
@@ -453,7 +585,7 @@ We are now interested in the form of the solution in the case of multiplication 
 	\hat{u_h}=C_h\hat{\phi}=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \label{decomp_pbc1}
 \end{equation}
 
-We have 
+We aim to have
 \begin{equation}
 	C_i=\frac{u(x_i)+m}{\hat{\phi}(x_i)}=\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m} \label{C_i}
 \end{equation}
@@ -463,7 +595,7 @@ with
 \end{equation}
 and
 \begin{equation}
-	\tilde{\phi}(x)=\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}
+	\tilde{\phi}(x)\approx\tilde{\phi}(x_i)+(x-x_i)\tilde{\phi}'(x_i). \label{phi_tilde_x}
 \end{equation}
 Moreover, we have 
 \begin{equation}
@@ -471,19 +603,18 @@ Moreover, we have
 \end{equation}
 With the 4 previous relations, we can develop \ref{decomp_pbc1} :
 \begin{align*}
-	\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x) \\
-	&=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{C_i}} \\
+	\hat{u_h}&=\left(\sum_{i=1}^{N_h}C_i\varphi_i\right)\hat{\phi}(x)=\left(\sum_{i=1}^{N_h}\frac{u(x_i)+m}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{C_i}} \\
 	&=\left(\sum_{i=1}^{N_h}\frac{\tilde{\phi}(x_i)+m-\epsilon P(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i\right)\hat{\phi}(x) \quad \text{by \ref{u_x_i}} \\
 	&=\sum_{i=1}^{N_h}\left(1-\epsilon\frac{ P(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i\hat{\phi}(x) \\
 	&=\left(\sum_{i=1}^{N_h}\varphi_i\right)\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\hat{\phi}(x)}{\tilde{\phi}(x_i)+m}\varphi_i \\
-	&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{by \ref{phi_tilde_x} et \ref{sum_base}} \\
+	&\approx\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\frac{\tilde{\phi}(x_i)+m+(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\varphi_i \quad \text{by \ref{phi_tilde_x} et \ref{sum_base}} \\
 	&=\hat{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
 	&=\tilde{\phi}(x)+m-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i \\
 \end{align*}
 
 Thus
 \begin{equation*}
-	u_h=\hat{u_h}-m=\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
+	u_h=\hat{u_h}-m\approx\tilde{\phi}(x)-\epsilon\sum_{i=1}^{N_h}P(x_i)\left(1+\frac{(x-x_i)\tilde{\phi}'(x_i)}{\tilde{\phi}(x_i)+m}\right)\varphi_i
 \end{equation*}
 and finally
 \begin{equation}
@@ -499,152 +630,19 @@ So by \ref{result2} and \ref{result1}, it would seem that the 2 proposed methods
 	\end{equation*}
 \end{Rem}
 
-\subsubsection{Error estimation of the correction on the elevated problem} \label{Corr.theo_results.error_reh}
-
-As in the Section \ref{Corr.theo_results.reh}, we assume we have an analytical solution to the problem, denoted $u_{ex}$, to which we will apply a perturbation, denoted $P$. We then define
-\begin{equation*}
-	\tilde{\phi}(x,y) = u(x,y)+\epsilon P(x,y)
-\end{equation*}
-with $P$ the perturbation (such that $P=0$ on $\Gamma$) and $\epsilon$ small.
-
-We consider
-$$\hat{\phi}=\tilde{\phi}+m=u_{ex}+\epsilon P+m=\hat{u_{ex}}+\epsilon P$$
-with $\hat{u_{ex}}=u_{ex}+m$ et $m$ a constant.
-
-We still want to solve the following problem:
-\begin{equation*}
-	\left\{\begin{aligned}
-		&-\Delta (\hat{\phi}C)=f, \; &&\text{in } \; \Omega, \\
-		&\hat{u}=g+m, \; &&\text{on } \; \Gamma.
-	\end{aligned}\right. \label{pb_reh} %\tag{$\mathcal{C}$}
-\end{equation*}
-with $\hat{u}=\hat{\phi}C$ whose approximate variational problem consists of
-\begin{equation*}
-	\text{Find } \hat{u_h}\in V_h \text{ such that } a(\hat{u_h},v_h)=l(v_h), \;\forall v_h\in V_h
-\end{equation*}
-
-Here we seek to prove the following property:
-\begin{equation*}
-	\left|\left|\hat{u}-\hat{u_h}\right|\right|_0\le ch^{k+1}||\hat{\phi}||_\infty\left|C\right|_{k+1}
-\end{equation*}
-
-\begin{enumerate}[label=\textbullet]
-	\item  We're first interested in $\left|\left|\hat{u}-\hat{u_h}\right|\right|_1$.
-	
-	Since  $V_h$ is a vector subspace of  $V$, posing $v=v_h$, we obtain :
-	\begin{equation*}
-		a(\hat{\phi}C,\hat{\phi}v_h)-a(\hat{\phi}C_h,\hat{\phi}v_h)=0 \quad \forall v_h\in V_h.
-	\end{equation*}
-	We then have Galerkin orthogonality:
-	\begin{equation*}
-		a(\hat{u}-\hat{u_h},v_h)=0 \quad \forall v_h\in V_h
-	\end{equation*}
-	and
-	\begin{align*}
-		||\hat{u}-\hat{u_h}||_1^2&\le\alpha a(\hat{u}-\hat{u_h},\hat{u}-\hat{u_h}) &&\text{by coercivity} \\
-		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}+I_h\hat{u}-\hat{u_h}) \\
-		&=\alpha a(\hat{u}-\hat{u_h},\hat{u}-I_h\hat{u}) &&\text{by Galerking orthogonality taking } v_h=\hat{u_h}-I_h\hat{u} \\
-		&\le\alpha |\hat{u}-\hat{u_h}|_1|\hat{u}-I_h\hat{u}|_1 &&\text{by continuity} \\
-		&\le\alpha ||\hat{u}-\hat{u_h}||_1|\hat{u}-I_h\hat{u}|_1.
-	\end{align*}
-	Thus
-	\begin{equation*}
-		||\hat{u}-\hat{u_h}||_1\le\alpha|\hat{u}-I_h\hat{u}|_1=\alpha|(C-I_hC)\hat{\phi}|_1.
-	\end{equation*}
-	By posing $A=C-I_hC$, we have
-	\begin{equation*}
-		|A\hat{\phi}|_1=||(A\hat{\phi})'||_0=||A'\hat{\phi}+A\hat{\phi}'||_0\le||A'\hat{\phi}||_0+||A\hat{\phi}'||_0\le\alpha ||\hat{\phi}||_\infty||A||_1
-	\end{equation*}
-	because
-	\begin{equation*}
-		||A'\hat{\phi}||_0=\sqrt{\int_\Omega(A'\hat{\phi})^2}\le \max_\Omega \hat{\phi}\sqrt{\int_\Omega(A')^2}=||\hat{\phi}||_\infty|A|_1\le||\hat{\phi}||_\infty||A||_1
-	\end{equation*}
-	and
-	\begin{equation*}
-		||A\hat{\phi}'||_0=\sqrt{\int_\Omega(A\hat{\phi}')^2}\le \max_\Omega \hat{\phi}'\sqrt{\int_\Omega(A)^2}=||\hat{\phi}'||_\infty||A||_0\le \alpha||\hat{\phi}||_\infty||A||_1.
-	\end{equation*}
-	Therefore, we have
-	\begin{equation*}
-		|\hat{u}-I_h\hat{u}|_1=|(C-I_hC)\hat{\phi}|_1\le\alpha ||\hat{\phi}||_\infty||C-I_hC||_1
-	\end{equation*}
-	
-	Finally, using the interpolation inequality, we obtain
-	\begin{equation}
-		||\hat{u}-\hat{u_h}||_1\le\alpha h^k ||\hat{\phi}||_\infty |C|_{k+1}
-		\label{norme_H1}
-	\end{equation} 
-
-	\item We can now turn our attention directly to $\left|\left|\hat{u}-\hat{u_h}\right|\right|_0$.
-
-	We'll start by applying the Aubin-Nitsche duality method by considering the dual problem:
-	
-	Let $\hat{z}\in H_0^1(\Omega)$ solution of the problem
-	$$\left\{\begin{aligned}
-		&-\Delta\hat{z}=\hat{e_h}, \; &&\text{in }\Omega \\
-		&\hat{z}=0, \; &&\text{on } \Gamma
-	\end{aligned}\right.$$
-	with $\hat{e_h}=\hat{u}-\hat{u_h}$.
-	Thus
-	$$a(u,v)=-\int_\Omega\Delta u\cdot v=\int_\Omega\nabla u\cdot\nabla v$$
-	and as $\hat{e_h}\in H_0^1(\Omega)$
-	\begin{equation}
-		a(\hat{z},\hat{e_h})=\int_\Omega(-\Delta \hat{z})\cdot \hat{e_h}=\int_\Omega \hat{e_h}^2=||\hat{e_h}||_0^2
-		\label{norme_e_h}
-	\end{equation}
-	Moreover, by the regularity properties : 
-	\begin{equation}
-		\hat{z}\in H^2(\Omega)
-		\label{z_H_2}
-	\end{equation}
-	and
-	\begin{equation}
-		||\hat{z}||_2\le \alpha||\hat{e_h}||_0 =\alpha||\hat{u}-\hat{u_h}||_0
-		\label{prop_reg}
-	\end{equation}
-	Thus
-	\begin{align*}
-		||\hat{u}-\hat{u_h}||_0^2&=||\hat{e_h}||_0^2 \\
-		&=a(\hat{z},\hat{e_h}) &&\text{by \ref{norme_e_h}} \\
-		&=a(\hat{z}-I_h\hat{z},\hat{e_h}) &&\text{by Galerkin orthogonality} \\
-		&\le\alpha|\hat{z}-I_h\hat{z}|_1|\hat{e_h}|_1 &&\text{by continuity} \\
-		&\le\alpha h|\hat{z}|_2|\hat{e_h}|_1 &&\text{by \ref{z_H_2} et by interpolation inequality} \\
-		&\le\alpha \cdot h|\hat{z}|_2 \cdot h^k||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{norme_H1}} \\
-		&\le\alpha h^{k+1}||\hat{u}-\hat{u_h}||_0||\hat{\phi}||_\infty |C|_{k+1} &&\text{by \ref{prop_reg}}
-	\end{align*}
-	Finally
-	\begin{equation*}
-		||\hat{u}-\hat{u_h}||_0\le\alpha h^{k+1}||\hat{\phi}||_\infty |C|_{k+1}
-	\end{equation*}
-	
-	\begin{Rem}
-		Note that 
-		\begin{equation*}
-			||\hat{u}-\hat{u_h}||_0=||u+m-(u_h+m)||_0=||u-u_h||_0
-		\end{equation*}
-	\end{Rem}
-\end{enumerate}
+\newpage
 
 \subsection{Numerical results} \label{Corr.results}
 
 As explained above, we wish to combine $\phi$-FEM and FNO in order to predict the solution of the Poisson problem as accurately as possible. In this section, we present various results obtained using the 3 correction methods presented in the previous section (Section \ref{Corr.methods}). It is important to note that, for practical purposes, almost all the following results obtained with $\phi$-FEM will be compared with those obtained with the standard FEM method.
 
-we will start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). we will consider here the "initial" solution $\tilde{\phi}$, which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors.
+We will start by presenting the results obtained on an analytical solution (Section \ref{Corr.results.ana}). we will consider here the "initial" solution $\tilde{\phi}$, which we will inject into the correction problems, as the analytical solution of the problem. This first step simply enables us to check that, by supplying the exact solution directly to the correction solvers, they are indeed reduced to machine errors. Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed", firstly by applying an analytical perturbation (Section \ref{Corr.results.disturbed}) and then by considering a $\phi$-FEM solution as being the disturbed solution for which we don't know the perturbation (Section \ref{Corr.results.phifem}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction. Finally, we will consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with other networks in Section \ref{Corr.results.neural_net} (a multi-perceptron network and a PINNs). The reasons for considering other neural networks will be explained in more details in these sections.
 
-Next, in order to verify that correction solvers can improve accuracy when providing a solution close to the exact solution, we will consider the case of so-called "disturbed", firstly by applying an analytical perturbation (Section \ref{Corr.results.disturbed}) and then by considering a $\phi$-FEM solution as being the disturbed solution for which we don't know the perturbation (Section \ref{Corr.results.phifem}). This step will also provide us with a basis for further work, giving us an idea of what we can expect in terms of neural network output correction.
-
-Finally, we will consider the case of neural networks with an FNO in Section \ref{Corr.results.FNO} and then with other networks in Section \ref{Corr.results.neural_net} (a multi-perceptron network and a PINNs). The reasons for considering other neural networks will be explained in more details in these sections.
-
-In this section, we defined by
+In this section, we will define the relative error and the absolute error between the exact solution $u_{ex}$ and $u_{method}$ by :
 \begin{equation*}
-	||u_{ex}-u_{method}||_{0,\Omega_h}^{(rel)}=\frac{\int_{\Omega_h} (u_{ex}-u_{method})^2}{\int_{\Omega_h} u_{ex}^2}
+	||u_{ex}-u_{method}||_{0,\Omega_h}^{(rel)}=\frac{\int_{\Omega_h} (u_{ex}-u_{method})^2}{\int_{\Omega_h} u_{ex}^2} \; \text{,} \; ||u_{ex}-u_{method}||_{0,\Omega_h}^{(abs)}=\int_{\Omega_h} (u_{ex}-u_{method})^2
 \end{equation*}
-the relative error between the exact solution $u_{ex}$ and $u_{method}$ a solution obtained by FEM or $\phi$-FEM, a correction solver or the prediction of an neural network.
-
-We can defined too
-\begin{equation*}
-	||u_{ex}-u_{method}||_{0,\Omega_h}^{(abs)}=\int_{\Omega_h} (u_{ex}-u_{method})^2
-\end{equation*}
-the absolute error.
+with $u_{method}$ a solution obtained by FEM or $\phi$-FEM, a correction solver or the prediction of an neural network.
 
 In this section, we'll assume that $\tilde{\phi}$ is in $\mathbb{P}_k$ with $k=10$.
 
@@ -654,20 +652,18 @@ First, we will look at the correction of an exact solution. In other words, we c
 \begin{equation*}
 	\tilde{\phi}=u_{ex}
 \end{equation*}
-This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error).
-
-In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
+This first step enables us to check that, by supplying an already exact solution to the various correctors under consideration, we again obtain an exact output solution (to the nearest machine error). In all the following cases, we will consider $S=0.5$, as well as $\varphi=0$ in the case of the homogeneous problem and $\varphi=1$ in the non-homogeneous case. We will vary $f$ between 1 (low solution variability) and 4 (high solution variability) and we will choose to take 100 vertices in each direction $n_{vert}=100$.
 
 \begin{Rem}
 	We will consider here only the case of correction by addition (with and without an integration by parts) on $\Delta\tilde{\phi}$) as well as the case of correction by multiplication.
 \end{Rem}
 
+\newpage
+
 \begin{enumerate}[label=\textbullet]
 	\item \textbf{Results on the Circle :}
 	
 	We consider here the Circle problem with the solution defined in Section \ref{Corr.pb.circle.1}.
-	
-	\newpage
 	
 	\textbf{Homogeneous case :}
 	
@@ -800,7 +796,7 @@ where $S_p\in[0,1]$ is the amplitude of the signal, $f_p\in\mathbb{N}$ can be as
 	Note that for the boundary conditions of the solution to be satisfied, i.e. for $\tilde{\phi}=u_{ex}$ on $\Gamma$, it is essential that $P=0$ on $\Gamma$. In the case of both circle and square, we will then take $\varphi_p=0$.
 \end{Rem}
 
-Recall the relative errors obtained by standard FEM and $\phi$-FEM on the circle and on the square for frequencies $f\in\{1,2,3,4\}$ for the homogeneous  (Figure \ref{norms}) and non-homogeneous problem  (Figure \ref{norms_nh}).
+Recall the relative errors obtained by standard FEM and $\phi$-FEM (without correction) on the circle and on the square for frequencies $f\in\{1,2,3,4\}$ for the homogeneous  (Figure \ref{norms}) and non-homogeneous problem  (Figure \ref{norms_nh}).
 
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
@@ -882,7 +878,7 @@ First we will consider the standard FEM method on the homogeneous case (i.e. wit
 		\item Then, it would appear that, as with the standard FEM and $\phi$-FEM solvers without correction, the more the solution varies (i.e. the larger $f$), the greater the error. This is a fairly intuitive result, since the more the solution varies, the more points are needed to approximate it.
 		\item It would also seem that for $\epsilon=1$ (i.e. a large perturbation), the $\epsilon$ parameter has a greater impact on the multiplicative corrector than on the additive corrector. We explained earlier the benefits of elevating the problem, which could be beneficial here. Results on elevation will be presented in the Section \ref{Corr.results.disturbed.reh}.
 		\item In view of the results obtained here, it would also appear that, overall, correction by addition is more effective than correction by multiplication. Moreover, correction by addition has more advantages than correction by multiplication. In particular, if the solution cancels out on the domain, correction by multiplication will require elevating the problem sufficiently so that it no longer cancels out, unlike correction by addition.
-		\item There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed $\epsilon$). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the Section \ref{Corr.theo_results.reh} (for $m$ large, similar to correction by addition as explained above). Thus, as we have shown (in Section \ref{Corr.theo_results.comp_add_reh}) that for $m$ large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.
+		\item There is one final and rather important point to make. In fact, if we take a closer look at the results, we can see that in the case of correction by adding, the errors only seem to depend on the frequency of the perturbation and not on that of the solution (at a fixed $\epsilon$). This is a result that has been explained theoretically in the case of correction by multiplication on a elevated problem in the Section \ref{Corr.theo_results.reh} (for $m$ large, similar to correction by addition as explained above). Thus, as we have shown (in Section \ref{Corr.theo_results.comp_add_reh}) that for $m$ large, the error of correction by multiplication on a elevated problem converges to the error of correction by addition, we recover this result on correction by addition.		
 	\end{itemize}
 	
 	\item \textbf{Results on the non-homogeneous case :}
@@ -1140,43 +1136,62 @@ In this section, we aim to show numerically the interest of elevating the proble
 
 \textbf{Results with FEM :}
 
-Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in Section \ref{Corr.method.mult_reh}). We will test this method on the circle (Figure \ref{corr_pert_fem_circle_reh} and Figure \ref{corr_pert_fem_circle_reh_fig}) and on the square (Figure \ref{corr_pert_fem_square_reh} and Figure \ref{corr_pert_fem_square_reh_fig}) for selected frequencies and by varying $m$.
+\begin{enumerate}[label=\textbullet]
+	\item \textbf{Comparison with the correction by adding :}
+	
+	Here, we consider some of the cases considered above, in order to test the correction by multiplying on an elevating problem with FEM (theoretical result presented in Section \ref{Corr.method.mult_reh}). We will test this method on the circle (Figure \ref{corr_pert_fem_circle_reh} and Figure \ref{corr_pert_fem_circle_reh_fig}) and on the square (Figure \ref{corr_pert_fem_square_reh} and Figure \ref{corr_pert_fem_square_reh_fig}) for selected frequencies and by varying $m$.
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_circle.png"}
+			\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
+			\label{corr_pert_fem_circle_reh}
+		\end{figure} 
+	\end{minipage} $\qquad$
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_square.png"}
+			\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
+			\label{corr_pert_fem_square_reh}
+		\end{figure} 
+	\end{minipage}
+	
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_circle.png"}
+			\captionof{figure}{Representation of the results on the Circle with FEM.}
+			\label{corr_pert_fem_circle_reh_fig}
+		\end{figure} 
+	\end{minipage} $\qquad$
+	\begin{minipage}{0.48\linewidth}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_square.png"}
+			\captionof{figure}{Representation of the results on the Square with FEM.}
+			\label{corr_pert_fem_square_reh_fig}
+		\end{figure} 
+	\end{minipage}
+	
+	\textbf{Observation :} The numerical results obtained on the circle in Figure \ref{corr_pert_fem_circle_reh} and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in Section \ref{Corr.theo_results.comp_add_reh}, we can see that by increasing $m$, the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding). 
+	
+	\item \textbf{Importance of the perturbation form:}
+	
+	Here, we seek to verify the importance of the shape of the perturbation on the multiplication correction on the enhanced problem, presented in Section \ref{Corr.theo_results.reh}. By fixing $f_p = 2$ and $\epsilon=10^{-3}$ and varying $f$, we obtain the following result with the correction by multiplying on an elevated problem (with FEM) :
+	\begin{minipage}{0.58\linewidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{corr_pert/rehaussement/pert_tab.png}
+	\end{minipage} \;
+	\begin{minipage}{0.38\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{corr_pert/rehaussement/pert_fig.png}
+	\end{minipage}
 
-\begin{minipage}{0.48\linewidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_circle.png"}
-		\captionof{figure}{Correction by multiplying on the elevated problem on the Circle with FEM.}
-		\label{corr_pert_fem_circle_reh}
-	\end{figure} 
-\end{minipage} $\qquad$
-\begin{minipage}{0.48\linewidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\linewidth]{"corr_pert/rehaussement/tab_errors_fem_square.png"}
-		\captionof{figure}{Correction by multiplying on the elevated problem on the Square with FEM.}
-		\label{corr_pert_fem_square_reh}
-	\end{figure} 
-\end{minipage}
+	\textbf{Observation :} It would then seem that the error obtained for large $m$ depends only on the shape of the perturbation and not on that of the solution. Indeed, by varying $f$, it would seem that we always converge to the same error (at $f_p$ and $\epsilon$ fixed).
+\end{enumerate}
 
-\begin{minipage}{0.48\linewidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_circle.png"}
-		\captionof{figure}{Representation of the results on the Circle with FEM.}
-		\label{corr_pert_fem_circle_reh_fig}
-	\end{figure} 
-\end{minipage} $\qquad$
-\begin{minipage}{0.48\linewidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.8\linewidth]{"corr_pert/rehaussement/fig_fem_square.png"}
-		\captionof{figure}{Representation of the results on the Square with FEM.}
-		\label{corr_pert_fem_square_reh_fig}
-	\end{figure} 
-\end{minipage}
-
-\textbf{Observation :} The numerical results obtained on the circle in Figure \ref{corr_pert_fem_circle_reh} and on the square \ref{corr_pert_fem_square_reh}, seem to show that the higher we raise the problem, the better the error. Furthermore, as explained in Section \ref{Corr.theo_results.comp_add_reh}, we can see that by increasing $m$, the error converges to the error obtained with the correction by adding (because the solution itself converges to the solution obtained with the correction by adding). 
 
 \textbf{Results with $\phi$-FEM :}
 
@@ -1274,7 +1289,7 @@ with $u_{\phi-FEM}$ the solution $\mathbb{P}_2$ obtained by solving the problem 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{"corr_phifem/phifem_solution.png"}
+	\includegraphics[width=0.55\linewidth]{"corr_phifem/phifem_solution.png"}
 	\captionof{figure}{Comparison of the exact solution $u_{ex}$ and the $\phi$-FEM, $u_{\phi-FEM}$.}
 	\label{corr_phifem_phifem_solution}
 \end{figure} 
@@ -1364,7 +1379,7 @@ with $u_{mult}$ the solution obtain with the correction by multiplying and $u_{m
 	Note that the same error is obtained for correction by multiplying on an elevated problem and correction by addition with integration by parts.
 \end{Rem}
 
-\subsubsection{Correction with FNO} \label{Corr.results.FNO}
+\subsubsection{Correction on a FNO prediction} \label{Corr.results.FNO}
 
 In this section, we will consider the problem presented in Section \ref{Corr.pb.circle.2}, where we take as geometry the circle and $f$ Gaussian. In practice, this is a very probable case, i.e. one in which no exact solution is known. As explained above, we will take an over-refined solution (calculated with FEM) as our reference solution. 
 
@@ -1397,7 +1412,7 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	
 	In our case, the geometry is fixed (the circle with center $(0.5,0.5)$ and radius $\sqrt{2}/4$), so we will not have a level-set collection in our training data. Similarly, we choose to consider the homogeneous problem and so, since $g=0$ on $\Gamma$, we won't have a collection of Dirichlet conditions in our training data either.
 	
-	\item We can now use the $\phi$-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in Section \ref{FEMs.PhiFEM.Pres.method} to solve for each $i=1,\dots,n_{data}$, the problem
+	\item We can now use the $\phi$-FEM scheme associated with the Poisson problem with homogeneous Dirichlet condition defined in Section \ref{FEMs.PhiFEM.direct_method} and Section \ref{FEMs.PhiFEM.dual_method} to solve for each $i=1,\dots,n_{data}$, the problem
 	\begin{equation*}
 		\left\{
 		\begin{aligned}
@@ -1453,11 +1468,13 @@ We start by training the FNO with $\phi$-FEM solutions. To do this, we consider 
 	\end{Rem}
 \end{enumerate}
 
+\newpage
+
 By training our FNO over 4000 epochs with a batch size of 64, we obtain the following misfits as a function of epochs (Figure \ref{misfits_f_gaussienne}):
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{corr_FNO/misfits_f_gaussienne.png}
+	\includegraphics[width=0.5\linewidth]{corr_FNO/misfits_f_gaussienne.png}
 	\caption{Misfits obtained during FNO training by epoch (line - training set, point - validation set).}
 	\label{misfits_f_gaussienne}
 \end{figure}
@@ -1468,7 +1485,7 @@ We're interested here in the $||\cdot||_{0,abs}$ errors obtained at the end of t
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\linewidth]{corr_FNO/erreur_val_f_gaussienne.png}
+	\includegraphics[width=0.85\linewidth]{corr_FNO/erreur_val_f_gaussienne.png}
 	\caption{Errors obtained on the validation set at different training checkpoints (every 500 epochs).}
 	\label{erreur_val_f_gaussienne}
 \end{figure} 
@@ -1486,15 +1503,13 @@ Here are the mean, standard deviation, minimum and maximum error values obtained
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\linewidth]{corr_FNO/boxplot_val_f_gaussienne.png}
+		\includegraphics[width=0.8\linewidth]{corr_FNO/boxplot_val_f_gaussienne.png}
 		\caption{Boxplots of the errors on the validation set according to checkpoints.}
 		\label{boxplot_val_f_gaussienne}
 	\end{figure} 
 \end{minipage}
 
 \textbf{\textit{Observation :}} It would seem, therefore, that as epochs progress, the errors in the validation sample decrease. In fact, we can see that the mean and standard deviation of the errors decrease according to the epoch. It would therefore seem that training works.
-
-\newpage
 
 \textbf{Results on a test set :}
 
@@ -1551,16 +1566,24 @@ Here are the errors obtained with the different correction methods, in addition 
 	\label{corr_errors}
 \end{figure} 
 
-\newpage
+We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot}) and the errors obtained with the different methods at the last checkpoint(Figure \ref{corr_boxplot_errors}) :
 
-We can also plot the error boxplots at each checkpoint (Figure \ref{corr_boxplot}):
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.6\linewidth]{corr_FNO/corr_boxplot.png}
-	\caption{Errors obtained with the FNO and with different correction methods according to checkpoints.}
-	\label{corr_boxplot}
-\end{figure} 
+\begin{minipage}{0.58\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{corr_FNO/corr_boxplot.png}
+		\caption{Errors obtained with the FNO and with different correction methods according to checkpoints.}
+		\label{corr_boxplot}
+	\end{figure}
+\end{minipage} $\quad$
+\begin{minipage}{0.38\linewidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\linewidth]{corr_FNO/corr_boxplot_errors.png}
+		\caption{Errors obtained with different correction methods according to the test sample at the last checkpoint.}
+		\label{corr_boxplot_errors}
+	\end{figure}
+\end{minipage}	
 
 \textbf{Observation :} The results here are not really conclusive. Indeed, the 3 correction methods considered did reduce the error made by the FNO, but none seems to be more efficient than $\phi$-FEM. In fact, the method that seems to give the best results is correction by multiplication, in contrast to the analytical test cases where the addition method seemed more effective.
 
@@ -1604,6 +1627,8 @@ Let $p,p'\in\{0,\dots,P-1\}$ and $q,q'\in\{0,\dots,Q-1\}$, then by the Legendre 
 	&=\frac{2}{2p+1}\delta_{pp'}\frac{2}{2q+1}\delta_{qq'} \\
 	&=\frac{4}{(2p+1)(2q+1)}\delta_{(p,q)(p',q')}
 \end{align*}
+
+\newpage
 
 Thus
 
@@ -1805,7 +1830,7 @@ We'll consider a 6-layer network of respective size $\{10,20,60,60,20,10\}$ that
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\linewidth]{corr_networks/MLP_loss.png}
+	\includegraphics[width=0.4\linewidth]{corr_networks/MLP_loss.png}
 	\caption{Loss obtained during the MLP training.}
 	\label{corr_networks_MLP_loss}
 \end{figure} 
@@ -1814,7 +1839,7 @@ Taking the training sample to evaluate the model, we obtain an error $||u_{ex}-u
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{corr_networks/MLP_solution.png}
+	\includegraphics[width=0.65\linewidth]{corr_networks/MLP_solution.png}
 	\caption{Comparaison of the exact solution and the MLP prediciton.}
 	\label{corr_networks_MLP_solution}
 \end{figure} 
@@ -1831,12 +1856,14 @@ To do this, we consider $\tilde{\phi}$ in $\mathbb{P}_10$ for $n_{vert}=32$.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\linewidth]{corr_networks/MLP_corr_add_FEM.png}
+	\includegraphics[width=0.4\linewidth]{corr_networks/MLP_corr_add_FEM.png}
 	\caption{Solution obtained with the correction by adding with FEM on the MLP prediction.}
 	\label{corr_networks_MLP_corr_add_FEM}
 \end{figure}
 
 We obtain an error $||u_{ex}-u_{MLP}||_{0,\Omega}^{(rel)}=5.72e-3$. Thus, it would seem that the results are not very promising: for this problem, the FEM error is $2.80e-2$, so we only obtain an error reduction of $4.91$.
+
+\newpage
 
 \textbf{Derivative of the prediction :}
 
@@ -1889,7 +1916,7 @@ with $w_{\theta,i}$ the PINNs prediction at points $(x_i,y_i)$.
 At the end of the training, we display the solution, the PINNs prediciton and the difference of the 2 on randomly chosen points in our domain, as well as the loss obtained (i.e. the residual) according to the epochs (Figure \ref{corr_networks_PINNs_loss}).
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\linewidth]{corr_networks/PINNs_loss.png}
+	\includegraphics[width=0.9\linewidth]{corr_networks/PINNs_loss.png}
 	\caption{PINNs prediction, Exact solution and Loss obtained.}
 	\label{corr_networks_PINNs_loss}
 \end{figure} 
@@ -1922,6 +1949,7 @@ After the correction, we obtain the following error
 \begin{equation*}
 	||u_{ex}-\tilde{\phi}C||_{0,\Omega}^{(rel)}=1.13e-4.
 \end{equation*}
+
 Thus, it would seem that the results are very promising: for this problem, the FEM error is 
 \begin{equation*}
 	||u_{ex}-u_{FEM}||_{0,\Omega}^{(rel)}=2.80e-2
@@ -1949,6 +1977,8 @@ Thus, it would seem that the results are very promising: for this problem, the F
 \end{equation*}
 so we obtain an error reduction of $151.34$.
 
+\newpage
+
 \textbf{Derivatives of the prediction :}
 
 We're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_premieres}) and second (Figure \ref{corr_networks_PINNs_derivees_secondes}) derivatives of the PINNs prediction, which will be calculated with Pytorch and FEniCS and compared with the exact derivatives. We obtain the errors $||u_{ex}-u_{MLP}||_{1,\Omega}^{(abs)}=6.44e-3$ and $||u_{ex}-u_{MLP}||_{2,\Omega}^{(abs)}=1.02e-1$.
@@ -1956,7 +1986,7 @@ We're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_p
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\linewidth]{corr_networks/PINNs_derivees_premieres.png}
+		\includegraphics[width=\linewidth]{corr_networks/PINNs_derivees_premieres.png}
 		\caption{First derivatives computed with Pytorch and FEniCS on the PINNs prediction.}
 		\label{corr_networks_PINNs_derivees_premieres}
 	\end{figure} 
@@ -1964,7 +1994,7 @@ We're going to look too at the first (Figure \ref{corr_networks_PINNs_derivees_p
 \begin{minipage}{0.48\linewidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\linewidth]{corr_networks/PINNs_derivees_secondes.png}
+		\includegraphics[width=\linewidth]{corr_networks/PINNs_derivees_secondes.png}
 		\caption{Second derivatives computed with Pytorch and FEniCS on the PINNs prediction.}
 		\label{corr_networks_PINNs_derivees_secondes}
 	\end{figure} 

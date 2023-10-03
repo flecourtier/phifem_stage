@@ -27,7 +27,7 @@ The architecture of the FNO is as follows:
 	G_\theta = Q \circ \mathcal{H}_\theta^L \circ \dots \circ \mathcal{H}_\theta^1 \circ P
 \end{equation*}
 
-We'll now describe the composition of the Figure \ref{FNO_schema} in a little more detail :
+We will now describe the composition of the Figure \ref{FNO_schema} in a little more detail :
 \begin{enumerate}[label=\textbullet]
 	\item We start with input X of shape (batch\_size, height, width, nb\_channels) with batch\_size the number of images to be processed at the same time, height and width the dimensions of the images and nb\_channels the number of channels. Simplify by (bs,ni,nj,nk).
 	\item We perform a $P$ transformation in order to move to a space with more channels. This step enables the network to build a sufficiently rich representation of the data.  For example, a Dense layer (also known as fully-connected) can be used. 	
